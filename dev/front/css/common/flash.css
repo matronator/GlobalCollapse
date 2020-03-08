@@ -1,0 +1,32 @@
+/*********************** FLASH ***********************/
+
+.flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 40px;
+  background-color: red;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  z-index: 999;
+  animation: hideFlash 1s 5s forwards;
+}
+
+@keyframes hideFlash {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  99% {
+    opacity: 0;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

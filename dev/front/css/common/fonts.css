@@ -1,0 +1,24 @@
+/*********************** FONTS ***********************/
+
+/********** Overpass **********/
+/* Regular */
+
+@font-face {
+  font-family: "Overpass";
+  src: url(etc/fonts/Overpass-Regular.woff2) format("woff2"),
+    url(etc/fonts/Overpass-Regular.woff) format("woff"),
+    url(etc/fonts/Overpass-Regular.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Bold */
+
+@font-face {
+  font-family: "Overpass";
+  src: url(etc/fonts/Overpass-Bold.woff2) format("woff2"),
+    url(etc/fonts/Overpass-Bold.woff) format("woff"),
+    url(etc/fonts/Overpass-Bold.ttf) format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}

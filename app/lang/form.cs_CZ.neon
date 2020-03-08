@@ -1,0 +1,11 @@
+general:
+	required: 'Položka %requiredItem% je povinná.'
+	requiredConsent: 'Abychom mohli zprávu zpracovat, potřebujeme Váš souhlas se zpracováním osobních údajů.'
+
+contact:
+	fullname: 'Celé jméno'
+	firstname: 'Jméno'
+	surname: 'Příjmení'
+	phone: 'Telefon'
+	email: 'Email'
+	text: 'Zpráva'

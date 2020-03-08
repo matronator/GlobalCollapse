@@ -1,0 +1,21 @@
+/* Common styles */
+
+@import "common/variables.css";
+
+@import "common/mixins.css";
+
+@import "common/fonts.css";
+
+@import "common/buttons.css";
+
+@import "common/flash.css";
+
+@import "common/header.css";
+
+@import "common/footer.css";
+
+@import "common/general.css";
+
+/* Section specific styles */
+
+/* @import 'sections/homepage.css'; */

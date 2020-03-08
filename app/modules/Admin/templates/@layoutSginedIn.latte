@@ -1,0 +1,94 @@
+{layout '@layout.latte'}
+
+{block pageTitle}
+    {ifset #title}{include title|striptags} | {/ifset}
+{/block}
+
+{block body}
+    <header class="l-header">
+
+        <nav class="uk-navbar-container" uk-navbar>
+
+            <div class="uk-navbar-left">
+                <a
+                    class="uk-navbar-toggle uk-hidden@l"
+                    uk-navbar-toggle-icon
+                    uk-toggle="target: #navigation"
+                    href="#"
+                </a>
+
+                <a class="uk-navbar-item uk-logo uk-visible@s" href="{$baseUrl}/admin">
+                    <img src="{$basePath}/dist/admin/images/logo.png" />
+                </a>
+            </div>
+
+            <div class="uk-navbar-center uk-hidden@s">
+                <img src="{$basePath}/dist/admin/images/logo.png" />
+            </div>
+
+            <div class="uk-navbar-right">
+                <div class="uk-navbar-item uk-visible@s">
+                    <span uk-icon="user"></span>
+                    <span class="uk-margin-left">{$user->email}</span>
+                </div>
+                <div class="uk-navbar-item uk-visible@s">
+                    <a n:href="logOut!" class="uk-button uk-button-secondary">
+                        Odhálsit se
+                    </a>
+                </div>
+                <div class="uk-navbar-item uk-hidden@s">
+                    <a n:href="logOut!">
+                        <span uk-icon="icon: sign-out"></span>
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+
+    </header>
+
+    <main class="l-main">
+
+        <aside class="l-aside uk-background-secondary uk-padding-small uk-visible@l">
+
+            {include '../components/Navigation/Navigation.latte', list => $navItems}
+
+            <div class="uk-text-center uk-text-small uk-margin-auto-top">
+                Matronator © {date('Y')}
+            </div>
+
+        </aside>
+
+        <article class="l-article uk-padding uk-animation-fade">
+
+            {foreach $flashes as $flash}
+                <div class="uk-alert-{$flash->type === 'info' ? 'success' : $flash->type}" uk-alert>
+                    <a class="uk-alert-close" uk-close></a>
+                    <p>{$flash->message}</p>
+                </div>
+            {/foreach}
+
+            {include content}
+        </article>
+
+    </main>
+
+    <div id="navigation" uk-offcanvas class="uk-background-secondary">
+        <div class="uk-offcanvas-bar">
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+            {include '../components/Navigation/Navigation.latte', list => $navItems}
+
+            <div class="uk-text-center uk-text-small uk-margin-large-top">
+                <span uk-icon="user"></span>
+                <span class="uk-margin-left">{$user->email}</span>
+            </div>
+
+            <div class="uk-text-center uk-text-small uk-margin-large-top">
+                Matronator © {date('Y')}
+            </div>
+
+        </div>
+    </div>
+
+{/block}

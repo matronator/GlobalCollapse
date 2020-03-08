@@ -1,0 +1,12 @@
+{if isset($sort)}
+    <a class="uk-link-muted" href="{$presenter->link(this, $sort === $key ? ($reverseSort ? $defaultSort : [sort => $key, reverseSort => true]) : [sort => $key])}">
+        {if $sort === $key}
+            <strong>{$text}</strong>
+            <span uk-icon="icon: {$reverseSort ? ' arrow-up' : ' arrow-down'}"></span>
+        {else}
+            <span>{$text}</span>
+        {/if}
+    </a>
+{else}
+    {$text}
+{/if}

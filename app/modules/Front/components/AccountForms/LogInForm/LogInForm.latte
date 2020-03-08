@@ -1,0 +1,35 @@
+{form form class=>"logInForm"}
+
+    <fieldset>
+
+        <label n:name="email">
+            <span>{_m.account.email}</span>
+            <input n:name="email" n:class="$form[email]->hasErrors() ? 'errorInput'">
+            <ul n:inner-foreach="$form[email]->errors as $error">
+                <li>{$error}</li>
+            </ul>
+        </label>
+
+        <label n:name="password">
+            <span>{_m.account.password}</span>
+            <input n:name="password" n:class="$form[password]->hasErrors() ? 'errorInput'">
+            <ul n:inner-foreach="$form[password]->errors as $error">
+                <li>{$error}</li>
+            </ul>
+        </label>
+
+    </fieldset>
+
+    <p>
+        <a href="{$links->recovery}">
+            {_m.account.forgottenPassword}
+        </a>
+        <span>
+            {_m.account.registrationPrompt, ['link' => $links->registration]|noescape}
+        </span>
+    </p>
+
+    {input submit}
+
+{/form}
+

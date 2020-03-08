@@ -1,0 +1,34 @@
+{form form class=>"registrationForm"}
+
+    <fieldset>
+
+        <label n:name="email">
+            <span>{_m.account.email}</span>
+            <input n:name="email" n:class="$form[email]->hasErrors() ? 'errorInput'">
+            <ul n:inner-foreach="$form[email]->errors as $error">
+                <li>{$error}</li>
+            </ul>
+        </label>
+
+        <label n:name="newPassword">
+            <span>{_m.account.newPassword}</span>
+            <input n:name="newPassword" n:class="$form[newPassword]->hasErrors() ? 'errorInput'">
+            <ul n:inner-foreach="$form[newPassword]->errors as $error">
+                <li>{$error}</li>
+            </ul>
+        </label>
+
+        <label n:name="newPasswordVerify">
+            <span>{_m.account.newPasswordVerify}</span>
+            <input n:name="newPasswordVerify" n:class="$form[newPasswordVerify]->hasErrors() ? 'errorInput'">
+            <ul n:inner-foreach="$form[newPasswordVerify]->errors as $error">
+                <li>{$error}</li>
+            </ul>
+        </label>
+        
+    </fieldset>
+    
+    {input submit}
+
+{/form}
+

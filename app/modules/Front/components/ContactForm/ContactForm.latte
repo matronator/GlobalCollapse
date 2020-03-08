@@ -1,0 +1,13 @@
+{form form class=>"contactForm"}
+    {input fullname}
+    {input email}
+    {input phone}
+    {input text}
+    <div class="checkbox-group">
+        <label n:name="consent"><input n:name="consent"><span>{$form['consent']->label}</span></label>
+        <label n:name="consentNewsletter"><input n:name="consentNewsletter"><span>{$form['consentNewsletter']->label}</span></label>
+    </div>
+    {input send}
+    {input recaptcha_token}
+{/form}
+

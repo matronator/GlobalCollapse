@@ -1,0 +1,61 @@
+{layout '../@layoutSginedIn.latte'}
+
+{block content}
+    <h1 n:block="title" class="uk-heading-divider">Uživatelé</h1>
+
+    <a class="uk-button uk-button-primary" n:href="edit" n:if="$presenter->isAllowed('create')">
+        Vytvořit uživatele
+    </a>
+
+    {if count($data) < 1}
+        <div class="uk-placeholder">Zatím tu nic není 😶</div>
+    {else}
+        <table class="uk-table uk-table-hover uk-table-striped uk-table-divider uk-table-middle uk-table-responsive">
+            <thead>
+            <tr>
+                <th>E-mail</th>
+                <th class="uk-table-shrink">Role</th>
+                <th>Poslední přihlášení</th>
+                <th class="uk-width-small">Nástroje</th>
+            </tr>
+            </thead>
+            <tbody n:inner-foreach="$data as $id => $row">
+            <tr>
+                <td class="uk-table-link uk-link-reset uk-text-bold">
+                    <a n:href="edit $id">{$row->email}</a>
+                </td>
+                <td>
+                    <span class="uk-text-muted uk-text-uppercase uk-margin-right uk-hidden@m">Role</span>
+                    {$roles[$row->role]}
+                </td>
+                <td>
+                    <span class="uk-text-muted uk-text-uppercase uk-margin-right uk-hidden@m">Poslední přihlášení</span>
+                    {$row->date_log|date: 'd. m. Y h:i:s'}
+                </td>
+                <td>
+                    <span class="uk-text-muted uk-text-uppercase uk-margin-right uk-hidden@m">Nástroje</span>
+                    <a
+                            n:if="$presenter->isAllowed('update')"
+                            n:href="edit $id"
+                            class="uk-icon-link uk-margin-small-right"
+                            uk-icon="file-edit">
+                    </a>
+                    <a
+                            n:if="$presenter->isAllowed('delete')"
+                            href="#"
+                            uk-toggle="target: #delete-{$id}"
+                            class="uk-icon-link"
+                            uk-icon="trash">
+                    </a>
+                    {include '../../components/Modals/deleteConfirm.latte'
+                    id => "delete-" . $id,
+                    action => $presenter->link('delete', $id),
+                    text => 'Opravdu chcete smazat uživatele ' . $row->email . '?',
+                    }
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    {/if}
+
+{/block}

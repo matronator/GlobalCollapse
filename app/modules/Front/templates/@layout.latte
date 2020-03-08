@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="{$presenter->locale}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="{ifset #metaDescription}{include #metaDescription|stripHtml|trim}{/ifset}">
+    <meta name="copyright" content="© {php echo date('Y'); }">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Matronator; https://matronator.com">
+
+    <title>{ifset #pageTitle}{include #pageTitle|striptags} | {/ifset}{$urlFullDomain|noescape}</title>
+
+    <link rel="icon" href="{$basePath}/dist/front/etc/favicon/favicon.ico">
+    <link rel="stylesheet" href="{asset index.css front}">
+
+    <link n:foreach="$presenter->localeList as $localeItem" rel="alternate" hreflang="{$localeItem}" href="{link //this, locale=>$localeItem}"/>
+    <link rel="alternate" hreflang="x-default" href="{link //this, locale=>$defaultLocale}" />
+
+    <!-- Google Tag Manager -->
+    {* <script n:syntax="off">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXX');</script> *}
+    <!-- End Google Tag Manager -->
+
+    {include '../components/StructuredData/StructuredData.latte',
+        name => '',
+        email => '',
+        phone => '',
+        logo => '',
+        street => '',
+        city => '',
+        postalCode => '',
+        country => '',
+    }
+
+    {* OpenGraph *}
+    {if !stripos($presenter->name, 'error')}
+    <meta property="og:site_name" content="Matronator" />
+    <meta property="og:title" content="{ifset #title}{include #title|stripHtml}{/ifset}">
+    <meta property="og:description" content="{ifset #metaDescription}{include #metaDescription|stripHtml|trim|truncate:160}{/ifset}">
+    <meta property="og:url" content="{link '//this'}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="http://{$urlFullDomain|noescape}/dist/front/images/og_image_default.png" />
+    <meta property="og:image:secure_url" content="https://{$urlFullDomain|noescape}/dist/front/images/og_image_default.png" /> {*// https *}
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="{$presenter->locale}" />
+    {/if}
+    {* END OpenGraph *}
+
+    <script src='https://www.google.com/recaptcha/api.js?render=PUBLIC_KEY_HERE'></script>
+</head>
+
+<body class="{ifset #bodyClass}{include #bodyClass}{/ifset}">
+
+    <!-- Google Tag Manager (noscript) -->
+    {* <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> *}
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+    {include pageContent}
+
+    <script n:syntax="off">
+        grecaptcha.ready(function(){
+            grecaptcha.execute('PUBLIC_KEY_HERE', { action: 'unicare_form' })
+                .then(function(token) {
+                const token_inputs = document.querySelectorAll('input[name="recaptcha_token"]')
+                for(var i = 0; i < token_inputs.length; i++){
+                    token_inputs[i].value = token
+                }
+            })
+        })
+    </script>
+
+    <style n:syntax="off">
+        .grecaptcha-badge {opacity: 0 !important;pointer-events: none !important;}
+    </style>
+
+    <script defer src="{asset index.js front}"></script>
+
+</body>
+</html>

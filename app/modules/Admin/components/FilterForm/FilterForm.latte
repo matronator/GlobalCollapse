@@ -1,0 +1,42 @@
+{form filterForm class => 'uk-margin'}
+    <div class='uk-grid' uk-gird>
+        <div class="uk-width-3-5@m">
+            <div class="uk-grid-small" uk-grid>
+                <div n:if="in_array('hotelId', $fields)" class="uk-width-1-5@s">
+                    {input hotelId class => 'uk-select'}
+                </div>
+                <div n:if="in_array('partnerId', $fields)" class="uk-width-1-5@s">
+                    {input partnerId class => 'uk-select'}
+                </div>
+                <div n:if="in_array('categoryId', $fields)" class="uk-width-1-5@s">
+                    {input categoryId class => 'uk-select'}
+                </div>
+                <div n:if="in_array('actionId', $fields)" class="uk-width-1-5@s">
+                    {input actionId class => 'uk-select'}
+                </div>
+                <div n:if="in_array('state', $fields)" class="uk-width-1-5@s">
+                    {input state class => 'uk-select'}
+                </div>
+                <div n:if="in_array('orderType', $fields)" class="uk-width-1-5@s">
+                    {input orderType class => 'uk-select'}
+                </div>
+            </div>
+        </div>
+        <div class="uk-width-2-5@m">
+            <div class="uk-grid-small uk-flex-right" uk-grid>
+                <div n:if="in_array('dateFrom', $fields)" class="uk-width-1-4@s">
+                    {input dateFrom class => 'uk-input js-date'}
+                </div>
+                <div n:if="in_array('dateTo', $fields)" class="uk-width-1-4@s">
+                    {input dateTo class => 'uk-input js-date'}
+                </div>
+                <div n:if="in_array('query', $fields)" class="uk-width-1-2@s">
+                    {input query class => 'uk-input'}
+                </div>
+                <div class="uk-width-1-4@s uk-text-right">
+                    {input send class => 'uk-button uk-button-default uk-width-1-1'}
+                </div>
+            </div>
+        </div>
+    </div>
+{/form}

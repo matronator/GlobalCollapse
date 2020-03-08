@@ -1,0 +1,36 @@
+{**
+* Displays information about website for web crawlers
+*
+* @param    string     $name        Name
+* @param    string     $email       Email
+* @param    string     $phone       Phone number
+* @param    string     $logo        Absolute path to the logo
+* @param    string     $street      Street
+* @param    string     $city        City
+* @param    string     $postalCode  Postal code
+* @param    string     $country     Country
+*}
+
+<script type='application/ld+json'>
+    {
+        "@context": "http://www.schema.org",
+        "@type": "Organization",
+        "name": {$name},
+        "url": {$urlAbsolutePath},
+        "email": {$email},
+        "logo": {$logo},
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": {$street},
+            "addressLocality": {$city},
+            "postalCode": {$postalCode},
+            "addressCountry": {$country}
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": {$phone},
+            "contactType": "customer service"
+        }
+    }
+
+</script>

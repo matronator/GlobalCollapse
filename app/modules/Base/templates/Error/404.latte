@@ -1,0 +1,12 @@
+{layout '../../../Front/templates/@layout.latte'}
+
+{block content}
+<div class="container">
+	<div class="error-page__content">
+		<h1 class="error-page__title" n:block="title">404</h1>
+		<div class="error-page__text">
+			<p>{_general.error.notFound|noescape}</p>
+			<a n:href=":Front:Default:">{_general.error.goBack|noescape}</a>
+		</div>
+	</div>
+</div>

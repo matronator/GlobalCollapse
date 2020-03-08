@@ -1,0 +1,16 @@
+parameters:
+
+# to be used along with fake sendmail:
+# https://www.geeksforgeeks.org/how-to-configure-xampp-to-send-mail-from-localhost-using-php/
+mail:
+    smtp: true
+    host: smtp.gmail.com
+    username: yourtestaccount@gmail.com
+    password: yourtestpwd
+    secure: ssl
+    port: 465
+
+database:
+	dsn: 'mysql:host=localhost;dbname=test_cms'
+	user: root
+	password:

@@ -1,0 +1,40 @@
+.l-header {
+  overflow: hidden;
+  height: var(--height--header);
+
+  @media (--s) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+  }
+}
+
+.l-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.l-page {
+  flex-grow: 1;
+}
+
+.l-main {
+  @media (--s) {
+    margin-top: var(--height--header);
+    flex-grow: 1;
+    display: flex;
+  }
+}
+
+.l-aside {
+  width: var(--width-aside);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.l-article {
+  flex-grow: 1;
+}

@@ -1,0 +1,33 @@
+/*********************** MIXINS ***********************/
+
+@define-mixin anima $property: all, $time: 0.2s, $timingFunction: ease-in-out {
+  transition: $property $time $timingFunction;
+}
+
+@define-mixin boxesWithGap $boxesPerRow, $gapSize {
+  width: calc(
+    (100% / $boxesPerRow) - ($gapSize * ($boxesPerRow - 1)) / $boxesPerRow
+  );
+}
+
+@define-mixin center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@define-mixin centerY {
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+@define-mixin centerX {
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+@define-mixin centerReset {
+  left: 0;
+  top: 0;
+  transform: translate(0, 0);
+}

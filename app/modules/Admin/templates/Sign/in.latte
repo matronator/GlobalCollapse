@@ -1,0 +1,49 @@
+{block pageTitle}
+	Přihlášení
+{/block}
+
+{block body}
+	<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade l-page">
+		<div class="uk-width-1-1">
+			<div class="uk-container">
+				<div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+					<div class="uk-width-1-1@m">
+						<div class="uk-margin uk-width-large uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large">
+
+							<div class="uk-margin-medium uk-text-center">
+								<img src="{$basePath}/dist/admin/images/logo.png" alt="matronator CMS logo" uk-image>
+							</div>
+
+							{form signInForm}
+
+								<div class="uk-margin">
+									<div class="uk-inline uk-width-1-1">
+										<span class="uk-form-icon" uk-icon="icon: mail"></span>
+										{input email class=>"uk-input uk-form"}
+									</div>
+								</div>
+
+								<div class="uk-margin">
+									<div class="uk-inline uk-width-1-1">
+										<span class="uk-form-icon" uk-icon="icon: lock"></span>
+										{input password class=>"uk-input uk-form"}
+									</div>
+								</div>
+
+								<div class="uk-margin">
+									{input send class => 'uk-button uk-button-primary uk-button-large uk-width-1-1'}
+								</div>
+
+							{foreach $form->errors as $error}
+								<p class="uk-text-danger">{$error}</p>
+							{/foreach}
+
+							{/form}
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}

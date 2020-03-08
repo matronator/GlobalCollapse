@@ -1,0 +1,29 @@
+/* third party */
+
+@import "../../../node_modules/uikit/dist/css/uikit.css";
+
+@import "../../../node_modules/choices.js/public/assets/styles/choices.css";
+
+@import "../../../node_modules/flatpickr/dist/flatpickr.css";
+
+/* settings */
+
+@import "imports/settings.variables.css";
+
+/* objects */
+
+@import "imports/object.layout.css";
+
+/* components */
+
+/* general */
+
+body {
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}

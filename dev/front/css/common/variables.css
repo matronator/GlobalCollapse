@@ -1,0 +1,55 @@
+/*********************** VARIABLES ***********************/
+
+:root {
+  /* Colors */
+  --mainColor: gold;
+  --mainColorAccent: gold;
+  --secondaryColor: gold;
+  --secondaryColorAccent: gold;
+  --mainTextColor: black;
+  --secondaryTextColor: gray;
+
+  /* Sizes */
+  --gap: 40px;
+  --gap2x: calc(var(--gap) * 2);
+  --gap3x: calc(var(--gap) * 3);
+  --gap4x: calc(var(--gap) * 4);
+  --gap5x: calc(var(--gap) * 5);
+
+  /* Basic responsive breakpoints */
+  --widthXL: 1680px;
+  --widthL: 1430px;
+  --widthM: 1080px;
+  --widthS: 768px;
+  --widthXS: 640px;
+
+  /* Breakpoint offset */
+  --mediaOffset: 20px;
+
+  /* Responsive breakppoints with offset */
+  --widthMediaXL: calc(var(--widthXL) + var(--mediaOffset));
+  --widthMediaL: calc(var(--widthL) + var(--mediaOffset));
+  --widthMediaM: calc(var(--widthM) + var(--mediaOffset));
+  --widthMediaS: calc(var(--widthS) + var(--mediaOffset));
+  --widthMediaXS: calc(var(--widthXS) + var(--mediaOffset));
+}
+
+@custom-media --min-mediaXL (min-width: $widthMediaXL);
+
+@custom-media --max-mediaXL (max-width: $widthMediaXL);
+
+@custom-media --min-mediaL (min-width: $widthMediaL);
+
+@custom-media --max-mediaL (max-width: $widthMediaL);
+
+@custom-media --min-mediaM (min-width: $widthMediaM);
+
+@custom-media --max-mediaM (max-width: $widthMediaM);
+
+@custom-media --min-mediaS (min-width: $widthMediaS);
+
+@custom-media --max-mediaS (max-width: $widthMediaS);
+
+@custom-media --min-mediaXS (min-width: $widthMediaXS);
+
+@custom-media --max-mediaXS (max-width: $widthMediaXS);
