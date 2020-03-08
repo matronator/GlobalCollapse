@@ -1,0 +1,41 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+
+	###################################################
+	#Old pages redirects
+	###################################################
+	#Redirect 301 /oldpage.html http://www.example.com/newpage.html
+
+
+	###################################################
+	#Redirect to https
+	###################################################
+	#RewriteCond %{HTTPS} !=on
+    #RewriteRule (.*) https://%{SERVER_NAME}/$1 [R=301,NE,L]
+
+	###################################################
+	#Redirect to www
+	###################################################
+	#RewriteCond %{HTTP_HOST} !^$
+	#RewriteCond %{HTTP_HOST} !^www\. [NC]
+	#RewriteCond %{HTTPS}s ^on(s)|
+	#RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+	###################################################
+	#Redirect to non-www
+	###################################################
+	#RewriteCond %{HTTP_HOST} ^www\.
+	#RewriteCond %{HTTPS}s ^on(s)|off
+	#RewriteCond http%1://%{HTTP_HOST} ^(https?://)(www\.)?(.+)$
+	#RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L]
+
+
+	###################################################
+	#Set index folder
+	###################################################
+	RewriteRule ^$ /www/ [L]
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} !^/www/
+	RewriteRule ^(.*)$ /www/$1
+</IfModule>
