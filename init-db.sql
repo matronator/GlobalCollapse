@@ -32,12 +32,12 @@ DROP TABLE IF EXISTS `article`;
 CREATE TABLE IF NOT EXISTS `article` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `date` DATETIME,
-  `image` VARCHAR(64) COLLATE utf8_czech_ci,
-  `visible` BOOLEAN COLLATE utf8_czech_ci DEFAULT 0,
+  `image` VARCHAR(64) COLLATE utf8_unicode_ci,
+  `visible` BOOLEAN COLLATE utf8_unicode_ci DEFAULT 0,
   `updated_at` DATETIME,
   `created_at` DATETIME,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -49,13 +49,13 @@ DROP TABLE IF EXISTS `article_tag`;
 CREATE TABLE IF NOT EXISTS `article_tag` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `article_id` INT(11),
-  `locale` char(2) COLLATE utf8_czech_ci NOT NULL,
-  `title` varchar(256) COLLATE utf8_czech_ci NOT NULL,
-  `htaccess` varchar(256) COLLATE utf8_czech_ci NOT NULL,
+  `locale` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `htaccess` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `updated_at` DATETIME,
   `created_at` DATETIME,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -67,15 +67,15 @@ DROP TABLE IF EXISTS `article_translation`;
 CREATE TABLE IF NOT EXISTS `article_translation` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `article_id` INT(11),
-  `locale` char(2) COLLATE utf8_czech_ci NOT NULL,
-  `title` varchar(512) COLLATE utf8_czech_ci,
-  `perex` text COLLATE utf8_czech_ci,
-  `text` text COLLATE utf8_czech_ci,
-  `htaccess` varchar(512) COLLATE utf8_czech_ci,
+  `locale` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(512) COLLATE utf8_unicode_ci,
+  `perex` text COLLATE utf8_unicode_ci,
+  `text` text COLLATE utf8_unicode_ci,
+  `htaccess` varchar(512) COLLATE utf8_unicode_ci,
   `updated_at` DATETIME,
   `created_at` DATETIME,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -85,28 +85,28 @@ CREATE TABLE IF NOT EXISTS `page` (
   `parent_id` INT(11) NOT NULL DEFAULT 0,
   `level` INT(11) NOT NULL DEFAULT 0,
   `order` INT(11) NOT NULL DEFAULT 9999,
-  `type` varchar(30) COLLATE utf8_czech_ci NOT NULL DEFAULT 'content',
-  `image` VARCHAR(64) COLLATE utf8_czech_ci,
-  `visible` BOOLEAN COLLATE utf8_czech_ci DEFAULT 0,
-  `url` text COLLATE utf8_czech_ci,
+  `type` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'content',
+  `image` VARCHAR(64) COLLATE utf8_unicode_ci,
+  `visible` BOOLEAN COLLATE utf8_unicode_ci DEFAULT 0,
+  `url` text COLLATE utf8_unicode_ci,
   `updated_at` DATETIME,
   `created_at` DATETIME,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 DROP TABLE IF EXISTS `page_translation`;
 CREATE TABLE IF NOT EXISTS `page_translation` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `page_id` INT(11),
-  `locale` char(2) COLLATE utf8_czech_ci NOT NULL,
-  `title` varchar(512) COLLATE utf8_czech_ci NOT NULL,
-  `perex` text COLLATE utf8_czech_ci,
-  `text` text COLLATE utf8_czech_ci,
-  `htaccess` varchar(512) COLLATE utf8_czech_ci NOT NULL,
+  `locale` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `perex` text COLLATE utf8_unicode_ci,
+  `text` text COLLATE utf8_unicode_ci,
+  `htaccess` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
   `updated_at` DATETIME,
   `created_at` DATETIME,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -118,11 +118,11 @@ DROP TABLE IF EXISTS `page_image`;
 CREATE TABLE IF NOT EXISTS `page_image` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `page_id` INT(11) NOT NULL,
-  `filename` varchar(128) COLLATE utf8_czech_ci,
+  `filename` varchar(128) COLLATE utf8_unicode_ci,
   `updated_at` DATETIME,
   `created_at` DATETIME,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -133,16 +133,16 @@ CREATE TABLE IF NOT EXISTS `page_image` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(60) COLLATE utf8_czech_ci NOT NULL,
-  `firstname` varchar(80) COLLATE utf8_czech_ci NOT NULL,
-  `lastname` varchar(80) COLLATE utf8_czech_ci NOT NULL,
-  `username` varchar(80) COLLATE utf8_czech_ci NOT NULL,
-  `ip` varchar(30) COLLATE utf8_czech_ci,
+  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `firstname` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `lastname` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `ip` varchar(30) COLLATE utf8_unicode_ci,
   `last_log` datetime NOT NULL,
   `registration` datetime NOT NULL,
-  `role` varchar(2) COLLATE utf8_czech_ci NOT NULL DEFAULT 'u',
+  `role` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'u',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Vypisuji data pro tabulku `user`
