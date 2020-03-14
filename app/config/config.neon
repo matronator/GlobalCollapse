@@ -15,8 +15,6 @@ tracy:
 	showLocation: true
 
 services:
-	- App\FrontModule\Factories\ContactFormFactory
-	- App\FrontModule\Factories\AccountFormsFactory
 	- App\Model\Authorizator::create
 	- App\Model\Authenticator
 	- App\Model\ArticlesRepository

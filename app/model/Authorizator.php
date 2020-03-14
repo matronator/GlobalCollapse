@@ -19,14 +19,17 @@ class Authorizator
         $acl->addRole('u'); // user
 
         // resources
-        $acl->addResource('Default');
-        $acl->addResource('Page');
-        $acl->addResource('Article');
-        $acl->addResource('User');
+        $acl->addResource('Admin:Default');
+        $acl->addResource('Admin:Page');
+        $acl->addResource('Admin:Article');
+        $acl->addResource('Admin:User');
+        $acl->addResource('Front:Article');
+        $acl->addResource('Front:Game');
+        $acl->addResource('Front:Store');
 
         // rules
         $acl->allow('a', Permission::ALL, ['create', 'read', 'update', 'delete', 'use']);
-        $acl->allow('u', Permission::ALL, ['read', 'use']);
+        $acl->allow('u', ['Front:Article', 'Front:Game', 'Front:Store'], ['read']);
 
         return $acl;
     }

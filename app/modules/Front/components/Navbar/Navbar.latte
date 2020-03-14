@@ -1,0 +1,15 @@
+<nav class="navbar-main">
+    <div class="navbar">
+        <ul class="navbar--menu mr-auto">
+            <li><a href="/Game">Game</a></li>
+        </ul>
+        <ul class="navbar--user mr-auto" n:if="$presenter->user->isLoggedIn()">
+            <li><a href="/default">Account</a></li>
+            <li><a n:href="Account:logout">Logout</a></li>
+        </ul>
+        <ul class="navbar--user mr-auto" n:if="!$presenter->user->isLoggedIn()">
+            <li><a href="/login">Login</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+        </ul>
+    </div>
+</nav>

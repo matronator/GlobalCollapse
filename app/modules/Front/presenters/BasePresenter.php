@@ -18,12 +18,10 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	public $contactFormFactory;
 
 	public function injectRepository(
-		Model\PagesRepository $pages,
-		ContactFormFactory $contactFormFactory
+		Model\PagesRepository $pages
 	)
 	{
 		$this->pages = $pages;
-		$this->contactFormFactory = $contactFormFactory;
 	}
 
 	protected function beforeRender()
@@ -38,13 +36,10 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->redirect('this', ['locale' => $locale]);
 	}
 
-	public function createComponentContactForm()
+	public function isAllowed($privilege, $resource = null)
 	{
-		$form = $this->contactFormFactory->createContactForm();
-		$form->onSuccess[] = function($form) {
-            $this->redirect('Default:default');
-        };
-		return $form;
+			$resource = $resource ? $resource : $this->name;
+			return $this->user->isAllowed($resource, $privilege);
 	}
 
 }

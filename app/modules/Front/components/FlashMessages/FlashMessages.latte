@@ -1,0 +1,6 @@
+<p
+        n:foreach="$flashes as $flash"
+        class="h5 text-center mb-5 mt-5 {$flash->type === "warning" ? "text-danger" : ""}"
+>
+    {$flash->message}
+</p>
