@@ -177,7 +177,7 @@ final class ArticlePresenter extends BasePresenter
         // Insert primary record
         $primaryData = [];
 
-        
+
         if( empty( trim($values->{'title_' . $this->defaultLocale})) ) { // default language title is not set
             foreach ($this->localeList as $lang) {
                 if ( trim($values->{'title_' . $lang}) ) {

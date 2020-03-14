@@ -49,7 +49,7 @@ final class UserPresenter extends BasePresenter
 		if ($id) {
 			$user = $this->userModel->findAll()->get($id);
 			if (!$user) {
-				$this->error('Záznam nenalezen!');
+				$this->error('Entry not found!');
 			}
 			$form->setDefaults($user);
 		}
@@ -61,9 +61,9 @@ final class UserPresenter extends BasePresenter
 	{
 		$user = $this->userModel->findAll()->get($id);
 		if (!$user) {
-			$this->flashMessage('Záznam nenalezen!');
+			$this->flashMessage('Entry not found!');
 		}else{
-			$this->flashMessage('Záznam úspěšně smazán!');
+			$this->flashMessage('Entry deleted!');
 			$this->userModel->findAll()->get($id)->delete();
 		}
 		$this->redirect('default');
@@ -84,27 +84,27 @@ final class UserPresenter extends BasePresenter
 		$renderer->wrappers['pair']['container'] = 'div class="input"';
 		$renderer->wrappers['label']['container'] = null;
 		$renderer->wrappers['control']['container'] = null;
-		
+
 		//přihlašovací údaje
-		$form->addGroup('Přihlašovací údaje')->setOption('container', 'fieldset');
+		$form->addGroup('Login information')->setOption('container', 'fieldset');
         $form->addText('email', 'E-mail')
-                ->setRequired('Vyplňte prosím email.');
-        $form->addPassword('password', 'Heslo');
-        $form->addPassword('passwordVerify', 'Ověření hesla')
-			    ->addRule(Form::EQUAL, 'Hesla se neshodují', $form['password'])
+                ->setRequired('Please enter an e-mail address.');
+        $form->addPassword('password', 'Password');
+        $form->addPassword('passwordVerify', 'Password again')
+			    ->addRule(Form::EQUAL, 'Passwords do not match', $form['password'])
                 ->setRequired(true);
-        $form->addSelect('group', 'Skupina', array(
-					            'u' => 'Uživatel',
-					            'a' => 'Administrátor',
+        $form->addSelect('group', 'Group', array(
+					            'u' => 'User',
+					            'a' => 'Admin',
 					        )
 		        		);
-        
-        // osobní údaje
-        $form->addGroup('Osobní údaje')->setOption('container', 'fieldset');
-        $form->addText('firstname', 'Jméno');
-        $form->addText('lastname', 'Přijmení');
 
-		$form->addSubmit('save', 'Uložit');
+        // osobní údaje
+        $form->addGroup('Personal information (optional)')->setOption('container', 'fieldset');
+        $form->addText('firstname', 'Name');
+        $form->addText('lastname', 'Surname');
+
+		$form->addSubmit('save', 'Submit');
 
         $form->onSuccess[] = [$this, 'userFormSucceeded'];
 
@@ -119,34 +119,34 @@ final class UserPresenter extends BasePresenter
 		if ($id) {
 			// edit user
             if($values->password!=$values->passwordVerify){
-                $form->addError('Hesla se neshodují.', 'error');
+                $form->addError('Passwords do not match.', 'error');
             }
             else if($values->password=='' && $values->passwordVerify==''){
                 unset($values->password);
                 unset($values->passwordVerify);
                 $this->userModel->findAll()->get($id)->update($values);
-                $this->flashMessage('Záznam byl úspěšně upraven.');
+                $this->flashMessage('Update successful.');
             }
             else if($values->password==$values->passwordVerify){
                 $values->password = Security\Passwords::hash($values->password);
                 unset($values->passwordVerify);
 
                 $this->userModel->findAll()->get($id)->update($values);
-                $this->flashMessage('Záznam byl úspěšně upraven.');
+                $this->flashMessage('Update successful.');
             }
 
 			$this->redirect('edit', $id);
 		} else {
 			//add user
 			if($values->password!=$values->passwordVerify){
-				$form->addError('Hesla se neshodují.', 'error');
+				$form->addError('Passwords do not match.', 'error');
 			}else{
 				$values->password = Security\Passwords::hash($values->password);
 				unset($values->passwordVerify);
 				$values->registration = new DateTime();
 
 				$this->userModel->findAll()->insert($values);
-				$this->flashMessage('Záznam byl úspěšně přidán.');
+				$this->flashMessage('Record successfully crated.');
 			}
 
 			$this->redirect('default');
