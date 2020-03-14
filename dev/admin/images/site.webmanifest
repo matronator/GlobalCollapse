@@ -1,6 +1,6 @@
 {
-    "name": "StarterPack",
-    "short_name": "StarterPack",
+    "name": "GlobalCollapse",
+    "short_name": "GlobalCollapse",
     "icons": [
         {
             "src": "/dist/front/images/android-chrome-192x192.png",

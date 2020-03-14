@@ -23,14 +23,14 @@ class PagesRepository
 	}
 
 	public function findAllTranslations()
-    {
-        return $this->database->table('page_translation');
-    }
+	{
+			return $this->database->table('page_translation');
+	}
 
-    public function findPageTranslations(int $pageId)
-    {
-        return $this->database->table('page_translation')->where('page_id', $pageId);
-    }
+	public function findPageTranslations(int $pageId)
+	{
+			return $this->database->table('page_translation')->where('page_id', $pageId);
+	}
 
 	public function findAllImages()
 	{

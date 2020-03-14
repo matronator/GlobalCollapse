@@ -16,6 +16,7 @@ class Authorizator
 
         // roles
         $acl->addRole('a'); // admin
+        $acl->addRole('u'); // user
 
         // resources
         $acl->addResource('Default');
@@ -25,6 +26,7 @@ class Authorizator
 
         // rules
         $acl->allow('a', Permission::ALL, ['create', 'read', 'update', 'delete', 'use']);
+        $acl->allow('u', Permission::ALL, ['read', 'use']);
 
         return $acl;
     }

@@ -26,7 +26,7 @@ class ArticlesRepository
 	{
         $this->translator = $translator;
 		$this->database = $database;
-        
+
         $this->defaultLocale = $this->translator->getDefaultLocale();
 	}
 
@@ -49,11 +49,6 @@ class ArticlesRepository
     {
 
         $articles = [];
-
-        if ($tag) {
-            $articles = $this->findAllTags()->select('article_id')->where('htaccess', $tag)->group('article_id')->fetchAssoc('article_id');
-        }
-
 
         if ( empty(array_keys($articles)) ) {
 

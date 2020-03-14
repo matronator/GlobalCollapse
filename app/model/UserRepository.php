@@ -11,7 +11,8 @@ class UserRepository
     private $database;
 
     public $roles = [
-        'a' => 'Administrátor',
+        'a' => 'Admin',
+        'u' => 'User'
     ];
 
     private $navItems = [

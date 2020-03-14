@@ -1,6 +1,6 @@
 {
 	"name": "nette/web-project",
-	"description": "StarterPack - website started template",
+	"description": "Global Collapse - PHP game",
 	"type": "project",
 	"license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"require": {
