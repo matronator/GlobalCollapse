@@ -6,6 +6,8 @@
 
 @import "../../../node_modules/flatpickr/dist/flatpickr.css";
 
+@import "sanitize.css";
+
 /* Common styles */
 
 /* @import "common/variables.css";
@@ -18,11 +20,13 @@
 
 @import "common/flash.css";
 
+@import "common/footer.css"; */
+
 @import "common/header.css";
 
-@import "common/footer.css";
+@import "common/general.css";
 
-@import "common/general.css"; */
+@import "common/sidebar.css";
 
 /* Section specific styles */
 

@@ -48,10 +48,12 @@
         {include '../components/Navbar/Navbar.latte'}
         {include '../components/FlashMessages/FlashMessages.latte'}
 
-        <div class="uk-section uk-background-mutes uk-dark">
-            <div class="uk-container-expand" uk-height-viewport="expand: true">
-                {include pageContent}
-            </div>
+        {if $presenter->user->isLoggedIn()}
+            {include '../components/Sidebar/Sidebar.latte'}
+        {/if}
+
+        <div class="uk-section uk-background-muted uk-dark{if $presenter->user->isLoggedIn()} main-section{/if}">
+            {include pageContent}
         </div>
 
         {*include '../components/Footer/Footer.latte'*}

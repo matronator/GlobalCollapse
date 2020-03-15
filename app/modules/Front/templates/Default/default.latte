@@ -3,15 +3,21 @@
 {define metaDescription}Homepage{/define}
 
 {block pageContent}
-<div class="uk-flex uk-flex-column uk-flex-middle" n:if="!$presenter->user->isLoggedIn()">
-  <img src="{$basePath}/dist/front/images/logo-black.png">
-  <div class="uk-flex uk-flex-middle uk-width-medium">
-    <a n:href="Login:default" class="uk-button uk-button-large uk-button-primary">Login</a>
-    <hr class="uk-divider-vertical">
-    <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">Sign-Up</a>
+<div class="uk-container-expand" uk-height-viewport="expand: true">
+  <div class="uk-flex uk-flex-column uk-flex-middle" n:if="!$presenter->user->isLoggedIn()">
+    <img src="{$basePath}/dist/front/images/logo-black.png">
+    <p class="uk-text-lead">Coronavirus has mutated and wiped out 20% of the global population.</p>
+    <div class="uk-flex uk-flex-middle uk-width-medium">
+      <a n:href="Login:default" class="uk-button uk-button-large uk-button-primary">Login</a>
+      <hr class="uk-divider-vertical">
+      <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">Sign-Up</a>
+    </div>
+  </div>
+  <div class="uk-flex uk-flex-center" n:if="$presenter->user->isLoggedIn()">
+    <div class="uk-card uk-card-default uk-card-body uk-width-auto">
+      <h3 class="uk-card-title">{$user->username}<small class="uk-text-muted">&nbsp;Level {$user->level}</small></h3>
+      <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
   </div>
 </div>
-{if $presenter->user->isLoggedIn()}
-  {include '../../components/Sidebar/Sidebar.latte'}
-{/if}
 {/block}

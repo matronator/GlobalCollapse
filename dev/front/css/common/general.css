@@ -1,5 +1,11 @@
-body {
-  font-family: sans-serif;
-  color: var(--mainTextColor);
-  text-align: center;
+@media (min-width: 960px) {
+  .main-section {
+    margin-left: 240px;
+    max-width: calc(100% - 240px);
+  }
+}
+
+.main-section {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }

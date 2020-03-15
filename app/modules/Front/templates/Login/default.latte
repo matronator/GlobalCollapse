@@ -3,6 +3,7 @@
 {define metaDescription}Login{/define}
 
 {block pageContent}
+<div class="uk-container-expand" uk-height-viewport="expand: true">
   <div class="uk-flex uk-flex-middle uk-flex-column">
     <h1 class="uk-heading-divider uk-text-center">Login</h1>
     {form loginForm}
@@ -21,9 +22,10 @@
       <div class="uk-margin uk-flex uk-flex-middle">
         <div class="uk-form-controls">
           <button type="submit" class="uk-button uk-button-primary" n:name="submit">Login</button>
-          &nbsp;or&nbsp;<a n:href="Login:default">Create new account</a>
+          &nbsp;or&nbsp;<a n:href="Signup:default">Create new account</a>
         </div>
       </div>
     {/form}
   </div>
+</div>
 {/block}

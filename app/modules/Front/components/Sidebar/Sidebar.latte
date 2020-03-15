@@ -1,14 +1,29 @@
-<div class="uk-visible@m">
-  <h3>Documentation</h3>
-  <ul class="uk-nav uk-nav-default">
-    <li class="uk-nav-header">Getting started</li>
-    <li class=""><a href="/docs/introduction">Introduction</a></li>
-    <li class=""><a href="/docs/installation">Installation</a></li>
-  </ul>
-  <ul class="uk-nav uk-nav-default uk-margin-top">
-    <li class="uk-nav-header">Components</li>
-    <li class=""><a href="/docs/accordion">Accordion</a></li>
-    <li class=""><a href="/docs/alert">Alert</a></li>
+<div class="uk-visible@m uk-light uk-background-secondary sidebar-main">
+  <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
+    <li n:class="$presenter->isLinkCurrent('Default:*') ? uk-open, uk-parent">
+      <a href="#" class="uk-nav-header">
+        {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->level}</small>
+      </a>
+      <ul class="uk-nav-sub">
+        <li><a href="/account">Account</a></li>
+        <li><a href="/settings">Training</a></li>
+        <li><a href="/settings">Rest</a></li>
+        <li class="uk-nav-divider"></li>
+        <li><a href="/account">Home</a></li>
+        <li><a href="/account">Buildings</a></li>
+      </ul>
+    </li>
+    <li class="uk-parent">
+      <a href="#" class="uk-nav-header">City</a>
+      <ul class="uk-nav-sub">
+        <li><a href="/settings">Bar</a></li>
+        <li class="uk-nav-divider"></li>
+        <li><a href="/account">Market</a></li>
+        <li><a href="/settings">Darknet</a></li>
+        <li class="uk-nav-divider"></li>
+        <li><a href="/settings">Outskirts</a></li>
+      </ul>
+    </li>
   </ul>
 </div>
 <div id="offcanvas" uk-offcanvas="mode: slide; overlay: true" class="uk-offcanvas">
