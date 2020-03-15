@@ -17,27 +17,9 @@ class UserRepository
     /** @var Nette\Database\Context */
     private Context $database;
 
-    public array $userRoles = [
+    public array $roles = [
         USER_ROLE_ADMIN => 'Admin',
         USER_ROLE_USER => 'User',
-    ];
-
-    private $navItems = [
-        [
-            'presenter' => 'Article',
-            'title' => 'Články',
-            'icon' => ' file-text'
-        ],
-        [
-            'presenter' => 'Page',
-            'title' => 'Stránky',
-            'icon' => 'world'
-        ],
-        [
-            'presenter' => 'User',
-            'title' => 'Uživatelé',
-            'icon' => 'users'
-        ],
     ];
 
     public function __construct(Nette\Database\Context $database)
@@ -89,12 +71,5 @@ class UserRepository
     {
         $this->findAll()->wherePrimary($id)->update($values);
         return $this->getUser($id);
-    }
-
-    public function getNavItems()
-    {
-        return array_map(function($item) {
-            return (object) $item;
-        }, $this->navItems);
     }
 }

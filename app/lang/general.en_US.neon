@@ -1,3 +1,12 @@
 error:
 	notFound: 'Sorry, the page you are looking for was not found.'
 	goBack: 'Back to homepage'
+
+ui:
+	login: 'Login'
+	logout: 'Logout'
+	signup: 'Sign-Up'
+	email: 'E-mail'
+	password: 'Password'
+	passwordV: 'Repeat password'
+	username: 'Username'

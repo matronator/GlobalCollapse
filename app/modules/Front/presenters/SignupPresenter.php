@@ -35,19 +35,26 @@ final class SignupPresenter extends BasePresenter
     public function createComponentSignupForm(): Form
     {
         $form = new Form();
+        $form->setHtmlAttribute('class', 'uk-form-horizontal');
         $form->addEmail('email', 'Email')
-            ->setHtmlAttribute('class', 'form-control')
+            ->setHtmlAttribute('class', 'uk-input uk-width-1-2')
+            ->setHtmlId('email')
             ->setHtmlAttribute('placeholder', 'E-mail')
             ->setRequired();
         $form->addText('username', 'Username')
-            ->setHtmlAttribute('class', 'form-control')
+            ->setHtmlAttribute('class', 'uk-input uk-width-1-2')
+            ->setHtmlId('username')
             ->setHtmlAttribute('placeholder', 'Username')
             ->setRequired();
         $form->addPassword('password', 'Password')
+            ->setHtmlAttribute('class', 'uk-input uk-width-1-2')
+            ->setHtmlId('password')
             ->setHtmlAttribute('placeholder', 'Password')
             ->addRule(Form::MIN_LENGTH, 'Password has to be at least 6 characters long', 6)
             ->setRequired();
         $form->addPassword('passwordAgain', 'Repeat password')
+            ->setHtmlAttribute('class', 'uk-input uk-width-1-2')
+            ->setHtmlId('passwordAgain')
             ->setHtmlAttribute('placeholder', 'Repeat password')
             ->setRequired();
         $form->addSubmit('save', 'Sign Up');

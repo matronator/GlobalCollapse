@@ -1,3 +1,11 @@
+/* third party */
+
+@import "../../../node_modules/uikit/dist/css/uikit.css";
+
+@import "../../../node_modules/choices.js/public/assets/styles/choices.css";
+
+@import "../../../node_modules/flatpickr/dist/flatpickr.css";
+
 /* Common styles */
 
 @import "common/variables.css";

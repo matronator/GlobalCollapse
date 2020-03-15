@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+
 
 namespace App\AdminModule\Presenters;
 
@@ -24,8 +24,10 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
         if (!$this->user->isLoggedIn())
             $this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
 
-        if (!$this->isAllowed('read'))
-            throw new ForbiddenRequestException();
+        if (!$this->isAllowed('read')) {
+            $this->redirect('Sign:in');
+            // throw new ForbiddenRequestException();
+        }
 	}
 
     public function isAllowed($privilege, $resource = null)
@@ -34,10 +36,31 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
         return $this->user->isAllowed($resource, $privilege);
     }
 
+    public function checkPrivilege($privilege)
+    {
+        if (!$this->isAllowed($privilege))
+        {
+            // throw new ForbiddenRequestException('Na akci nemáte práva');
+            $this->user->logout();
+            $this->redirect('Sign:in');
+        }
+    }
+
     public function beforeRender()
     {
         $this->template->user = (object) $this->user->getIdentity()->data;
-        $this->template->navItems = $this->userModel->getNavItems();
+        $this->template->navItems = [
+            (object) [
+                'presenter' => 'Article',
+                'title' => 'Articles',
+                'icon' => ' file-text'
+            ],
+            (object) [
+                'presenter' => 'User',
+                'title' => 'Users',
+                'icon' => 'users'
+            ]
+        ];
     }
 
     public function handleLogout()

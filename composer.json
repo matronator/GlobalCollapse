@@ -4,7 +4,7 @@
 	"type": "project",
 	"license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"require": {
-		"php": ">= 7.3",
+		"php": ">= 7.4",
 		"nette/application": "^3.0.4",
 		"nette/bootstrap": "^3.0.1",
 		"nette/caching": "^3.0.1",
@@ -36,7 +36,7 @@
 	"minimum-stability": "stable",
 	"config": {
 		"platform": {
-			"php": "7.3"
+			"php": "7.4"
 		}
 	}
 }

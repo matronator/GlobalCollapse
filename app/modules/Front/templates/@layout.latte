@@ -36,11 +36,15 @@
 
     <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
-    <div id="wrapper">
+    <div>
         {include '../components/Navbar/Navbar.latte'}
         {include '../components/FlashMessages/FlashMessages.latte'}
 
-        {include pageContent}
+        <div class="uk-section">
+            <div class="uk-container">
+                {include pageContent}
+            </div>
+        </div>
 
         {*include '../components/Footer/Footer.latte'*}
     </div>

@@ -2,15 +2,15 @@
 
 namespace App\Model;
 
-use Nette\Security\Permission;
 
+use Nette\Security\Permission;
 
 class Authorizator
 {
     /**
      * @return Permission
      */
-    public static function create(): Permission
+    public static function create()
     {
         $acl = new Permission;
 
@@ -19,17 +19,16 @@ class Authorizator
         $acl->addRole('u'); // user
 
         // resources
-        $acl->addResource('Admin:Default');
-        $acl->addResource('Admin:Page');
-        $acl->addResource('Admin:Article');
-        $acl->addResource('Admin:User');
-        $acl->addResource('Front:Article');
+        $acl->addResource('Default');
+        $acl->addResource('Page');
+        $acl->addResource('Article');
+        $acl->addResource('User');
+        $acl->addResource('Front:Default');
         $acl->addResource('Front:Game');
-        $acl->addResource('Front:Store');
 
         // rules
         $acl->allow('a', Permission::ALL, ['create', 'read', 'update', 'delete', 'use']);
-        $acl->allow('u', ['Front:Article', 'Front:Game', 'Front:Store'], ['read']);
+        $acl->allow('u', ['Front:Default', 'Front:Game'], ['read']);
 
         return $acl;
     }

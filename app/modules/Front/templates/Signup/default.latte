@@ -3,5 +3,32 @@
 {define metaDescription}Sign-up{/define}
 
 {block pageContent}
-  {control signupForm}
+  <div class="uk-position-relative">
+    {form signupForm}
+      <div class="uk-margin">
+        <label class="uk-form-label" for="email">{_general.ui.email}</label>
+        <div class="uk-form-controls">
+            {input email}
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="username">{_general.ui.username}</label>
+        <div class="uk-form-controls">
+            {input username}
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="password">{_general.ui.password}</label>
+        <div class="uk-form-controls">
+            {input password}
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="passwordAgain">{_general.ui.passwordV}</label>
+        <div class="uk-form-controls">
+            {input passwordAgain}
+        </div>
+      </div>
+    {/form}
+  </div>
 {/block}
