@@ -30,6 +30,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->urlAbsolutePath = $this->getURL()->hostUrl;
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;
+		$this->template->user = (object) $this->user->getIdentity();
 	}
 
 	public function handleChangeLocale(string $locale) {

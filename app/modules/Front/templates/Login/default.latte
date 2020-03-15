@@ -3,6 +3,27 @@
 {define metaDescription}Login{/define}
 
 {block pageContent}
-<h1>login presenter | </h1>
-{control loginForm}
+  <div class="uk-flex uk-flex-middle uk-flex-column">
+    <h1 class="uk-heading-divider uk-text-center">Login</h1>
+    {form loginForm}
+      <div class="uk-margin">
+        <label class="uk-form-label" for="email">{_general.ui.email}</label>
+        <div class="uk-form-controls">
+            {input email}
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="password">{_general.ui.password}</label>
+        <div class="uk-form-controls">
+            {input password}
+        </div>
+      </div>
+      <div class="uk-margin uk-flex uk-flex-middle">
+        <div class="uk-form-controls">
+          <button type="submit" class="uk-button uk-button-primary" n:name="submit">Login</button>
+          &nbsp;or&nbsp;<a n:href="Login:default">Create new account</a>
+        </div>
+      </div>
+    {/form}
+  </div>
 {/block}

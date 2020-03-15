@@ -40,11 +40,16 @@ final class LoginPresenter extends BasePresenter
 	public function createComponentLoginForm(): Form
 	{
 			$form = new Form();
+			$form->setHtmlAttribute('class', 'uk-form-horizontal');
 			$form->addEmail('email', 'Email')
-					->setHtmlAttribute('placeholder', 'Email')
+					->setHtmlAttribute('placeholder', 'E-mail')
+					->setHtmlAttribute('class', 'uk-input')
+					->setHtmlId('email')
 					->setRequired();
 			$form->addPassword('password', 'Password')
 					->setHtmlAttribute('placeholder', 'Password')
+					->setHtmlAttribute('class', 'uk-input')
+					->setHtmlId('password')
 					->setRequired();
 			$form->addHidden('backlink', $this->getParameter('backlink'));
 			$form->addSubmit('submit', 'Login');
