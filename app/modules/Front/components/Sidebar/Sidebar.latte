@@ -6,7 +6,7 @@
           {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->level}</small>
         </a>
         <ul class="uk-nav-sub">
-          <li><a n:href="Default:default">Account</a></li>
+          <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">Account</a></li>
           <li><a href="#">Training<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li><a href="#">Rest<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li class="uk-nav-divider"></li>
@@ -14,13 +14,13 @@
           <li><a href="#">Buildings<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
         </ul>
       </li>
-      <li class="uk-parent">
+      <li n:class="$presenter->isLinkCurrent('City:*') ? uk-open, uk-parent">
         <a href="#" class="uk-nav-header">City</a>
         <ul class="uk-nav-sub">
           <li><a href="#">Bar<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li class="uk-nav-divider"></li>
           <li><a href="#">Market<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
-          <li><a href="/settings">Darknet</a></li>
+          <li n:class="$presenter->isLinkCurrent('City:darknet') ? uk-active"><a n:href="City:darknet">Darknet</a></li>
           <li class="uk-nav-divider"></li>
           <li><a href="/settings">Wastelands</a></li>
         </ul>

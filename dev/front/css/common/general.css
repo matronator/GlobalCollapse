@@ -10,6 +10,10 @@
   padding-bottom: 30px;
 }
 
+.border-left {
+  border-left: 1px solid #e5e5e5;
+}
+
 .dashboard {
   flex-direction: column;
 

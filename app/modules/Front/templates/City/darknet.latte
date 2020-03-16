@@ -1,0 +1,40 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Darknet{/define}
+{define metaDescription}Darknet{/define}
+
+{block pageContent}
+<div class="uk-container" uk-height-viewport="expand: true">
+  <div class="uk-width-expand" uk-margin>
+    <div class="uk-card uk-card-default uk-padding-remove-horizontal uk-padding-remove-top uk-card-body uk-overflow-auto">
+      {form drugsForm}
+        <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+          <thead>
+            <tr>
+              <th class="uk-text-nowrap uk-table-expand">Drug</th>
+              <th class="uk-text-nowrap">Price per unit</th>
+              <th class="uk-text-nowrap">Quantity</th>
+              <th class="uk-text-nowrap uk-table-shrink border-left">You have</th>
+              <th class="uk-text-nowrap uk-table-shrink border-left">Price before</th>
+            </tr>
+          </thead>
+          <tbody>
+            {for $i = 1; $i <= count($drugs); $i++}
+              <tr>
+                <td class="uk-text-nowrap">{$drugs[$i]->name}</td>
+                <td class="uk-text-nowrap"><strong>&dollar;{$drugs[$i]->price} / g</strong></td>
+                <td class="uk-text-nowrap">{input $drugs[$i]->name}</td>
+                <td class="uk-text-nowrap border-left">{$drugsInventory[$i-1]}</td>
+                <td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drugs[$i]->past_price}</td>
+              </tr>
+            {/for}
+          </tbody>
+        </table>
+        <div class="uk-flex uk-flex-right uk-padding-small">
+          <button type="submit" class="uk-button uk-button-primary uk-margin-right" n:name="buy">Buy</button>
+          <button type="button" class="uk-button uk-button-danger" n:name="sell">Sell</button>
+        </div>
+      {/form}
+    </div>
+  </div>
+</div>
+{/block}
