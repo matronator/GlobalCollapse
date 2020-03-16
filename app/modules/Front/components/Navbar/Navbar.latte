@@ -5,6 +5,10 @@
                 <a class="uk-navbar-item uk-logo" n:href="Default:default">
                     <img src="{$basePath}/dist/front/images/logo-small.png" />
                 </a>
+                <div class="uk-flex uk-flex-column">
+                    <p class="uk-margin-remove uk-text-small uk-text-light uk-text-warning covid-counter"><span id="covidInfected"></span> Infected</p>
+                    <p class="uk-margin-remove uk-text-small uk-text-light uk-text-danger covid-counter"><span id="covidDead"></span> Dead</p>
+                </div>
                 <a n:if="$presenter->user->isLoggedIn()" uk-navbar-toggle-icon="" href="#offcanvas" uk-toggle="" class="uk-navbar-toggle uk-hidden@m uk-icon uk-navbar-toggle-icon"></a>
             </div>
 

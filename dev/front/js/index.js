@@ -52,4 +52,28 @@ window.addEventListener(`DOMContentLoaded`, () => {
     toggler.addEventListener(`change`, () => toggle(togglers))
   )
   toggle(togglers)
+
+  // Counter
+  const infected = document.getElementById("covidInfected")
+  const dead = document.getElementById("covidDead")
+
+  const request = new XMLHttpRequest()
+  request.open("GET", "https://corona.lmao.ninja/all", true)
+
+  request.onload = function() {
+    if (this.status >= 200 && this.status < 400) {
+      // Success!
+      const data = JSON.parse(this.response)
+      infected.innerHTML = new Intl.NumberFormat().format(data.cases)
+      dead.innerHTML = new Intl.NumberFormat().format(data.deaths)
+    } else {
+      // We reached our target server, but it returned an error
+    }
+  }
+
+  request.onerror = function() {
+    // There was a connection error of some sort
+  }
+
+  request.send()
 })
