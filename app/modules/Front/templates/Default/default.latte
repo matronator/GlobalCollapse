@@ -13,12 +13,11 @@
       <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">Sign-Up</a>
     </div>
   </div>
-  <div class="uk-flex" n:if="$presenter->user->isLoggedIn()">
-    <div class="uk-card uk-width-expand uk-margin-right uk-card-default uk-card-body">
-      <div class="uk-card-badge uk-label">Character</div>
+  <div class="dashboard uk-flex" n:if="$presenter->user->isLoggedIn()" uk-margin>
+    <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
       <h3 class="uk-card-title">{$user->username}</h3>
-      <div class="uk-grid-small" uk-grid>
-        <div class="uk-width-auto">
+      <div class="uk-flex">
+        <div class="uk-width-auto uk-margin-right">
           <img src="{$basePath}/dist/front/images/default-avatars/01.jpg" class="uk-comment-avatar" width="96" height="96">
         </div>
         <div class="uk-width-expand uk-child-width-1-2 uk-flex">
@@ -35,8 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="uk-card uk-width-1-3 uk-card-default uk-card-body">
-      <div class="uk-card-badge uk-label">Drugs</div>
+    <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body">
       <div class="uk-width-expand uk-margin-top uk-child-width-1-2 uk-flex">
         <ul class="uk-list uk-list-divider uk-margin-remove">
           {while $drug = $drugs->fetch()}

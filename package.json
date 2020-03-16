@@ -37,11 +37,11 @@
     "del": "^5.1.0",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.9.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
-    "gulp-imagemin": "^7.0.0",
+    "gulp-imagemin": "^7.1.0",
     "gulp-noop": "^1.0.0",
     "gulp-postcss": "^8.0.0",
     "gulp-rev": "^9.0.0",
@@ -58,11 +58,11 @@
     "postcss-mixins": "^6.2.3",
     "postcss-nesting": "^7.0.1",
     "prettier": "^1.19.1",
-    "stylelint": "^13.0.0",
+    "stylelint": "^13.2.1",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-prettier": "^1.1.2",
     "vinyl-buffer": "^1.0.1",
-    "yargs": "^15.1.0"
+    "yargs": "^15.3.1"
   },
   "browserslist": [
     "last 2 versions",
@@ -354,6 +354,6 @@
     "core-js": "^3.6.4",
     "flatpickr": "^4.6.3",
     "nouislider": "^14.1.1",
-    "uikit": "^3.3.3"
+    "uikit": "^3.3.6"
   }
 }

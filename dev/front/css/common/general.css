@@ -10,6 +10,17 @@
   padding-bottom: 30px;
 }
 
+.dashboard {
+  flex-direction: column;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    &>:first-child {
+      margin-right: 1rem;
+    }
+  }
+}
+
 /* .covid-counter #covidInfected {
   color: #ff7777;
 }
