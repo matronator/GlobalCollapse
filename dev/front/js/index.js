@@ -56,16 +56,19 @@ window.addEventListener(`DOMContentLoaded`, () => {
   // Counter
   const infected = document.getElementById("covidInfected")
   const dead = document.getElementById("covidDead")
+  const multiplier = 120
 
   const request = new XMLHttpRequest()
-  request.open("GET", "https://corona.lmao.ninja/all", true)
+  request.open("GET", "https://coronavirus-19-api.herokuapp.com/all", true)
 
   request.onload = function() {
     if (this.status >= 200 && this.status < 400) {
       // Success!
       const data = JSON.parse(this.response)
-      infected.innerHTML = new Intl.NumberFormat().format(data.cases)
-      dead.innerHTML = new Intl.NumberFormat().format(data.deaths)
+      infected.innerHTML = new Intl.NumberFormat().format(
+        data.cases * multiplier
+      )
+      dead.innerHTML = new Intl.NumberFormat().format(data.deaths * multiplier)
     } else {
       // We reached our target server, but it returned an error
     }

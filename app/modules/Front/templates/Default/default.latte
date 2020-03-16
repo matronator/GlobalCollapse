@@ -39,14 +39,14 @@
       <div class="uk-card-badge uk-label">Drugs</div>
       <div class="uk-width-expand uk-margin-top uk-child-width-1-2 uk-flex">
         <ul class="uk-list uk-list-divider uk-margin-remove">
-          <li>Level</li>
-          <li>Money</li>
-          <li>Energy</li>
+          {while $drug = $drugs->fetch()}
+            <li>{$drug->name}</li>
+          {/while}
         </ul>
         <ul class="uk-list uk-list-divider uk-margin-remove uk-text-right">
-          <li>{$user->level}</li>
-          <li>{$user->money}</li>
-          <li>{$user->energy} / {$user->energy_max}</li>
+          {foreach $drugsInventory as $drugInventory}
+            <li>{$drugInventory}</li>
+          {/foreach}
         </ul>
       </div>
     </div>
