@@ -43,7 +43,7 @@ final class DefaultPresenter extends BasePresenter
 		$drugsInventory = [];
 		foreach($drugs as $drug) {
 			$amount = 0;
-			$exists = $this->drugsRepository->findUserDrug($this->user->getIdentity()->id, $drug->id)->fetch();
+			$exists = $this->drugsRepository->findUserDrug($this->user->getIdentity()->id, $drug->id);
 			if ($exists) {
 				$amount = $exists->amount;
 			}

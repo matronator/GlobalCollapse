@@ -24,11 +24,11 @@ class Authorizator
         $acl->addResource('Article');
         $acl->addResource('User');
         $acl->addResource('Front:Default');
-        $acl->addResource('Front:Game');
+        $acl->addResource('Front:City');
 
         // rules
         $acl->allow('a', Permission::ALL, ['create', 'read', 'update', 'delete', 'use']);
-        $acl->allow('u', ['Front:Default', 'Front:Game'], ['read']);
+        $acl->allow('u', ['Front:Default', 'Front:City'], ['read']);
 
         return $acl;
     }
