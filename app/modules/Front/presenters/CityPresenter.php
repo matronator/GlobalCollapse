@@ -11,11 +11,11 @@ use Nette\Application\UI\Form;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
-final class CityPresenter extends BasePresenter
+final class CityPresenter extends GamePresenter
 {
 
-	private UserRepository $userRepository;
-	private DrugsRepository $drugsRepository;
+	private $userRepository;
+	private $drugsRepository;
 
 	public function __construct(
 		UserRepository $userRepository,
@@ -29,22 +29,17 @@ final class CityPresenter extends BasePresenter
 	protected function startup()
 	{
 			parent::startup();
-			if (!$this->user->isLoggedIn())
-            $this->redirect('Login:default');
 	}
 
 	public function renderDarknet()
 	{
-		$player = $this->user->getIdentity();
-
 		$drugs = $this->drugsRepository->findAll();
 		$this->template->drugs = $drugs;
-		$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->fetchAll();
-		if (count($drugsInventory) > 0) {
-			$this->template->drugsInventory = $drugsInventory;
-		} else {
-			$drugs = $this->drugsRepository->findAll();
-			$this->template->drugs = $drugs;
+		if (isset($this->player->id)) {
+			$drugsInventory = $this->drugsRepository->findDrugInventory($this->player->id)->fetchAll();
+			if (count($drugsInventory) > 0) {
+				$this->template->drugsInventory = $drugsInventory;
+			}
 		}
 
 		foreach($drugs as $drug) {
@@ -67,36 +62,39 @@ final class CityPresenter extends BasePresenter
 				->addRule(Form::INTEGER, 'Input value must be a number');
 		}
 		$form->addSubmit('buy', 'Buy');
-		$form->addButton('sell', 'Sell');
+		$form->addSubmit('sell', 'Sell');
 		$form->onSuccess[] = [$this, 'darknetFormSucceeded'];
 		return $form;
 	}
 
 	public function darknetFormSucceeded(Form $form, $values): void
 	{
-		// $control = $form->isSubmitted();
-		// $cWeed = intval($values->Weed);
-		// $pWeed = intval($this->getSession('priceWeed'));
-		// $cEcstasy = intval($values->Ecstasy);
-		// $pEcstasy = intval($this->getSession('priceEcstasy'));
-		// $cMeth = intval($values->Meth);
-		// $pMeth = intval($this->getSession('priceMeth'));
-		// $cCoke = intval($values->Coke);
-		// $pCoke = intval($this->getSession('priceCoke'));
-		// $cHeroin = intval($values->Heroin);
-		// $pHeroin = intval($this->getSession('priceHeroin'));
-		// if ($control->name === 'buy') {
-			// Debugger::log('buy');
-			// $userMoney = intval($player->money);
-			// Debugger::log($userMoney);
-			// $totalPrice = ($pWeed * $cWeed) + ($pEcstasy * $cEcstasy)
-			// 	+ ($pMeth * $cMeth) + ($pCoke * $cCoke) + ($pHeroin * $cHeroin);
-			// Debugger::log($totalPrice);
-			// if ($userMoney >= $totalPrice) {
-			// 	Debugger::log('success');
-			// 	$this->flashMessage('Nastavení bylo změněno');
-			// 	$this->redirect('this');
-			// }
-		// }
+		$control = $form->isSubmitted();
+		$prices = [];
+		$drugs = $this->drugsRepository->findAll();
+		foreach($drugs as $drug) {
+			$session = $this->session;
+			$section = $session->getSection('price' . $drug->name);
+			$prices[$drug->name] = $section['price' . $drug->name] * $values[$drug->name];
+		}
+		$totalPrice = array_sum($prices);
+		// $cWeed = $values->Weed;
+		// $cEcstasy = $values->Ecstasy;
+		// $cMeth = $values->Meth;
+		// $cCoke = $values->Coke;
+		// $cHeroin = $values->Heroin;
+		if ($control->name === 'buy') {
+			$userMoney = $this->player->money;
+			if ($userMoney >= $totalPrice) {
+				$newMoney = $userMoney - $totalPrice;
+				$this->player->money = $newMoney;
+				$this->userRepository->getUser($this->player->id)->update([
+					'money' => $newMoney
+				]);
+				foreach ($drugs as $drug) {
+					$this->drugsRepository->updateUserDrug($this->player->id, $drug->id, $values[$drug->name]);
+				}
+			}
+		}
 	}
 }

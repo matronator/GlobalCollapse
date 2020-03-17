@@ -43,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-        {ifset $drugsInventory}
+        {if isset($drugsInventory)}
           {foreach $drugsInventory as $drugInventory}
             <tr>
               <td class="uk-text-nowrap">{$drugInventory->drugs->name}</td>
@@ -57,7 +57,7 @@
               <td class="uk-text-nowrap uk-text-italic"><strong>0</strong> g</td>
             </tr>
           {/foreach}
-        {/ifset}
+        {/if}
         </tbody>
       </table>
     </div>

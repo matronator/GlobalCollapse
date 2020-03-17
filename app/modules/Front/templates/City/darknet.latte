@@ -39,7 +39,7 @@
       <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
         <thead>
           <tr>
-            <th class="uk-text-nowrap uk-table-expand border-left">Drug</th>
+            <th class="uk-text-nowrap uk-table-expand">Drug</th>
             <th class="uk-text-nowrap">Your stash</th>
           </tr>
         </thead>
@@ -47,7 +47,7 @@
         {ifset $drugsInventory}
           {foreach $drugsInventory as $drugInventory}
             <tr>
-              <td class="uk-text-nowrap border-left">{$drugInventory->drugs->name}</td>
+              <td class="uk-text-nowrap">{$drugInventory->drugs->name}</td>
               <td class="uk-text-nowrap uk-text-italic"><strong>{$drugInventory->quantity}</strong> g</td>
             </tr>
           {/foreach}

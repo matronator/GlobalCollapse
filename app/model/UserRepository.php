@@ -15,9 +15,9 @@ const USER_ROLE_USER = 'u';
 class UserRepository
 {
     /** @var Nette\Database\Context */
-    private Context $database;
+    private $database;
 
-    public array $roles = [
+    public $roles = [
         USER_ROLE_ADMIN => 'Admin',
         USER_ROLE_USER => 'User',
     ];

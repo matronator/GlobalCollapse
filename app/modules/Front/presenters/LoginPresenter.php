@@ -21,7 +21,7 @@ final class LoginPresenter extends BasePresenter
 	/** @var Model\ArticlesRepository */
 	private $articles;
 
-	private UserRepository $userRepository;
+	private $userRepository;
 
 	public function __construct(
 		UserRepository $userRepository,

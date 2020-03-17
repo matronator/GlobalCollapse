@@ -14,9 +14,9 @@ use Nette\Security\Passwords;
 
 final class SignupPresenter extends BasePresenter
 {
-    private UserRepository $userRepository;
+    private $userRepository;
 
-    private Passwords $passwords;
+    private $passwords;
 
     public function __construct(
         UserRepository $userRepository,

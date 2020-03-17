@@ -16,8 +16,8 @@ final class DefaultPresenter extends BasePresenter
 	/** @var Model\ArticlesRepository */
 	private $articles;
 
-	private UserRepository $userRepository;
-	private DrugsRepository $drugsRepository;
+	private $userRepository;
+	private $drugsRepository;
 
 	public function __construct(
 		UserRepository $userRepository,
@@ -39,10 +39,14 @@ final class DefaultPresenter extends BasePresenter
 	{
 		$this->template->articles = $this->articles->findAll();
 		$player = $this->user->getIdentity();
-
-		$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->fetchAll();
-		if (count($drugsInventory) > 0) {
-			$this->template->drugsInventory = $drugsInventory;
+		if (isset($player->id)) {
+			$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->fetchAll();
+			if (count($drugsInventory) > 0) {
+				$this->template->drugsInventory = $drugsInventory;
+			} else {
+				$drugs = $this->drugsRepository->findAll();
+				$this->template->drugs = $drugs;
+			}
 		} else {
 			$drugs = $this->drugsRepository->findAll();
 			$this->template->drugs = $drugs;

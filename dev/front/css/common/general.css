@@ -4,6 +4,17 @@
     max-width: calc(100% - 240px);
   }
 }
+.uk-text-yellow {
+  color: #fadd5a !important;
+}
+
+.status-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
 
 .main-section {
   padding-top: 30px;

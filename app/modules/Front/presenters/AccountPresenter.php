@@ -8,8 +8,8 @@ use App\Model\UserRepository;
 
 final class AccountPresenter extends BasePresenter
 {
-    private UserRepository $userRepository;
-    private ?object $userData = null;
+    private $userRepository;
+    private $userData = null;
 
     public function __construct(
 	    UserRepository $userRepository
