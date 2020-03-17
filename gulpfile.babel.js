@@ -49,7 +49,6 @@ const cssProcessors = [
   isProduction
     ? [
         // enable additional processors on production (saves time on development)
-        postcssCustomProperties, // https://www.w3.org/TR/css-variables-1/
         postscssAutoprefixer, // uses browser list option from package.json
         postcssNano
       ]
