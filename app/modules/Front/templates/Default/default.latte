@@ -34,19 +34,32 @@
         </div>
       </div>
     </div>
-    <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body">
-      <div class="uk-width-expand uk-margin-top uk-child-width-1-2 uk-flex">
-        <ul class="uk-list uk-list-divider uk-margin-remove">
-          {while $drug = $drugs->fetch()}
-            <li>{$drug->name}</li>
-          {/while}
-        </ul>
-        <ul class="uk-list uk-list-divider uk-margin-remove uk-text-right">
+    <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+      <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+        <thead>
+          <tr>
+            <th class="uk-text-nowrap uk-table-expand">Drug</th>
+            <th class="uk-text-nowrap">Your stash</th>
+          </tr>
+        </thead>
+        <tbody>
+        {ifset $drugsInventory}
           {foreach $drugsInventory as $drugInventory}
-            <li>{$drugInventory}</li>
+            <tr>
+              <td class="uk-text-nowrap">{$drugInventory->drugs->name}</td>
+              <td class="uk-text-nowrap uk-text-italic"><strong>{$drugInventory->quantity}</strong> g</td>
+            </tr>
           {/foreach}
-        </ul>
-      </div>
+        {else}
+          {foreach $drugs as $drug}
+            <tr>
+              <td class="uk-text-nowrap">{$drug->name}</td>
+              <td class="uk-text-nowrap uk-text-italic"><strong>0</strong> g</td>
+            </tr>
+          {/foreach}
+        {/ifset}
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

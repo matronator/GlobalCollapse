@@ -38,17 +38,14 @@ final class DefaultPresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->articles = $this->articles->findAll();
-		$drugs = $this->drugsRepository->findAll();
-		$this->template->drugs = $drugs;
-		$drugsInventory = [];
-		foreach($drugs as $drug) {
-			$amount = 0;
-			$exists = $this->drugsRepository->findUserDrug($this->user->getIdentity()->id, $drug->id);
-			if ($exists) {
-				$amount = $exists->amount;
-			}
-			array_push($drugsInventory, $amount);
+		$player = $this->user->getIdentity();
+
+		$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->fetchAll();
+		if (count($drugsInventory) > 0) {
+			$this->template->drugsInventory = $drugsInventory;
+		} else {
+			$drugs = $this->drugsRepository->findAll();
+			$this->template->drugs = $drugs;
 		}
-		$this->template->drugsInventory = $drugsInventory;
 	}
 }

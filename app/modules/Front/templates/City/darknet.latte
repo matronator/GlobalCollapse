@@ -4,37 +4,69 @@
 
 {block pageContent}
 <div class="uk-container" uk-height-viewport="expand: true">
-  <div class="uk-width-expand" uk-margin>
-    <div class="uk-card uk-card-default uk-padding-remove-horizontal uk-padding-remove-top uk-card-body uk-overflow-auto">
-      {form drugsForm}
+  {form darknetForm}
+  <div class="dashboard tabular uk-flex">
+    <div class="uk-card uk-width-expand uk-card-default uk-padding-remove-horizontal uk-padding-remove-top uk-padding-small uk-card-body uk-overflow-auto">
         <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
           <thead>
             <tr>
               <th class="uk-text-nowrap uk-table-expand">Drug</th>
-              <th class="uk-text-nowrap">Price per unit</th>
+              <th class="uk-text-nowrap uk-table-shrink">Price per unit</th>
               <th class="uk-text-nowrap">Quantity</th>
-              <th class="uk-text-nowrap uk-table-shrink border-left">You have</th>
-              <th class="uk-text-nowrap uk-table-shrink border-left">Price before</th>
+              {*<th class="uk-text-nowrap uk-table-shrink border-left">Previous</th>*}
+              <th class="uk-text-nowrap border-left uk-text-right">Total</th>
             </tr>
           </thead>
           <tbody>
-            {for $i = 1; $i <= count($drugs); $i++}
+            {foreach $drugs as $drug}
               <tr>
-                <td class="uk-text-nowrap">{$drugs[$i]->name}</td>
-                <td class="uk-text-nowrap"><strong>&dollar;{$drugs[$i]->price} / g</strong></td>
-                <td class="uk-text-nowrap">{input $drugs[$i]->name}</td>
-                <td class="uk-text-nowrap border-left">{$drugsInventory[$i-1]}</td>
-                <td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drugs[$i]->past_price}</td>
+                <td class="uk-text-nowrap">{$drug->name}</td>
+                <td class="uk-text-nowrap">&dollar;{$drug->price} / g</td>
+                <td class="uk-text-nowrap input-row">{input $drug->name} g</td>
+                {*<td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drug->past_price}</td>*}
+                <td class="uk-text-nowrap border-left uk-text-right" id="price{$drug->name}">0</td>
               </tr>
-            {/for}
+            {/foreach}
+            <tr class="border-bottom">
+              <td class="uk-text-nowrap" colspan="2"></td>
+              <td class="uk-text-nowrap uk-text-right"><strong>Price total:</strong></td>
+              <td class="uk-text-nowrap border-left uk-text-right" id="priceTotal">0</td>
+            </tr>
           </tbody>
         </table>
-        <div class="uk-flex uk-flex-right uk-padding-small">
-          <button type="submit" class="uk-button uk-button-primary uk-margin-right" n:name="buy">Buy</button>
-          <button type="button" class="uk-button uk-button-danger" n:name="sell">Sell</button>
-        </div>
-      {/form}
+    </div>
+    <div class="uk-card uk-width-auto uk-overflow-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+      <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+        <thead>
+          <tr>
+            <th class="uk-text-nowrap uk-table-expand border-left">Drug</th>
+            <th class="uk-text-nowrap">Your stash</th>
+          </tr>
+        </thead>
+        <tbody>
+        {ifset $drugsInventory}
+          {foreach $drugsInventory as $drugInventory}
+            <tr>
+              <td class="uk-text-nowrap border-left">{$drugInventory->drugs->name}</td>
+              <td class="uk-text-nowrap uk-text-italic"><strong>{$drugInventory->quantity}</strong> g</td>
+            </tr>
+          {/foreach}
+        {else}
+          {foreach $drugs as $drug}
+            <tr>
+              <td class="uk-text-nowrap">{$drug->name}</td>
+              <td class="uk-text-nowrap uk-text-italic"><strong>0</strong> g</td>
+            </tr>
+          {/foreach}
+        {/ifset}
+        </tbody>
+      </table>
+      <div class="uk-flex uk-flex-right uk-padding-small">
+        <button type="submit" class="uk-button uk-button-primary uk-margin-right" n:name="buy">Buy</button>
+        <button type="button" class="uk-button uk-button-danger" n:name="sell">Sell</button>
+      </div>
     </div>
   </div>
+  {/form}
 </div>
 {/block}

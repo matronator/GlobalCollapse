@@ -7,7 +7,7 @@ namespace App\FrontModule\Presenters;
 use App\Model;
 use App\Model\UserRepository;
 use App\Model\DrugsRepository;
-use Nette\Forms\Form;
+use Nette\Application\UI\Form;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -30,50 +30,50 @@ final class CityPresenter extends BasePresenter
 	{
 			parent::startup();
 			if (!$this->user->isLoggedIn())
-            $this->redirect('Login:default', ['backlink' => $this->storeRequest()]);
+            $this->redirect('Login:default');
 	}
 
 	public function renderDarknet()
 	{
+		$player = $this->user->getIdentity();
+
 		$drugs = $this->drugsRepository->findAll();
 		$this->template->drugs = $drugs;
-		$drugsInventory = [];
-		foreach($drugs as $drug) {
-			// $session = $this->session;
-			// $section = $session->getSection('price' . $drug->name);
-			// $section['price' . $drug->name] = $drug->price;
-			$amount = 0;
-			$exists = $this->drugsRepository->findUserDrug($this->user->getIdentity()->id, $drug->id)->fetch();
-			if ($exists) {
-				$amount = $exists->amount;
-			}
-			array_push($drugsInventory, $amount);
+		$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->fetchAll();
+		if (count($drugsInventory) > 0) {
+			$this->template->drugsInventory = $drugsInventory;
+		} else {
+			$drugs = $this->drugsRepository->findAll();
+			$this->template->drugs = $drugs;
 		}
-		$this->template->drugsInventory = $drugsInventory;
+
+		foreach($drugs as $drug) {
+			$session = $this->session;
+			$section = $session->getSection('price' . $drug->name);
+			$section['price' . $drug->name] = $drug->price;
+		}
 	}
 
-	public function createComponentDrugsForm(): Form
+	public function createComponentDarknetForm(): Form
 	{
 		$drugs = $this->drugsRepository->findAll();
 		$form = new Form();
 		$form->setHtmlAttribute('class', 'uk-form-horizontal');
 		foreach($drugs as $drug) {
 			$form->addInteger($drug->name, $drug->name)
-				->setHtmlAttribute('class', 'uk-input uk-form-small')
-				->setDefaultValue('0')
+				->setHtmlAttribute('class', 'uk-input input-number')
 				->setHtmlAttribute('min', 0)
+				->setDefaultValue('0')
 				->addRule(Form::INTEGER, 'Input value must be a number');
 		}
 		$form->addSubmit('buy', 'Buy');
 		$form->addButton('sell', 'Sell');
-		$form->onSuccess[] = [$this, 'drugsFormSucceeded'];
+		$form->onSuccess[] = [$this, 'darknetFormSucceeded'];
 		return $form;
 	}
 
-	public function drugsFormSucceeded(Form $form, $values): void
+	public function darknetFormSucceeded(Form $form, $values): void
 	{
-		$this->restoreRequest($this->backlink);
-		$this->redirect('Default:');
 		// $control = $form->isSubmitted();
 		// $cWeed = intval($values->Weed);
 		// $pWeed = intval($this->getSession('priceWeed'));
@@ -87,7 +87,7 @@ final class CityPresenter extends BasePresenter
 		// $pHeroin = intval($this->getSession('priceHeroin'));
 		// if ($control->name === 'buy') {
 			// Debugger::log('buy');
-			// $userMoney = intval($this->user->getIdentity()->money);
+			// $userMoney = intval($player->money);
 			// Debugger::log($userMoney);
 			// $totalPrice = ($pWeed * $cWeed) + ($pEcstasy * $cEcstasy)
 			// 	+ ($pMeth * $cMeth) + ($pCoke * $cCoke) + ($pHeroin * $cHeroin);
