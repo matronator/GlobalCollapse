@@ -7,3 +7,4 @@ vendor
 www/upload/*/*
 www/dist
 .env
+init-db.sql
