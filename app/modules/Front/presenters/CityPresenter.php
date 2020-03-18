@@ -58,6 +58,9 @@ final class CityPresenter extends GamePresenter
 			$form->addInteger($drug->name, $drug->name)
 				->setHtmlAttribute('class', 'uk-input input-number')
 				->setHtmlAttribute('min', 0)
+				->setHtmlAttribute('data-drug-input', $drug->name)
+				->setHtmlAttribute('data-price', $drug->price)
+				->setHtmlId($drug->name)
 				->setDefaultValue('0')
 				->addRule(Form::INTEGER, 'Input value must be a number');
 		}
@@ -78,22 +81,23 @@ final class CityPresenter extends GamePresenter
 			$prices[$drug->name] = $section['price' . $drug->name] * $values[$drug->name];
 		}
 		$totalPrice = array_sum($prices);
-		// $cWeed = $values->Weed;
-		// $cEcstasy = $values->Ecstasy;
-		// $cMeth = $values->Meth;
-		// $cCoke = $values->Coke;
-		// $cHeroin = $values->Heroin;
-		if ($control->name === 'buy') {
-			$userMoney = $this->player->money;
-			if ($userMoney >= $totalPrice) {
-				$newMoney = $userMoney - $totalPrice;
-				$this->player->money = $newMoney;
-				$this->userRepository->getUser($this->player->id)->update([
-					'money' => $newMoney
-				]);
-				foreach ($drugs as $drug) {
-					$this->drugsRepository->updateUserDrug($this->player->id, $drug->id, $values[$drug->name]);
+		if ($totalPrice > 0) {
+			if ($control->name === 'buy') {
+				$userMoney = $this->player->money;
+				if ($userMoney >= $totalPrice) {
+					$newMoney = $userMoney - $totalPrice;
+					$this->userRepository->getUser($this->player->id)->update([
+						'money' => $newMoney
+						]);
+					$this->player->money = $newMoney;
+					foreach ($drugs as $drug) {
+						$this->drugsRepository->updateUserDrug($this->player->id, $drug->id, $values[$drug->name]);
+					}
+					$this->flashMessage('Purchase successful');
+					$this->redirect('this');
 				}
+			} else if ($control->name === 'sell') {
+				$this->redirect('this');
 			}
 		}
 	}

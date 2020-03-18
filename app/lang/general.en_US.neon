@@ -2,6 +2,10 @@ error:
 	notFound: 'Sorry, the page you are looking for was not found.'
 	goBack: 'Back to homepage'
 
+homepage:
+	introLead: 'Deadly virus is spreading across the globe. Will you survive?'
+	introText: 'New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.'
+
 ui:
 	login: 'Login'
 	logout: 'Logout'
@@ -10,3 +14,30 @@ ui:
 	password: 'Password'
 	passwordV: 'Repeat password'
 	username: 'Username'
+
+drugs:
+	drugName: 'Drug'
+	yourStash: 'Your stash'
+	Weed:
+		name: 'Weed'
+		alt:
+			1: 'Cannabis'
+			2: 'THC'
+			3: 'Marijuana'
+	Ecstasy:
+		name: 'Ecstasy'
+		alt:
+			1: 'MDMA'
+			2: 'XTC'
+			3: 'Molly'
+	Meth:
+		name: 'Meth'
+		alt:
+			1: 'Crystal meth'
+			2: 'Methamphetamine'
+	Coke:
+		name: 'Coke'
+		alt:
+			1: 'Cocaine'
+	Heroin:
+		name: 'Heroin'

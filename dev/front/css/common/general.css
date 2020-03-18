@@ -53,10 +53,14 @@ td.input-row {
   height: 100%;
   padding-top: 0;
   padding-bottom: 0;
+  vertical-align: middle;
 }
 .input-number {
   height: 100%;
-  max-width: 200px;
+  max-width: 160px;
+}
+#priceTotal {
+  min-width: 120px;
 }
 
 /* .covid-counter #covidInfected {

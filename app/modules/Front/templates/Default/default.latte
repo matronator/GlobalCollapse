@@ -3,10 +3,11 @@
 {define metaDescription}Homepage{/define}
 
 {block pageContent}
-<div class="uk-container" uk-height-viewport="expand: true">
-  <div class="uk-flex uk-flex-column uk-flex-middle" n:if="!$presenter->user->isLoggedIn()">
+<div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+  <div class="uk-flex uk-flex-column uk-flex-middle uk-text-center" n:if="!$presenter->user->isLoggedIn()">
     <img src="{$basePath}/dist/front/images/logo-black.png">
-    <p class="uk-text-lead">Coronavirus has mutated and wiped out 20% of the global population.</p>
+    <p class="uk-text-lead">{_general.homepage.introLead}</p>
+    <p>{_general.homepage.introText}</p>
     <div class="uk-flex uk-flex-middle uk-width-medium">
       <a n:href="Login:default" class="uk-button uk-button-large uk-button-primary">Login</a>
       <hr class="uk-divider-vertical">
@@ -38,22 +39,24 @@
       <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
         <thead>
           <tr>
-            <th class="uk-text-nowrap uk-table-expand">Drug</th>
-            <th class="uk-text-nowrap">Your stash</th>
+            <th class="uk-text-nowrap uk-table-expand">{_general.drugs.drugName}</th>
+            <th class="uk-text-nowrap">{_general.drugs.yourStash}</th>
           </tr>
         </thead>
         <tbody>
         {if isset($drugsInventory)}
           {foreach $drugsInventory as $drugInventory}
+            {var $name = $drugInventory->drugs->name}
             <tr>
-              <td class="uk-text-nowrap">{$drugInventory->drugs->name}</td>
+              <td class="uk-text-nowrap">{_general.drugs.$name.name}</td>
               <td class="uk-text-nowrap uk-text-italic"><strong>{$drugInventory->quantity}</strong> g</td>
             </tr>
           {/foreach}
         {else}
           {foreach $drugs as $drug}
+            {var $name = $drug->name}
             <tr>
-              <td class="uk-text-nowrap">{$drug->name}</td>
+              <td class="uk-text-nowrap">{_general.drugs.$name.name}</td>
               <td class="uk-text-nowrap uk-text-italic"><strong>0</strong> g</td>
             </tr>
           {/foreach}

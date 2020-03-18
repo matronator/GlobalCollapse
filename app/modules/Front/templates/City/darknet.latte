@@ -24,7 +24,7 @@
                 <td class="uk-text-nowrap">&dollar;{$drug->price} / g</td>
                 <td class="uk-text-nowrap input-row">{input $drug->name} g</td>
                 {*<td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drug->past_price}</td>*}
-                <td class="uk-text-nowrap border-left uk-text-right" id="price{$drug->name}">0</td>
+                <td class="uk-text-nowrap border-left uk-text-right" data-drug-price="{$drug->name}">0</td>
               </tr>
             {/foreach}
             <tr class="border-bottom">
@@ -46,15 +46,17 @@
         <tbody>
         {ifset $drugsInventory}
           {foreach $drugsInventory as $drugInventory}
+            {var $name = $drugInventory->drugs->name}
             <tr>
-              <td class="uk-text-nowrap">{$drugInventory->drugs->name}</td>
+              <td class="uk-text-nowrap">{_general.drugs.$name.name}</td>
               <td class="uk-text-nowrap uk-text-italic"><strong>{$drugInventory->quantity}</strong> g</td>
             </tr>
           {/foreach}
         {else}
           {foreach $drugs as $drug}
+            {var $name = $drug->name}
             <tr>
-              <td class="uk-text-nowrap">{$drug->name}</td>
+              <td class="uk-text-nowrap">{_general.drugs.$name.name}</td>
               <td class="uk-text-nowrap uk-text-italic"><strong>0</strong> g</td>
             </tr>
           {/foreach}
@@ -69,4 +71,5 @@
   </div>
   {/form}
 </div>
+<script defer src="{asset darknet.js front}"></script>
 {/block}

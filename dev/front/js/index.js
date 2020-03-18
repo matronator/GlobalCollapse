@@ -56,7 +56,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
   // Counter
   const infected = document.getElementById("covidInfected")
   const dead = document.getElementById("covidDead")
-  const multiplier = 120
+  const multiplier = 1000
 
   const request = new XMLHttpRequest()
   request.open("GET", "https://coronavirus-19-api.herokuapp.com/all", true)
