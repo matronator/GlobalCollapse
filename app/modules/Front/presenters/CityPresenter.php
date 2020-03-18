@@ -93,8 +93,12 @@ final class CityPresenter extends GamePresenter
 					foreach ($drugs as $drug) {
 						$this->drugsRepository->updateUserDrug($this->player->id, $drug->id, $values[$drug->name]);
 					}
-					$this->flashMessage('Purchase successful');
+					$this->flashMessage('Purchase successful', 'success');
 					$this->redirect('this');
+				} else {
+					$missingMoney = $totalPrice - $userMoney;
+					$this->flashMessage('Not enough money. You need $' . $missingMoney . ' more', 'danger');
+					$this->redirect('City:darknet');
 				}
 			} else if ($control->name === 'sell') {
 				$this->redirect('this');

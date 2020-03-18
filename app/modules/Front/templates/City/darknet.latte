@@ -7,33 +7,36 @@
   {form darknetForm}
   <div class="dashboard tabular uk-flex">
     <div class="uk-card uk-width-expand uk-card-default uk-padding-remove-horizontal uk-padding-remove-top uk-padding-small uk-card-body uk-overflow-auto">
-        <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
-          <thead>
+      <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+        <thead>
+          <tr>
+            <th class="uk-text-nowrap uk-table-expand">Drug</th>
+            <th class="uk-text-nowrap uk-table-shrink">Price per unit</th>
+            <th class="uk-text-nowrap">Quantity</th>
+            {*<th class="uk-text-nowrap uk-table-shrink border-left">Previous</th>*}
+            <th class="uk-text-nowrap border-left uk-text-right">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {foreach $drugs as $drug}
             <tr>
-              <th class="uk-text-nowrap uk-table-expand">Drug</th>
-              <th class="uk-text-nowrap uk-table-shrink">Price per unit</th>
-              <th class="uk-text-nowrap">Quantity</th>
-              {*<th class="uk-text-nowrap uk-table-shrink border-left">Previous</th>*}
-              <th class="uk-text-nowrap border-left uk-text-right">Total</th>
+              <td class="uk-text-nowrap">{$drug->name}</td>
+              <td class="uk-text-nowrap">&dollar;{$drug->price} / g</td>
+              <td class="uk-text-nowrap input-row">{input $drug->name} g</td>
+              {*<td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drug->past_price}</td>*}
+              <td class="uk-text-nowrap border-left uk-text-right" data-drug-price="{$drug->name}">0</td>
             </tr>
-          </thead>
-          <tbody>
-            {foreach $drugs as $drug}
-              <tr>
-                <td class="uk-text-nowrap">{$drug->name}</td>
-                <td class="uk-text-nowrap">&dollar;{$drug->price} / g</td>
-                <td class="uk-text-nowrap input-row">{input $drug->name} g</td>
-                {*<td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drug->past_price}</td>*}
-                <td class="uk-text-nowrap border-left uk-text-right" data-drug-price="{$drug->name}">0</td>
-              </tr>
-            {/foreach}
-            <tr class="border-bottom">
-              <td class="uk-text-nowrap" colspan="2"></td>
-              <td class="uk-text-nowrap uk-text-right"><strong>Price total:</strong></td>
-              <td class="uk-text-nowrap border-left uk-text-right" id="priceTotal">0</td>
-            </tr>
-          </tbody>
-        </table>
+          {/foreach}
+          <tr class="border-bottom">
+            <td class="uk-text-nowrap" colspan="2"></td>
+            <td class="uk-text-nowrap uk-text-right"><strong>Price total:</strong></td>
+            <td class="uk-text-nowrap border-left uk-text-right" id="priceTotal">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="uk-text-center">
+        <p class="uk-text-small">{_general.city.darknet.about}</p>
+      </div>
     </div>
     <div class="uk-card uk-width-auto uk-overflow-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
       <table class="uk-table uk-table-small uk-table-hover uk-table-striped">

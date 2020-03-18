@@ -15,6 +15,10 @@ ui:
 	passwordV: 'Repeat password'
 	username: 'Username'
 
+city:
+	darknet:
+		about: 'The prices change every 6 hours. Buy for low, sell for high.'
+
 drugs:
 	drugName: 'Drug'
 	yourStash: 'Your stash'
