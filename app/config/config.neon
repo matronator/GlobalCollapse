@@ -44,9 +44,9 @@ extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension
 
 translation:
-	default: cs
-	fallback: [cs_CZ, cs]
-	whitelist: [cs, en]
+	default: en
+	fallback: [en_US, en]
+	whitelist: [en]
 	debugger: true
 	resolvers:
 		session: true
