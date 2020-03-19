@@ -12,9 +12,9 @@ Persistent Browser Based Game (PBBG) set in an alternate near future in where th
 
 So far, only the darknet is functional, as I just started working on this project.
 
-- Darknet - black market
-  - Drug trade
-    - Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
+- ~Darknet - black market~
+  - ~Drug trade~
+    - ~Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high~
   - Weapon trade
 - Market - for buying other stuff
 - Bar - this is where you'll get your missions from
