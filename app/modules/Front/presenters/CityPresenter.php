@@ -98,9 +98,36 @@ final class CityPresenter extends GamePresenter
 				} else {
 					$missingMoney = $totalPrice - $userMoney;
 					$this->flashMessage('Not enough money. You need $' . $missingMoney . ' more', 'danger');
-					$this->redirect('City:darknet');
+					$this->redirect('this');
 				}
 			} else if ($control->name === 'sell') {
+				$allGood = [];
+				$missingDrugs = '';
+				$soldDrugs = [];
+				foreach($drugs as $drug) {
+					if ($values[$drug->name] > 0) {
+						$sellDrug = $this->drugsRepository->updateUserDrug($this->player->id, $drug->id, (-1) * ($values[$drug->name]));
+						if (!$sellDrug) {
+							$missingDrugs = $missingDrugs . $drug->name . ', ';
+							array_push($allGood, $drug->name);
+						} else {
+							array_push($soldDrugs, $drug->name);
+							$userMoney = $this->player->money;
+							$newMoney = $userMoney + $prices[$drug->name];
+							$this->userRepository->getUser($this->player->id)->update([
+								'money' => $newMoney
+								]);
+							$this->player->money = $newMoney;
+						}
+					}
+				}
+				if (count($allGood) > 0 && count($soldDrugs) > 0) {
+					$this->flashMessage('You haven\'t sold ' . $missingDrugs . 'because you don\'t have enough. Other drugs sold succesfully.', 'warning');
+				} else if (count($allGood) > 0 && count($soldDrugs) === 0) {
+					$this->flashMessage('You can\'t sell drugs you don\'t have.', 'danger');
+				} else if (count($allGood) === 0 && count($soldDrugs) > 0) {
+					$this->flashMessage('Drugs successfully sold.', 'success');
+				}
 				$this->redirect('this');
 			}
 		}

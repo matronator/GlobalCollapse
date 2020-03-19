@@ -17,7 +17,7 @@ ui:
 
 city:
 	darknet:
-		about: 'The prices change every 6 hours. Buy for low, sell for high.'
+		about: 'The prices change every 5 hours. Buy for low, sell for high.'
 
 drugs:
 	drugName: 'Drug'

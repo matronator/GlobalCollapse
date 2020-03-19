@@ -40,13 +40,23 @@ class DrugsRepository
 		$drugInv = $this->findUserDrug($userId, $drugId)->fetch();
 		if ($drugInv) {
 			$amount = intval($drugInv->quantity) + $qtty;
-			$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->update([
-				'quantity' => $amount
-			]);
+			if ($amount >= 0) {
+				$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->update([
+					'quantity' => $amount
+				]);
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->insert([
-				'quantity' => $qtty
-			]);
+			if ($qtty > 0) {
+				$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->insert([
+					'quantity' => $qtty
+				]);
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 

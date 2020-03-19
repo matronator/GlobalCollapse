@@ -1,6 +1,12 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine On
 
+	RewriteCond %{HTTP:X-Forwarded-Proto} !https
+	RewriteCond %{HTTP_USER_AGENT} !(BlackBerry)
+	RewriteCond %{HTTP_USER_AGENT} !(Windows\sNT\s5\.[12])
+	RewriteCond %{HTTP_HOST} ^(www\.)?global-collapse.com
+	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L]
+
 	###################################################
 	#Old pages redirects
 	###################################################
@@ -10,16 +16,16 @@
 	###################################################
 	#Redirect to https
 	###################################################
-	RewriteCond %{HTTPS} !=on
-    RewriteRule (.*) https://%{SERVER_NAME}/$1 [R=301,NE,L]
+	# RewriteCond %{HTTPS} !=on
+	# RewriteRule (.*) https://%{SERVER_NAME}/$1 [R=301,NE,L]
 
 	###################################################
 	#Redirect to www
 	###################################################
-	RewriteCond %{HTTP_HOST} !^$
-	RewriteCond %{HTTP_HOST} !^www\. [NC]
-	RewriteCond %{HTTPS}s ^on(s)|
-	RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+	# RewriteCond %{HTTP_HOST} !^$
+	# RewriteCond %{HTTP_HOST} !^www\. [NC]
+	# RewriteCond %{HTTPS}s ^on(s)|
+	# RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 	###################################################
 	#Redirect to non-www

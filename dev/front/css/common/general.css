@@ -29,22 +29,30 @@
 }
 
 .dashboard {
-  flex-direction: column;
+  flex-direction: row;
 
-  @media (min-width: 640px) {
-    flex-direction: row;
+  &>:first-child {
+    margin-right: 1rem;
+  }
+
+  @media (max-width: 639px) {
+    flex-direction: column;
     &>:first-child {
-      margin-right: 1rem;
+      margin-bottom: 1rem;
     }
   }
 }
 .tabular {
-  flex-direction: column;
+  flex-direction: row;
 
-  @media (min-width: 1200px) {
-    flex-direction: row;
+  &>:first-child {
+    margin-right: 1rem;
+  }
+
+  @media (max-width: 1199px) {
+    flex-direction: column;
     &>:first-child {
-      margin-right: 1rem;
+      margin-bottom: 1rem;
     }
   }
 }
