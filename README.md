@@ -6,6 +6,8 @@
 
 New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.
 
+Join now at https://global-collapse.com
+
 Persistent Browser Based Game (PBBG) set in an alternate near future in where the COVID-19 mutated and wiped most of the human population.
 
 ## Features
