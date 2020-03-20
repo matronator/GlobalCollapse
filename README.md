@@ -21,7 +21,7 @@ So far, only the darknet is functional, as I just started working on this projec
 - [ ] **Market** - for buying other stuff
 - [ ] **Bar** - this is where you'll get your missions from
 - [ ] **Wastelands** - area outside the city
-  - [ ] Scavenging
+  - [x] Scavenging
     - [ ] Go scavenging into the wastelands and get some small reward
     - [ ] Useful for when you will be out of the game for a while, so that your character does at least something while you're AFK
 
