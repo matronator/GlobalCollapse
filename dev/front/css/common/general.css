@@ -70,6 +70,27 @@ td.input-row {
 #priceTotal {
   min-width: 120px;
 }
+#avatarChange {
+  padding: 0 0 !important;
+  width: 100%;
+  text-align: center;
+}
+.text-tiny {
+  font-size: 0.825rem;
+  font-weight: 300;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: auto !important;
+  color: #e5e5e5;
+}
+#avatarChange {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+#avatarChange:hover,
+#avatarChange:active {
+  opacity: 1;
+}
 
 /* .covid-counter #covidInfected {
   color: #ff7777;
@@ -77,3 +98,38 @@ td.input-row {
 .covid-counter #covidDead {
   color: #c40000;
 } */
+
+/* avatars */
+#change-avatar {
+  margin-top: 3rem;
+  position: relative;
+  width: 100%;
+}
+#change-avatar > form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: -5px;
+}
+.avatar-label {
+  margin: 5px;
+}
+.avatar-option {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.avatar-option + .avatar-preview {
+  cursor: pointer;
+}
+.avatar-option:checked + .avatar-preview {
+  outline: 3px solid #f0506e;
+}
+.avatar-submit-holder {
+  text-align: center;
+  width: 100%;
+}
+.avatar-submit-holder > button {
+  margin-top: 1rem;
+}

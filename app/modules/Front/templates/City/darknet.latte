@@ -11,7 +11,7 @@
         <thead>
           <tr>
             <th class="uk-text-nowrap uk-table-expand">Drug</th>
-            <th class="uk-text-nowrap uk-table-shrink">Price per unit</th>
+            <th class="uk-text-nowrap">Price per unit</th>
             <th class="uk-text-nowrap">Quantity</th>
             {*<th class="uk-text-nowrap uk-table-shrink border-left">Previous</th>*}
             <th class="uk-text-nowrap border-left uk-text-right">Total</th>
@@ -33,7 +33,10 @@
             <td class="uk-text-nowrap border-left uk-text-right" id="priceTotal">0</td>
           </tr>
           <tr>
-            <td class="uk-text-center uk-text-small uk-text-nowrap uk-overflow-auto" colspan="4">{_general.city.darknet.about}</td>
+            <td class="uk-text-center uk-text-small uk-text-nowrap uk-overflow-auto" colspan="4" rowspan="2">
+              {_general.city.darknet.about}<br>
+              <span class="uk-text-italic">{_general.ui.lastUpdated} {$updated->updated|date:'%T'}</span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -66,7 +69,7 @@
         {/ifset}
         </tbody>
       </table>
-      <div class="uk-flex uk-flex-right uk-padding-small">
+      <div class="uk-flex uk-flex-center uk-margin-top uk-padding-small">
         <button type="submit" class="uk-button uk-button-primary uk-margin-right" n:name="buy">Buy</button>
         <button type="submit" class="uk-button uk-button-danger" n:name="sell">Sell</button>
       </div>

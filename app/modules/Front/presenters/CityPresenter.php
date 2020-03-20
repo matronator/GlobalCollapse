@@ -35,6 +35,7 @@ final class CityPresenter extends GamePresenter
 	{
 		$drugs = $this->drugsRepository->findAll();
 		$this->template->drugs = $drugs;
+		$this->template->updated = $this->drugsRepository->findDrug(1)->fetch();
 		if (isset($this->player->id)) {
 			$drugsInventory = $this->drugsRepository->findDrugInventory($this->player->id)->fetchAll();
 			if (count($drugsInventory) > 0) {

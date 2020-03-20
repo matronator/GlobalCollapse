@@ -14,6 +14,7 @@ ui:
 	password: 'Password'
 	passwordV: 'Repeat password'
 	username: 'Username'
+	lastUpdated: 'Last updated'
 
 city:
 	darknet:
