@@ -41,6 +41,9 @@
           </ul>
         </div>
       </div>
+      <div class="uk-width-expand uk-flex uk-margin-top">
+        <progress class="uk-progress" value="{$xp}" max="{$xpMax}"></progress>
+      </div>
       <div id="change-avatar" hidden>
         {form avatarForm}
           {foreach $form[avatar]->items as $key => $label}

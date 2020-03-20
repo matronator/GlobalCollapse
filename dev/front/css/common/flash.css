@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   z-index: 999;
-  animation: hideFlash 1s 5s forwards;
+  animation: hideFlash 1s 3s forwards;
 }
 
 @keyframes hideFlash {

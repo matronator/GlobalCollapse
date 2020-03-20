@@ -47,6 +47,8 @@ final class DefaultPresenter extends BasePresenter
 			}
 			$this->template->avatars = $avatars;
 			$this->template->userAvatar = $player->avatar;
+			$this->template->xp = $player->xp;
+			$this->template->xpMax = $player->xp_max;
 			$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->fetchAll();
 			if (count($drugsInventory) > 0) {
 				$this->template->drugsInventory = $drugsInventory;
