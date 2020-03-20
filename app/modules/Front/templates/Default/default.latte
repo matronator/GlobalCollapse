@@ -42,7 +42,11 @@
         </div>
       </div>
       <div class="uk-width-expand uk-flex uk-margin-top">
-        <progress class="uk-progress" value="{$xp}" max="{$xpMax}"></progress>
+        <div class="progress-bar">
+          <p class="progress-bar-value uk-text-small">{$xp}/{$xpMax}</p>
+          <div class="progress-bar-fill" style="width:{$progressValue}%;">
+          </div>
+        </div>
       </div>
       <div id="change-avatar" hidden>
         {form avatarForm}
