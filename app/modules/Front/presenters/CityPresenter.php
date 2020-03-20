@@ -7,6 +7,7 @@ namespace App\FrontModule\Presenters;
 use App\Model;
 use App\Model\UserRepository;
 use App\Model\DrugsRepository;
+use DateTime;
 use Nette\Application\UI\Form;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
@@ -129,6 +130,49 @@ final class CityPresenter extends GamePresenter
 				} else if (count($allGood) === 0 && count($soldDrugs) > 0) {
 					$this->flashMessage('Drugs successfully sold.', 'success');
 				}
+				$this->redirect('this');
+			}
+		}
+	}
+
+	public function renderWastelands() {
+		$isScavenging = $this->user->getIdentity()->scavenging;
+		$this->template->scavenging = $isScavenging;
+		if ($isScavenging > 0) {
+			$this->template->scavengingSince = $this->user->getIdentity()->scavenge_start;
+		}
+	}
+
+	public function createComponentScavengeForm(): Form {
+		$form = new Form();
+		$form->addSubmit('scavenge', 'Go scavenging');
+		$form->addSubmit('stopScavenging', 'Return from scavenging');
+		$form->onSuccess[] = [$this, 'scavengeFormSucceeded'];
+		return $form;
+	}
+
+	public function scavengeFormSucceeded(Form $form, $values): void {
+		$control = $form->isSubmitted();
+		$player = $this->user->getIdentity();
+		$isScavenging = $player->scavenging;
+		if ($control->name == 'scavenge') {
+			if ($isScavenging <= 0) {
+				$player->scavenging = 1;
+				$player->scavenge_start = new DateTime();
+				$this->userRepository->getUser($player->id)->update([
+					'scavenging' => $player->scavenging,
+					'scavenge_start' => $player->scavenge_start
+				]);
+				$this->flashMessage('You went scavenging to the wastelands', 'success');
+				$this->redirect('this');
+			}
+		} else if ($control->name == 'stopScavenging') {
+			if ($isScavenging > 0) {
+				$player->scavenging = 0;
+				$this->userRepository->getUser($player->id)->update([
+					'scavenging' => $player->scavenging
+				]);
+				$this->flashMessage('You returned from scavenging', 'success');
 				$this->redirect('this');
 			}
 		}

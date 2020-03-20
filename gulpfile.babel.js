@@ -11,7 +11,6 @@ import postcssImport from "postcss-import" // css
 import postcssNesting from "postcss-nesting" // css
 import postcssNano from "cssnano" // css
 import postcssCustomMedia from "postcss-custom-media" // css
-import postcssCustomProperties from "postcss-custom-properties" // css
 import postcssCalc from "postcss-calc" // css
 import postscssAutoprefixer from "autoprefixer" // css
 import postcssMixins from "postcss-mixins" // css

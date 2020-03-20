@@ -1,0 +1,34 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Wastelands{/define}
+{define metaDescription}Wastelands{/define}
+
+{block pageContent}
+<div class="uk-container" uk-height-viewport="expand: true">
+  <div class="dashboard uk-flex">
+    <div class="uk-card uk-card-default uk-margin uk-flex uk-width-expand illustration-split">
+      <div class="uk-card-media-left uk-cover-container" style="background-image:url('{$basePath}/dist/front/images/illustrations/wastelands.jpg');background-size:cover;">
+      </div>
+      <div class="uk-card-body">
+        <h2>{_general.city.wastelands.wastelandsTitle}</h2>
+        <h3>{_general.city.wastelands.scavengingTitle}</h3>
+        {if $scavenging <= 0}
+          <p class="uk-margin-large-bottom">{_general.city.wastelands.scavengingText}</p>
+          {form scavengeForm}
+            <div class="uk-flex uk-flex-center uk-padding">
+              <button type="submit" class="uk-button uk-button-primary" n:name="scavenge">Go scavenging</button>
+            </div>
+          {/form}
+        {else}
+          <p>{_general.city.wastelands.scavenging}</p>
+          <p class="uk-margin-large-bottom">{_general.city.wastelands.scavengingSince}<strong>{$scavengingSince|date:'%d %B %Y, %T'}</strong></p>
+          {form scavengeForm}
+            <div class="uk-flex uk-flex-center uk-padding uk-padding-remove-horizontal">
+              <button type="submit" class="uk-button uk-button-primary" n:name="stopScavenging">{_general.city.wastelands.scavengingReturn}</button>
+            </div>
+          {/form}
+        {/if}
+      </div>
+    </div>
+  </div>
+</div>
+{/block}

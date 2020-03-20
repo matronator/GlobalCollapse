@@ -150,3 +150,28 @@ td.input-row {
   color: #fff;
   font-weight: 600;
 }
+
+.illustration-split {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 639px) {
+    flex-direction: column;
+    &>:first-child {
+      margin-bottom: 1rem;
+    }
+  }
+}
+.illustration-split>:first-child {
+  width: 100%;
+  flex-grow: 2;
+  background-position: top;
+  @media (max-width: 639px) {
+    min-height: 200px;
+    background-position: center;
+  }
+}
+.illustration-split>:last-child {
+  flex-grow: 5;
+}

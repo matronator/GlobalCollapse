@@ -19,6 +19,13 @@ ui:
 city:
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'
+	wastelands:
+		wastelandsTitle: 'Wastelands'
+		scavengingTitle: 'Scavenging'
+		scavengingText: 'You can go scavenging for loot into the wastelands outside of the city. You can return from scavenging at any time, but the longer you scavenge, the better reward you get.'
+		scavenging: 'You cannot do anything else, because you are currently scavenging outside of the city. Do you want to return back?'
+		scavengingSince: 'You went scavenging on '
+		scavengingReturn: 'Return from scavenging'
 
 drugs:
 	drugName: 'Drug'

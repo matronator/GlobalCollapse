@@ -19,6 +19,9 @@ abstract class GamePresenter extends BasePresenter
       $this->redirect('Login:default', ['backlink' => $this->storeRequest()]);
     } else {
       $this->player = $this->user->getIdentity();
+      if ($this->player->scavenging > 0 && !$this->isLinkCurrent('City:wastelands')) {
+        $this->redirect('City:wastelands');
+      }
     }
   }
 }
