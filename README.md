@@ -1,106 +1,26 @@
-# How to start a project:
+![Global Collapse: Pandemic](dev/front/images/logo-black.png)
 
-## Install dependencies
-Run `composer install` and `npm install`
-commands in the root folder of the project
+# Global Collapse: Pandemic
 
-## Prepare the data layer
-Create database and run SQL in `/init-db.sql`
-or import it via database admin
-(phpmyadmin/adminer/...)
+### Deadly virus is spreading across the globe. Will you survive?
 
-Connect database in `/app/config/config.local.neon`.
-Provide database name, login and password.
+New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.
 
-## Set your environment variales
-Create `/.env` file and set `HOST` with URL where the project is hosted.
-(see [example](https://github.com/motdotla/dotenv#usage)).
-This step is necessary if you don't use `npm run serve`.
-Otherwise, you can go with the defaults.
+Join now at https://global-collapse.com
 
-# Build process
-There are two basic modules - front and admin. Use `./dev` and
-its respective subfolders to create or edit front-end assets.
-Here is an example of the folder structure:
+Persistent Browser Based Game (PBBG) set in an alternate near future in where the COVID-19 mutated and wiped most of the human population.
 
+## Features
 
-```
-/dev
-|-- admin
-|   |-- (same structure as front)
-`-- front
-    |-- images
-    |      |-- photo.jpg
-    |      `-- chart.png
-    |-- icons
-    |      |-- mail.svg
-    |      `-- arrow.svg
-    |-- css
-    |   |-- index.js
-    |   `-- contact.js
-    |-- js
-    |   |-- index.css
-    |   `-- contact.css
-    `-- etc
-```
+So far, only the darknet is functional, as I just started working on this project.
 
-All assets are compiled into `/www/dist` folder. For every module
-subfolder with its name is created.
-
-Keep in mind that files in `images` and `etc` preserve their original directory.
-Other files (css, js, icons) are generated into the root.
-For example in `app/components/Hamburger/Hamburger.css` you
-should reference external images as follows:
-
-```css
-.hamburger {
-    background-image: url(images/hamburger.svg);
-}
-```
-
-## Development
-Run `npm start` if you want to develop the front module. For the admin module
-use `npm run start-admin` command.
-
-Whenever a file (except `images/*` and `etc/*`) in `/dev` folder
-or template is changed, the web server will automatically
-refresh your browser window.
-
-## Production
-Run `npm run build` if you want to create production build of the front module. For the admin module
-use `npm run build-admin` command.
-
-# Asset usage
-Because of cache busting, the only way of using your assets is
-by means of `{asset}` custom Latte macro. It accepts two parameters.
-First is an asset name and the second is a module name (front or admin).
-
-Examples:
-```html
-<script src="{asset index.js front}"></script>
-...
-<link rel="stylesheet" href="{asset panel.css admin}" >
-```
-Currently, the macro doesn't take `$baseUrl` into account,
-so **the server must host to the domain root**
-
-# Coding standard
-
-## Javascript
-Formatting is handled by [Prettier](https://prettier.io/). Standard
-is enforced by [ESLint](https://eslint.org/) rules (see `eslintConfig.rules` in `package.json` for a reference).
-
-## CSS
-Formatting is handled by [Prettier](https://prettier.io/). Standard
-is enforced by [Stylelint](https://stylelint.io/) rules (see `stylelint.rules` in `package.json` for a reference).
-
-## PHP
-WIP
-
-# GIT
-All commit messages must be written in English in present tense.
-
-Run `npm run lint-css` and `npm run lint-js` before you commit to check
-if your code adheres to the coding standard. It automatically fixes
-problems with formatting. Issues which cannot be solved automatically
-are displayed to the console.
+- [x] **Darknet** - black market
+  - [x] Drug trade
+    - [x] Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
+  - [ ] Weapon trade
+- [ ] **Market** - for buying other stuff
+- [ ] **Bar** - this is where you'll get your missions from
+- [ ] **Wastelands** - area outside the city
+  - [ ] Scavenging
+    - [ ] Go scavenging into the wastelands and get some small reward
+    - [ ] Useful for when you will be out of the game for a while, so that your character does at least something while you're AFK
