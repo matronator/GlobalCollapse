@@ -24,3 +24,26 @@ So far, only the darknet is functional, as I just started working on this projec
   - [ ] Scavenging
     - [ ] Go scavenging into the wastelands and get some small reward
     - [ ] Useful for when you will be out of the game for a while, so that your character does at least something while you're AFK
+
+## Changelog
+
+For full changelog see [CHANGELOG.md](CHANGELOG.md)
+
+## [0.0.3] - 2020-03-21
+
+- Profile
+  - Change avatar
+- Darknet
+  - Selling drugs
+- ADD: Wastelands
+  - Scavenging
+
+## [0.0.2] - 2020-03-18
+
+- ADD: Darknet
+  - Buying drugs
+- ADD: Live COVID-19 tracker in navbar
+
+## [0.0.1] - 2020-03-08
+
+- Project started
