@@ -1,5 +1,14 @@
 <?php
 
+/**
+ *
+ * Updates drug prices on darknet
+ *
+ * This script updates the prices of drugs on the Darknet page, based on their min and max price.
+ * The script is run every 5 hours via a task runner provided by the hosting provider.
+ *
+ */
+
 if(true) {
   if(true) {
     $user = 'root';

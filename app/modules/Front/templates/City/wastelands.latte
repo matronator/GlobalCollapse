@@ -11,6 +11,9 @@
       <div class="uk-card-body">
         <h2>{_general.city.wastelands.wastelandsTitle}</h2>
         <h3>{_general.city.wastelands.scavengingTitle}</h3>
+        {snippet scavengeResults}
+          <p>asdsad</p>
+        {/snippet}
         {if $scavenging <= 0}
           <p class="uk-margin-large-bottom">{_general.city.wastelands.scavengingText}</p>
           {form scavengeForm}
@@ -20,7 +23,8 @@
           {/form}
         {else}
           <p>{_general.city.wastelands.scavenging}</p>
-          <p class="uk-margin-large-bottom">{_general.city.wastelands.scavengingSince}<strong>{$scavengingSince|date:'%d %B %Y, %T'}</strong></p>
+          <p>{_general.city.wastelands.scavengingSince}</p>
+          <p class="uk-margin-large-bottom">{$scavengingSince|date:'%d %B %Y, %T'}&nbsp;<strong>({$timePassed} ago)</strong></p>
           {form scavengeForm}
             <div class="uk-flex uk-flex-center uk-padding uk-padding-remove-horizontal">
               <button type="submit" class="uk-button uk-button-primary" n:name="stopScavenging">{_general.city.wastelands.scavengingReturn}</button>

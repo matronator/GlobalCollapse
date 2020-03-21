@@ -136,10 +136,19 @@ final class CityPresenter extends GamePresenter
 	}
 
 	public function renderWastelands() {
-		$isScavenging = $this->user->getIdentity()->scavenging;
+		$player = $this->user->getIdentity();
+		$isScavenging = $player->scavenging;
 		$this->template->scavenging = $isScavenging;
 		if ($isScavenging > 0) {
-			$this->template->scavengingSince = $this->user->getIdentity()->scavenge_start;
+			$scavengingSince = $this->userRepository->getUser($player->id)->scavenge_start;
+			$this->template->scavengingSince = $scavengingSince;
+			$nowDate = new DateTime('now');
+			$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp()) / 60;
+			if ($diff < 60) {
+				$this->template->timePassed = round($diff, 0) . ' minutes';
+			} else {
+				$this->template->timePassed = round($diff / 60, 0);
+			}
 		}
 	}
 
@@ -153,28 +162,50 @@ final class CityPresenter extends GamePresenter
 
 	public function scavengeFormSucceeded(Form $form, $values): void {
 		$control = $form->isSubmitted();
-		$player = $this->user->getIdentity();
-		$isScavenging = $player->scavenging;
+		$isScavenging = $this->player->scavenging;
 		if ($control->name == 'scavenge') {
 			if ($isScavenging <= 0) {
-				$player->scavenging = 1;
-				$player->scavenge_start = new DateTime();
-				$this->userRepository->getUser($player->id)->update([
-					'scavenging' => $player->scavenging,
-					'scavenge_start' => $player->scavenge_start
+				$this->player->scavenging = 1;
+				$this->player->scavenge_start = new DateTime();
+				$this->userRepository->getUser($this->player->id)->update([
+					'scavenging' => $this->player->scavenging,
+					'scavenge_start' => $this->player->scavenge_start
 				]);
 				$this->flashMessage('You went scavenging to the wastelands', 'success');
 				$this->redirect('this');
 			}
 		} else if ($control->name == 'stopScavenging') {
 			if ($isScavenging > 0) {
-				$player->scavenging = 0;
-				$this->userRepository->getUser($player->id)->update([
-					'scavenging' => $player->scavenging
-				]);
-				$this->flashMessage('You returned from scavenging', 'success');
-				$this->redirect('this');
+				$scavengingSince = $this->player->scavenge_start;
+				$nowDate = new DateTime('now');
+				$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp()) / 60;
+				if ($diff >= 60) {
+					$this->player->scavenging = 0;
+					$this->userRepository->getUser($this->player->id)->update([
+						'scavenging' => $this->player->scavenging
+					]);
+					$reward = $this->scavengeReward($diff / 60);
+					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
+					$this->redirect('this');
+				} else {
+					$this->flashMessage('You can return after at least an hour of scavenging', 'danger');
+					$this->redirect('this');
+				}
 			}
 		}
+	}
+
+	public function scavengeReward($hours) {
+		$plusXp = round($hours * rand(5, 10));
+		$plusMoney = round($hours * rand(2, 5)) + $this->player->money;
+		$this->userRepository->addXp($this->player->id, $plusXp);
+		$this->userRepository->getUser($this->player->id)->update([
+			'money' => $plusMoney
+			]);
+		$this->player->money = $plusMoney;
+		return [
+			'xp' => $plusXp,
+			'money' => $plusMoney
+		];
 	}
 }

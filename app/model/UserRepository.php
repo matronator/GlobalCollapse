@@ -17,6 +17,9 @@ class UserRepository
     /** @var Nette\Database\Context */
     private $database;
 
+    private $expGain = 1;
+    private $expMaxBase = 150;
+
     public $roles = [
         USER_ROLE_ADMIN => 'Admin',
         USER_ROLE_USER => 'User',
@@ -50,7 +53,6 @@ class UserRepository
         return $user;
     }
 
-
     public function createUser(ArrayHash $values): object
     {
         $userMail = $this->findAll()->where('email', $values->email)->fetch();
@@ -71,5 +73,57 @@ class UserRepository
     {
         $this->findAll()->wherePrimary($id)->update($values);
         return $this->getUser($id);
+    }
+
+    /**
+     * Add experience points to player
+     *
+     * @param integer $id
+     * @param integer $xp
+     * @return void
+     */
+    public function addXp(int $id, $xp) {
+        $player = $this->getUser($id);
+        $xpNow = $player->xp;
+        $xpMax = $player->xp_max;
+        $level = $player->level;
+        $newXp = $xpNow + $xp;
+        $this->getUser($id)->update([
+            'xp' => $newXp
+        ]);
+        if ($newXp >= $xpMax) {
+            $this->levelUp($id, $level);
+        }
+    }
+
+    /**
+     * Level up the player
+     *
+     * @param integer $id
+     * @param integer $lvl
+     * @return void
+     */
+    public function levelUp(int $id, int $lvl) {
+        $player = $this->getUser($id);
+        $newLevel = $lvl + 1;
+        $newMax = $this->getMaxExp($newLevel);
+        $player->level = $newLevel;
+        $player->xp_max = $newMax;
+        $player = $this->getUser($id)->update([
+            'xp_max' => $newMax,
+            'level' => $newLevel
+        ]);
+    }
+
+    /**
+     * Function to calculate max_xp for each level
+     * Equation:
+     * (round(level^baseGain)*(level^(level/baseXp))) * baseXp
+     *
+     * @param integer $lvl
+     * @return int
+     */
+    private function getMaxExp(int $lvl): int {
+        return round(pow($lvl, $this->expGain) * pow($lvl, ($lvl / $this->expMaxBase))) * $this->expMaxBase;
     }
 }
