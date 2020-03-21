@@ -17,6 +17,7 @@ final class CityPresenter extends GamePresenter
 
 	private $userRepository;
 	private $drugsRepository;
+	private $returned;
 
 	public function __construct(
 		UserRepository $userRepository,
@@ -53,14 +54,13 @@ final class CityPresenter extends GamePresenter
 
 	public function renderWastelands() {
 		$player = $this->user->getIdentity();
-		$session = $this->session;
-		$section = $session->getSection('returned');
-		if (isset($section['returned'])) {
+
+		if (isset($this->returned)) {
 			$this->template->returned = true;
-			$this->template->hours = $section['hours'];
-			$this->template->money = $section['money'];
-			$this->template->xpoints = $section['exp'];
-			unset($section->returned);
+			$this->template->hours = $this->returned['hours'];
+			$this->template->money = $this->returned['money'];
+			$this->template->xpoints = $this->returned['exp'];
+			unset($this->returned);
 		}
 		$isScavenging = $player->scavenging;
 		$this->template->scavenging = $isScavenging;
@@ -197,12 +197,11 @@ final class CityPresenter extends GamePresenter
 					]);
 					$reward = $this->scavengeReward($diff / 3600);
 					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
-					$session = $this->session;
-					$section = $session->getSection('returned');
-					$section->returned = true;
-					$section->hours = round($diff / 3600);
-					$section->money = $reward['money'];
-					$section->exp = $reward['xp'];
+					$this->returned = [
+						'hours' => round($diff / 3600),
+						'money' => $reward['money'],
+						'xp' => $reward['xp']
+					];
 					$this->redirect('this');
 				} else {
 					$this->flashMessage('You can return after at least an hour of scavenging', 'danger');
