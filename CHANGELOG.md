@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 - Profile
   - Change avatar
+  - Character progression (leveling)
 - Darknet
   - Selling drugs
 - ADD: Wastelands

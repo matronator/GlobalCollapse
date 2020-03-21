@@ -51,6 +51,34 @@ final class CityPresenter extends GamePresenter
 		}
 	}
 
+	public function renderWastelands() {
+		$player = $this->user->getIdentity();
+		$session = $this->session;
+		$section = $session->getSection('returned');
+		if (isset($section['returned'])) {
+			$this->template->returned = true;
+			$this->template->hours = $section['hours'];
+			$this->template->money = $section['money'];
+			$this->template->xpoints = $section['exp'];
+			unset($section->returned);
+		}
+		$isScavenging = $player->scavenging;
+		$this->template->scavenging = $isScavenging;
+		if ($isScavenging > 0) {
+			$scavengingSince = $this->userRepository->getUser($this->player->id)->scavenge_start;
+			$this->template->scavengingSince = $scavengingSince;
+			$nowDate = new DateTime();
+			$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp());
+			if ($diff < 3600) {
+				$this->template->timePassed = round($diff / 60) . ' minutes';
+			} else if ($diff <= 5400) {
+				$this->template->timePassed = round($diff / 3600) . ' hour';
+			} else {
+				$this->template->timePassed = round($diff / 3600) . ' hours';
+			}
+		}
+	}
+
 	public function createComponentDarknetForm(): Form
 	{
 		$drugs = $this->drugsRepository->findAll();
@@ -135,23 +163,6 @@ final class CityPresenter extends GamePresenter
 		}
 	}
 
-	public function renderWastelands() {
-		$player = $this->user->getIdentity();
-		$isScavenging = $player->scavenging;
-		$this->template->scavenging = $isScavenging;
-		if ($isScavenging > 0) {
-			$scavengingSince = $this->userRepository->getUser($player->id)->scavenge_start;
-			$this->template->scavengingSince = $scavengingSince;
-			$nowDate = new DateTime('now');
-			$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp()) / 60;
-			if ($diff < 60) {
-				$this->template->timePassed = round($diff, 0) . ' minutes';
-			} else {
-				$this->template->timePassed = round($diff / 60, 0);
-			}
-		}
-	}
-
 	public function createComponentScavengeForm(): Form {
 		$form = new Form();
 		$form->addSubmit('scavenge', 'Go scavenging');
@@ -176,16 +187,22 @@ final class CityPresenter extends GamePresenter
 			}
 		} else if ($control->name == 'stopScavenging') {
 			if ($isScavenging > 0) {
-				$scavengingSince = $this->player->scavenge_start;
-				$nowDate = new DateTime('now');
-				$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp()) / 60;
-				if ($diff >= 60) {
+				$scavengingSince = $this->userRepository->getUser($this->player->id)->scavenge_start;
+				$nowDate = new DateTime();
+				$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp());
+				if ($diff >= 3600) {
 					$this->player->scavenging = 0;
 					$this->userRepository->getUser($this->player->id)->update([
 						'scavenging' => $this->player->scavenging
 					]);
-					$reward = $this->scavengeReward($diff / 60);
+					$reward = $this->scavengeReward($diff / 3600);
 					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
+					$session = $this->session;
+					$section = $session->getSection('returned');
+					$section->returned = true;
+					$section->hours = round($diff / 3600);
+					$section->money = $reward['money'];
+					$section->exp = $reward['xp'];
 					$this->redirect('this');
 				} else {
 					$this->flashMessage('You can return after at least an hour of scavenging', 'danger');
@@ -197,15 +214,26 @@ final class CityPresenter extends GamePresenter
 
 	public function scavengeReward($hours) {
 		$plusXp = round($hours * rand(5, 10));
-		$plusMoney = round($hours * rand(2, 5)) + $this->player->money;
+		$plusMoney = round($hours * rand(2, 5));
 		$this->userRepository->addXp($this->player->id, $plusXp);
 		$this->userRepository->getUser($this->player->id)->update([
-			'money' => $plusMoney
+			'money' => $plusMoney + $this->player->money
 			]);
-		$this->player->money = $plusMoney;
+		$this->updateStats();
 		return [
 			'xp' => $plusXp,
 			'money' => $plusMoney
 		];
 	}
+
+	private function updateStats() {
+    $newStats = $this->userRepository->getUser($this->player->id);
+		$this->player->xp = $newStats->xp;
+		$this->player->xp_max = $newStats->xp_max;
+		$this->player->xp_min = $newStats->xp_min;
+		$this->player->money = $newStats->money;
+		$this->player->level = $newStats->level;
+		$this->player->energy = $newStats->energy;
+		$this->player->energy_max = $newStats->energy_max;
+  }
 }

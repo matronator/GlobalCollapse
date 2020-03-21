@@ -19,6 +19,7 @@ class UserRepository
 
     private $expGain = 1;
     private $expMaxBase = 150;
+    private $maxEnergyBase = 100;
 
     public $roles = [
         USER_ROLE_ADMIN => 'Admin',
@@ -91,8 +92,9 @@ class UserRepository
         $this->getUser($id)->update([
             'xp' => $newXp
         ]);
-        if ($newXp >= $xpMax) {
-            $this->levelUp($id, $level);
+        while ($xpMax <= $newXp) {
+            $level += 1;
+            $xpMax = $this->levelUp($id, $level);
         }
     }
 
@@ -104,15 +106,21 @@ class UserRepository
      * @return void
      */
     public function levelUp(int $id, int $lvl) {
-        $player = $this->getUser($id);
         $newLevel = $lvl + 1;
+        $energy = $this->getUser($id)->energy_max;
+        if ($newLevel <= 10) {
+            $energy = $this->getMaxEnergy($newLevel);
+        }
+        $oldMax = $this->getUser($id)->xp_max;
         $newMax = $this->getMaxExp($newLevel);
-        $player->level = $newLevel;
-        $player->xp_max = $newMax;
-        $player = $this->getUser($id)->update([
+        $this->getUser($id)->update([
+            'xp_min' => $oldMax,
             'xp_max' => $newMax,
-            'level' => $newLevel
+            'level' => $newLevel,
+            'energy' => $energy,
+            'energy_max' => $energy
         ]);
+        return $newMax;
     }
 
     /**
@@ -125,5 +133,18 @@ class UserRepository
      */
     private function getMaxExp(int $lvl): int {
         return round(pow($lvl, $this->expGain) * pow($lvl, ($lvl / $this->expMaxBase))) * $this->expMaxBase;
+    }
+
+    /**
+     * Function to calculate energy_max for each level up to 10
+     * Levels 10 and up have 200 energy
+     * Equation:
+     * level^2 + maxEnergyBase
+     *
+     * @param integer $lvl
+     * @return int
+     */
+    private function getMaxEnergy(int $lvl): int {
+        return pow($lvl, 2) + $this->maxEnergyBase;
     }
 }

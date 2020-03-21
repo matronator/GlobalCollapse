@@ -34,7 +34,18 @@ class BasePresenter extends Presenter
 		}
 
 		$this->defaultLocale = $this->translator->getDefaultLocale();
-	}
+    }
+
+    /**
+     * Shortcut translation method
+     * @param string $key
+     * @param array $args
+     * @return string
+     */
+    public function translate($key, $args = [])
+    {
+        return $this->translator->translate($key, $args);
+    }
 
 	protected function verifyRecaptcha($recaptcha_token)
     {
@@ -56,7 +67,7 @@ class BasePresenter extends Presenter
         $context  = stream_context_create($opts);
         $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
         $result = json_decode($response);
-        
+
         return $result;
     }
 

@@ -164,14 +164,17 @@ td.input-row {
   }
 }
 .illustration-split>:first-child {
-  width: 100%;
-  flex-grow: 2;
+  width: 45%;
   background-position: top;
   @media (max-width: 639px) {
+    width: 100%;
     min-height: 200px;
     background-position: center;
   }
 }
 .illustration-split>:last-child {
-  flex-grow: 5;
+  width: 55%;
+  @media (max-width: 639px) {
+    width: 100%;
+  }
 }

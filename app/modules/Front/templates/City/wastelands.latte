@@ -2,6 +2,24 @@
 {define pageTitle}Wastelands{/define}
 {define metaDescription}Wastelands{/define}
 
+{define results}
+  <div>
+    {_general.city.wastelands.scavengeDone,[
+      'hours' => $hours
+    ]|noescape}
+  </div>
+  <table class="uk-table uk-table-striped uk-table-small">
+    <tr>
+      <td>Money</td>
+      <td>+ ${$money}</td>
+    </tr>
+    <tr>
+      <td>XP</td>
+      <td>+ {$xp}</td>
+    </tr>
+  </table>
+{/define}
+
 {block pageContent}
 <div class="uk-container" uk-height-viewport="expand: true">
   <div class="dashboard uk-flex">
@@ -11,11 +29,12 @@
       <div class="uk-card-body">
         <h2>{_general.city.wastelands.wastelandsTitle}</h2>
         <h3>{_general.city.wastelands.scavengingTitle}</h3>
-        {snippet scavengeResults}
-          <p>asdsad</p>
-        {/snippet}
         {if $scavenging <= 0}
-          <p class="uk-margin-large-bottom">{_general.city.wastelands.scavengingText}</p>
+          {ifset $returned}
+            {include results, hours => $hours, money => $money, xp => $xpoints}
+          {else}
+            <p class="uk-margin-large-bottom">{_general.city.wastelands.scavengingText}</p>
+          {/ifset}
           {form scavengeForm}
             <div class="uk-flex uk-flex-center uk-padding">
               <button type="submit" class="uk-button uk-button-primary" n:name="scavenge">Go scavenging</button>

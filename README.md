@@ -22,8 +22,8 @@ So far, only the darknet is functional, as I just started working on this projec
 - [ ] **Bar** - this is where you'll get your missions from
 - [ ] **Wastelands** - area outside the city
   - [x] Scavenging
-    - [ ] Go scavenging into the wastelands and get some small reward
-    - [ ] Useful for when you will be out of the game for a while, so that your character does at least something while you're AFK
+    - [x] Go scavenging into the wastelands and get some small reward
+    - [x] Useful for when you will be out of the game for a while, so that your character does at least something while you're AFK
 
 ## Changelog
 
@@ -33,6 +33,7 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
 - Profile
   - Change avatar
+  - Character progression (leveling)
 - Darknet
   - Selling drugs
 - ADD: Wastelands

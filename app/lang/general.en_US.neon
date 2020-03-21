@@ -26,6 +26,7 @@ city:
 		scavenging: 'You cannot do anything else, because you are currently scavenging outside of the city. Do you want to return back?'
 		scavengingSince: 'You are scavenging since:'
 		scavengingReturn: 'Return from scavenging'
+		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
 
 drugs:
 	drugName: 'Drug'
