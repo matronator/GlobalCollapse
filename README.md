@@ -30,6 +30,18 @@ So far, only the darknet is functional, as I just started working on this projec
     - [x] Go scavenging into the wastelands and get some small reward
     - [x] Useful for when you will be out of the game for a while, so that your character does at least something while you're AFK
 
+## Support the project
+
+You can support this project by donating. Any donation would be a huge help and is much appreciated.
+
+Ko-fi: https://ko-fi.com/U7U2MDBC
+
+PayPal: https://www.paypal.me/matronator
+
+Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
+
+<a href="https://www.blockchain.com/btc/payment_request?address=35VRpVQaqFWjUCnVRpGineShz76QyYgSVg" target="_blank"><img src=".github/btc.png"></a>
+
 ## Changelog
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
