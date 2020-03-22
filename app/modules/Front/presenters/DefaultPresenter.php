@@ -41,6 +41,7 @@ final class DefaultPresenter extends BasePresenter
 		$this->template->articles = $this->articles->findAll();
 		$player = $this->user->getIdentity();
 		if (isset($player->id)) {
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$avatars = [];
 			for ($i = 1; $i <= 20; $i++) {
 				$avatars[$i] = $i;
