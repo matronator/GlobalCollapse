@@ -178,3 +178,25 @@ td.input-row {
     width: 100%;
   }
 }
+.illustration-card {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  background-position: bottom;
+  background-size: cover;
+  & h2 {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    word-break: keep-all;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-weight: 600;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+  }
+}
