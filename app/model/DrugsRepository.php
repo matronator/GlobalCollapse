@@ -51,6 +51,8 @@ class DrugsRepository
 		} else {
 			if ($qtty > 0) {
 				$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->insert([
+					'user_id' => $userId,
+					'drugs_id' => $drugId,
 					'quantity' => $qtty
 				]);
 				return true;
