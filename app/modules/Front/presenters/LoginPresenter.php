@@ -32,6 +32,19 @@ final class LoginPresenter extends BasePresenter
 		$this->userRepository = $userRepository;
 	}
 
+	protected function startup()
+	{
+		parent::startup();
+		if ($this->user->isLoggedIn()) {
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			if ($player->tutorial == 0) {
+				$this->redirect('Intro:default');
+			} else {
+				$this->redirect('Default:default');
+			}
+		}
+	}
+
 	public function renderLogin()
 	{
 		$this->template->articles = $this->articles->findAll();
@@ -41,10 +54,10 @@ final class LoginPresenter extends BasePresenter
 	{
 			$form = new Form();
 			$form->setHtmlAttribute('class', 'uk-form-horizontal');
-			$form->addEmail('email', 'Email')
-					->setHtmlAttribute('placeholder', 'E-mail')
+			$form->addText('username', 'Username')
 					->setHtmlAttribute('class', 'uk-input')
-					->setHtmlId('email')
+					->setHtmlId('username')
+					->setHtmlAttribute('placeholder', 'Username')
 					->setRequired();
 			$form->addPassword('password', 'Password')
 					->setHtmlAttribute('placeholder', 'Password')
@@ -60,9 +73,9 @@ final class LoginPresenter extends BasePresenter
 	public function loginFormSucceeded(Form $form, ArrayHash $values): void
 	{
 			try {
-					$this->getUser()->login($values->email, $values->password, NULL);
+					$this->getUser()->login($values->username, $values->password, NULL);
 					if ($values->backlink) {
-							$this->restoreRequest($values->backlink);
+						$this->restoreRequest($values->backlink);
 					} else {
 							$this->redirect('Default:');
 					}

@@ -25,8 +25,8 @@ class Authenticator implements Security\IAuthenticator
      */
     public function authenticate(array $credentials): IIdentity
     {
-        list($email, $password) = $credentials;
-        $row = $this->database->table('user')->where('email', $email)->fetch();
+        list($username, $password) = $credentials;
+        $row = $this->database->table('user')->where('username', $username)->fetch();
 
         $security = new Security\Passwords();
         if (!$row || !$security->verify($password, $row->password))

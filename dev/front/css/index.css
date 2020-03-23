@@ -30,4 +30,6 @@
 
 /* Section specific styles */
 
+@import "sections/intro.css";
+
 /* @import 'sections/homepage.css'; */

@@ -36,6 +36,11 @@ class UserRepository
         return $this->database->table('user');
     }
 
+    public function findAllStats()
+    {
+        return $this->database->table('player_stats');
+    }
+
     public function getUser(?int $id = null): ?ActiveRow
     {
         if (!$id)
@@ -66,8 +71,15 @@ class UserRepository
         $values->date_log = new \DateTime();
         $values->ip = $_SERVER["REMOTE_ADDR"];
         $user = $this->findAll()->insert($values);
+        $this->createStats($user);
         // $this->mailService->sendPasswordLink($user);
         return $user;
+    }
+
+    public function createStats($newuser) {
+        $this->findAllStats()->insert([
+            'user_id' => $newuser->id
+        ]);
     }
 
     public function updateUser(int $id, ArrayHash $values): ActiveRow
@@ -85,11 +97,11 @@ class UserRepository
      */
     public function addXp(int $id, $xp) {
         $player = $this->getUser($id);
-        $xpNow = $player->xp;
-        $xpMax = $player->xp_max;
-        $level = $player->level;
+        $xpNow = $player->player_stats->xp;
+        $xpMax = $player->player_stats->xp_max;
+        $level = $player->player_stats->level;
         $newXp = $xpNow + $xp;
-        $this->getUser($id)->update([
+        $this->getUser($id)->player_stats->update([
             'xp' => $newXp
         ]);
         while ($xpMax <= $newXp) {
@@ -107,13 +119,13 @@ class UserRepository
      */
     public function levelUp(int $id, int $lvl) {
         $newLevel = $lvl + 1;
-        $energy = $this->getUser($id)->energy_max;
+        $energy = $this->getUser($id)->player_stats->energy_max;
         if ($newLevel <= 10) {
             $energy = $this->getMaxEnergy($newLevel);
         }
-        $oldMax = $this->getUser($id)->xp_max;
+        $oldMax = $this->getUser($id)->player_stats->xp_max;
         $newMax = $this->getMaxExp($newLevel);
-        $this->getUser($id)->update([
+        $this->getUser($id)->player_stats->update([
             'xp_min' => $oldMax,
             'xp_max' => $newMax,
             'level' => $newLevel,

@@ -34,6 +34,12 @@ final class DefaultPresenter extends BasePresenter
 	protected function startup()
 	{
 			parent::startup();
+			if ($this->user->isLoggedIn()) {
+				$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+				if ($player->tutorial == 0) {
+					$this->redirect('Intro:');
+				}
+			}
 	}
 
 	public function renderDefault()
@@ -42,20 +48,22 @@ final class DefaultPresenter extends BasePresenter
 		$player = $this->user->getIdentity();
 		if (isset($player->id)) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$this->template->user = $player;
 			$avatars = [];
-			for ($i = 1; $i <= 20; $i++) {
+			for ($i = 1; $i <= 21; $i++) {
 				$avatars[$i] = $i;
 			}
+			$newStats = $this->userRepository->getUser($player->id);
 			$this->template->avatars = $avatars;
 			$this->template->userAvatar = $player->avatar;
-			$xp = $player->xp;
+			$xp = $newStats->player_stats->xp;
 			$this->template->xp = $xp;
-			$xpMax = $player->xp_max;
-			$xpMin = $player->xp_min;
+			$xpMax = $newStats->player_stats->xp_max;
+			$xpMin = $newStats->player_stats->xp_min;
 			$this->template->xpMax = $xpMax;
 			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
 
-			$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->fetchAll();
+			$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->order('drugs_id', 'ASC')->fetchAll();
 			if (count($drugsInventory) > 0) {
 				$this->template->drugsInventory = $drugsInventory;
 			} else {
@@ -71,7 +79,7 @@ final class DefaultPresenter extends BasePresenter
 	public function createComponentAvatarForm(): Form
 	{
 		$avatars = [];
-		for ($i = 1; $i <= 20; $i++) {
+		for ($i = 1; $i <= 21; $i++) {
 			$avatars[$i] = $i;
 		}
 		$form = new Form();
@@ -83,7 +91,7 @@ final class DefaultPresenter extends BasePresenter
 
 	public function avatarFormSucceeded(Form $form, $values): void {
 		$selected = $values->avatar;
-		if ($selected >= 1 && $selected <= 20) {
+		if ($selected >= 1 && $selected <= 21) {
 			$player = $this->user->getIdentity();
 			if ($player) {
 				$player->avatar = $selected;

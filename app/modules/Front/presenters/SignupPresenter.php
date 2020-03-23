@@ -27,6 +27,19 @@ final class SignupPresenter extends BasePresenter
         $this->passwords = $passwords;
     }
 
+    protected function startup()
+	{
+        parent::startup();
+		if ($this->user->isLoggedIn()) {
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			if ($player->tutorial == 0) {
+				$this->redirect('Intro:default');
+			} else {
+				$this->redirect('Default:default');
+			}
+		}
+	}
+
     public function renderDefault(): void
     {
         $this->template->anything = 'anything';

@@ -35,9 +35,9 @@
             <li>Energy</li>
           </ul>
           <ul class="uk-list uk-list-divider uk-margin-remove">
-            <li>{$user->level}</li>
+            <li>{$user->player_stats->level}</li>
             <li>${$user->money}</li>
-            <li>{$user->energy} / {$user->energy_max}</li>
+            <li>{$user->player_stats->energy} / {$user->player_stats->energy_max}</li>
           </ul>
         </div>
       </div>

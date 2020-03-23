@@ -1,0 +1,37 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Intro{/define}
+{define metaDescription}Intro{/define}
+
+{block pageContent}
+<div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+  <div class="dashboard uk-flex" n:if="$presenter->user->isLoggedIn()" uk-margin>
+    <div class="uk-card uk-width-expand uk-card-default uk-card-body">
+      {form avatarForm}
+        <h2 class="uk-text-center uk-margin-medium-bottom">{_general.intro.title}</h2>
+        <p class="uk-text-light">{_general.intro.greetings, [username => $uname]}</p>
+        <div data-step-id="1" class="is-current">
+          <h4>{_general.intro.steps.1.title}</h4>
+          <div class="intro-avatar_holder">
+            {foreach $form[avatar]->items as $key => $label}
+              <label class="avatar-label" n:name="avatar:$key">
+                <input class="uk-radio uk-input avatar-option" type="radio" n:name="avatar:$key">
+                <img src="{$basePath}/dist/front/images/default-avatars/{$key}.jpg" class="uk-comment-avatar avatar-preview" width="128" height="128">
+              </label>
+            {/foreach}
+          </div>
+        </div>
+        <div data-step-id="2" class="is-hidden">
+          <h4>{_general.intro.steps.1.title}</h4>
+        </div>
+        <div class="avatar-submit-holder uk-margin-top">
+          <a class="uk-button uk-button-primary" href="#" id="nextStep">Continue</a>
+          <button type="submit" class="uk-button uk-button-primary hidden" hidden n:name="submit">Next step</button>
+        </div>
+      {/form}
+    </div>
+  </div>
+</div>
+{ifset $disableSidebar}
+  <script defer src="{asset intro.js front}"></script>
+{/ifset}
+{/block}

@@ -38,7 +38,7 @@ final class CityPresenter extends GamePresenter
 		$this->template->drugs = $drugs;
 		$this->template->updated = $this->drugsRepository->findDrug(1)->fetch();
 		if (isset($this->player->id)) {
-			$drugsInventory = $this->drugsRepository->findDrugInventory($this->player->id)->fetchAll();
+			$drugsInventory = $this->drugsRepository->findDrugInventory($this->player->id)->order('drugs_id', 'ASC')->fetchAll();
 			if (count($drugsInventory) > 0) {
 				$this->template->drugsInventory = $drugsInventory;
 			}
@@ -228,12 +228,12 @@ final class CityPresenter extends GamePresenter
 
 	private function updateStats() {
     $newStats = $this->userRepository->getUser($this->player->id);
-		$this->player->xp = $newStats->xp;
-		$this->player->xp_max = $newStats->xp_max;
-		$this->player->xp_min = $newStats->xp_min;
+		$this->player->player_stats->xp = $newStats->player_stats->xp;
+		$this->player->player_stats->xp_max = $newStats->player_stats->xp_max;
+		$this->player->player_stats->xp_min = $newStats->player_stats->xp_min;
 		$this->player->money = $newStats->money;
-		$this->player->level = $newStats->level;
-		$this->player->energy = $newStats->energy;
-		$this->player->energy_max = $newStats->energy_max;
+		$this->player->player_stats->level = $newStats->player_stats->level;
+		$this->player->player_stats->energy = $newStats->player_stats->energy;
+		$this->player->player_stats->energy_max = $newStats->player_stats->energy_max;
   }
 }

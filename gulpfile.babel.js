@@ -77,7 +77,7 @@ const config = {
     entry: `dev/${module}/images/**`,
     watch: [`dev/${module}/images/**`],
     directory: `images`,
-    quality: 70 // 0 - worst, 100 - best
+    quality: 80 // 0 - worst, 100 - best
   },
   etc: {
     entry: `dev/${module}/etc/**`,

@@ -2,12 +2,12 @@
   {block sidebar}
     <div class="status-bar uk-flex uk-text-small uk-text-light">
       <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$user->money}</span>
-      <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->energy}/{$user->energy_max}</span>
+      <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$user->player_stats->energy_max}</span>
     </div>
     <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
       <li n:class="$presenter->isLinkCurrent('Default:*') ? uk-open, uk-parent">
         <a href="#" class="uk-nav-header">
-          {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->level}</small>
+          {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->player_stats->level}</small>
         </a>
         <ul class="uk-nav-sub">
           <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">Account</a></li>

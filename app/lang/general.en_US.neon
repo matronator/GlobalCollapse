@@ -6,6 +6,18 @@ homepage:
 	introLead: 'Deadly virus is spreading across the globe. Will you survive?'
 	introText: 'New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.'
 
+intro:
+	title: 'Welcome to Global Collapse: Pandemic!'
+	greetings: "Welcome to Global Collapse, %username%! Before you can begin your fight for survival, there's couple of things we have to do first. Let's start by choosing your avatar."
+	steps:
+		1:
+			title: 'Choose your avatar'
+			subtitle: "Don't worry, you can always change it later, in your profile section."
+		2:
+			response: "<p>Great choice, now that's the look of a true survivor!<br>Now it's time to distribute your starting skill points.</p>"
+			title: 'Choose your avatar'
+			subtitle: "Don't worry, you can always change it later, in your profile section."
+
 ui:
 	login: 'Login'
 	logout: 'Logout'
