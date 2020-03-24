@@ -46,6 +46,11 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.0.4] - 2020-03-24
+
+- Intro section for new players added
+- Updated character stats and table structure
+
 ## [0.0.3] - 2020-03-21
 
 - Profile
