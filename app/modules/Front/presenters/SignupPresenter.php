@@ -84,6 +84,7 @@ final class SignupPresenter extends BasePresenter
             $values->password = $this->passwords->hash($values->password);
             unset($values->passwordAgain);
             $this->userRepository->createUser($values);
+            $this->flashMessage('Registration successful! You can now login', 'success');
             $this->redirect('Login:default');
         } catch (BadRequestException $e) {
             $this->flashMessage($e->getMessage(), 'warning');

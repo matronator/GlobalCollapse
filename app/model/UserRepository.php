@@ -77,8 +77,19 @@ class UserRepository
     }
 
     public function createStats($newuser) {
-        $this->findAllStats()->insert([
+        $newStats = $this->findAllStats()->insert([
             'user_id' => $newuser->id
+        ]);
+        $this->getUser($newuser->id)->update([
+            'player_stats_id' => $newStats->id
+        ]);
+    }
+
+    public function updateStats($userId, $power, $stamina, $speed) {
+        $this->findAllStats()->where('user_id', $userId)->update([
+            'power' => $power,
+            'stamina' => $stamina,
+            'speed' => $speed
         ]);
     }
 

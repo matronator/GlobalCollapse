@@ -44,50 +44,56 @@ final class IntroPresenter extends GamePresenter
 		$this->template->avatars = $avatars;
 	}
 
-	public function createComponentAvatarForm(): Form
+	public function createComponentIntroForm(): Form
 	{
 		$avatars = [];
 		for ($i = 1; $i <= 21; $i++) {
 			$avatars[$i] = $i;
 		}
 		$form = new Form();
+		$form->setHtmlAttribute('id', 'introForm');
 		$form->addRadioList('avatar', 'Choose an avatar from the list:', $avatars)
 				 ->setDefaultValue(1);
-		$form->addSubmit('submit', 'Save');
-		$form->onSuccess[] = [$this, 'avatarFormSucceeded'];
+		$form->addHidden('power', '0')
+				 ->setHtmlAttribute('data-stat-hidden', 'power')
+				 ->setHtmlAttribute('data-extra-value', '0');
+		$form->addHidden('stamina', '0')
+				 ->setHtmlAttribute('data-stat-hidden', 'stamina')
+				 ->setHtmlAttribute('data-extra-value', '0');
+		$form->addHidden('speed', '0')
+				 ->setHtmlAttribute('data-stat-hidden', 'speed')
+				 ->setHtmlAttribute('data-extra-value', '0');
+		$form->onSuccess[] = [$this, 'introFormSucceeded'];
 		return $form;
 	}
 
-	public function avatarFormSucceeded(Form $form, $values): void {
+	public function introFormSucceeded(Form $form, $values): void {
 		$selected = $values->avatar;
-		if ($selected >= 1 && $selected <= 21) {
-			if ($this->player) {
-				$this->player->avatar = $selected;
-				$this->userRepository->getUser($this->player->id)->update([
-					'avatar' => $selected
-				]);
-				$this->flashMessage('Avatar changed', 'success');
+		$power = intval($values->power);
+		$stamina = intval($values->stamina);
+		$speed = intval($values->speed);
+		$statsTotal = $power + $stamina + $speed;
+		if ($statsTotal == 16) {
+			if ($selected >= 1 && $selected <= 21) {
+				if ($this->player) {
+					$this->player->avatar = $selected;
+					$this->userRepository->getUser($this->player->id)->update([
+						'avatar' => $selected,
+						'skillpoints' => 0,
+						'tutorial' => 1
+					]);
+					$this->userRepository->updateStats($this->player->id, $power, $stamina, $speed);
+					$this->player->tutorial = 1;
+					$this->flashMessage('Intro completed!', 'success');
+					$this->redirect('this');
+				}
+			} else {
+				$this->flashMessage('Invalid avatar, please try again.', 'warning');
 				$this->redirect('this');
 			}
+		} else {
+			$this->flashMessage('Invalid stats, try again.', 'danger');
+			$this->redirect('this');
 		}
-	}
-
-	private function endTutorial() {
-		$this->userRepository->getUser($this->player->id)->update([
-			'tutorial' => 1
-		]);
-		$this->player->tutorial = 1;
-		$this->updateStats();
-	}
-
-	private function updateStats() {
-    $newStats = $this->userRepository->getUser($this->player->id);
-		$this->player->power = $newStats->power;
-		$this->player->speed = $newStats->speed;
-		$this->player->health = $newStats->health;
-		$this->player->money = $newStats->money;
-		$this->player->skillpoints = $newStats->skillpoints;
-		$this->player->energy = $newStats->energy;
-		$this->player->energy_max = $newStats->energy_max;
 	}
 }

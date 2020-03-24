@@ -6,11 +6,12 @@
 <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
   <div class="dashboard uk-flex" n:if="$presenter->user->isLoggedIn()" uk-margin>
     <div class="uk-card uk-width-expand uk-card-default uk-card-body">
-      {form avatarForm}
-        <h2 class="uk-text-center uk-margin-medium-bottom">{_general.intro.title}</h2>
-        <p class="uk-text-light">{_general.intro.greetings, [username => $uname]}</p>
+      {form introForm}
         <div data-step-id="1" class="is-current">
+          <h2 class="uk-text-center uk-margin-medium-bottom">{_general.intro.title}</h2>
+          <p class="uk-text-light">{_general.intro.greetings, [username => $uname]}</p>
           <h4>{_general.intro.steps.1.title}</h4>
+          <p>{_general.intro.steps.1.subtitle}</p>
           <div class="intro-avatar_holder">
             {foreach $form[avatar]->items as $key => $label}
               <label class="avatar-label" n:name="avatar:$key">
@@ -21,11 +22,50 @@
           </div>
         </div>
         <div data-step-id="2" class="is-hidden">
-          <h4>{_general.intro.steps.1.title}</h4>
+          {_general.intro.steps.2.response|noescape}
+          <h4>{_general.intro.steps.2.title}</h4>
+          <p>{_general.intro.steps.2.subtitle}</p>
+          <p>You have <span class="uk-text-bold" id="pointsLeft">4</span> stat points left.<p>
+          <div class="stat-table-holder">
+            <table class="uk-table uk-table-striped uk-table-small uk-table-hover">
+              <tr>
+                <th class="uk-text-nowrap uk-table-expand">Stat</th>
+                <th class="uk-text-nowrap">Base value</th>
+                <th class="uk-text-nowrap border-left uk-table-auto uk-text-center">Add</th>
+                <th class="uk-text-nowrap uk-table-shrink uk-text-center">Extra</th>
+                <th class="uk-text-nowrap uk-table-auto uk-text-center">Remove</th>
+              </tr>
+              <tr>
+                <td class="uk-text-nowrap">Power</td>
+                <td class="uk-text-nowrap" data-total-stat="power">3</td>
+                <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="power" id="power-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
+                <td class="uk-text-nowrap uk-text-center" data-extra-stat="power">0</td>
+                <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="power" id="power-remove" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
+              </tr>
+              <tr>
+                <td class="uk-text-nowrap">Stamina</td>
+                <td class="uk-text-nowrap" data-total-stat="stamina">7</td>
+                <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="stamina" id="stamina-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
+                <td class="uk-text-nowrap uk-text-center" data-extra-stat="stamina">0</td>
+                <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="stamina" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
+              </tr>
+              <tr>
+                <td class="uk-text-nowrap">Speed</td>
+                <td class="uk-text-nowrap" data-total-stat="speed">2</td>
+                <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="speed" id="speed-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
+                <td class="uk-text-nowrap uk-text-center" data-extra-stat="speed">0</td>
+                <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="speed" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
+              </tr>
+            </table>
+          </div>
         </div>
-        <div class="avatar-submit-holder uk-margin-top">
-          <a class="uk-button uk-button-primary" href="#" id="nextStep">Continue</a>
-          <button type="submit" class="uk-button uk-button-primary hidden" hidden n:name="submit">Next step</button>
+        <div data-step-id="3" class="is-hidden">
+          <p>{_general.intro.steps.3.response}</p>
+          <h3>{_general.intro.steps.3.title}</h3>
+          <p>{_general.intro.steps.3.subtitle}</p>
+        </div>
+        <div class="uk-margin-top uk-flex uk-flex-center">
+          <button class="uk-button uk-button-primary" type="button" id="nextStep">Continue</button>
         </div>
       {/form}
     </div>

@@ -9,3 +9,16 @@
 .is-hidden {
   display: none;
 }
+
+.stat-table-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  & table {
+    width: 60%;
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+  }
+}
