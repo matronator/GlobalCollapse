@@ -31,7 +31,6 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
 	protected function beforeRender()
 	{
-		$this->template->pages = $this->pages->findAll();
 		$this->template->urlAbsolutePath = $this->getURL()->hostUrl;
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;
@@ -39,6 +38,10 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		if ($this->user->isLoggedIn()) {
 			$this->template->user = $this->userRepository->getUser($this->user->getIdentity()->id);
 		}
+	}
+
+	public function handleChangeLocale(string $locale) {
+		$this->redirect('this', ['locale' => $locale]);
 	}
 
 	public function isAllowed($privilege, $resource = null)

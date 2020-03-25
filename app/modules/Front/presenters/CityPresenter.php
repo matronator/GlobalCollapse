@@ -219,22 +219,9 @@ final class CityPresenter extends GamePresenter
 		$this->userRepository->getUser($this->player->id)->update([
 			'money' => $plusMoney + $this->player->money
 			]);
-		$this->updateStats();
 		return [
 			'xp' => $plusXp,
 			'money' => $plusMoney
 		];
 	}
-
-	private function updateStats() {
-		$this->player = $this->userRepository->getUser($this->user->getIdentity()->id);
-    $newStats = $this->userRepository->getUser($this->user->getIdentity()->id);
-		$this->player->player_stats->xp = $newStats->player_stats->xp;
-		$this->player->player_stats->xp_max = $newStats->player_stats->xp_max;
-		$this->player->player_stats->xp_min = $newStats->player_stats->xp_min;
-		$this->player->money = $newStats->money;
-		$this->player->player_stats->level = $newStats->player_stats->level;
-		$this->player->player_stats->energy = $newStats->player_stats->energy;
-		$this->player->player_stats->energy_max = $newStats->player_stats->energy_max;
-  }
 }

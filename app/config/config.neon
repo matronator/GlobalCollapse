@@ -1,9 +1,6 @@
 parameters:
 
-
 application:
-	errorPresenter: Error
-	# catchExceptions: true
 	mapping:
 		*: App\*Module\Presenters\*Presenter
 
@@ -11,7 +8,7 @@ session:
 	expiration: 14 days
 
 tracy:
-	email: error@matronator.cz
+	email: error@matronator.com
 	showLocation: true
 
 services:
@@ -33,7 +30,7 @@ services:
 
 http:
     headers:
-        X-Powered-By: matronator CMS # for security sake
+        X-Powered-By: StarterPack CMS # for security sake
 
 latte:
     macros:
