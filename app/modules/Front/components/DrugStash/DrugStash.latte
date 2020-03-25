@@ -1,0 +1,27 @@
+<table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+  <thead>
+    <tr>
+      <th class="uk-text-nowrap uk-table-expand">{_general.drugs.drugName}</th>
+      <th class="uk-text-nowrap">{_general.drugs.yourStash}</th>
+    </tr>
+  </thead>
+  <tbody>
+  {if isset($drugsInventory)}
+    {foreach $drugsInventory as $drugInventory}
+      {var $name = $drugInventory->drugs->name}
+      <tr>
+        <td class="uk-text-nowrap">{_general.drugs.$name.name}</td>
+        <td class="uk-text-nowrap uk-text-italic"><strong>{$drugInventory->quantity}</strong> g</td>
+      </tr>
+    {/foreach}
+  {else}
+    {foreach $drugs as $drug}
+      {var $name = $drug->name}
+      <tr>
+        <td class="uk-text-nowrap">{_general.drugs.$name.name}</td>
+        <td class="uk-text-nowrap uk-text-italic"><strong>0</strong> g</td>
+      </tr>
+    {/foreach}
+  {/if}
+  </tbody>
+</table>

@@ -1,0 +1,18 @@
+<table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+  <thead>
+    <tr>
+      <th class="uk-text-nowrap uk-table-shrink">#</th>
+      <th class="uk-text-nowrap uk-table-expand">Player</th>
+      <th class="uk-text-nowrap">Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    {foreach $users as $user}
+      <tr>
+        <td class="uk-text-nowrap">{$iterator->counter}</td>
+        <td class="uk-text-nowrap">{$user->username}</td>
+        <td class="uk-text-nowrap">{$user->player_stats->level}</td>
+      </tr>
+    {/foreach}
+  </tbody>
+</table>

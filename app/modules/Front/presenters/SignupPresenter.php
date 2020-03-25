@@ -58,6 +58,7 @@ final class SignupPresenter extends BasePresenter
             ->setHtmlAttribute('class', 'uk-input')
             ->setHtmlId('username')
             ->setHtmlAttribute('placeholder', 'Username')
+            ->addRule(Form::MIN_LENGTH, 'Username must be at least 3 characters long', 3)
             ->setRequired();
         $form->addPassword('password', 'Password')
             ->setHtmlAttribute('class', 'uk-input')

@@ -18,9 +18,9 @@ intro:
 			title: 'Assign your stats'
 			subtitle: "You have 4 starting stat points to distribute between your base stats. Hover over a stat to get more info about it. You can earn stat points in training or when you reach a new level."
 		3:
-			response: "Great, now you're good to go!"
+			response: "Great, now you're good to go! Or do you need five more minutes?"
 			title: 'Are you ready?'
-			subtitle: "Or do you need five more minutes? Click continue to start your adventure."
+			subtitle: "Click continue to start your adventure."
 
 ui:
 	login: 'Login'

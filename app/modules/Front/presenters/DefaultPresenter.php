@@ -45,8 +45,7 @@ final class DefaultPresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->articles = $this->articles->findAll();
-		$player = $this->user->getIdentity();
-		if (isset($player->id)) {
+		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$this->template->user = $player;
 			$avatars = [];
@@ -70,6 +69,14 @@ final class DefaultPresenter extends BasePresenter
 				$drugs = $this->drugsRepository->findAll();
 				$this->template->drugs = $drugs;
 			}
+
+			// Leaderboard
+			$lastPage = 0;
+			$page = 1;
+			$leaderboard = $this->userRepository->findUsers()->page($page, 10, $lastPage);
+			$this->template->users = $leaderboard;
+			$this->template->lastPage = $lastPage;
+			$this->template->page = $page;
 		} else {
 			$drugs = $this->drugsRepository->findAll();
 			$this->template->drugs = $drugs;

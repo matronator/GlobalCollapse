@@ -36,6 +36,11 @@ class UserRepository
         return $this->database->table('user');
     }
 
+    public function findUsers()
+    {
+        return $this->database->table('user')->order('player_stats.level DESC');
+    }
+
     public function findAllStats()
     {
         return $this->database->table('player_stats');
@@ -45,7 +50,7 @@ class UserRepository
     {
         if (!$id)
             return null;
-        return $this->findAll()
+        return $this->findUsers()
             ->wherePrimary($id)
             ->fetch();
     }
