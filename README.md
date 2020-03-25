@@ -25,7 +25,7 @@ So far, only the darknet is functional, as I just started working on this projec
   - [ ] Weapon trade
 - [ ] **Market** - for buying other stuff
 - [ ] **Bar** - this is where you'll get your missions from
-- [ ] **Wastelands** - area outside the city
+- [x] **Wastelands** - area outside the city
   - [x] Scavenging
     - [x] Go scavenging into the wastelands and get some small reward
     - [x] Useful for when you will be out of the game for a while, so that your character does at least something while you're AFK
@@ -45,6 +45,11 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 ## Changelog
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
+
+## [0.0.4] - 2020-03-24
+
+- Intro section for new players added
+- Updated character stats and table structure
 
 ## [0.0.3] - 2020-03-21
 
