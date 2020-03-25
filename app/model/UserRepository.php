@@ -141,6 +141,10 @@ class UserRepository
         }
         $oldMax = $this->getUser($id)->player_stats->xp_max;
         $newMax = $this->getMaxExp($newLevel);
+        $sp = $this->getUser($id)->skillpoints + 1;
+        $this->getUser($id)->update([
+            'skillpoints' => $sp
+        ]);
         $this->getUser($id)->player_stats->update([
             'xp_min' => $oldMax,
             'xp_max' => $newMax,

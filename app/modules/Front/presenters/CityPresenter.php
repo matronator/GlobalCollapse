@@ -227,6 +227,7 @@ final class CityPresenter extends GamePresenter
 	}
 
 	private function updateStats() {
+		$this->player = $this->userRepository->getUser($this->user->getIdentity()->id);
     $newStats = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$this->player->player_stats->xp = $newStats->player_stats->xp;
 		$this->player->player_stats->xp_max = $newStats->player_stats->xp_max;
