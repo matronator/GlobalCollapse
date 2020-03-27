@@ -75,23 +75,24 @@ class UserRepository
         $values->registration = new \DateTime();
         $values->date_log = new \DateTime();
         $values->ip = $_SERVER["REMOTE_ADDR"];
+        $stats = $this->createStats();
+        $values->player_stats_id = $stats->id;
         $user = $this->findAll()->insert($values);
-        $this->createStats($user);
         // $this->mailService->sendPasswordLink($user);
         return $user;
     }
 
-    public function createStats($newuser) {
-        $newStats = $this->findAllStats()->insert([
-            'user_id' => $newuser->id
-        ]);
-        $this->getUser($newuser->id)->update([
-            'player_stats_id' => $newStats->id
-        ]);
+    // public function createStats($newuser) {
+    //     $this->findAllStats()->insert([
+    //         'user_id' => $newuser->id
+    //     ]);
+    // }
+    public function createStats() {
+        return $this->findAllStats()->insert([]);
     }
 
     public function updateStats($userId, $power, $stamina, $speed) {
-        $this->findAllStats()->where('user_id', $userId)->update([
+        $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
             'power' => $power,
             'stamina' => $stamina,
             'speed' => $speed
