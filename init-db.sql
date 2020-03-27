@@ -1,165 +1,187 @@
--- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
---
--- Počítač: 127.0.0.1:3306
--- Vytvořeno: Pát 08. úno 2019, 12:56
--- Verze serveru: 5.7.21
--- Verze PHP: 7.1.16
+-- Adminer 4.7.6 MySQL dump
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Databáze: `globalcollapse`
---
-
--- --------------------------------------------------------
-
---
--- Struktura tabulky `article`
---
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `article`;
-CREATE TABLE IF NOT EXISTS `article` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `date` DATETIME,
-  `image` VARCHAR(64) COLLATE utf8_unicode_ci,
-  `visible` BOOLEAN COLLATE utf8_unicode_ci DEFAULT 0,
-  `updated_at` DATETIME,
-  `created_at` DATETIME,
+CREATE TABLE `article` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `date` datetime DEFAULT NULL,
+  `image` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `visible` tinyint(1) DEFAULT '0',
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Struktura tabulky `article_tag`
---
+TRUNCATE `article`;
 
 DROP TABLE IF EXISTS `article_tag`;
-CREATE TABLE IF NOT EXISTS `article_tag` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `article_id` INT(11),
-  `locale` char(2) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `htaccess` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `updated_at` DATETIME,
-  `created_at` DATETIME,
+CREATE TABLE `article_tag` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `article_id` int DEFAULT NULL,
+  `locale` char(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `htaccess` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Struktura tabulky `article_translation`
---
+TRUNCATE `article_tag`;
 
 DROP TABLE IF EXISTS `article_translation`;
-CREATE TABLE IF NOT EXISTS `article_translation` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `article_id` INT(11),
-  `locale` char(2) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(512) COLLATE utf8_unicode_ci,
-  `perex` text COLLATE utf8_unicode_ci,
-  `text` text COLLATE utf8_unicode_ci,
-  `htaccess` varchar(512) COLLATE utf8_unicode_ci,
-  `updated_at` DATETIME,
-  `created_at` DATETIME,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
-DROP TABLE IF EXISTS `page`;
-CREATE TABLE IF NOT EXISTS `page` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `parent_id` INT(11) NOT NULL DEFAULT 0,
-  `level` INT(11) NOT NULL DEFAULT 0,
-  `order` INT(11) NOT NULL DEFAULT 9999,
-  `type` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'content',
-  `image` VARCHAR(64) COLLATE utf8_unicode_ci,
-  `visible` BOOLEAN COLLATE utf8_unicode_ci DEFAULT 0,
-  `url` text COLLATE utf8_unicode_ci,
-  `updated_at` DATETIME,
-  `created_at` DATETIME,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-DROP TABLE IF EXISTS `page_translation`;
-CREATE TABLE IF NOT EXISTS `page_translation` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `page_id` INT(11),
-  `locale` char(2) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
-  `perex` text COLLATE utf8_unicode_ci,
-  `text` text COLLATE utf8_unicode_ci,
-  `htaccess` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
-  `updated_at` DATETIME,
-  `created_at` DATETIME,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Struktura tabulky `page_image`
---
-
-DROP TABLE IF EXISTS `page_image`;
-CREATE TABLE IF NOT EXISTS `page_image` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `page_id` INT(11) NOT NULL,
-  `filename` varchar(128) COLLATE utf8_unicode_ci,
-  `updated_at` DATETIME,
-  `created_at` DATETIME,
+CREATE TABLE `article_translation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `article_id` int DEFAULT NULL,
+  `locale` char(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(512) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `perex` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `htaccess` varchar(512) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
+TRUNCATE `article_translation`;
 
---
--- Struktura tabulky `user`
---
+DROP TABLE IF EXISTS `contact_form`;
+CREATE TABLE `contact_form` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `data` text NOT NULL,
+  `datetime` datetime NOT NULL,
+  `ip` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+TRUNCATE `contact_form`;
+
+SET NAMES utf8mb4;
+
+DROP TABLE IF EXISTS `drugs`;
+CREATE TABLE `drugs` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` int NOT NULL,
+  `min` int NOT NULL,
+  `max` int NOT NULL,
+  `past_price` int NOT NULL,
+  `updated` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE `drugs`;
+INSERT INTO `drugs` (`id`, `name`, `price`, `min`, `max`, `past_price`, `updated`) VALUES
+(1,	'Weed',	11,	3,	20,	10,	'2020-03-19 19:30:49'),
+(2,	'Ecstasy',	22,	5,	25,	15,	'2020-03-19 19:30:49'),
+(3,	'Meth',	67,	25,	85,	40,	'2020-03-19 19:30:49'),
+(4,	'Heroin',	105,	50,	100,	85,	'2020-03-23 10:20:51'),
+(5,	'Coke',	148,	60,	150,	92,	'2020-03-23 10:21:00');
+
+DROP TABLE IF EXISTS `drugs_inventory`;
+CREATE TABLE `drugs_inventory` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `drugs_id` int NOT NULL,
+  `quantity` int DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `drugs_id` (`drugs_id`),
+  CONSTRAINT `drugs_inventory_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `drugs_inventory_ibfk_2` FOREIGN KEY (`drugs_id`) REFERENCES `drugs` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE `drugs_inventory`;
+
+DROP TABLE IF EXISTS `page`;
+CREATE TABLE `page` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `parent_id` int NOT NULL DEFAULT '0',
+  `level` int NOT NULL DEFAULT '0',
+  `order` int NOT NULL DEFAULT '9999',
+  `type` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'content',
+  `image` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `visible` tinyint(1) DEFAULT '0',
+  `url` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+TRUNCATE `page`;
+
+DROP TABLE IF EXISTS `page_image`;
+CREATE TABLE `page_image` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `page_id` int NOT NULL,
+  `filename` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+TRUNCATE `page_image`;
+
+DROP TABLE IF EXISTS `page_translation`;
+CREATE TABLE `page_translation` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `page_id` int DEFAULT NULL,
+  `locale` char(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(512) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `perex` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `text` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `htaccess` varchar(512) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+TRUNCATE `page_translation`;
+
+DROP TABLE IF EXISTS `player_stats`;
+CREATE TABLE `player_stats` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `level` int NOT NULL DEFAULT '1',
+  `power` int NOT NULL DEFAULT '3',
+  `stamina` int NOT NULL DEFAULT '7',
+  `speed` int NOT NULL DEFAULT '2',
+  `energy` int NOT NULL DEFAULT '100',
+  `energy_max` int NOT NULL DEFAULT '100',
+  `xp` int NOT NULL DEFAULT '0',
+  `xp_min` int NOT NULL DEFAULT '0',
+  `xp_max` int NOT NULL DEFAULT '150',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE `player_stats`;
 
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `firstname` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
-  `username` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
-  `ip` varchar(30) COLLATE utf8_unicode_ci,
-  `last_log` datetime NOT NULL,
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_log` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `registration` datetime NOT NULL,
-  `role` varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'u',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `role` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'u',
+  `avatar` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '3',
+  `money` int NOT NULL DEFAULT '25',
+  `skillpoints` int NOT NULL DEFAULT '4',
+  `scavenging` int NOT NULL DEFAULT '0',
+  `scavenge_start` datetime DEFAULT NULL,
+  `tutorial` int NOT NULL DEFAULT '0',
+  `player_stats_id` int DEFAULT NULL,
+  `on_mission` int NOT NULL DEFAULT '0',
+  `mission_start` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `player_stats_id` (`player_stats_id`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`player_stats_id`) REFERENCES `player_stats` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Vypisuji data pro tabulku `user`
---
+TRUNCATE `user`;
 
-INSERT INTO `user` (`id`, `password`, `firstname`, `lastname`, `username`, `ip`, date_log, `registration`, `role`) VALUES
-(0, '$2y$10$PuPWZACCJGqG8Z6b472sxuEgbxu2au8TuhMwjWoumO3SdEeb91j4a', 'Admin', 'Účet', 'info@visualio.cz', '::1', '2019-01-28 15:19:55', '2017-01-24 00:00:00', 'a');
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-CREATE TABLE `contact_form` (
- `id` int(11) NOT NULL AUTO_INCREMENT,
- `data` text NOT NULL,
- `datetime` datetime NOT NULL,
- `ip` varchar(40) NOT NULL,
- PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+-- 2020-03-27 10:58:58
