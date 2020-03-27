@@ -219,6 +219,7 @@ final class CityPresenter extends GamePresenter
 		$this->userRepository->getUser($this->player->id)->update([
 			'money' => $plusMoney + $this->player->money
 			]);
+		$this->player->money += $plusMoney;
 		return [
 			'xp' => $plusXp,
 			'money' => $plusMoney

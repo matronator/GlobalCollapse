@@ -1,0 +1,16 @@
+.is-hidden {
+  display: none;
+}
+
+.training-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  & table {
+    width: 100%;
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+  }
+}

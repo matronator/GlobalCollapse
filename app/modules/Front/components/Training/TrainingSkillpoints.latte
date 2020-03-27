@@ -1,0 +1,34 @@
+{form skillpointsForm}
+  <div class="training-holder">
+    <table class="uk-table uk-table-striped uk-table-small uk-table-hover">
+      <tr>
+        <th class="uk-text-nowrap uk-table-expand">Stat</th>
+        <th class="uk-text-nowrap">Current value</th>
+        <th class="uk-text-nowrap border-left uk-table-auto uk-text-center">Add</th>
+        <th class="uk-text-nowrap uk-table-shrink uk-text-center">Extra</th>
+        <th class="uk-text-nowrap uk-table-auto uk-text-center">Remove</th>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">Strength</td>
+        <td class="uk-text-nowrap" data-total-stat="strength">3</td>
+        <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="strength" id="strength-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
+        <td class="uk-text-nowrap uk-text-center" data-extra-stat="strength">0</td>
+        <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="strength" id="strength-remove" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">Stamina</td>
+        <td class="uk-text-nowrap" data-total-stat="stamina">7</td>
+        <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="stamina" id="stamina-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
+        <td class="uk-text-nowrap uk-text-center" data-extra-stat="stamina">0</td>
+        <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="stamina" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">Speed</td>
+        <td class="uk-text-nowrap" data-total-stat="speed">2</td>
+        <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="speed" id="speed-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
+        <td class="uk-text-nowrap uk-text-center" data-extra-stat="speed">0</td>
+        <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="speed" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
+      </tr>
+    </table>
+  </div>
+{/form}

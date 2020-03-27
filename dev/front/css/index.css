@@ -32,4 +32,6 @@
 
 @import "sections/intro.css";
 
+@import "../../../app/modules/Front/components/Training/Training.css";
+
 /* @import 'sections/homepage.css'; */

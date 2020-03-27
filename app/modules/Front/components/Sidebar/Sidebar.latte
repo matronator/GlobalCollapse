@@ -11,17 +11,17 @@
         </a>
         <ul class="uk-nav-sub">
           <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">Account</a></li>
-          <li><a href="#">Training<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
+          <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a href="/training">Training</a></li>
           <li><a href="#">Rest<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li class="uk-nav-divider"></li>
           <li><a href="#">Home<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li><a href="#">Buildings<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
         </ul>
       </li>
-      <li n:class="$presenter->isLinkCurrent('City:*') ? uk-open, uk-parent">
+      <li n:class="$presenter->isLinkCurrent('City:*') | $presenter->isLinkCurrent('Bar:*') ? uk-open, uk-parent">
         <a href="#" class="uk-nav-header">City</a>
         <ul class="uk-nav-sub">
-          <li><a href="#">Bar<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
+          <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a href="/bar">Bar</a></li>
           <li class="uk-nav-divider"></li>
           <li><a href="#">Market<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li n:class="$presenter->isLinkCurrent('City:darknet') ? uk-active"><a href="/darknet">Darknet</a></li>

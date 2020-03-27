@@ -38,7 +38,7 @@ class UserRepository
 
     public function findUsers()
     {
-        return $this->database->table('user')->order('player_stats.level DESC');
+        return $this->database->table('user')->order('player_stats.level, player_stats.power DESC');
     }
 
     public function findAllStats()
@@ -50,7 +50,7 @@ class UserRepository
     {
         if (!$id)
             return null;
-        return $this->findUsers()
+        return $this->findAll()
             ->wherePrimary($id)
             ->fetch();
     }
@@ -86,11 +86,12 @@ class UserRepository
         return $this->findAllStats()->insert([]);
     }
 
-    public function updateStats($userId, $power, $stamina, $speed) {
+    public function updateStats($userId, $strength, $stamina, $speed) {
         $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
-            'power' => $power,
+            'strength' => $strength,
             'stamina' => $stamina,
-            'speed' => $speed
+            'speed' => $speed,
+            'power' => $strength + $stamina + $speed
         ]);
     }
 

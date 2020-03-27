@@ -54,8 +54,8 @@ final class IntroPresenter extends GamePresenter
 		$form->setHtmlAttribute('id', 'introForm');
 		$form->addRadioList('avatar', 'Choose an avatar from the list:', $avatars)
 				 ->setDefaultValue(1);
-		$form->addHidden('power', '0')
-				 ->setHtmlAttribute('data-stat-hidden', 'power')
+		$form->addHidden('strength', '0')
+				 ->setHtmlAttribute('data-stat-hidden', 'strength')
 				 ->setHtmlAttribute('data-extra-value', '0');
 		$form->addHidden('stamina', '0')
 				 ->setHtmlAttribute('data-stat-hidden', 'stamina')
@@ -69,10 +69,10 @@ final class IntroPresenter extends GamePresenter
 
 	public function introFormSucceeded(Form $form, $values): void {
 		$selected = $values->avatar;
-		$power = intval($values->power);
+		$strength = intval($values->strength);
 		$stamina = intval($values->stamina);
 		$speed = intval($values->speed);
-		$statsTotal = $power + $stamina + $speed;
+		$statsTotal = $strength + $stamina + $speed;
 		if ($statsTotal == 16) {
 			if ($selected >= 1 && $selected <= 21) {
 				if ($this->player) {
@@ -82,7 +82,7 @@ final class IntroPresenter extends GamePresenter
 						'skillpoints' => 0,
 						'tutorial' => 1
 					]);
-					$this->userRepository->updateStats($this->player->id, $power, $stamina, $speed);
+					$this->userRepository->updateStats($this->player->id, $strength, $stamina, $speed);
 					$this->player->tutorial = 1;
 					$this->flashMessage('Intro completed!', 'success');
 					$this->redirect('this');

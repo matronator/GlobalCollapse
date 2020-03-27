@@ -1,0 +1,50 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Training{/define}
+{define metaDescription}Training{/define}
+
+{block pageContent}
+<div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+  <div class="dashboard uk-flex" uk-margin>
+    <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
+      <h3 class="uk-card-title">{$user->username}</h3>
+      <div class="uk-flex">
+        <div class="uk-width-auto uk-margin-right">
+          <div class="uk-position-relative">
+            <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}.jpg" class="uk-comment-avatar" width="96" height="96">
+          </div>
+        </div>
+        <div class="uk-width-expand uk-child-width-1-2 uk-flex">
+          <ul class="uk-list uk-list-divider uk-margin-remove">
+            <li>Level</li>
+            <li>Money</li>
+            <li>Energy</li>
+          </ul>
+          <ul class="uk-list uk-list-divider uk-margin-remove">
+            <li>{$user->player_stats->level}</li>
+            <li>${$user->money}</li>
+            <li>{$user->player_stats->energy} / {$user->player_stats->energy_max}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="uk-width-expand uk-flex uk-margin-top">
+        <div class="progress-bar">
+          <div class="progress-bar-fill" style="width:{$progressValue}%;">
+          </div>
+          <p class="progress-bar-value uk-text-small">{$user->player_stats->xp}/{$user->player_stats->xp_max}</p>
+        </div>
+      </div>
+      <div n:if="$skillpoints > 0" class="uk-width-expand uk-flex uk-margin-top">
+        {include '../../components/Training/TrainingSkillpoints.latte'}
+      </div>
+    </div>
+    <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+        {include '../../components/Training/Training.latte',
+          strength => $user->player_stats->strength,
+          stamina => $user->player_stats->stamina,
+          speed => $user->player_stats->speed,
+          power => $user->player_stats->power
+        }
+    </div>
+  </div>
+</div>
+{/block}

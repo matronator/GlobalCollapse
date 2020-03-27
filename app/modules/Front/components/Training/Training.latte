@@ -1,0 +1,25 @@
+{form trainingForm}
+  <div class="training-holder">
+    <table class="uk-table uk-table-striped uk-table-small uk-table-hover">
+      <tr>
+        <td class="uk-text-nowrap">Strength</td>
+        <td class="uk-text-nowrap" data-total-stat="strength">{$strength}</td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-secondary" n:name="speed">Train</button></td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">Stamina</td>
+        <td class="uk-text-nowrap" data-total-stat="stamina">{$stamina}</td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-danger" n:name="stamina">Train</button></td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">Speed</td>
+        <td class="uk-text-nowrap" data-total-stat="speed">{$speed}</td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-primary" n:name="speed">Train</button></td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap" colspan="2">Power total</td>
+        <td class="uk-text-nowrap" data-total-stat="power">{$power}</td>
+      </tr>
+    </table>
+  </div>
+{/form}

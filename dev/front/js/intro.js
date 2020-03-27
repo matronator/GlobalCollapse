@@ -13,16 +13,16 @@ window.addEventListener(`DOMContentLoaded`, () => {
   // Stats
   let extraStats = 4
   const realStats = {
-    power: 3,
+    strength: 3,
     stamina: 7,
     speed: 2
   }
   const baseStats = {
-    power: 3,
+    strength: 3,
     stamina: 7,
     speed: 2
   }
-  const baseStatsMax = baseStats.power + baseStats.stamina + baseStats.speed
+  const baseStatsMax = baseStats.strength + baseStats.stamina + baseStats.speed
   const pointsLeft = document.getElementById(`pointsLeft`)
 
   // Next section
@@ -119,17 +119,17 @@ window.addEventListener(`DOMContentLoaded`, () => {
   function checkForm() {
     let valid = false
     if (
-      realStats.power >= 3 &&
+      realStats.strength >= 3 &&
       realStats.stamina >= 7 &&
       realStats.speed >= 2
     ) {
       if (
-        realStats.power < 8 &&
+        realStats.strength < 8 &&
         realStats.stamina < 12 &&
         realStats.speed < 7
       ) {
         const realStatsTotal =
-          realStats.power + realStats.stamina + realStats.speed
+          realStats.strength + realStats.stamina + realStats.speed
         const totalDiff = realStatsTotal - 4
         if (totalDiff === baseStatsMax) {
           valid = true
@@ -145,10 +145,10 @@ window.addEventListener(`DOMContentLoaded`, () => {
 
   // submit
   function submitForm() {
-    const hiddenPower = document.querySelector('[data-stat-hidden="power"]')
+    const hiddenPower = document.querySelector('[data-stat-hidden="strength"]')
     const hiddenStamina = document.querySelector('[data-stat-hidden="stamina"]')
     const hiddenSpeed = document.querySelector('[data-stat-hidden="speed"]')
-    hiddenPower.value = realStats.power
+    hiddenPower.value = realStats.strength
     hiddenStamina.value = realStats.stamina
     hiddenSpeed.value = realStats.speed
     const form = document.getElementById(`introForm`)
