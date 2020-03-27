@@ -82,11 +82,6 @@ class UserRepository
         return $user;
     }
 
-    // public function createStats($newuser) {
-    //     $this->findAllStats()->insert([
-    //         'user_id' => $newuser->id
-    //     ]);
-    // }
     public function createStats() {
         return $this->findAllStats()->insert([]);
     }
