@@ -52,12 +52,12 @@ final class SignupPresenter extends BasePresenter
         $form->addEmail('email', 'Email')
             ->setHtmlAttribute('class', 'uk-input')
             ->setHtmlId('email')
-            ->setHtmlAttribute('placeholder', 'E-mail')
+            ->setHtmlAttribute('placeholder', 'email@example.com')
             ->setRequired();
         $form->addText('username', 'Username')
             ->setHtmlAttribute('class', 'uk-input')
             ->setHtmlId('username')
-            ->setHtmlAttribute('placeholder', 'Username')
+            ->setHtmlAttribute('placeholder', 'username')
             ->addRule(Form::MIN_LENGTH, 'Username must be at least 3 characters long', 3)
             ->setRequired();
         $form->addPassword('password', 'Password')

@@ -12,20 +12,15 @@ use App\Model\UserRepository;
 
 class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 {
-	/** @var Model\PagesRepository */
-	private $pages;
-
 	/** @var Model\UserRepository */
 	private $userRepository;
 
 	public $contactFormFactory;
 
 	public function injectRepository(
-		Model\PagesRepository $pages,
 		Model\UserRepository $userRepository
 	)
 	{
-		$this->pages = $pages;
 		$this->userRepository = $userRepository;
 	}
 

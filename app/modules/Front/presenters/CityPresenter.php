@@ -34,6 +34,10 @@ final class CityPresenter extends GamePresenter
 
 	public function renderDarknet()
 	{
+		$newStats = $this->userRepository->getUser($this->user->getIdentity()->id);
+		if ($newStats->actions->scavenging == 1) {
+			$this->redirect('City:wastelands');
+		}
 		$drugs = $this->drugsRepository->findAll();
 		$this->template->drugs = $drugs;
 		$this->template->updated = $this->drugsRepository->findDrug(1)->fetch();
@@ -52,7 +56,7 @@ final class CityPresenter extends GamePresenter
 	}
 
 	public function renderWastelands() {
-		$player = $this->user->getIdentity();
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$session = $this->session;
 		$section = $session->getSection('returned');
 		if (isset($section['returned'])) {
@@ -62,10 +66,10 @@ final class CityPresenter extends GamePresenter
 			$this->template->xpoints = $section['exp'];
 			unset($section->returned);
 		}
-		$isScavenging = $player->scavenging;
+		$isScavenging = $player->actions->scavenging;
 		$this->template->scavenging = $isScavenging;
 		if ($isScavenging > 0) {
-			$scavengingSince = $this->userRepository->getUser($this->player->id)->scavenge_start;
+			$scavengingSince = $player->actions->scavenge_start;
 			$this->template->scavengingSince = $scavengingSince;
 			$nowDate = new DateTime();
 			$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp());
@@ -173,27 +177,26 @@ final class CityPresenter extends GamePresenter
 
 	public function scavengeFormSucceeded(Form $form, $values): void {
 		$control = $form->isSubmitted();
-		$isScavenging = $this->player->scavenging;
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$isScavenging = $player->actions->scavenging;
 		if ($control->name == 'scavenge') {
 			if ($isScavenging <= 0) {
-				$this->player->scavenging = 1;
-				$this->player->scavenge_start = new DateTime();
-				$this->userRepository->getUser($this->player->id)->update([
-					'scavenging' => $this->player->scavenging,
-					'scavenge_start' => $this->player->scavenge_start
+				$playerScavengeStart = new DateTime();
+				$this->userRepository->getUser($this->player->id)->actions->update([
+					'scavenging' => 1,
+					'scavenge_start' => $playerScavengeStart
 				]);
 				$this->flashMessage('You went scavenging to the wastelands', 'success');
 				$this->redirect('this');
 			}
 		} else if ($control->name == 'stopScavenging') {
 			if ($isScavenging > 0) {
-				$scavengingSince = $this->userRepository->getUser($this->player->id)->scavenge_start;
+				$scavengingSince = $this->userRepository->getUser($this->player->id)->actions->scavenge_start;
 				$nowDate = new DateTime();
 				$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp());
 				if ($diff >= 3600) {
-					$this->player->scavenging = 0;
-					$this->userRepository->getUser($this->player->id)->update([
-						'scavenging' => $this->player->scavenging
+					$this->userRepository->getUser($this->player->id)->actions->update([
+						'scavenging' => 0
 					]);
 					$reward = $this->scavengeReward($diff / 3600);
 					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
@@ -218,7 +221,7 @@ final class CityPresenter extends GamePresenter
 		$this->userRepository->addXp($this->player->id, $plusXp);
 		$this->userRepository->getUser($this->player->id)->update([
 			'money' => $plusMoney + $this->player->money
-			]);
+		]);
 		$this->player->money += $plusMoney;
 		return [
 			'xp' => $plusXp,

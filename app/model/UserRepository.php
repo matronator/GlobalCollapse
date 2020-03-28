@@ -46,6 +46,11 @@ class UserRepository
         return $this->database->table('player_stats');
     }
 
+    public function findAllActions()
+    {
+        return $this->database->table('actions');
+    }
+
     public function getUser(?int $id = null): ?ActiveRow
     {
         if (!$id)
@@ -76,17 +81,21 @@ class UserRepository
         $values->date_log = new \DateTime();
         $values->ip = $_SERVER["REMOTE_ADDR"];
         $stats = $this->createStats();
+        $actions = $this->createActions();
         $values->player_stats_id = $stats->id;
+        $values->actions_id = $actions->id;
         $user = $this->findAll()->insert($values);
         // $this->mailService->sendPasswordLink($user);
         return $user;
     }
 
-    public function createStats() {
+    public function createStats()
+    {
         return $this->findAllStats()->insert([]);
     }
 
-    public function updateStats($userId, $strength, $stamina, $speed) {
+    public function updateStats($userId, $strength, $stamina, $speed)
+    {
         $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
             'strength' => $strength,
             'stamina' => $stamina,
@@ -95,13 +104,19 @@ class UserRepository
         ]);
     }
 
-    public function updateStatsAdd($userId, $strength = 0, $stamina = 0, $speed = 0) {
+    public function updateStatsAdd($userId, $strength = 0, $stamina = 0, $speed = 0)
+    {
         $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
             'strength+=' => $strength,
             'stamina+=' => $stamina,
             'speed+=' => $speed,
             'power+=' => $strength + $stamina + $speed
         ]);
+    }
+
+    public function createActions()
+    {
+        return $this->findAllActions()->insert([]);
     }
 
     public function updateUser(int $id, ArrayHash $values): ActiveRow

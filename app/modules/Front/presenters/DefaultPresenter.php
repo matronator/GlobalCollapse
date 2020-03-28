@@ -89,7 +89,7 @@ final class DefaultPresenter extends BasePresenter
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$newStats = $this->userRepository->getUser($player->id);
-			if ($newStats->scavenging == 1) {
+			if ($newStats->actions->scavenging == 1) {
 				$this->redirect('City:wastelands');
 			}
 			$this->template->user = $newStats;
@@ -99,10 +99,10 @@ final class DefaultPresenter extends BasePresenter
 			$this->template->skillpoints = $newStats->skillpoints;
 			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
 
-			$isTraining = $newStats->training;
+			$isTraining = $newStats->actions->training;
 			$this->template->isTraining = $isTraining;
 			if ($isTraining > 0) {
-				$trainingUntil = $newStats->training_end;
+				$trainingUntil = $newStats->actions->training_end;
 				$now = new DateTime();
 				$diff = $trainingUntil->getTimestamp() - $now->getTimestamp();
 				if ($diff >= 0) {
@@ -136,7 +136,7 @@ final class DefaultPresenter extends BasePresenter
 				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 0, 0, 1);
 			break;
 		}
-		$this->userRepository->getUser($this->user->getIdentity()->id)->update([
+		$this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
 			'training' => 0
 		]);
 	}
@@ -170,7 +170,7 @@ final class DefaultPresenter extends BasePresenter
 			break;
 		}
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-		if ($player->training == 0 && $trainNumber != 0) {
+		if ($player->actions->training == 0 && $trainNumber != 0) {
 			// Training cost = skill level * 0.75
 			$trainingCost = round($player->player_stats[$trainSkill] * 0.75);
 			$currentMoney = $player->money;
@@ -187,12 +187,14 @@ final class DefaultPresenter extends BasePresenter
 					$now->setTimestamp($trainingEndTS);
 					$trainingEnd = $now->format('Y-m-d H:i:s');
 					$this->userRepository->getUser($this->user->getIdentity()->id)->update([
-						'training' => $trainNumber,
-						'training_end' => $trainingEnd,
 						'money' => $currentMoney
 					]);
 					$this->userRepository->getUser($this->user->getIdentity()->id)->player_stats->update([
 						'energy' => $currentEnergy
+					]);
+					$this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
+						'training' => $trainNumber,
+						'training_end' => $trainingEnd
 					]);
 					$this->flashMessage('Training started', 'success');
 					$this->redirect('this');
