@@ -183,7 +183,7 @@ final class DefaultPresenter extends BasePresenter
 					$now = new DateTime();
 					$trainingEndTS = $now->getTimestamp();
 					// Training time = 30 minutes = 1800s
-					$trainingEndTS += 5;
+					$trainingEndTS += 1800;
 					$now->setTimestamp($trainingEndTS);
 					$trainingEnd = $now->format('Y-m-d H:i:s');
 					$this->userRepository->getUser($this->user->getIdentity()->id)->update([
