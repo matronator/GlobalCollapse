@@ -8,6 +8,7 @@ use App\Model;
 use App\Model\UserRepository;
 use DateTime;
 use Nette\Application\UI\Form;
+use ActionLocker;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -30,9 +31,8 @@ final class BarPresenter extends GamePresenter
 
 	public function renderDefault() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-		if ($player->actions->scavenging == 1) {
-			$this->redirect('City:wastelands');
-		}
+		$actionLocker = new ActionLocker();
+		$actionLocker->checkActions($player, $this);
 	}
 
 	public function createComponentMissionsForm(): Form {

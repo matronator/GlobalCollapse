@@ -10,6 +10,7 @@ use App\Model\DrugsRepository;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use DateTime;
+use ActionLocker;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -88,21 +89,19 @@ final class DefaultPresenter extends BasePresenter
 	{
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$newStats = $this->userRepository->getUser($player->id);
-			if ($newStats->actions->scavenging == 1) {
-				$this->redirect('City:wastelands');
-			}
-			$this->template->user = $newStats;
-			$xp = $newStats->player_stats->xp;
-			$xpMax = $newStats->player_stats->xp_max;
-			$xpMin = $newStats->player_stats->xp_min;
-			$this->template->skillpoints = $newStats->skillpoints;
+			$actionLocker = new ActionLocker();
+			$actionLocker->checkActions($player, $this);
+			$this->template->user = $player;
+			$xp = $player->player_stats->xp;
+			$xpMax = $player->player_stats->xp_max;
+			$xpMin = $player->player_stats->xp_min;
+			$this->template->skillpoints = $player->skillpoints;
 			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
 
-			$isTraining = $newStats->actions->training;
+			$isTraining = $player->actions->training;
 			$this->template->isTraining = $isTraining;
 			if ($isTraining > 0) {
-				$trainingUntil = $newStats->actions->training_end;
+				$trainingUntil = $player->actions->training_end;
 				$now = new DateTime();
 				$diff = $trainingUntil->getTimestamp() - $now->getTimestamp();
 				if ($diff >= 0) {

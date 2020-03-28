@@ -9,6 +9,7 @@ use App\Model\UserRepository;
 use App\Model\DrugsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
+use ActionLocker;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -35,9 +36,8 @@ final class CityPresenter extends GamePresenter
 	public function renderDarknet()
 	{
 		$newStats = $this->userRepository->getUser($this->user->getIdentity()->id);
-		if ($newStats->actions->scavenging == 1) {
-			$this->redirect('City:wastelands');
-		}
+		$actionLocker = new ActionLocker();
+		$actionLocker->checkActions($newStats, $this);
 		$drugs = $this->drugsRepository->findAll();
 		$this->template->drugs = $drugs;
 		$this->template->updated = $this->drugsRepository->findDrug(1)->fetch();
