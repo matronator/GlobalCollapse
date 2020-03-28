@@ -19,6 +19,8 @@ Persistent Browser Based Game (PBBG) set in an alternate near future in where th
 
 So far, only the darknet is functional, as I just started working on this project.
 
+- [x] Character training
+- [x] Short intro
 - [x] **Darknet** - black market
   - [x] Drug trade
     - [x] Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
@@ -46,6 +48,11 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.0.5] - 2020-03-24
+
+- Added training
+- Added leaderboard
+
 ## [0.0.4] - 2020-03-24
 
 - Intro section for new players added
@@ -66,7 +73,3 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - ADD: Darknet
   - Buying drugs
 - ADD: Live COVID-19 tracker in navbar
-
-## [0.0.1] - 2020-03-08
-
-- Project started
