@@ -21,6 +21,16 @@
   padding-bottom: 30px;
 }
 
+.split {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }

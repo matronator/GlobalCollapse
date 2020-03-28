@@ -6,10 +6,18 @@
 <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
   <div class="dashboard uk-flex" uk-margin>
     <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
-      <h3 class="uk-card-title uk-margin-remove-bottom">
-        <span class="uk-float-left">{$user->username}&nbsp;<small class="uk-text-muted">Level {$user->player_stats->level}</small></span>
-        <span class="uk-float-right">{$user->player_stats->energy}/<small class="uk-text-muted">{$user->player_stats->energy_max} Energy</small></span>
-      </h3>
+      <div class="split uk-flex-bottom">
+        <div>
+          <h3 class="uk-margin-remove-bottom">
+            {$user->username}&nbsp;<small class="uk-text-muted">Level {$user->player_stats->level}</small>
+          </h3>
+        </div>
+        <div>
+          <h3 class="uk-margin-remove-bottom">
+            {$user->player_stats->energy}/<small class="uk-text-muted">{$user->player_stats->energy_max} Energy</small>
+          </h3>
+        </div>
+      </div>
       <div class="uk-width-expand uk-flex">
         <div class="progress-bar">
           <div class="progress-bar-fill" style="width:{$progressValue}%;">
@@ -17,7 +25,7 @@
           <p class="progress-bar-value uk-text-small">{$user->player_stats->xp}/{$user->player_stats->xp_max}</p>
         </div>
       </div>
-      <div class="uk-flex">
+      <div class="split">
         <div class="uk-width-auto">
           <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}.jpg" class="uk-comment-avatar" width="128" height="128">
         </div>
