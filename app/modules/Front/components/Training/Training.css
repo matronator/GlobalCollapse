@@ -4,13 +4,10 @@
 
 .training-holder {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   & table {
     width: 100%;
-    @media (max-width: 640px) {
-      width: 100%;
-    }
   }
 }

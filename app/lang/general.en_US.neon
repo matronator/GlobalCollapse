@@ -33,6 +33,9 @@ ui:
 	username: 'Username'
 	lastUpdated: 'Last updated'
 
+training:
+	timeLeft: 'Time left:'
+
 city:
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'

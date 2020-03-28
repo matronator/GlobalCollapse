@@ -95,6 +95,15 @@ class UserRepository
         ]);
     }
 
+    public function updateStatsAdd($userId, $strength = 0, $stamina = 0, $speed = 0) {
+        $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
+            'strength+=' => $strength,
+            'stamina+=' => $stamina,
+            'speed+=' => $speed,
+            'power+=' => $strength + $stamina + $speed
+        ]);
+    }
+
     public function updateUser(int $id, ArrayHash $values): ActiveRow
     {
         $this->findAll()->wherePrimary($id)->update($values);

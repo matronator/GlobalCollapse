@@ -6,31 +6,39 @@
 <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
   <div class="dashboard uk-flex" uk-margin>
     <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
-      <h3 class="uk-card-title">{$user->username}</h3>
-      <div class="uk-flex">
-        <div class="uk-width-auto uk-margin-right">
-          <div class="uk-position-relative">
-            <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}.jpg" class="uk-comment-avatar" width="96" height="96">
-          </div>
-        </div>
-        <div class="uk-width-expand uk-child-width-1-2 uk-flex">
-          <ul class="uk-list uk-list-divider uk-margin-remove">
-            <li>Level</li>
-            <li>Money</li>
-            <li>Energy</li>
-          </ul>
-          <ul class="uk-list uk-list-divider uk-margin-remove">
-            <li>{$user->player_stats->level}</li>
-            <li>${$user->money}</li>
-            <li>{$user->player_stats->energy} / {$user->player_stats->energy_max}</li>
-          </ul>
-        </div>
-      </div>
-      <div class="uk-width-expand uk-flex uk-margin-top">
+      <h3 class="uk-card-title uk-margin-remove-bottom">
+        <span class="uk-float-left">{$user->username}&nbsp;<small class="uk-text-muted">Level {$user->player_stats->level}</small></span>
+        <span class="uk-float-right">{$user->player_stats->energy}/<small class="uk-text-muted">{$user->player_stats->energy_max} Energy</small></span>
+      </h3>
+      <div class="uk-width-expand uk-flex">
         <div class="progress-bar">
           <div class="progress-bar-fill" style="width:{$progressValue}%;">
           </div>
           <p class="progress-bar-value uk-text-small">{$user->player_stats->xp}/{$user->player_stats->xp_max}</p>
+        </div>
+      </div>
+      <div class="uk-flex">
+        <div class="uk-width-auto">
+          <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}.jpg" class="uk-comment-avatar" width="128" height="128">
+        </div>
+        <div class="uk-width-expand">
+          <table class="uk-table uk-table-small uk-table-divider">
+            <tr>
+              <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">Strength</td>
+              <td class="uk-text-nowrap">{$user->player_stats->strength}</td>
+              <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">Stamina</td>
+              <td class="uk-text-nowrap">{$user->player_stats->stamina}</td>
+            </tr>
+            <tr>
+              <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">Speed</td>
+              <td class="uk-text-nowrap">{$user->player_stats->speed}</td>
+              <td class="uk-text-nowrap border-left" uk-tooltip="title:Your total power."><strong>Power</strong></td>
+              <td class="uk-text-nowrap"><strong>{$user->player_stats->power}</strong></td>
+            </tr>
+            <tr>
+              <td class="uk-text-nowrap uk-text-center" colspan="4" uk-tooltip="title:Earn skillpoints by leveling up and train for free.">Skillpoints: {$user->skillpoints}</td>
+            </tr>
+          </table>
         </div>
       </div>
       <div n:if="$skillpoints > 0" class="uk-width-expand uk-flex uk-margin-top">
@@ -47,4 +55,7 @@
     </div>
   </div>
 </div>
+{if ($isTraining > 0)}
+  <script defer src="{asset training.js front}"></script>
+{/if}
 {/block}

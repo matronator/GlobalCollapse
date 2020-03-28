@@ -98,10 +98,47 @@ final class DefaultPresenter extends BasePresenter
 			$xpMin = $newStats->player_stats->xp_min;
 			$this->template->skillpoints = $newStats->skillpoints;
 			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
-			$this->template->isTraining = $newStats->training;
+
+			$isTraining = $newStats->training;
+			$this->template->isTraining = $isTraining;
+			if ($isTraining > 0) {
+				$trainingUntil = $newStats->training_end;
+				$now = new DateTime();
+				$diff = $trainingUntil->getTimestamp() - $now->getTimestamp();
+				if ($diff >= 0) {
+					$s = $diff % 60;
+					$m = $diff / 60 % 60;
+					$h = $diff / 3600 % 60;
+					$this->template->hours = $h > 9 ? $h : '0'.$h;
+					$this->template->minutes = $m > 9 ? $m : '0'.$m;
+					$this->template->seconds = $s > 9 ? $s : '0'.$s;
+					$this->template->trainingUntil = $trainingUntil;
+				} else {
+					$this->endTraining($isTraining);
+					$isTraining = 0;
+					$this->redirect('this');
+				}
+			}
 		} else {
 			$this->redirect('Login:default');
 		}
+	}
+
+	private function endTraining($trainingStat) {
+		switch ($trainingStat) {
+			case 1:
+				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 1, 0, 0);
+			break;
+			case 2:
+				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 0, 1, 0);
+			break;
+			case 3:
+				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 0, 0, 1);
+			break;
+		}
+		$this->userRepository->getUser($this->user->getIdentity()->id)->update([
+			'training' => 0
+		]);
 	}
 
 	public function createComponentTrainingForm(): Form {
@@ -110,7 +147,7 @@ final class DefaultPresenter extends BasePresenter
 		$form->addSubmit('strength', 'Train');
 		$form->addSubmit('stamina', 'Train');
 		$form->addSubmit('speed', 'Train');
-		$form->onSuccess[] = [$this, 'skillpointsFormSucceeded'];
+		$form->onSuccess[] = [$this, 'trainingFormSucceeded'];
 		return $form;
 	}
 
@@ -127,15 +164,17 @@ final class DefaultPresenter extends BasePresenter
 			case 'speed':
 				$trainNumber = 3;
 			break;
-			default:
-				$trainNumber = 0;
 		}
-		if ($this->user->training == 0 && $trainNumber != 0) {
-			$trainingStart = new DateTime();
-			$this->user->training_start = $trainingStart;
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		if ($player->training == 0 && $trainNumber != 0) {
+			$now = new DateTime();
+			$trainingEndTS = $now->getTimestamp();
+			$trainingEndTS += 1800;
+			$now->setTimestamp($trainingEndTS);
+			$trainingEnd = $now->format('Y-m-d H:i:s');
 			$this->userRepository->getUser($this->user->getIdentity()->id)->update([
 				'training' => $trainNumber,
-				'training_start' => $trainingStart
+				'training_end' => $trainingEnd
 			]);
 		}
 	}
