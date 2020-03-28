@@ -213,7 +213,7 @@ final class CityPresenter extends GamePresenter
 	}
 
 	public function scavengeReward($hours) {
-		$plusXp = round($hours * rand(5, 10));
+		$plusXp = round($hours * rand(3, 7));
 		$plusMoney = round($hours * rand(2, 5));
 		$this->userRepository->addXp($this->player->id, $plusXp);
 		$this->userRepository->getUser($this->player->id)->update([

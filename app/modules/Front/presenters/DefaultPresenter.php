@@ -154,28 +154,56 @@ final class DefaultPresenter extends BasePresenter
 	public function trainingFormSucceeded(Form $form, $values): void {
 		$control = $form->isSubmitted();
 		$trainNumber = 0;
+		$trainSkill = '';
 		switch ($control->name) {
 			case 'strength':
 				$trainNumber = 1;
+				$trainSkill = 'strength';
 			break;
 			case 'stamina':
 				$trainNumber = 2;
+				$trainSkill = 'stamina';
 			break;
 			case 'speed':
 				$trainNumber = 3;
+				$trainSkill = 'speed';
 			break;
 		}
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		if ($player->training == 0 && $trainNumber != 0) {
-			$now = new DateTime();
-			$trainingEndTS = $now->getTimestamp();
-			$trainingEndTS += 1800;
-			$now->setTimestamp($trainingEndTS);
-			$trainingEnd = $now->format('Y-m-d H:i:s');
-			$this->userRepository->getUser($this->user->getIdentity()->id)->update([
-				'training' => $trainNumber,
-				'training_end' => $trainingEnd
-			]);
+			// Training cost = skill level * 0.75
+			$trainingCost = round($player->player_stats[$trainSkill] * 0.75);
+			$currentMoney = $player->money;
+			// Energy cost = 10
+			$currentEnergy = $player->player_stats->energy;
+			if ($currentMoney >= $trainingCost) {
+				if ($currentEnergy >= 10) {
+					$currentMoney -= $trainingCost;
+					$currentEnergy -= 10;
+					$now = new DateTime();
+					$trainingEndTS = $now->getTimestamp();
+					// Training time = 30 minutes = 1800s
+					$trainingEndTS += 5;
+					$now->setTimestamp($trainingEndTS);
+					$trainingEnd = $now->format('Y-m-d H:i:s');
+					$this->userRepository->getUser($this->user->getIdentity()->id)->update([
+						'training' => $trainNumber,
+						'training_end' => $trainingEnd,
+						'money' => $currentMoney
+					]);
+					$this->userRepository->getUser($this->user->getIdentity()->id)->player_stats->update([
+						'energy' => $currentEnergy
+					]);
+					$this->flashMessage('Training started', 'success');
+					$this->redirect('this');
+				} else {
+					$this->flashMessage('Not enough energy', 'danger');
+					$this->redirect('this');
+				}
+			} else {
+				$this->flashMessage('Not enough money', 'danger');
+				$this->redirect('this');
+			}
 		}
 	}
 

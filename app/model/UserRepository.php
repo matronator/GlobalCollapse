@@ -18,7 +18,7 @@ class UserRepository
     private $database;
 
     private $expGain = 1;
-    private $expMaxBase = 150;
+    private $expMaxBase = 50;
     private $maxEnergyBase = 100;
 
     public $roles = [
@@ -164,13 +164,17 @@ class UserRepository
     /**
      * Function to calculate max_xp for each level
      * Equation:
+     * OLD FORMULA
      * (round(level^baseGain)*(level^(level/baseXp))) * baseXp
+     *
+     * NEW FORMULA
+     * round(level^2 * log10(level), -2) + baseGain*level
      *
      * @param integer $lvl
      * @return int
      */
     private function getMaxExp(int $lvl): int {
-        return round(pow($lvl, $this->expGain) * pow($lvl, ($lvl / $this->expMaxBase))) * $this->expMaxBase;
+        return round((pow($lvl, 2) * log($lvl)), -2) + ($this->expMaxBase * $lvl);
     }
 
     /**
