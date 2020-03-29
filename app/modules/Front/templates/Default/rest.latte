@@ -1,0 +1,20 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Rest{/define}
+{define metaDescription}Rest{/define}
+
+{block pageContent}
+<div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+  <div class="dashboard uk-flex" uk-margin>
+    <div class="uk-card uk-width-expand uk-card-default uk-card-body">
+      {form restForm}
+        <h3 class="uk-card-title">Rest</h3>
+        <p>Rest to replenish your energy. Every hour of resting gives you 25 energy.</p>
+        <p>You have {$user->player_stats->energy} energy out of {$user->player_stats->energy_max}</p>
+        <p n:if="$resting" class="uk-margin-large-bottom">Resting since: {$restingSince|date:'%d %B %Y, %T'}&nbsp;<strong>({$timePassed} ago)</strong></p>
+        <button n:if="!$resting" type="submit" class="uk-button uk-button-primary" n:name="rest">Rest</button>
+        <button n:if="$resting" type="submit" class="uk-button uk-button-primary" n:name="wakeup">Stop resting</button>
+      {/form}
+    </div>
+  </div>
+</div>
+{/block}

@@ -98,6 +98,12 @@ final class DefaultPresenter extends BasePresenter
 			$this->template->skillpoints = $player->skillpoints;
 			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
 
+			$strengthCost = round($player->player_stats->strength * 0.75);
+			$staminaCost = round($player->player_stats->stamina * 0.75);
+			$speedCost = round($player->player_stats->speed * 0.75);
+			$this->template->strengthCost = $strengthCost;
+			$this->template->staminaCost = $staminaCost;
+			$this->template->speedCost = $speedCost;
 			$isTraining = $player->actions->training;
 			$this->template->isTraining = $isTraining;
 			if ($isTraining > 0) {
@@ -120,6 +126,74 @@ final class DefaultPresenter extends BasePresenter
 			}
 		} else {
 			$this->redirect('Login:default');
+		}
+	}
+
+	public function renderRest() {
+		if ($this->user->isLoggedIn()) {
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$actionLocker = new ActionLocker();
+			$actionLocker->checkActions($player, $this);
+			$this->template->user = $player;
+			$isResting = $player->actions->resting;
+			$this->template->resting = $isResting;
+			if ($isResting) {
+				$restingSince = $player->actions->resting_start;
+				$this->template->restingSince = $restingSince;
+				$nowDate = new DateTime();
+				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
+				if ($diff < 3600) {
+					$this->template->timePassed = round($diff / 60) . ' minutes';
+				} else if ($diff <= 5400) {
+					$this->template->timePassed = round($diff / 3600) . ' hour';
+				} else {
+					$this->template->timePassed = round($diff / 3600) . ' hours';
+				}
+			}
+		} else {
+			$this->redirect('Login:default');
+		}
+	}
+
+	public function createComponentRestForm(): Form {
+		$form = new Form();
+		$form->addSubmit('rest', 'Rest');
+		$form->addSubmit('wakeup', 'Stop resting');
+		$form->onSuccess[] = [$this, 'restFormSucceeded'];
+		return $form;
+	}
+
+	public function restFormSucceeded(Form $form, $values): void {
+		$control = $form->isSubmitted();
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$isResting = $player->actions->resting;
+		if ($control->name == 'rest') {
+			if ($isResting <= 0) {
+				$playerRestStart = new DateTime();
+				$this->userRepository->getUser($player->id)->actions->update([
+					'resting' => 1,
+					'resting_start' => $playerRestStart
+				]);
+				$this->flashMessage('You went to rest', 'success');
+				$this->redirect('this');
+			}
+		} else if ($control->name == 'wakeup') {
+			if ($isResting > 0) {
+				$restingSince = $this->userRepository->getUser($player->id)->actions->resting_start;
+				$nowDate = new DateTime();
+				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
+				$this->userRepository->getUser($player->id)->actions->update([
+					'resting' => 0
+				]);
+				$reward = 25 * round($diff / 3600);
+				if ($reward > 0) {
+					$this->userRepository->getUser($player->id)->player_stats->update([
+						'energy+=' => $reward
+					]);
+				}
+				$this->flashMessage('You regained ' . $reward . ' energy', 'success');
+				$this->redirect('this');
+			}
 		}
 	}
 

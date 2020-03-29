@@ -4,17 +4,17 @@
       <tr>
         <td class="uk-text-nowrap">Strength</td>
         <td class="uk-text-nowrap">{$strength}<span class="uk-text-muted" n:if="$isTraining == 1"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-secondary" n:name="strength">Train</button></td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-secondary" n:name="strength">Train - ${$strengthCost}</button></td>
       </tr>
       <tr>
         <td class="uk-text-nowrap">Stamina</td>
         <td class="uk-text-nowrap">{$stamina}<span class="uk-text-muted" n:if="$isTraining == 2"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-danger" n:name="stamina">Train</button></td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-danger" n:name="stamina">Train - ${$staminaCost}</button></td>
       </tr>
       <tr>
         <td class="uk-text-nowrap">Speed</td>
         <td class="uk-text-nowrap">{$speed}<span class="uk-text-muted" n:if="$isTraining == 3"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-primary" n:name="speed">Train</button></td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-primary" n:name="speed">Train - ${$speedCost}</button></td>
       </tr>
       <tr>
         <td class="uk-text-nowrap">Power total</td>

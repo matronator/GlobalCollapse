@@ -12,7 +12,7 @@
         <ul class="uk-nav-sub">
           <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">Account</a></li>
           <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a href="/training">Training</a></li>
-          <li><a href="#">Rest<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
+          <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a href="/rest">Rest</a></li>
           <li class="uk-nav-divider"></li>
           <li><a href="#">Home<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li><a href="#">Buildings<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>

@@ -38,7 +38,7 @@ class UserRepository
 
     public function findUsers()
     {
-        return $this->database->table('user')->order('player_stats.level, player_stats.power DESC');
+        return $this->database->table('user')->order('player_stats.level DESC');
     }
 
     public function findAllStats()

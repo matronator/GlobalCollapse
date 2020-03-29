@@ -57,6 +57,8 @@ final class CityPresenter extends GamePresenter
 
 	public function renderWastelands() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$actionLocker = new ActionLocker();
+		$actionLocker->checkActions($player, $this);
 		$session = $this->session;
 		$section = $session->getSection('returned');
 		if (isset($section['returned'])) {

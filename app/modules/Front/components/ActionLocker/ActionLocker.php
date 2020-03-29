@@ -16,10 +16,9 @@ class ActionLocker extends Component
 
     if ($actions['scavenging'] == 1 && !$presenter->isLinkCurrent('City:wastelands')) {
       $presenter->redirect('City:wastelands');
-    } else if ($player->actions->training > 0 && $actions['scavenging'] == 0 && !$presenter->isLinkCurrent('Default:training')) {
-      $presenter->redirect('Default:training');
-    } else if ($player->actions->resting == 1 && $actions['scavenging'] == 0 && !$presenter->isLinkCurrent('Default:resting')) {
-      $presenter->redirect('Default:resting');
+    }
+    if ($player->actions['resting'] == 1 && !$presenter->isLinkCurrent('Default:rest')) {
+      $presenter->redirect('Default:rest');
     }
   }
 }
