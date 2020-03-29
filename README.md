@@ -17,7 +17,7 @@ Persistent Browser Based Game (PBBG) set in an alternate near future in where th
 
 ## Features
 
-So far, only the darknet is functional, as I just started working on this project.
+Still very early access, so much of the features are still yet to come.
 
 - [x] Character training
 - [x] Short intro
