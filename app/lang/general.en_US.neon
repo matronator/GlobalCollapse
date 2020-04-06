@@ -35,6 +35,7 @@ ui:
 
 training:
 	timeLeft: 'Time left:'
+	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
 
 city:
 	darknet:

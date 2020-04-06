@@ -283,23 +283,54 @@ final class DefaultPresenter extends BasePresenter
 	}
 
 	public function createComponentSkillpointsForm(): Form {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$form = new Form();
 		$form->setHtmlAttribute('id', 'skillpointsForm');
 		$form->addHidden('strength', '0')
 				 ->setHtmlAttribute('data-stat-hidden', 'strength')
+				 ->setHtmlId('hidden-1')
+				 ->setDefaultValue(0)
 				 ->setHtmlAttribute('data-extra-value', '0');
 		$form->addHidden('stamina', '0')
 				 ->setHtmlAttribute('data-stat-hidden', 'stamina')
+				 ->setHtmlId('hidden-2')
+				 ->setDefaultValue(0)
 				 ->setHtmlAttribute('data-extra-value', '0');
 		$form->addHidden('speed', '0')
 				 ->setHtmlAttribute('data-stat-hidden', 'speed')
+				 ->setHtmlId('hidden-3')
+				 ->setDefaultValue(0)
 				 ->setHtmlAttribute('data-extra-value', '0');
+		$form->addHidden('usedSp', '0')
+				 ->setHtmlAttribute('data-stat-hidden', 'skillpoints')
+				 ->setHtmlId('hidden-4')
+				 ->setDefaultValue(0)
+				 ->setHtmlAttribute('data-extra-value', '0');
+		$form->addSubmit('save', 'Confirm');
 		$form->onSuccess[] = [$this, 'skillpointsFormSucceeded'];
 		return $form;
 	}
 
 	public function skillpointsFormSucceeded(Form $form, $values): void {
-
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$strength = intval($values->strength);
+		$stamina = intval($values->stamina);
+		$speed = intval($values->speed);
+		$usedSp = intval($values->usedSp);
+		$statsTotal = $strength + $stamina + $speed;
+		if ($usedSp > 0) {
+			if ($statsTotal == $usedSp && $usedSp <= $player->skillpoints && $player->skillpoints > 0) {
+				$this->userRepository->getUser($player->id)->update([
+					'skillpoints-=' => $usedSp
+				]);
+				$this->userRepository->updateStatsAdd($player->id, $strength, $stamina, $speed);
+				$this->flashMessage('Skillpoints successfully assigned', 'success');
+				$this->redirect('this');
+			} else {
+				$this->flashMessage('Invalid stats, try again.', 'danger');
+				$this->redirect('this');
+			}
+		}
 	}
 
 	public function createComponentAvatarForm(): Form

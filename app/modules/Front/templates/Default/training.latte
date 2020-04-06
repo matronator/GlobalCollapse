@@ -50,7 +50,13 @@
         </div>
       </div>
       <div n:if="$skillpoints > 0" class="uk-width-expand uk-flex uk-margin-top">
-        {include '../../components/Training/TrainingSkillpoints.latte'}
+        {include '../../components/Training/TrainingSkillpoints.latte',
+          strength => $user->player_stats->strength,
+          stamina => $user->player_stats->stamina,
+          speed => $user->player_stats->speed,
+          power => $user->player_stats->power,
+          skillpoints => $user->skillpoints
+        }
       </div>
     </div>
     <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
@@ -65,5 +71,8 @@
 </div>
 {if ($isTraining > 0)}
   <script defer src="{asset training.js front}"></script>
+{/if}
+{if ($skillpoints > 0)}
+  <script defer src="{asset spTrain.js front}"></script>
 {/if}
 {/block}

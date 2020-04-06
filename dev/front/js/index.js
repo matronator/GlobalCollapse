@@ -57,9 +57,15 @@ window.addEventListener(`DOMContentLoaded`, () => {
   const infected = document.getElementById("covidInfected")
   const dead = document.getElementById("covidDead")
   const multiplier = 2000
+  const urls = [
+    "https://coronavirus-19-api.herokuapp.com/all",
+    "https://corona.lmao.ninja/all"
+  ]
+  const take = 0
+  const requestUrl = urls[take]
 
   const request = new XMLHttpRequest()
-  request.open("GET", "https://coronavirus-19-api.herokuapp.com/all", true)
+  request.open("GET", requestUrl, true)
 
   request.onload = function() {
     if (this.status >= 200 && this.status < 400) {
@@ -69,8 +75,6 @@ window.addEventListener(`DOMContentLoaded`, () => {
         data.cases * multiplier
       )
       dead.innerHTML = new Intl.NumberFormat().format(data.deaths * multiplier)
-    } else {
-      // We reached our target server, but it returned an error
     }
   }
 
