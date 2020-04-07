@@ -6,6 +6,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model;
 use App\Model\UserRepository;
+use App\Model\EventsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
@@ -16,12 +17,15 @@ final class BarPresenter extends GamePresenter
 {
 
 	private $userRepository;
+	private $eventRepository;
 
 	public function __construct(
-		UserRepository $userRepository
+		UserRepository $userRepository,
+		EventsRepository $eventRepository
 	)
 	{
 		$this->userRepository = $userRepository;
+		$this->eventRepository = $eventRepository;
 	}
 
 	protected function startup()
@@ -33,6 +37,12 @@ final class BarPresenter extends GamePresenter
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$actionLocker = new ActionLocker();
 		$actionLocker->checkActions($player, $this);
+		$activeEvent = $this->eventRepository->getActive()->fetch();
+		$activeEventName = $activeEvent->slug;
+		if ($activeEventName == 'social-distancing') {
+			$this->template->closed = true;
+			$this->template->closeReason = $activeEventName;
+		}
 	}
 
 	public function createComponentMissionsForm(): Form {

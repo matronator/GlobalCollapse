@@ -7,9 +7,16 @@
   <div class="dashboard">
     <div class="uk-card uk-width-expand uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
       <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/bar.jpg');background-position:center;">
-        <h2 class="uk-heading-large">Bar</h2>
+        <h2 class="uk-heading-large"><del n:if="$closed">Bar</del></h2>
+        <div class="location-closed" n:if="$closed">{_general.ui.locationStatus.closed}</div>
       </div>
       <div class="uk-card-body">
+        {if $closed}
+          <h3>{_general.city.bar.closed}</h3>
+          {if $closeReason == 'social-distancing'}
+            {_general.city.bar.closedSocialDistancing}
+          {/if}
+        {/if}
       </div>
     </div>
   </div>

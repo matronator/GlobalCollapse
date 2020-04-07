@@ -194,6 +194,7 @@ td.input-row {
   min-height: 300px;
   background-position: bottom;
   background-size: cover;
+  overflow: hidden;
   & h2 {
     position: absolute;
     display: flex;
@@ -209,4 +210,16 @@ td.input-row {
     align-items: center;
     justify-content: center;
   }
+}
+
+.location-closed {
+  position: absolute;
+  top: 34px;
+  left: -50px;
+  width: 200px;
+  text-align: center;
+  background-color: #f0506e;
+  color: #fff;
+  transform-origin: center;
+  transform: rotateZ(-45deg);
 }

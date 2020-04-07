@@ -32,12 +32,17 @@ ui:
 	passwordV: 'Repeat password'
 	username: 'Username'
 	lastUpdated: 'Last updated'
+	locationStatus:
+		closed: 'Closed'
 
 training:
 	timeLeft: 'Time left:'
 	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
 
 city:
+	bar:
+		closed: 'Bar is closed'
+		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'
 	wastelands:

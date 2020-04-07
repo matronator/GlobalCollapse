@@ -19,6 +19,7 @@ services:
 	- App\Model\PagesRepository
 	- App\Model\UserRepository
 	- App\Model\DrugsRepository
+	- App\Model\EventsRepository
 	- App\Filter\ImageFilter
 	imagePipe: \ImageGenerator(%wwwDir%)
 	imageStorage: \ImageStorage(%wwwDir%)
