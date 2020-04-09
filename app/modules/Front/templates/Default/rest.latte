@@ -11,7 +11,9 @@
         <p>Rest to replenish your energy. Every hour of resting gives you 25 energy.</p>
         <p>You have {$user->player_stats->energy} energy out of {$user->player_stats->energy_max}</p>
         <p n:if="$resting" class="uk-margin-large-bottom">Resting since: {$restingSince|date:'%d %B %Y, %T'}&nbsp;<strong>({$timePassed} ago)</strong></p>
-        <button n:if="!$resting" type="submit" class="uk-button uk-button-primary" n:name="rest">Rest</button>
+        {if $user->player_stats->energy < $user->player_stats->energy_max}
+          <button n:if="!$resting" type="submit" class="uk-button uk-button-primary" n:name="rest">Rest</button>
+        {/if}
         <button n:if="$resting" type="submit" class="uk-button uk-button-primary" n:name="wakeup">Stop resting</button>
       {/form}
     </div>

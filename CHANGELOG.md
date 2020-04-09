@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.6] - 2020-04-10
+
+- Added events
+- Fixed training with skillpoints
+- Fixed resting
+- Adjusted scavenging reward
+
 ## [0.0.5] - 2020-03-24
 
 - Added training

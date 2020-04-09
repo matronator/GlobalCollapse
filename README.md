@@ -21,6 +21,8 @@ Still very early access, so much of the features are still yet to come.
 
 - [x] Character training
 - [x] Short intro
+- [x] Events
+  - [x] Social distancing event - bar is closed
 - [x] **Darknet** - black market
   - [x] Drug trade
     - [x] Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
@@ -48,6 +50,13 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.0.6] - 2020-04-10
+
+- Added events
+- Fixed training with skillpoints
+- Fixed resting
+- Adjusted scavenging reward
+
 ## [0.0.5] - 2020-03-24
 
 - Added training
@@ -67,9 +76,3 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
   - Selling drugs
 - ADD: Wastelands
   - Scavenging
-
-## [0.0.2] - 2020-03-18
-
-- ADD: Darknet
-  - Buying drugs
-- ADD: Live COVID-19 tracker in navbar
