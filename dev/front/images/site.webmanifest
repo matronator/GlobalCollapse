@@ -1,19 +1,19 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Pandemic",
+    "short_name": "Pandemic",
     "icons": [
         {
-            "src": "android-chrome-192x192.png",
+            "src": "/dist/front/images/android-chrome-192x192.png?v=xQOmLw6Q7A",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "android-chrome-512x512.png",
+            "src": "/dist/front/images/android-chrome-512x512.png?v=xQOmLw6Q7A",
             "sizes": "512x512",
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffbb00",
-    "background_color": "#ffbb00",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
     "display": "standalone"
 }
