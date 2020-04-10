@@ -19,7 +19,12 @@ Persistent Browser Based Game (PBBG) set in an alternate near future in where th
 
 Still very early access, so much of the features are still yet to come.
 
-- [x] Character training
+- [ ] Character progression
+  - [x] Leveling
+  - [x] Skill training
+- [ ] MMO elements
+  - [ ] PvP
+  - [x] Leaderboard
 - [x] Short intro
 - [x] Events
   - [x] Social distancing event - bar is closed
