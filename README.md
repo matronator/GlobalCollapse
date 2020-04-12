@@ -13,13 +13,18 @@ New deadly strain of coronavirus is spreading across the entire planet. The worl
 
 Join now at https://global-collapse.com
 
-Persistent Browser Based Game (PBBG) set in an alternate near future in where the COVID-19 mutated and wiped most of the human population.
+MMORPG Persistent Browser Based Game (PBBG) set in an alternate near future in where the COVID-19 mutated and wiped most of the human population.
 
 ## Features
 
 Still very early access, so much of the features are still yet to come.
 
-- [x] Character training
+- [ ] Character progression
+  - [x] Leveling
+  - [x] Skill training
+- [ ] MMO elements
+  - [ ] PvP
+  - [x] Leaderboard
 - [x] Short intro
 - [x] Events
   - [x] Social distancing event - bar is closed
