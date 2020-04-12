@@ -56,7 +56,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
   // Counter
   const infected = document.getElementById("covidInfected")
   const dead = document.getElementById("covidDead")
-  const multiplier = 2000
+  const multiplier = { infected: 2000, dead: 10000 }
   const urls = [
     "https://coronavirus-19-api.herokuapp.com/all",
     "https://corona.lmao.ninja/all"
@@ -72,9 +72,11 @@ window.addEventListener(`DOMContentLoaded`, () => {
       // Success!
       const data = JSON.parse(this.response)
       infected.innerHTML = new Intl.NumberFormat().format(
-        data.cases * multiplier
+        data.cases * multiplier.infected
       )
-      dead.innerHTML = new Intl.NumberFormat().format(data.deaths * multiplier)
+      dead.innerHTML = new Intl.NumberFormat().format(
+        data.deaths * multiplier.dead
+      )
     }
   }
 

@@ -5,7 +5,7 @@ error:
 homepage:
 	introLead: 'Deadly virus is spreading across the globe. Will you survive?'
 	introText: 'New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.'
-	introBeta: 'This is an early access, so game accounts may get erased occasionally.'
+	introBeta: 'This is an early access, it is unlikely but possible that game accounts might get deleted.'
 
 intro:
 	title: 'Welcome to Global Collapse: Pandemic!'
@@ -24,6 +24,11 @@ intro:
 			subtitle: "Click continue to start your adventure."
 
 ui:
+	navbar:
+		covidTracker:
+			disclaimer: 'Disclaimer: Real-time statistics multiplied by a magnitude:<br>Infected: 2000<br>Deaths: 10000'
+			infected: 'Infected'
+			dead: 'Dead'
 	login: 'Login'
 	logout: 'Logout'
 	signup: 'Sign-Up'

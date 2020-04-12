@@ -1,3 +1,87 @@
 error:
 	notFound: 'Stránka, kterou hledáte, bohužel nebyla nalezena.'
 	goBack: 'Zpět na úvodní stránku'
+
+homepage:
+	introLead: 'Smrtelný virus se šíří světem. Dokážeš přežít?'
+	introText: 'Nový smrtelný typ koronaviru se šíří po celé planetě. Světová ekonomika je v ruinách a vlády se hroutí. Přidej se nyní a zjisti, jestli dokážeš přežít v této dystopické budoucnosti.'
+	introBeta: 'Toto je zatím pouze testovní Early Access, je možné (ale nepravděpodobné) že herní účty mohou být smazány.'
+
+intro:
+	title: 'Vítej do Global Collapse: Pandemic!'
+	greetings: "Vítej do Global Collapse, %username%! Než budeš moct začít svůj boj o přežití, je tu pár věcí které musíš udělat. Začneme tím že si vybereš svůj avatar."
+	steps:
+		1:
+			title: 'Vyber si avatar'
+			subtitle: "Buď v klidu, můžeš ho kdykoliv změnit na stránce tvého profilu."
+		2:
+			response: "<p>Dobrá volba, takhle má vypadat pravý bojovník! Nyní se podíváme na tvé schopnosti.</p>"
+			title: 'Nastav si své dovednosti'
+			subtitle: "Do začátku máš 4 startovní skillpointy, které rozdělíš mezi své atributy. Přejeď kurzorem na jednotlivé atributy pro víc informací. Atributy budeš moct zvýšit buď tréninkem, nebo dosáhnutí nové úrovně postavy."
+		3:
+			response: "Skvělý, teď jsi připraven vyrazit! Nebo snad potřebuješ ještě pár minut?"
+			title: 'Jsi připraven?'
+			subtitle: "Klikni na tlačítko a zační své dobrodružství."
+
+ui:
+	navbar:
+		covidTracker:
+			disclaimer: 'Disclaimer: Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 2000<br>Úmrtí: 10000'
+			infected: 'Nakažených'
+			dead: 'Úmrtí'
+	login: 'Přihlásit se'
+	logout: 'Odhlásit se'
+	signup: 'Vytvořit účet'
+	email: 'E-mail'
+	password: 'Heslo'
+	passwordV: 'Heslo znovu'
+	username: 'Username'
+	lastUpdated: 'Naposledy aktualizováno'
+	locationStatus:
+		closed: 'Zavřeno'
+
+training:
+	timeLeft: 'Zbývá:'
+	spLeft: 'Dostupné skillpointy: <strong id="pointsLeft">%sp%</strong>'
+
+city:
+	bar:
+		closed: 'Bar je zavřený'
+		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
+	darknet:
+		about: 'Ceny se mění každých 5 hodin. Nakup za málo, prodej za hodně.'
+	wastelands:
+		wastelandsTitle: 'Pustina'
+		scavengingTitle: 'Průzkum'
+		scavengingText: 'You can go scavenging for loot into the wastelands outside of the city. You can return from scavenging any time after one hour have passed, but the longer you scavenge, the better reward you get.'
+		scavenging: 'You cannot do anything else, because you are currently scavenging outside of the city. Do you want to return back?'
+		scavengingSince: 'Jsi na průzkumu od:'
+		scavengingReturn: 'Vrátit se z průzkumu'
+		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
+
+drugs:
+	drugName: 'Droga'
+	yourStash: 'Ty máš'
+	Weed:
+		name: 'Tráva'
+		alt:
+			1: 'Cannabis'
+			2: 'THC'
+			3: 'Marijuana'
+	Ecstasy:
+		name: 'Extáze'
+		alt:
+			1: 'MDMA'
+			2: 'XTC'
+			3: 'Molly'
+	Meth:
+		name: 'Pervitin'
+		alt:
+			1: 'Crystal meth'
+			2: 'Methamphetamine'
+	Coke:
+		name: 'Kokain'
+		alt:
+			1: 'Cocaine'
+	Heroin:
+		name: 'Heroin'

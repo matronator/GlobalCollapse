@@ -11,8 +11,8 @@
         </a>
         <ul class="uk-nav-sub">
           <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">Account</a></li>
-          <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a href="/training">Training</a></li>
-          <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a href="/rest">Rest</a></li>
+          <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a n:href="Default:training">Training</a></li>
+          <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">Rest</a></li>
           <li class="uk-nav-divider"></li>
           <li><a href="#">Home<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
           <li><a href="#">Buildings<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
@@ -21,12 +21,12 @@
       <li n:class="$presenter->isLinkCurrent('City:*') | $presenter->isLinkCurrent('Bar:*') ? uk-open, uk-parent">
         <a href="#" class="uk-nav-header">City</a>
         <ul class="uk-nav-sub">
-          <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a href="/bar">Bar</a></li>
+          <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a n:href="Bar:">Bar</a></li>
           <li class="uk-nav-divider"></li>
           <li><a href="#">Market<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
-          <li n:class="$presenter->isLinkCurrent('City:darknet') ? uk-active"><a href="/darknet">Darknet</a></li>
+          <li n:class="$presenter->isLinkCurrent('City:darknet') ? uk-active"><a n:href="City:darknet">Darknet</a></li>
           <li class="uk-nav-divider"></li>
-          <li n:class="$presenter->isLinkCurrent('City:wastelands') ? uk-active"><a href="/wastelands">Wastelands</a></li>
+          <li n:class="$presenter->isLinkCurrent('City:wastelands') ? uk-active"><a n:href="City:wastelands">Wastelands</a></li>
         </ul>
       </li>
     </ul>

@@ -12,6 +12,12 @@ use App\Model\UserRepository;
 
 class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 {
+	/** @persistent */
+	public $locale;
+
+	/** @var \Kdyby\Translation\Translator @inject */
+	public $translator;
+
 	/** @var Model\UserRepository */
 	private $userRepository;
 

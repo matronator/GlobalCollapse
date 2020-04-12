@@ -220,7 +220,7 @@ final class CityPresenter extends GamePresenter
 	public function scavengeReward($hours) {
 		$totalHours = round($hours);
 		$totalReward = 0;
-		for($i = 0; $i <= $totalHours; $i++) {
+		for($i = 0; $i < $totalHours; $i++) {
 			$totalReward += rand(2, 4);
 		}
 		$plusXp = $totalReward;

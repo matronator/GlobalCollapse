@@ -29,11 +29,7 @@ class BasePresenter extends Presenter
 	{
 		parent::startup();
 
-		foreach($this->translator->getAvailableLocales() as $lang){
-			$this->localeList[] = substr($lang, 0, 2);
-		}
-
-		$this->defaultLocale = $this->translator->getDefaultLocale();
+        $this->localeList = ['en', 'cs'];
     }
 
     /**

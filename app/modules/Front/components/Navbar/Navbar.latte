@@ -5,9 +5,9 @@
                 <a class="uk-navbar-item uk-logo" n:href="Default:default">
                     <img src="{$basePath}/dist/front/images/logo-small.png" />
                 </a>
-                <div class="uk-flex uk-flex-column uk-visible@m" uk-tooltip="title: Disclaimer: Numbers shown are real time data multiplied by 2000">
-                    <p class="uk-margin-remove uk-text-small uk-text-light uk-text-warning covid-counter"><span id="covidInfected"></span> Infected</p>
-                    <p class="uk-margin-remove uk-text-small uk-text-light uk-text-danger covid-counter"><span id="covidDead"></span> Dead</p>
+                <div class="uk-flex uk-flex-column uk-visible@m" uk-tooltip="title: {_general.ui.navbar.covidTracker.disclaimer}">
+                    <p class="uk-margin-remove uk-text-small uk-text-light uk-text-warning covid-counter"><span id="covidInfected"></span> {_general.ui.navbar.covidTracker.infected}</p>
+                    <p class="uk-margin-remove uk-text-small uk-text-light uk-text-danger covid-counter"><span id="covidDead"></span> {_general.ui.navbar.covidTracker.dead}</p>
                 </div>
                 <a n:if="$presenter->user->isLoggedIn()" uk-navbar-toggle-icon="" href="#offcanvas" uk-toggle="" class="uk-navbar-toggle uk-hidden@m uk-icon uk-navbar-toggle-icon"></a>
             </div>
@@ -27,6 +27,10 @@
                         <span uk-icon="icon: sign-out"></span>
                     </a>
                 </div>
+                <div class="uk-navbar-item uk-visible@s">
+                    <a n:href="this, locale => cs" n:if="$presenter->locale === 'en'" class="uk-text-muted">EN</a>
+                    <a n:href="this, locale => en" n:if="$presenter->locale === 'cs'" class="uk-text-muted">CZ</a>
+                </div>
             </div>
             <div class="uk-navbar-right" n:if="!$presenter->user->isLoggedIn()">
                 <ul class="uk-navbar-nav uk-visible@m">
@@ -35,6 +39,10 @@
                     </li>
                     <li>
                         <a n:href="Signup:default">{_general.ui.signup}</a>
+                    </li>
+                    <li>
+                        <a n:href="this, locale => cs" n:if="$presenter->locale === 'en'">EN</a>
+                        <a n:href="this, locale => en" n:if="$presenter->locale === 'cs'">CZ</a>
                     </li>
                 </ul>
             </div>

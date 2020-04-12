@@ -44,7 +44,8 @@ extensions:
 translation:
 	default: en
 	fallback: [en_US, en]
-	whitelist: [en]
+	whitelist: ['en', 'cs']
+	dirs: [/app/locale]
 	debugger: true
 	resolvers:
 		session: true
