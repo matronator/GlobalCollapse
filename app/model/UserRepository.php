@@ -36,9 +36,9 @@ class UserRepository
         return $this->database->table('user');
     }
 
-    public function findUsers()
+    public function findUsers(?string $sortBy = 'power')
     {
-        return $this->database->table('user')->order('player_stats.level DESC');
+        return $this->database->table('user')->order('player_stats.' . $sortBy . ' DESC');
     }
 
     public function findAllStats()
@@ -57,6 +57,15 @@ class UserRepository
             return null;
         return $this->findAll()
             ->wherePrimary($id)
+            ->fetch();
+    }
+
+    public function getUserByName(?string $username = null): ?ActiveRow
+    {
+        if (!$username)
+            return null;
+        return $this->findAll()
+            ->where('username', $username)
             ->fetch();
     }
 

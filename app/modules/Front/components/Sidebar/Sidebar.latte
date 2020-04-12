@@ -5,7 +5,7 @@
       <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$user->player_stats->energy_max}</span>
     </div>
     <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
-      <li n:class="$presenter->isLinkCurrent('Default:*') ? uk-open, uk-parent">
+      <li class="uk-open uk-parent">
         <a href="#" class="uk-nav-header">
           {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->player_stats->level}</small>
         </a>
@@ -18,7 +18,7 @@
           <li><a href="#">Buildings<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
         </ul>
       </li>
-      <li n:class="$presenter->isLinkCurrent('City:*') | $presenter->isLinkCurrent('Bar:*') ? uk-open, uk-parent">
+      <li class="uk-open uk-parent">
         <a href="#" class="uk-nav-header">City</a>
         <ul class="uk-nav-sub">
           <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a n:href="Bar:">Bar</a></li>

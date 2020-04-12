@@ -3,18 +3,18 @@
     <tr>
       <th class="uk-text-nowrap uk-table-shrink">#</th>
       <th class="uk-text-nowrap uk-table-expand">Player</th>
-      <th class="uk-text-nowrap">Level</th>
+      <th class="uk-text-nowrap">Power</th>
     </tr>
   </thead>
   <tbody>
-    {foreach $users as $user}
+    {foreach $users as $otherUser}
       <tr>
         <td class="uk-text-nowrap">{$iterator->counter}</td>
         <td class="uk-text-nowrap">
-          <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}.jpg" class="uk-comment-avatar" width="24" height="24">
-          &nbsp;{$user->username}
+          <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}.jpg" class="uk-comment-avatar" width="24" height="24">
+          &nbsp;{if $otherUser->username != $user->username}<a n:href="Player:detail, $otherUser->username">{$otherUser->username}</a>{else}{$user->username}{/if}
         </td>
-        <td class="uk-text-nowrap">{$user->player_stats->level}</td>
+        <td class="uk-text-nowrap">{$otherUser->player_stats->power}</td>
       </tr>
     {/foreach}
   </tbody>

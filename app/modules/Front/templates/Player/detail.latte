@@ -1,0 +1,36 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Player detail{/define}
+{define metaDescription}Player detail{/define}
+
+{block pageContent}
+  <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+    <div class="dashboard uk-flex" uk-margin>
+      <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
+        <div class="split">
+          <div class="uk-width-auto">
+            <img src="{$basePath}/dist/front/images/default-avatars/{$otherPlayer->avatar}.jpg" class="uk-comment-avatar" width="128" height="128">
+          </div>
+          <div class="uk-width-expand">
+            <table class="uk-table uk-table-small uk-table-divider">
+              <tr>
+                <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">Strength</td>
+                <td class="uk-text-nowrap">{$otherPlayer->player_stats->strength}</td>
+                <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">Stamina</td>
+                <td class="uk-text-nowrap">{$otherPlayer->player_stats->stamina}</td>
+              </tr>
+              <tr>
+                <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">Speed</td>
+                <td class="uk-text-nowrap">{$otherPlayer->player_stats->speed}</td>
+                <td class="uk-text-nowrap border-left" uk-tooltip="title:Your total power."><strong>Power</strong></td>
+                <td class="uk-text-nowrap"><strong>{$otherPlayer->player_stats->power}</strong></td>
+              </tr>
+              <tr>
+                <td class="uk-text-nowrap uk-text-center" colspan="4" uk-tooltip="title:Earn skillpoints by leveling up and train for free.">Skillpoints: {$otherPlayer->skillpoints}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{/block}
