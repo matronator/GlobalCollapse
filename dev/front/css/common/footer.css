@@ -1,1 +1,12 @@
 /*********************** FOOTER ***********************/
+.footer-main {
+  position: relative;
+  width: 100%;
+  margin-top: 3rem;
+  padding: 1rem 6px;
+  @media (max-width: 640px) {
+    & > div > *:not(*:first-child) {
+      margin-top: 6px;
+    }
+  }
+}

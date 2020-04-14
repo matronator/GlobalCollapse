@@ -7,7 +7,7 @@
   <div class="dashboard">
     <div class="uk-card uk-width-expand uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
       <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/bar.jpg');background-position:center;">
-        <h2 class="uk-heading-large"><del n:if="$closed">Bar</del></h2>
+        <h2 class="uk-heading-large">{if $closed}<del n:if="$closed">Bar</del>{else}Bar{/if}</h2>
         <div class="location-closed" n:if="$closed">{_general.ui.locationStatus.closed}</div>
       </div>
       <div class="uk-card-body">
@@ -16,6 +16,23 @@
           {if $closeReason == 'social-distancing'}
             {_general.city.bar.closedSocialDistancing}
           {/if}
+        {else}
+          <h2>Bar</h2>
+          <p>This is the place you'll get most of the work from. Word of mouth, just like the good old days...</p>
+          <h3>Jobs</h3>
+          <p>Choose a job that you like and get to work.</p>
+          <div class="jobs uk-flex uk-flex-row">
+            <ul class="job-list">
+              <li class="uk-active">Distribute face masks in the city</li>
+              <li>Burn the dead</li>
+              <li>Kill someone</li>
+            </ul>
+            <ul class="job-detail">
+              <li id="job-money">+ $20</li>
+              <li id="job-xp">+ 30 XP</li>
+              <li id="job-time">20 minutes</li>
+            </ul>
+          </div>
         {/if}
       </div>
     </div>

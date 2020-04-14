@@ -16,7 +16,10 @@ class BasePresenter extends Presenter
 	public $locale;
 
 	/** @var array */
-	public $localeList;
+    public $localeList;
+
+	/** @var array */
+	public $localeArrayMap;
 
 	/** @var string */
 	public $defaultLocale;
@@ -30,6 +33,10 @@ class BasePresenter extends Presenter
 		parent::startup();
 
         $this->localeList = ['en', 'cs'];
+        $this->localeArrayMap = [
+            'en' => 'English',
+            'cs' => 'Čeština'
+        ];
     }
 
     /**

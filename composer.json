@@ -25,7 +25,8 @@
 		"tracy/tracy": "^2.7.3",
 		"latte/latte": "^2.6.2",
 		"kdyby/translation": "^3.0.3",
-      	"ext-json": "*"
+      	"ext-json": "*",
+		"h4kuna/assets": "^1.0"
     },
 	"require-dev": {
 		"nette/tester": "^2.3.0"

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.7] - 2020-04-15
+
+- Enable localization
+  - Added CZECH (cs_CZ)
+- Improve leaderboard sorting
+  - Default sort by power
+- UI/UX improvements
+  - Favicons edited
+  - iOS splashscreens edited
+  - Design fixes and adjustments
+    - Added footer
+  - Better responsivity
+- Fix asset caching
+  - New PHP dependency: h4kuna/assets
+
 ## [0.0.6] - 2020-04-10
 
 - Added events

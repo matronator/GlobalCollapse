@@ -2,8 +2,11 @@
     <div class="uk-container uk-container-expand uk-light uk-background-secondary">
         <nav class="uk-navbar-nav" uk-navbar>
             <div class="uk-navbar-left">
-                <a class="uk-navbar-item uk-logo" n:href="Default:default">
-                    <img src="{$basePath}/dist/front/images/logo-small.png" />
+                <a class="uk-navbar-item uk-logo uk-visible@m" n:href="Default:default">
+                    <img src="{$basePath}/dist/front/images/logo-small.png">
+                </a>
+                <a class="uk-navbar-item uk-logo uk-hidden@m" href="#offcanvas" uk-toggle="">
+                    <img src="{$basePath}/dist/front/images/logo-mobile.png">
                 </a>
                 <div class="uk-flex uk-flex-column uk-visible@m" uk-tooltip="title: {_general.ui.navbar.covidTracker.disclaimer}">
                     <p class="uk-margin-remove uk-text-small uk-text-light uk-text-warning covid-counter"><span id="covidInfected"></span> {_general.ui.navbar.covidTracker.infected}</p>
@@ -11,38 +14,45 @@
                 </div>
                 <a n:if="$presenter->user->isLoggedIn()" uk-navbar-toggle-icon="" href="#offcanvas" uk-toggle="" class="uk-navbar-toggle uk-hidden@m uk-icon uk-navbar-toggle-icon"></a>
             </div>
-
             <div class="uk-navbar-right" n:if="$presenter->user->isLoggedIn()">
-                <div class="uk-navbar-item uk-visible@s">
-                    <span uk-icon="user"></span>
-                    <span n:ifset="$user->email" class="uk-margin-left">{$user->email}</span>
-                </div>
-                <div class="uk-navbar-item uk-visible@s">
-                    <a n:href="Account:logout" class="uk-button uk-button-secondary">
-                        {_general.ui.logout}
-                    </a>
-                </div>
-                <div class="uk-navbar-item uk-hidden@s">
-                    <a n:href="Account:logout">
-                        <span uk-icon="icon: sign-out"></span>
-                    </a>
-                </div>
-                <div class="uk-navbar-item uk-visible@s">
-                    <a n:href="this, locale => cs" n:if="$presenter->locale === 'en'" class="uk-text-muted">EN</a>
-                    <a n:href="this, locale => en" n:if="$presenter->locale === 'cs'" class="uk-text-muted">CZ</a>
-                </div>
-            </div>
-            <div class="uk-navbar-right" n:if="!$presenter->user->isLoggedIn()">
-                <ul class="uk-navbar-nav uk-visible@m">
-                    <li>
-                        <a n:href="Login:default">{_general.ui.login}</a>
+                <ul class="uk-navbar-nav">
+                    <li class="uk-visible@s">
+                        <a n:href="Default:default">
+                            <span uk-icon="icon: user"></span>
+                            <span n:ifset="$user->email" class="uk-margin-small-left">{$user->username}</span>
+                        </a>
+                    </li>
+                    <li class="uk-hidden@s">
+                        <a n:href="Default:default"><span uk-icon="icon: user"></span></a>
                     </li>
                     <li>
+                        <a n:href="Account:logout" class="uk-visible@s">
+                            <span class="uk-margin-small-right">{_general.ui.logout}</span>
+                            <span uk-icon="icon:sign-out"></span>
+                        </a>
+                        <a n:href="Account:logout" class="uk-hidden@s"><span uk-icon="icon: sign-out"></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="uk-navbar-right" n:if="!$presenter->user->isLoggedIn()">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-visible@m">
+                        <a n:href="Login:default">{_general.ui.login}</a>
+                    </li>
+                    <li class="uk-visible@m">
                         <a n:href="Signup:default">{_general.ui.signup}</a>
                     </li>
                     <li>
-                        <a n:href="this, locale => cs" n:if="$presenter->locale === 'en'">EN</a>
-                        <a n:href="this, locale => en" n:if="$presenter->locale === 'cs'">CZ</a>
+                        <a href="#">{$presenter->locale|upper}<span uk-icon="triangle-down"></span></a>
+                        <div class="uk-navbar-dropdown uk-padding-small uk-dark" uk-dropdown="mode:click;animation:uk-animation-slide-right-medium;offset:0">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                {foreach $presenter->localeList as $lang}
+                                    <li class="{if $presenter->locale === $lang}uk-active{/if}">
+                                        <a n:href="this, locale => $lang">{$presenter->localeArrayMap[$lang]}</a>
+                                    </li>
+                                {/foreach}
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>

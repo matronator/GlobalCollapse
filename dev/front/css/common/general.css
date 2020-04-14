@@ -8,6 +8,23 @@
   color: #fadd5a !important;
 }
 
+.flex-responsive {
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.flip-flop {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 1200px) {
+    flex-direction: column-reverse;
+  }
+}
+
 .status-bar {
   display: flex;
   flex-direction: row;
@@ -40,30 +57,28 @@
 
 .dashboard {
   flex-direction: row;
+  flex-wrap: wrap;
 
-  &>:first-child {
-    margin-right: 1rem;
+  & > div {
+    margin-left: 5px;
+    margin-right: 5px;
   }
 
   @media (max-width: 640px) {
     flex-direction: column;
-    &>:first-child {
-      margin-bottom: 1rem;
-    }
   }
 }
 .tabular {
   flex-direction: row;
+  flex-wrap: wrap;
 
-  &>:first-child {
-    margin-right: 1rem;
+  & > div {
+    margin-left: 5px;
+    margin-right: 5px;
   }
 
   @media (max-width: 1200px) {
     flex-direction: column;
-    &>:first-child {
-      margin-bottom: 1rem;
-    }
   }
 }
 td.input-row {
@@ -222,4 +237,13 @@ td.input-row {
   color: #fff;
   transform-origin: center;
   transform: rotateZ(-45deg);
+}
+
+/* BADGE */
+.uk-badge {
+  &\-outline {
+    background: transparent;
+    border: 1px solid #000;
+    color: #000;
+  }
 }

@@ -4,8 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6e8026b6f3bf1824faef509925b71ab",
+    "content-hash": "47114e09a62a1e3f73932e705d4feafd",
     "packages": [
+        {
+            "name": "h4kuna/assets",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/h4kuna/assets.git",
+                "reference": "42d5cc9959d1aba3b2c31f6db2d99e2604948387"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/h4kuna/assets/zipball/42d5cc9959d1aba3b2c31f6db2d99e2604948387",
+                "reference": "42d5cc9959d1aba3b2c31f6db2d99e2604948387",
+                "shasum": ""
+            },
+            "require": {
+                "latte/latte": "^2.5",
+                "nette/application": "^3.0",
+                "nette/bootstrap": "^3.0",
+                "nette/safe": "^0.9.0",
+                "nette/utils": "^3.0",
+                "phpstan/phpstan": "^0.12.18"
+            },
+            "require-dev": {
+                "salamium/testinium": "^0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "h4kuna\\Assets\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milan Matějček",
+                    "email": "milan.matejcek@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Support mtime for assets on development machine.",
+            "homepage": "https://github.com/h4kuna/assets",
+            "time": "2020-03-26T10:42:21+00:00"
+        },
         {
             "name": "kdyby/strict-objects",
             "version": "v2.0.0",
@@ -1248,6 +1294,65 @@
             "time": "2019-02-13T15:57:18+00:00"
         },
         {
+            "name": "nette/safe",
+            "version": "v0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/safe.git",
+                "reference": "8ebf13bdcd5e0ae5394671afa3a6deae70dc01cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/safe/zipball/8ebf13bdcd5e0ae5394671afa3a6deae70dc01cf",
+                "reference": "8ebf13bdcd5e0ae5394671afa3a6deae70dc01cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "nette/tester": "^2.2",
+                "phpstan/phpstan": "^0.12",
+                "tracy/tracy": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "🛡 PHP functions rewritten to throw exceptions instead of returning false or triggering errors.",
+            "homepage": "https://nette.org",
+            "keywords": [
+                "errors",
+                "exceptions",
+                "nette",
+                "php"
+            ],
+            "time": "2019-12-11T17:44:10+00:00"
+        },
+        {
             "name": "nette/safe-stream",
             "version": "v2.4.0",
             "source": {
@@ -1503,6 +1608,45 @@
                 "validation"
             ],
             "time": "2020-02-09T14:10:55+00:00"
+        },
+        {
+            "name": "phpstan/phpstan",
+            "version": "0.12.18",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "1ce27fe29c8660a27926127d350d53d80c4d4286"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1ce27fe29c8660a27926127d350d53d80c4d4286",
+                "reference": "1ce27fe29c8660a27926127d350d53d80c4d4286",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "time": "2020-03-22T16:51:47+00:00"
         },
         {
             "name": "psr/log",

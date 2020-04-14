@@ -3,9 +3,9 @@
 {define metaDescription}Training{/define}
 
 {block pageContent}
-<div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
-  <div class="dashboard uk-flex" uk-margin>
-    <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
+<div class="uk-container-expand uk-margin-auto" uk-height-viewport="expand: true">
+  <div class="dashboard uk-flex uk-padding-small uk-padding-remove-vertical" uk-margin>
+    <div class="uk-card uk-width-auto uk-card-default uk-card-body" style="flex:1 0 auto;">
       <div class="split uk-flex-bottom">
         <div>
           <h3 class="uk-margin-remove-bottom">
@@ -49,7 +49,9 @@
           </table>
         </div>
       </div>
-      <div n:if="$skillpoints > 0" class="uk-width-expand uk-flex uk-margin-top">
+    </div>
+    <div n:if="$skillpoints > 0" class="uk-card uk-card-default uk-width-auto uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top uk-overflow-auto">
+      <div class="uk-width-expand uk-flex uk-margin-top">
         {include '../../components/Training/TrainingSkillpoints.latte',
           strength => $user->player_stats->strength,
           stamina => $user->player_stats->stamina,
@@ -59,7 +61,7 @@
         }
       </div>
     </div>
-    <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+    <div class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
         {include '../../components/Training/Training.latte',
           strength => $user->player_stats->strength,
           stamina => $user->player_stats->stamina,

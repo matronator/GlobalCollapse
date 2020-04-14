@@ -40,6 +40,7 @@ latte:
 # extensions
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension
+	assetsExtension: h4kuna\Assets\DI\AssetsExtension
 
 translation:
 	default: en
@@ -49,3 +50,8 @@ translation:
 	debugger: true
 	resolvers:
 		session: true
+
+assetsExtension:
+	wwwDir: %wwwDir%
+	debugMode: true
+	tempDir: %tempDir%

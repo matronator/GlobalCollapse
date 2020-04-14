@@ -19,21 +19,21 @@ MMORPG Persistent Browser Based Game (PBBG) set in an alternate near future in w
 
 Still very early access, so much of the features are still yet to come.
 
-- [ ] Character progression
+- [ ] **RPG Character**
   - [x] Leveling
   - [x] Skill training
-- [ ] MMO elements
+- [ ] **MMO elements**
   - [ ] PvP
   - [x] Leaderboard
-- [x] Short intro
-- [x] Events
+- [x] **Events**
   - [x] Social distancing event - bar is closed
 - [x] **Darknet** - black market
   - [x] Drug trade
     - [x] Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
   - [ ] Weapon trade
 - [ ] **Market** - for buying other stuff
-- [ ] **Bar** - this is where you'll get your missions from
+- [x] **Bar** - this is where you'll get your missions from
+  - [ ] Missions
 - [x] **Wastelands** - area outside the city
   - [x] Scavenging
     - [x] Go scavenging into the wastelands and get some small reward
@@ -55,6 +55,21 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.0.7] - 2020-04-15
+
+- Enable localization
+  - Added CZECH (cs_CZ)
+- Improve leaderboard sorting
+  - Default sort by power
+- UI/UX improvements
+  - Favicons edited
+  - iOS splashscreens edited
+  - Design fixes and adjustments
+    - Added footer
+  - Better responsivity
+- Fix asset caching
+  - New PHP dependency: h4kuna/assets
+
 ## [0.0.6] - 2020-04-10
 
 - Added events
@@ -71,13 +86,3 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
 - Intro section for new players added
 - Updated character stats and table structure
-
-## [0.0.3] - 2020-03-21
-
-- Profile
-  - Change avatar
-  - Character progression (leveling)
-- Darknet
-  - Selling drugs
-- ADD: Wastelands
-  - Scavenging

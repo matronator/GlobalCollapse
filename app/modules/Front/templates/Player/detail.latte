@@ -6,6 +6,9 @@
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
     <div class="dashboard uk-flex" uk-margin>
       <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
+        <h3 class="uk-flex uk-flex-center uk-text-center uk-flex-middle">
+          {$otherPlayer->username}&nbsp;<span class="uk-badge uk-badge-outline">{$otherPlayer->player_stats->level}</span>
+        </h3>
         <div class="split">
           <div class="uk-width-auto">
             <img src="{$basePath}/dist/front/images/default-avatars/{$otherPlayer->avatar}.jpg" class="uk-comment-avatar" width="128" height="128">
@@ -29,6 +32,9 @@
               </tr>
             </table>
           </div>
+        </div>
+        <div class="uk-flex uk-width-expand uk-flex-center">
+          <a href="javascript:window.history.back();"><span uk-icon="icon:arrow-left"></span>Back</a>
         </div>
       </div>
     </div>
