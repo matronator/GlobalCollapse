@@ -45,11 +45,11 @@
         </div>
       </div>
       <div class="uk-width-expand uk-flex uk-margin-top">
-        <div class="progress-bar">
-          <div class="progress-bar-fill" style="width:{$progressValue}%;">
-          </div>
-          <p class="progress-bar-value uk-text-small">{$xp}/{$xpMax}</p>
-        </div>
+        {include '../../components/ProgressBar/ProgressBar.latte',
+          min => $xpMin,
+          max => $xpMax,
+          value => $xp
+        }
       </div>
       <div id="change-avatar" hidden>
         {form avatarForm}

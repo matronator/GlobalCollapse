@@ -32,6 +32,10 @@
 
 @import "sections/intro.css";
 
-@import "../../../app/modules/Front/components/Training/Training.css";
-
 /* @import 'sections/homepage.css'; */
+
+/* Components */
+
+@import "../../../app/modules/Front/components/Training/Training.css";
+@import "../../../app/modules/Front/components/ProgressBar/ProgressBar.css";
+@import "../../../app/modules/Front/components/Jobs/Jobs.css";

@@ -1,0 +1,30 @@
+parameters:
+  jobs:
+    1:
+      locale: distributeMasks
+      duration: 15
+      energy: 10
+      money: 20
+      xp: 15
+      droprate: 20
+    2:
+      locale: burnBodies
+      duration: 20
+      energy: 20
+      money: 40
+      xp: 45
+      droprate: 15
+    3:
+      locale: eatShit
+      duration: 20
+      energy: 20
+      money: 40
+      xp: 45
+      droprate: 30
+    4:
+      locale: suckDick
+      duration: 20
+      energy: 20
+      money: 40
+      xp: 45
+      droprate: 10

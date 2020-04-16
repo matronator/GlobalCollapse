@@ -17,25 +17,15 @@
             {_general.city.bar.closedSocialDistancing}
           {/if}
         {else}
-          <h2>Bar</h2>
-          <p>This is the place you'll get most of the work from. Word of mouth, just like the good old days...</p>
-          <h3>Jobs</h3>
-          <p>Choose a job that you like and get to work.</p>
-          <div class="jobs uk-flex uk-flex-row">
-            <ul class="job-list">
-              <li class="uk-active">Distribute face masks in the city</li>
-              <li>Burn the dead</li>
-              <li>Kill someone</li>
-            </ul>
-            <ul class="job-detail">
-              <li id="job-money">+ $20</li>
-              <li id="job-xp">+ 30 XP</li>
-              <li id="job-time">20 minutes</li>
-            </ul>
-          </div>
+          <h3>{_general.city.bar.jobs.title}</h3>
+          <p>{_general.city.bar.jobs.description}</p>
         {/if}
       </div>
     </div>
+    <div n:if="!$closed" class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+      {include '../../components/Jobs/Jobs.latte'}
+    </div>
   </div>
 </div>
+<script defer src="{asset bar.js front}"></script>
 {/block}

@@ -1,0 +1,33 @@
+.progress-bar {
+  position: relative;
+  margin: 20px auto;
+  padding: 0;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+  background: #aaa;
+  border-radius: 6px;
+  &.yellow {
+    background: #cacaca;
+  }
+  &\-fill {
+    position: relative;
+    height: 100%;
+    background: #1e87f0;
+  }
+  &\-value {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0;
+    color: #fff;
+    font-weight: 500;
+  }
+}
+.progress-bar.yellow .progress-bar-fill {
+  background: #fadd5a;
+}
+.progress-bar.yellow .progress-bar-value {
+  color: #000;
+}

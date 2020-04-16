@@ -2,6 +2,9 @@ error:
 	notFound: 'Sorry, the page you are looking for was not found.'
 	goBack: 'Back to homepage'
 
+player:
+	energy: 'Energy'
+
 homepage:
 	introLead: 'Deadly virus is spreading across the globe. Will you survive?'
 	introText: 'New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.'
@@ -48,6 +51,21 @@ city:
 	bar:
 		closed: 'Bar is closed'
 		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
+		jobs:
+			title: 'Jobs'
+			description: "Choose a job that you like and get to work. You'll get a reward after it's done."
+			duration: 'Duration'
+			energyBarTip: 'Your remaining energy'
+			descriptionDefault: 'Select a job'
+			distributeMasks:
+				title: 'Distribute face masks'
+			burnBodies:
+				title: 'Burn corpses'
+				description: 'Burn bodies of the deceased in an incinerator to help prevent virus spread.'
+			eatShit:
+				title: 'Eat shit'
+			suckDick:
+				title: 'Suck dick'
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'
 	wastelands:

@@ -1,0 +1,6 @@
+.job-link {
+  cursor: pointer;
+}
+.job-link > input {
+  margin-right: 10px;
+}

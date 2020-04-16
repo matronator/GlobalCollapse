@@ -1,0 +1,15 @@
+{**
+*
+*     $min        number        Min value
+*     $max        number        Max value
+*     $value      number        Current value
+*     $type       string?       Fill color
+*
+*}
+
+{var $fill = round((($value - $min) / ($max - $min)) * (100));}
+<div class="progress-bar{ifset $type} {$type}{/ifset}" uk-tooltip="{_general.city.bar.jobs.energyBarTip}">
+  <div class="progress-bar-fill" style="width:{$fill}%;">
+  </div>
+  <p class="progress-bar-value uk-text-small">{$value}/{$max}</p>
+</div>

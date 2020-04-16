@@ -1,0 +1,52 @@
+{form jobsForm}
+<div class="jobs">
+  <div class="uk-width-3-4 uk-flex uk-flex-column uk-margin-auto uk-text-center">
+    {include '../../components/ProgressBar/ProgressBar.latte',
+      min => 0,
+      max => $user->player_stats->energy_max,
+      value => $user->player_stats->energy,
+      type => 'yellow'
+    }
+  </div>
+  <div class="uk-child-width-1-3@m uk-flex-center" uk-grid>
+    <ul class="job-list uk-list uk-list-striped">
+      {foreach $jobs as $job}
+        {var $locale = $job['locale']}
+        <li>
+          <label class="job-link" n:name="job:$locale">
+            <input class="uk-radio uk-input" type="radio" n:name="job:$locale"
+              data-job="{$locale}"
+              data-job-duration="{$job['duration']}"
+              data-job-energy="{$job['energy']}"
+              data-job-money="{$job['money']}"
+              data-job-description="{_general.city.bar.jobs.$locale.description}"
+              data-job-xp="{$job['xp']}">
+            {_general.city.bar.jobs.$locale.title}
+          </label>
+        </li>
+      {/foreach}
+    </ul>
+    <table class="uk-table uk-table-divider uk-table-small">
+      <tr>
+        <td class="uk-text-nowrap">{_general.city.bar.jobs.duration}</td>
+        <td class="uk-text-nowrap"><span id="cost-duration">10</span> minutes</td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">Energy</td>
+        <td class="uk-text-nowrap uk-text-danger">- <span id="cost-energy">20</span><span uk-icon="bolt"></span></td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">Money</td>
+        <td class="uk-text-nowrap">+ $<span id="reward-money">20</span></td>
+      </tr>
+      <tr>
+        <td class="uk-text-nowrap">XP</td>
+        <td class="uk-text-nowrap">+ <span id="reward-xp">10</span></td>
+      </tr>
+    </table>
+  </div>
+  <div class="uk-width-3-4 uk-flex uk-flex-column uk-margin-auto uk-text-center">
+    <p id="jobDescription" class="uk-margin-top">{_general.city.bar.jobs.descriptionDefault}</p>
+  </div>
+</div>
+{/form}

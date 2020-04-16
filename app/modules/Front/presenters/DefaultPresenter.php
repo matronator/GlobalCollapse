@@ -62,7 +62,7 @@ final class DefaultPresenter extends BasePresenter
 			$xpMax = $newStats->player_stats->xp_max;
 			$xpMin = $newStats->player_stats->xp_min;
 			$this->template->xpMax = $xpMax;
-			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
+			$this->template->xpMin = $xpMin;
 
 			$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->order('drugs_id', 'ASC')->fetchAll();
 			if (count($drugsInventory) > 0) {

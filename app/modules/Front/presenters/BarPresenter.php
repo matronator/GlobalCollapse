@@ -18,6 +18,7 @@ final class BarPresenter extends GamePresenter
 
 	private $userRepository;
 	private $eventRepository;
+	private $jobs = [];
 
 	public function __construct(
 		UserRepository $userRepository,
@@ -45,18 +46,42 @@ final class BarPresenter extends GamePresenter
 				$this->template->closed = true;
 				$this->template->closeReason = $activeEventName;
 			}
+		} else {
+			$allJobs = $this->context->parameters['jobs'];
+			for ($i = 0; $i < 3; $i++) {
+				$selectedJob = $this->getRandomWeightedElement($allJobs);
+				$jobKey = array_search($selectedJob, $allJobs);
+				array_push($this->jobs, $selectedJob);
+				unset($allJobs[$jobKey]);
+			}
+			$this->template->jobs = $this->jobs;
 		}
 	}
 
-	public function createComponentMissionsForm(): Form {
+	public function createComponentJobsForm(): Form {
 		$form = new Form();
+		$jobsRadio = [];
+		foreach($this->jobs as $job) {
+			$jobsRadio[$job['locale']] = $job['locale'];
+		}
+		$form->addRadioList('job', 'Select a job', $jobsRadio);
 		$form->addSubmit('scavenge', 'Go scavenging');
 		$form->addSubmit('stopScavenging', 'Return from scavenging');
-		$form->onSuccess[] = [$this, 'scavengeFormSucceeded'];
+		$form->onSuccess[] = [$this, 'jobsFormSucceeded'];
 		return $form;
 	}
 
-	public function missionsFormSucceeded(Form $form, $values): void {
-		$control = $form->isSubmitted();
+	public function jobsFormSucceeded(Form $form, $values): void {
+
 	}
+
+	private function getRandomWeightedElement(array $weightedValues) {
+    $rand = rand(1, (int) array_sum(array_column($weightedValues, 'droprate')));
+    foreach ($weightedValues as $key) {
+      $rand -= $key['droprate'];
+      if ($rand <= 0) {
+        return $key;
+      }
+    }
+  }
 }
