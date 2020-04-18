@@ -33,7 +33,7 @@ Still very early access, so much of the features are still yet to come.
   - [ ] Weapon trade
 - [ ] **Market** - for buying other stuff
 - [x] **Bar** - this is where you'll get your missions from
-  - [ ] Missions
+  - [x] Missions
 - [x] **Wastelands** - area outside the city
   - [x] Scavenging
     - [x] Go scavenging into the wastelands and get some small reward
@@ -54,6 +54,10 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 ## Changelog
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
+
+## [0.0.7] - 2020-04-18
+
+- Missions added!!!!!!!
 
 ## [0.0.7] - 2020-04-15
 
