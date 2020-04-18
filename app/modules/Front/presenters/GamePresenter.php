@@ -6,8 +6,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model;
 
-/////////////////////// FRONT: BASE PRESENTER ///////////////////////
-// Base presenter for all frontend presenters
+/////////////////////// FRONT: Game PRESENTER ///////////////////////
 
 abstract class GamePresenter extends BasePresenter
 {

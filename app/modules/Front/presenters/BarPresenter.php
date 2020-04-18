@@ -10,6 +10,7 @@ use App\Model\EventsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
+use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -18,15 +19,21 @@ final class BarPresenter extends GamePresenter
 
 	private $userRepository;
 	private $eventRepository;
-	private $jobs = [];
+	/**
+	 * @var array
+	 */
+	private array $allJobs;
+	private array $jobs = [];
 
 	public function __construct(
+		array $allJobs,
 		UserRepository $userRepository,
 		EventsRepository $eventRepository
 	)
 	{
 		$this->userRepository = $userRepository;
 		$this->eventRepository = $eventRepository;
+		$this->allJobs = $allJobs;
 	}
 
 	protected function startup()
@@ -47,32 +54,79 @@ final class BarPresenter extends GamePresenter
 				$this->template->closeReason = $activeEventName;
 			}
 		} else {
-			$allJobs = $this->context->parameters['jobs'];
-			for ($i = 0; $i < 3; $i++) {
-				$selectedJob = $this->getRandomWeightedElement($allJobs);
-				$jobKey = array_search($selectedJob, $allJobs);
-				array_push($this->jobs, $selectedJob);
-				unset($allJobs[$jobKey]);
+			$isOnMission = $player->actions->on_mission;
+			$this->template->onMission = $isOnMission;
+			if (!$isOnMission) {
+				$session = $this->session;
+				$section = $session->getSection('jobs');
+				$section->setExpiration('60 minutes');
+				$templateJobs = [];
+				if ($section['shown'] != true) {
+					$jobDeck = $this->allJobs;
+					for ($i = 0; $i < 3; $i++) {
+						$selectedJob = $this->getRandomWeightedElement($jobDeck);
+						$section['job-' . $i] = $selectedJob;
+						array_push($templateJobs, $selectedJob);
+						$jobKey = array_search($selectedJob, $jobDeck);
+						unset($jobDeck[$jobKey]);
+					}
+					$section['shown'] = true;
+				} else {
+					for ($i = 0; $i < 3; $i++) {
+						$selectedJob = $section['job-' . $i];
+						array_push($templateJobs, $selectedJob);
+					}
+				}
+				$this->template->jobs = $templateJobs;
 			}
-			$this->template->jobs = $this->jobs;
 		}
 	}
 
 	public function createComponentJobsForm(): Form {
 		$form = new Form();
+		$form->setHtmlAttribute('id', 'jobsForm');
 		$jobsRadio = [];
-		foreach($this->jobs as $job) {
-			$jobsRadio[$job['locale']] = $job['locale'];
+		$session = $this->session;
+		$section = $session->getSection('jobs');
+		for ($i = 0; $i < 3; $i++) {
+			$jobFromSess = $section['job-' . $i];
+			$jobsRadio[$jobFromSess['locale']] = $jobFromSess['locale'];
 		}
-		$form->addRadioList('job', 'Select a job', $jobsRadio);
-		$form->addSubmit('scavenge', 'Go scavenging');
-		$form->addSubmit('stopScavenging', 'Return from scavenging');
+		$form->addRadioList('job', 'Select a job:', $jobsRadio)
+				->setRequired();
+		$form->addSubmit('work', 'Accept job');
 		$form->onSuccess[] = [$this, 'jobsFormSucceeded'];
 		return $form;
 	}
 
-	public function jobsFormSucceeded(Form $form, $values): void {
-
+	public function jobsFormSucceeded(Form $form, $value): void {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$isOnMission = $player->actions->on_mission;
+		$isScavenging = $player->actions->scavenging;
+		$isResting = $player->actions->resting;
+		if (!$isOnMission && !$isScavenging && !$isResting) {
+			$availableJobs = [];
+			$session = $this->session;
+			$section = $session->getSection('jobs');
+			for ($i = 0; $i < 3; $i++) {
+				$jobFromSess = $section['job-' . $i];
+				$availableJobs[$jobFromSess['locale']] = $jobFromSess['locale'];
+			}
+			if (in_array($value->job, $availableJobs)) {
+				$missionStart = new DateTime();
+				$missionName = $value->job;
+				$this->userRepository->getUser($player->id)->actions->update([
+					'on_mission' => 1,
+					'mission_name' => $missionName,
+					'mission_start' => $missionStart
+				]);
+				$this->flashMessage('Job accepted', 'success');
+				$this->redirect('this');
+			} else {
+				$this->flashMessage('Something fishy going on...', 'danger');
+				$this->redirect('this');
+			}
+		}
 	}
 
 	private function getRandomWeightedElement(array $weightedValues) {

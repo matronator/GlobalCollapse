@@ -138,6 +138,9 @@ td.input-row {
   width: 0;
   height: 0;
 }
+.uk-padding-tiny {
+  padding: 10px 12px;
+}
 .avatar-option + .avatar-preview {
   cursor: pointer;
 }

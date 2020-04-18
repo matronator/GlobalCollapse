@@ -1,30 +1,35 @@
 parameters:
-  jobs:
-    1:
-      locale: distributeMasks
-      duration: 15
-      energy: 10
-      money: 20
-      xp: 15
-      droprate: 20
-    2:
-      locale: burnBodies
-      duration: 20
-      energy: 20
-      money: 40
-      xp: 45
-      droprate: 15
-    3:
-      locale: eatShit
-      duration: 20
-      energy: 20
-      money: 40
-      xp: 45
-      droprate: 30
-    4:
-      locale: suckDick
-      duration: 20
-      energy: 20
-      money: 40
-      xp: 45
-      droprate: 10
+  jobs: [
+    [
+        locale: distributeMasks
+        duration: 20
+        energy: 15
+        money: 10
+        xp: 20
+        droprate: 20
+    ],
+    [
+        locale: burnBodies
+        duration: 10
+        energy: 20
+        money: 25
+        xp: 10
+        droprate: 20
+    ],
+    [
+        locale: smuggleDrugs
+        duration: 30
+        energy: 10
+        money: 50
+        xp: 20
+        droprate: 10
+    ],
+    [
+        locale: escortScientist
+        duration: 15
+        energy: 15
+        money: 10
+        xp: 30
+        droprate: 15
+    ]
+  ]

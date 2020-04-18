@@ -21,6 +21,7 @@ services:
 	- App\Model\DrugsRepository
 	- App\Model\EventsRepository
 	- App\Filter\ImageFilter
+	- App\FrontModule\Presenters\BarPresenter(%jobs%)
 	imagePipe: \ImageGenerator(%wwwDir%)
 	imageStorage: \ImageStorage(%wwwDir%)
 	router: App\Router\RouterFactory::createRouter
@@ -53,5 +54,5 @@ translation:
 
 assetsExtension:
 	wwwDir: %wwwDir%
-	debugMode: true
+	debugMode: %debugMode%
 	tempDir: %tempDir%

@@ -1,15 +1,21 @@
 {**
 *
-*     $min        number        Min value
-*     $max        number        Max value
-*     $value      number        Current value
-*     $type       string?       Fill color
+*     $min          number        Min value
+*     $max          number        Max value
+*     $value        number        Current value
+*     $name         string?       Name of the bar to be used as id
+*     $type         string?       Fill color
 *
 *}
 
-{var $fill = round((($value - $min) / ($max - $min)) * (100));}
-<div class="progress-bar{ifset $type} {$type}{/ifset}" uk-tooltip="{_general.city.bar.jobs.energyBarTip}">
-  <div class="progress-bar-fill" style="width:{$fill}%;">
-  </div>
-  <p class="progress-bar-value uk-text-small">{$value}/{$max}</p>
+{var $fill = round((($value - $min) / ($max - $min)) * (100))}
+<div {ifset $name}id="bar-{$name}"{/ifset} class="progress-bar{ifset $type} {$type}{/ifset}" uk-tooltip="{_general.city.bar.jobs.energyBarTip}"
+    data-bar-min="{$min}"
+    data-bar-max="{$max}"
+    data-bar-value="{$value}"
+    data-bar-fill="{$fill}">
+  <div class="progress-bar-fill" style="width:{$fill}%;"></div>
+  <p class="progress-bar-value uk-text-small">
+    <span id="barTextValue">{$value}</span>/{$max}
+  </p>
 </div>

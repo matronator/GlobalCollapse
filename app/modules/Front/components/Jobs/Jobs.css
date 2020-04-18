@@ -1,6 +1,9 @@
-.job-link {
+li.job-item {
   cursor: pointer;
 }
-.job-link > input {
-  margin-right: 10px;
+li.job-item.selected {
+  background: #ffd;
+}
+.job-link {
+  cursor: pointer;
 }

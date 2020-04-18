@@ -56,16 +56,16 @@ city:
 			description: "Choose a job that you like and get to work. You'll get a reward after it's done."
 			duration: 'Duration'
 			energyBarTip: 'Your remaining energy'
-			descriptionDefault: 'Select a job'
+			descriptionDefault: 'Select a job from the list'
 			distributeMasks:
 				title: 'Distribute face masks'
 			burnBodies:
 				title: 'Burn corpses'
 				description: 'Burn bodies of the deceased in an incinerator to help prevent virus spread.'
-			eatShit:
-				title: 'Eat shit'
-			suckDick:
-				title: 'Suck dick'
+			smuggleDrugs:
+				title: 'Smuggle drugs'
+			escortScientist:
+				title: 'Escort a scientist'
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'
 	wastelands:

@@ -5,30 +5,32 @@
       min => 0,
       max => $user->player_stats->energy_max,
       value => $user->player_stats->energy,
-      type => 'yellow'
+      type => 'yellow',
+      name => 'jobEnergy'
     }
   </div>
-  <div class="uk-child-width-1-3@m uk-flex-center" uk-grid>
-    <ul class="job-list uk-list uk-list-striped">
+  <div class="uk-child-width-1-3@m uk-flex-center uk-margin-remove" uk-grid>
+    <ul class="job-list uk-list uk-list-striped uk-padding-remove">
+      {var $key = 0}
       {foreach $jobs as $job}
         {var $locale = $job['locale']}
-        <li>
+        <li class="job-item {first}selected{/first}" data-job-name="{$locale}"
+            data-job-duration="{$job['duration']}"
+            data-job-energy="{$job['energy']}"
+            data-job-money="{$job['money']}"
+            data-job-description="{_general.city.bar.jobs.$locale.description}"
+            data-job-xp="{$job['xp']}">
           <label class="job-link" n:name="job:$locale">
-            <input class="uk-radio uk-input" type="radio" n:name="job:$locale"
-              data-job="{$locale}"
-              data-job-duration="{$job['duration']}"
-              data-job-energy="{$job['energy']}"
-              data-job-money="{$job['money']}"
-              data-job-description="{_general.city.bar.jobs.$locale.description}"
-              data-job-xp="{$job['xp']}">
+            <input class="uk-radio uk-input job-input" {first}checked{/first} type="radio" n:name="job:$locale" data-job-input="{$locale}">
             {_general.city.bar.jobs.$locale.title}
           </label>
         </li>
+        {php $key++}
       {/foreach}
     </ul>
     <table class="uk-table uk-table-divider uk-table-small">
       <tr>
-        <td class="uk-text-nowrap">{_general.city.bar.jobs.duration}</td>
+        <td class="uk-text-nowrap uk-table-widt-shrink">{_general.city.bar.jobs.duration}</td>
         <td class="uk-text-nowrap"><span id="cost-duration">10</span> minutes</td>
       </tr>
       <tr>
@@ -45,8 +47,9 @@
       </tr>
     </table>
   </div>
-  <div class="uk-width-3-4 uk-flex uk-flex-column uk-margin-auto uk-text-center">
+  <div class="uk-width-3-4 uk-margin-auto uk-text-center">
     <p id="jobDescription" class="uk-margin-top">{_general.city.bar.jobs.descriptionDefault}</p>
+    <button type="submit" class="uk-button uk-button-primary" n:name="work">Accept job</button>
   </div>
 </div>
 {/form}

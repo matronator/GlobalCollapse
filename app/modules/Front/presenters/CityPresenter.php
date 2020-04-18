@@ -181,8 +181,9 @@ final class CityPresenter extends GamePresenter
 		$control = $form->isSubmitted();
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$isScavenging = $player->actions->scavenging;
+		$isOnMission = $player->actions->on_mission;
 		if ($control->name == 'scavenge') {
-			if ($isScavenging <= 0) {
+			if ($isScavenging <= 0 && $isOnMission <= 0) {
 				$playerScavengeStart = new DateTime();
 				$this->userRepository->getUser($this->player->id)->actions->update([
 					'scavenging' => 1,

@@ -23,7 +23,9 @@
       </div>
     </div>
     <div n:if="!$closed" class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
-      {include '../../components/Jobs/Jobs.latte'}
+      {if !$onMission}
+        {include '../../components/Jobs/Jobs.latte'}
+      {/if}
     </div>
   </div>
 </div>
