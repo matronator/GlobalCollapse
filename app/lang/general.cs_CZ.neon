@@ -48,6 +48,23 @@ city:
 	bar:
 		closed: 'Bar je zavřený'
 		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
+		jobs:
+			title: 'Práce'
+			description: "Choose a job that you like and get to work. You'll get a reward after it's done."
+			duration: 'Čas'
+			energyBarTip: 'Your remaining energy'
+			descriptionDefault: 'Select a job from the list'
+			working: 'Pracuješ'
+			workingUntil: "You're on a job until %time%"
+			distributeMasks:
+				title: 'Distribute face masks'
+			burnBodies:
+				title: 'Burn corpses'
+				description: 'Burn bodies of the deceased in an incinerator to help prevent virus spread.'
+			smuggleDrugs:
+				title: 'Smuggle drugs'
+			escortScientist:
+				title: 'Escort a scientist'
 	darknet:
 		about: 'Ceny se mění každých 5 hodin. Nakup za málo, prodej za hodně.'
 	wastelands:

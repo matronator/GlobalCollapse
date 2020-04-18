@@ -20,7 +20,7 @@ class ActionLocker extends Component
     if ($actions['resting'] == 1 && $presenter->isLinkCurrent('Bar:default')) {
       $presenter->redirect('Default:rest');
     }
-    if ($actions['mission'] == 1 && !$presenter->isLinkCurrent('Bar:default')) {
+    if ($actions['mission'] == 1 && $presenter->isLinkCurrent('Default:rest')) {
       $presenter->redirect('Bar:default');
     }
   }

@@ -57,6 +57,8 @@ city:
 			duration: 'Duration'
 			energyBarTip: 'Your remaining energy'
 			descriptionDefault: 'Select a job from the list'
+			working: 'Working'
+			workingUntil: "You're on a job until %time%"
 			distributeMasks:
 				title: 'Distribute face masks'
 			burnBodies:

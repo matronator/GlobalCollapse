@@ -10,7 +10,6 @@ use App\Model\EventsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
-use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -23,7 +22,6 @@ final class BarPresenter extends GamePresenter
 	 * @var array
 	 */
 	private array $allJobs;
-	private array $jobs = [];
 
 	public function __construct(
 		array $allJobs,
@@ -78,7 +76,41 @@ final class BarPresenter extends GamePresenter
 					}
 				}
 				$this->template->jobs = $templateJobs;
+			} else {
+				$whatMission = $player->actions->mission_name;
+				$workingUntil = $player->actions->mission_end;
+				$now = new DateTime();
+				$diff = $workingUntil->getTimestamp() - $now->getTimestamp();
+				if ($diff >= 0) {
+					$s = $diff % 60;
+					$m = $diff / 60 % 60;
+					$this->template->minutes = $m > 9 ? $m : '0'.$m;
+					$this->template->seconds = $s > 9 ? $s : '0'.$s;
+					$this->template->workingUntil = $workingUntil;
+				} else {
+					$this->endMission($whatMission);
+					$isOnMission = 0;
+					$this->redirect('this');
+				}
 			}
+		}
+	}
+
+	private function endMission($jobName) {
+		$key = array_search($jobName, array_column($this->allJobs, 'locale'));
+		$currentJob = $this->allJobs[$key];
+		if ($currentJob) {
+			$plusXp = $currentJob['xp'];
+			$plusMoney = $currentJob['money'];
+			$this->userRepository->getUser($this->user->getIdentity()->id)->player_stats->update([
+				'xp+=' => $plusXp
+			]);
+			$this->userRepository->getUser($this->user->getIdentity()->id)->update([
+				'money+=' => $plusMoney
+			]);
+			$this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
+				'on_mission' => 0
+			]);
 		}
 	}
 
@@ -113,15 +145,28 @@ final class BarPresenter extends GamePresenter
 				$availableJobs[$jobFromSess['locale']] = $jobFromSess['locale'];
 			}
 			if (in_array($value->job, $availableJobs)) {
-				$missionStart = new DateTime();
-				$missionName = $value->job;
-				$this->userRepository->getUser($player->id)->actions->update([
-					'on_mission' => 1,
-					'mission_name' => $missionName,
-					'mission_start' => $missionStart
-				]);
-				$this->flashMessage('Job accepted', 'success');
-				$this->redirect('this');
+				$key = array_search($value->job, array_column($this->allJobs, 'locale'));
+				$chosenJob = $this->allJobs[$key];
+				if ($chosenJob) {
+					if ($player->player_stats->energy >= $chosenJob['energy']) {
+						$now = new DateTime();
+						$jobEndTS = $now->getTimestamp();
+						$jobEndTS += intval($chosenJob['duration'] * 60);
+						$now->setTimestamp($jobEndTS);
+						$jobEnd = $now->format('Y-m-d H:i:s');
+						$missionName = $value->job;
+						$this->userRepository->getUser($player->id)->player_stats->update([
+							'energy-=' => $chosenJob['energy']
+						]);
+						$this->userRepository->getUser($player->id)->actions->update([
+							'on_mission' => 1,
+							'mission_name' => $missionName,
+							'mission_end' => $jobEnd
+						]);
+						$this->flashMessage('Job accepted', 'success');
+						$this->redirect('this');
+					}
+				}
 			} else {
 				$this->flashMessage('Something fishy going on...', 'danger');
 				$this->redirect('this');

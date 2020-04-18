@@ -25,6 +25,11 @@
     <div n:if="!$closed" class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
       {if !$onMission}
         {include '../../components/Jobs/Jobs.latte'}
+      {else}
+        <div class="uk-padding uk-text-center">
+          <h3>{_general.city.bar.jobs.working}</h3>
+          <p>{_general.city.bar.jobs.workingUntil, [time => $workingUntil]}</p>
+        </div>
       {/if}
     </div>
   </div>
