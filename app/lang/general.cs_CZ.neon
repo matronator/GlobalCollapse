@@ -57,14 +57,17 @@ city:
 			working: 'Pracuješ'
 			workingUntil: "You're on a job until %time%"
 			distributeMasks:
-				title: 'Distribute face masks'
+				title: 'Roznos roušek'
+				description: 'Distribute face masks in the city center.'
 			burnBodies:
-				title: 'Burn corpses'
-				description: 'Burn bodies of the deceased in an incinerator to help prevent virus spread.'
+				title: 'Pálení mrtvol'
+				description: 'Burn bodies of deceased in an incinerator to help prevent virus spread.'
 			smuggleDrugs:
-				title: 'Smuggle drugs'
+				title: 'Pašování drog'
+				description: 'Smuggle drugs across the city border.'
 			escortScientist:
-				title: 'Escort a scientist'
+				title: 'Eskortuj vědce'
+				description: 'Escort a scientist safely through the wastelands to his lab.'
 	darknet:
 		about: 'Ceny se mění každých 5 hodin. Nakup za málo, prodej za hodně.'
 	wastelands:

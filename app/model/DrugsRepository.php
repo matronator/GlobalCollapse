@@ -35,14 +35,29 @@ class DrugsRepository
 		return $this->database->table('drugs_inventory')->where('user_id = ? && drugs_id = ?', $userId, $drugId);
 	}
 
-	public function updateUserDrug(?int $userId = null, ?int $drugId = null, ?int $qtty = 0)
+	public function sellDrug(?int $userId = null, ?int $drugId = null, ?int $qtty = 0)
+	{
+		$drugInv = $this->findUserDrug($userId, $drugId)->fetch();
+		if ($drugInv && $drugInv->quantity >= $qtty) {
+			if ($qtty > 0) {
+				$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->update([
+					'quantity-=' => $qtty
+				]);
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	public function buyDrugs(?int $userId = null, ?int $drugId = null, ?int $qtty = 0)
 	{
 		$drugInv = $this->findUserDrug($userId, $drugId)->fetch();
 		if ($drugInv) {
-			$amount = intval($drugInv->quantity) + $qtty;
-			if ($amount >= 0) {
+			if ($qtty > 0) {
 				$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->update([
-					'quantity' => $amount
+					'quantity+=' => $qtty
 				]);
 				return true;
 			} else {

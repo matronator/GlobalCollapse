@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-    <div n:if="$skillpoints > 0" class="uk-card uk-card-default uk-width-auto uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top uk-overflow-auto">
+    <div n:if="$skillpoints > 0" class="uk-card uk-card-default uk-width-auto uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top uk-overflow-auto uk-flex-last@m">
       <div class="uk-width-expand uk-flex uk-margin-top">
         {include '../../components/Training/TrainingSkillpoints.latte',
           strength => $user->player_stats->strength,

@@ -21,7 +21,7 @@ final class BarPresenter extends GamePresenter
 	/**
 	 * @var array
 	 */
-	private array $allJobs;
+	private $allJobs;
 
 	public function __construct(
 		array $allJobs,
@@ -82,11 +82,15 @@ final class BarPresenter extends GamePresenter
 				$now = new DateTime();
 				$diff = $workingUntil->getTimestamp() - $now->getTimestamp();
 				if ($diff >= 0) {
+					$missionKey = array_search($whatMission, array_column($this->allJobs, 'locale'));
+					$currentMission = $this->allJobs[$missionKey];
+					$missionDuration = intval($currentMission['duration'] * 60);
 					$s = $diff % 60;
 					$m = $diff / 60 % 60;
 					$this->template->minutes = $m > 9 ? $m : '0'.$m;
 					$this->template->seconds = $s > 9 ? $s : '0'.$s;
 					$this->template->workingUntil = $workingUntil;
+					$this->template->timeMax = $missionDuration;
 				} else {
 					$this->endMission($whatMission);
 					$isOnMission = 0;
@@ -102,9 +106,7 @@ final class BarPresenter extends GamePresenter
 		if ($currentJob) {
 			$plusXp = $currentJob['xp'];
 			$plusMoney = $currentJob['money'];
-			$this->userRepository->getUser($this->user->getIdentity()->id)->player_stats->update([
-				'xp+=' => $plusXp
-			]);
+			$this->userRepository->addXp($this->user->getIdentity()->id, $plusXp);
 			$this->userRepository->getUser($this->user->getIdentity()->id)->update([
 				'money+=' => $plusMoney
 			]);
@@ -150,8 +152,10 @@ final class BarPresenter extends GamePresenter
 				if ($chosenJob) {
 					if ($player->player_stats->energy >= $chosenJob['energy']) {
 						$now = new DateTime();
+						$jobDuration = intval($chosenJob['duration'] * 60);
+						// set job end date
 						$jobEndTS = $now->getTimestamp();
-						$jobEndTS += intval($chosenJob['duration'] * 60);
+						$jobEndTS += $jobDuration;
 						$now->setTimestamp($jobEndTS);
 						$jobEnd = $now->format('Y-m-d H:i:s');
 						$missionName = $value->job;
@@ -163,9 +167,18 @@ final class BarPresenter extends GamePresenter
 							'mission_name' => $missionName,
 							'mission_end' => $jobEnd
 						]);
+						// unset sessions
+						unset($section);
+						unset($session);
 						$this->flashMessage('Job accepted', 'success');
 						$this->redirect('this');
+					} else {
+						$this->flashMessage('Not enough energy', 'danger');
+						$this->redirect('this');
 					}
+				} else {
+					$this->flashMessage('Something fishy going on...', 'danger');
+					$this->redirect('this');
 				}
 			} else {
 				$this->flashMessage('Something fishy going on...', 'danger');

@@ -25,14 +25,20 @@
     <div n:if="!$closed" class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
       {if !$onMission}
         {include '../../components/Jobs/Jobs.latte'}
+        <script defer src="{asset bar.js front}"></script>
       {else}
         <div class="uk-padding uk-text-center">
           <h3>{_general.city.bar.jobs.working}</h3>
+          {include '../../components/CountdownBar/CountdownBar.latte',
+            minute => $minutes,
+            sec => $seconds,
+            max => $timeMax
+          }
           <p>{_general.city.bar.jobs.workingUntil, [time => $workingUntil]}</p>
         </div>
+        <script defer src="{asset countdownBar.js front}"></script>
       {/if}
     </div>
   </div>
 </div>
-<script defer src="{asset bar.js front}"></script>
 {/block}

@@ -108,6 +108,7 @@ final class CityPresenter extends GamePresenter
 
 	public function darknetFormSucceeded(Form $form, $values): void
 	{
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$control = $form->isSubmitted();
 		$prices = [];
 		$drugs = $this->drugsRepository->findAll();
@@ -119,21 +120,19 @@ final class CityPresenter extends GamePresenter
 		$totalPrice = array_sum($prices);
 		if ($totalPrice > 0) {
 			if ($control->name === 'buy') {
-				$userMoney = $this->player->money;
-				if ($userMoney >= $totalPrice) {
-					$newMoney = $userMoney - $totalPrice;
-					$this->userRepository->getUser($this->player->id)->update([
-						'money' => $newMoney
-						]);
-					$this->player->money = $newMoney;
+				if ($player->money >= $totalPrice) {
 					foreach ($drugs as $drug) {
-						$this->drugsRepository->updateUserDrug($this->player->id, $drug->id, $values[$drug->name]);
+						if ($values[$drug->name] > 0) {
+							$this->drugsRepository->buyDrugs($this->player->id, $drug->id, $values[$drug->name]);
+							$this->userRepository->getUser($this->player->id)->update([
+								'money-=' => $prices[$drug->name]
+							]);
+						}
 					}
 					$this->flashMessage('Purchase successful', 'success');
 					$this->redirect('this');
 				} else {
-					$missingMoney = $totalPrice - $userMoney;
-					$this->flashMessage('Not enough money. You need $' . $missingMoney . ' more', 'danger');
+					$this->flashMessage('Not enough money', 'danger');
 					$this->redirect('this');
 				}
 			} else if ($control->name === 'sell') {
@@ -142,18 +141,15 @@ final class CityPresenter extends GamePresenter
 				$soldDrugs = [];
 				foreach($drugs as $drug) {
 					if ($values[$drug->name] > 0) {
-						$sellDrug = $this->drugsRepository->updateUserDrug($this->player->id, $drug->id, (-1) * ($values[$drug->name]));
+						$sellDrug = $this->drugsRepository->sellDrug($this->player->id, $drug->id, $values[$drug->name]);
 						if (!$sellDrug) {
 							$missingDrugs = $missingDrugs . $drug->name . ', ';
 							array_push($allGood, $drug->name);
 						} else {
 							array_push($soldDrugs, $drug->name);
-							$userMoney = $this->player->money;
-							$newMoney = $userMoney + $prices[$drug->name];
 							$this->userRepository->getUser($this->player->id)->update([
-								'money' => $newMoney
-								]);
-							$this->player->money = $newMoney;
+								'money+=' => $prices[$drug->name]
+							]);
 						}
 					}
 				}
@@ -221,16 +217,17 @@ final class CityPresenter extends GamePresenter
 	public function scavengeReward($hours) {
 		$totalHours = round($hours);
 		$totalReward = 0;
+		$totalMoney = 0;
 		for($i = 0; $i < $totalHours; $i++) {
 			$totalReward += rand(2, 4);
+			$totalMoney += rand(2, 5);
 		}
-		$plusXp = $totalReward;
-		$plusMoney = round($hours * rand(2, 5));
+		$plusXp = round($totalReward);
+		$plusMoney = round($totalMoney);
 		$this->userRepository->addXp($this->player->id, $plusXp);
 		$this->userRepository->getUser($this->player->id)->update([
-			'money' => $plusMoney + $this->player->money
+			'money+=' => $totalMoney
 		]);
-		$this->player->money += $plusMoney;
 		return [
 			'xp' => $plusXp,
 			'money' => $plusMoney

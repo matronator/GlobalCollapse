@@ -103,23 +103,33 @@ class UserRepository
         return $this->findAllStats()->insert([]);
     }
 
-    public function updateStats($userId, $strength, $stamina, $speed)
+    public function updateStats(int $userId, ?int $strength = -99, ?int $stamina = -99, ?int $speed = -99)
     {
+        $oldStats = $this->getUser($userId);
+        $newStrength = $strength == -99 ? $oldStats->player_stats->strength : $strength;
+        $newStamina = $stamina == -99 ? $oldStats->player_stats->stamina : $stamina;
+        $newSpeed = $speed == -99 ? $oldStats->player_stats->speed : $speed;
         $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
-            'strength' => $strength,
-            'stamina' => $stamina,
-            'speed' => $speed,
+            'strength' => $newStrength,
+            'stamina' => $newStamina,
+            'speed' => $newSpeed,
             'power' => $strength + $stamina + $speed
         ]);
     }
 
-    public function updateStatsAdd($userId, $strength = 0, $stamina = 0, $speed = 0)
+    public function updateStatsAdd(int $userId, ?int $strength = 0, ?int $stamina = 0, ?int $speed = 0)
     {
+        $oldStats = $this->getUser($userId);
+        $oldStrength = $oldStats->player_stats->strength;
+        $oldStamina = $oldStats->player_stats->stamina;
+        $oldSpeed = $oldStats->player_stats->speed;
+        $oldPower = $oldStrength + $oldStamina + $oldSpeed;
+        $newPower = $oldPower + $strength + $stamina + $speed;
         $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
             'strength+=' => $strength,
             'stamina+=' => $stamina,
             'speed+=' => $speed,
-            'power+=' => $strength + $stamina + $speed
+            'power+=' => $newPower
         ]);
     }
 
@@ -146,10 +156,10 @@ class UserRepository
         $xpNow = $player->player_stats->xp;
         $xpMax = $player->player_stats->xp_max;
         $level = $player->player_stats->level;
-        $newXp = $xpNow + $xp;
         $this->getUser($id)->player_stats->update([
-            'xp' => $newXp
+            'xp+=' => $xp
         ]);
+        $newXp = $xpNow + $xp;
         while ($xpMax <= $newXp) {
             $level += 1;
             $xpMax = $this->levelUp($id, $level);

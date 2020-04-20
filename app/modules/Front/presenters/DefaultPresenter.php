@@ -266,10 +266,10 @@ final class DefaultPresenter extends BasePresenter
 					$now->setTimestamp($trainingEndTS);
 					$trainingEnd = $now->format('Y-m-d H:i:s');
 					$this->userRepository->getUser($this->user->getIdentity()->id)->update([
-						'money' => $currentMoney
+						'money-=' => $trainingCost
 					]);
 					$this->userRepository->getUser($this->user->getIdentity()->id)->player_stats->update([
-						'energy' => $currentEnergy
+						'energy-=' => 10
 					]);
 					$this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
 						'training' => $trainNumber,

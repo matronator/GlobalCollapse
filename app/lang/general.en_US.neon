@@ -61,13 +61,16 @@ city:
 			workingUntil: "You're on a job until %time%"
 			distributeMasks:
 				title: 'Distribute face masks'
+				description: 'Distribute face masks in the city center.'
 			burnBodies:
 				title: 'Burn corpses'
-				description: 'Burn bodies of the deceased in an incinerator to help prevent virus spread.'
+				description: 'Burn bodies of deceased in an incinerator to help prevent virus spread.'
 			smuggleDrugs:
 				title: 'Smuggle drugs'
+				description: 'Smuggle drugs across the city border.'
 			escortScientist:
 				title: 'Escort a scientist'
+				description: 'Escort a scientist safely through the wastelands to his lab.'
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'
 	wastelands:
