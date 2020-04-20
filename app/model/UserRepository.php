@@ -124,12 +124,13 @@ class UserRepository
         $oldStamina = $oldStats->player_stats->stamina;
         $oldSpeed = $oldStats->player_stats->speed;
         $oldPower = $oldStrength + $oldStamina + $oldSpeed;
+
         $newPower = $oldPower + $strength + $stamina + $speed;
         $this->getUser($userId)->ref('player_stats', 'player_stats_id')->update([
             'strength+=' => $strength,
             'stamina+=' => $stamina,
             'speed+=' => $speed,
-            'power+=' => $newPower
+            'power' => $newPower
         ]);
     }
 

@@ -206,10 +206,10 @@ final class DefaultPresenter extends BasePresenter
 	private function endTraining($trainingStat) {
 		switch ($trainingStat) {
 			case 1:
-				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 1, 0, 0);
+				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 1);
 			break;
 			case 2:
-				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 0, 1, 0);
+				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 0, 1);
 			break;
 			case 3:
 				$this->userRepository->updateStatsAdd($this->user->getIdentity()->id, 0, 0, 1);
