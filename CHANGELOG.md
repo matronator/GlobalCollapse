@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.8] - 2020-04-21
+
+- Added Missions
+- Fixed countdowns
+- Added footer
+- New illustrations
+
 ## [0.0.7] - 2020-04-15
 
 - Enable localization

@@ -31,6 +31,10 @@ Still very early access, so much of the features are still yet to come.
   - [x] Drug trade
     - [x] Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
   - [ ] Weapon trade
+- [ ] **Buildings**
+  - [ ] Resource production
+    - [ ] Drug labs
+    - [ ] Plantations
 - [ ] **Market** - for buying other stuff
 - [x] **Bar** - this is where you'll get your missions from
   - [x] Missions
@@ -55,9 +59,12 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
-## [0.0.7] - 2020-04-18
+## [0.0.8] - 2020-04-21
 
-- Missions added!!!!!!!
+- Added Missions
+- Fixed countdowns
+- Added footer
+- New illustrations
 
 ## [0.0.7] - 2020-04-15
 
@@ -85,8 +92,3 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
 - Added training
 - Added leaderboard
-
-## [0.0.4] - 2020-03-24
-
-- Intro section for new players added
-- Updated character stats and table structure
