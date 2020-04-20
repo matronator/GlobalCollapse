@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use DateTime;
 use Nette;
 use Nette\Database\Table\ActiveRow;
 use Nette\Application\BadRequestException;
@@ -34,6 +35,21 @@ class UserRepository
     public function findAll()
     {
         return $this->database->table('user');
+    }
+
+    public function getTotalPlayers()
+    {
+        return count($this->database->table('user'));
+    }
+
+    public function getOnlinePlayers()
+    {
+        $now = new DateTime('now');
+        $plusDelay = $now->getTimestamp();
+        $plusDelay -= 900;
+        $now->setTimestamp($plusDelay);
+        $activityTime = $now->format('Y-m-d H:i:s');
+        return count($this->database->table('user')->where('last_active >= ?', $activityTime));
     }
 
     public function findUsers(?string $sortBy = 'power')

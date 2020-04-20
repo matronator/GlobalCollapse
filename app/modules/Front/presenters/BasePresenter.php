@@ -6,6 +6,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model;
 use App\Model\UserRepository;
+use DateTime;
 
 /////////////////////// FRONT: BASE PRESENTER ///////////////////////
 // Base presenter for all frontend presenters
@@ -36,8 +37,14 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;
 		$this->template->user = (object) $this->user->getIdentity();
+		$this->template->allPlayers = $this->userRepository->getTotalPlayers();
+		$this->template->onlinePlayers = $this->userRepository->getOnlinePlayers();
 		if ($this->user->isLoggedIn()) {
 			$this->template->user = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$player = $this->user->getIdentity();
+      $this->userRepository->getUser($player->id)->update([
+				'last_active' => new DateTime()
+			]);
 		}
 	}
 

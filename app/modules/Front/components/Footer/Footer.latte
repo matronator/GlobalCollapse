@@ -1,5 +1,5 @@
 <footer class="footer-main uk-box-shadow-small uk-container uk-width-expand uk-background-default uk-dark">
-  <div class="uk-flex flex-responsive uk-flex-around">
+  <div class="uk-flex flex-responsive uk-flex-around uk-flex-middle">
     <ul class="uk-subnav uk-margin-remove-bottom">
       {foreach $presenter->localeList as $lang}
         <li class="{if $presenter->locale === $lang}uk-active{/if}">
@@ -9,6 +9,10 @@
     </ul>
     <div class="uk-text-small uk-text-center uk-text-light">
       <span>Created by <a href="https://matronator.com" target="_blank">Matronator</a></span>
+    </div>
+    <div class="players-online uk-flex uk-flex-column uk-text-small uk-text-light">
+      <span class="uk-text-muted">{$allPlayers} users</span>
+      <span class="uk-text-secondary">{$onlinePlayers} online</span>
     </div>
     <div class="uk-text-right uk-text-small uk-text-light">
       <span><a href="https://github.com/matronator/GlobalCollapse" target="_blank">Report a bug</a></span>
