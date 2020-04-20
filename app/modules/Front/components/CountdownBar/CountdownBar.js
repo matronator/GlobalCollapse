@@ -6,13 +6,6 @@ window.addEventListener(`DOMContentLoaded`, () => {
   const progressBar = document.querySelector(`.countdown-bar`)
   const progressBarFill = progressBar.querySelector(`.countdown-bar-fill`)
 
-  const hourSpan = document.getElementById(`cbHour`)
-  var hours
-  if (hourSpan) {
-    hours = Number(hourSpan.innerHTML)
-  } else {
-    hours = 0
-  }
   var minutes = Number(minuteSpan.innerHTML)
   var seconds = Number(secondSpan.innerHTML)
 
@@ -28,14 +21,13 @@ window.addEventListener(`DOMContentLoaded`, () => {
         minutes -= 1
       } else {
         minutes = 59
-        hours -= 1
       }
     }
-    if (hours <= 0 && minutes <= 0 && seconds <= 0) {
+    if (minutes <= 0 && seconds <= 0) {
       setTimeout(reloadWindow, 2000)
     }
     const progressMax = Number(progressBar.dataset.barMax)
-    const totalSeconds = seconds + minutes * 60 + hours * 3600
+    const totalSeconds = seconds + minutes * 60
     const newBarFill = ((totalSeconds - 0) / (progressMax - 0)) * 100
 
     progressBar.dataset.barValue = totalSeconds
