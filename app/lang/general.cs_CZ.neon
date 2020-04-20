@@ -26,7 +26,7 @@ intro:
 ui:
 	navbar:
 		covidTracker:
-			disclaimer: 'Disclaimer: Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 2000<br>Úmrtí: 10000'
+			disclaimer: 'Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 2000<br>Úmrtí: 10000'
 			infected: 'Nakažených'
 			dead: 'Úmrtí'
 	login: 'Přihlásit se'
@@ -50,12 +50,12 @@ city:
 		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
 		jobs:
 			title: 'Práce'
-			description: "Choose a job that you like and get to work. You'll get a reward after it's done."
-			duration: 'Čas'
+			description: "Vyber si jakou práci chceš vzít a pusť se do ní. Až ji uděláš, dostaneš odměnu."
+			duration: 'Délka'
 			energyBarTip: 'Your remaining energy'
 			descriptionDefault: 'Select a job from the list'
 			working: 'Pracuješ'
-			workingUntil: "You're on a job until %time%"
+			workingUntil: "Pracuješ do "
 			distributeMasks:
 				title: 'Roznos roušek'
 				description: 'Distribute face masks in the city center.'

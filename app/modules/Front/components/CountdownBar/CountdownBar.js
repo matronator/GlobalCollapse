@@ -8,6 +8,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
 
   var minutes = Number(minuteSpan.innerHTML)
   var seconds = Number(secondSpan.innerHTML)
+  let totalSeconds = seconds + minutes * 60
 
   setInterval(tick, 1000)
 
@@ -17,24 +18,19 @@ window.addEventListener(`DOMContentLoaded`, () => {
     } else {
       seconds = 59
       minutes -= 1
-      if (minutes > 0) {
-        minutes -= 1
-      } else {
-        minutes = 59
-      }
     }
     if (minutes <= 0 && seconds <= 0) {
       setTimeout(reloadWindow, 2000)
     }
+    totalSeconds -= 1
     const progressMax = Number(progressBar.dataset.barMax)
-    const totalSeconds = seconds + minutes * 60
-    const newBarFill = ((totalSeconds - 0) / (progressMax - 0)) * 100
+    const newBarFill = (totalSeconds / progressMax) * 100
 
     progressBar.dataset.barValue = totalSeconds
     progressBar.dataset.barFill = newBarFill
     progressBarFill.style.width = `${ newBarFill}%`
-    minuteSpan.innerHTML = minutes > 9 ? minutes : `0${minutes}`
-    secondSpan.innerHTML = seconds > 9 ? seconds : `0${seconds}`
+    secondSpan.innerHTML = seconds > 9 ? seconds : `0${ seconds}`
+    minuteSpan.innerHTML = minutes > 9 ? minutes : `0${ minutes}`
   }
   function reloadWindow() {
     window.location.reload(false)

@@ -91,6 +91,7 @@ final class BarPresenter extends GamePresenter
 					$this->template->seconds = $s > 9 ? $s : '0'.$s;
 					$this->template->workingUntil = $workingUntil;
 					$this->template->timeMax = $missionDuration;
+					$this->template->jobName = $whatMission;
 				} else {
 					$this->endMission($whatMission);
 					$isOnMission = 0;

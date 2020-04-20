@@ -15,7 +15,6 @@ window.addEventListener(`DOMContentLoaded`, () => {
       seconds -= 1
     } else {
       seconds = 59
-      minutes -= 1
       if (minutes > 0) {
         minutes -= 1
       } else {

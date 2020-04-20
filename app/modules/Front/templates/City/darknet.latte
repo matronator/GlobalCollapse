@@ -26,8 +26,9 @@
         </thead>
         <tbody>
           {foreach $drugs as $drug}
+            {var $drugName = $drug->name}
             <tr>
-              <td class="uk-text-nowrap">{$drug->name}</td>
+              <td class="uk-text-nowrap">{_general.drugs.$drugName.name}</td>
               <td class="uk-text-nowrap">&dollar;{$drug->price} / g</td>
               <td class="uk-text-nowrap input-row">{input $drug->name} g</td>
               {*<td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drug->past_price}</td>*}

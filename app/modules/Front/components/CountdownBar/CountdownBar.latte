@@ -3,13 +3,12 @@
 *     $max          number        Total time in seconds
 *     $sec          number        Seconds
 *     $minute       number        Minutes
-*     $hour         ?number       Hours (optional)
 *     $name         ?string       Name of the bar to be used as id (optional)
 *     $type         ?string       Fill color (optional)
 *
 *}
 {var $minSec = 60}
-{var $value = ($minutes * $minSec) + $sec}
+{var $value = ($minute * $minSec) + $sec}
 {var $min = 0}
 {var $fill = round((($value - $min) / ($max - $min)) * (100))}
 <div id="countdown{ifset $name}-{$name}{/ifset}" class="countdown-bar progress-bar{ifset $type} {$type}{/ifset}"
@@ -19,8 +18,6 @@
     data-bar-fill="{$fill}">
   <div class="countdown-bar-fill progress-bar-fill" style="width:{$fill}%;"></div>
   <p class="progress-bar-value uk-text-small">
-    <span id="cbMins" class="cb-time">{$minute}</span><span class="cb-divider">:</span>
-    <span id="cbSecs" class="cb-time">{$sec}</span><span n:ifset="$hour" class="cb-divider">:</span>
-    <span n:ifset="$hour" id="cbHours" class="cb-time">{$hour}</span>
+    <span id="cbMins" class="cb-time">{$minute}</span><span class="cb-divider">:</span><span id="cbSecs" class="cb-time">{$sec}</span>
   </p>
 </div>

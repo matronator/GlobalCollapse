@@ -28,13 +28,44 @@
         <script defer src="{asset bar.js front}"></script>
       {else}
         <div class="uk-padding uk-text-center">
-          <h3>{_general.city.bar.jobs.working}</h3>
-          {include '../../components/CountdownBar/CountdownBar.latte',
-            minute => $minutes,
-            sec => $seconds,
-            max => $timeMax
-          }
-          <p>{_general.city.bar.jobs.workingUntil, [time => $workingUntil]}</p>
+          {var $imgSrc}
+          {var $imgPos}
+          {var $imgDir}
+          {switch $jobName}
+            {case distributeMasks}
+              {php $imgSrc = 'city'}
+              {php $imgPos = 'top'}
+              {php $imgDir = 'horizontal'}
+            {case burnBodies}
+              {php $imgSrc = 'biohazard'}
+              {php $imgPos = 'center -200px'}
+              {php $imgDir = 'vertical'}
+            {case smuggleDrugs}
+              {php $imgSrc = 'drugs'}
+              {php $imgPos = 'center'}
+              {php $imgDir = ''}
+            {case escortScientist}
+              {php $imgSrc = 'wastelands'}
+              {php $imgPos = 'top'}
+              {php $imgDir = 'vertical'}
+            {case default}
+              {php $imgSrc = 'bar'}
+              {php $imgPos = 'center'}
+              {php $imgDir = 'horizontal'}
+          {/switch}
+          <div class="job-img-split">
+            <div class="job-info">
+              <h3>{_general.city.bar.jobs.working}</h3>
+              <p>{_general.city.bar.jobs.workingUntil}{$workingUntil|date:'%T'}</p>
+              {include '../../components/CountdownBar/CountdownBar.latte',
+                minute => $minutes,
+                sec => $seconds,
+                max => $timeMax
+              }
+            </div>
+            <div class="job-image" style="background-image:url('{$basePath}/dist/front/images/illustrations/{$imgSrc}.jpg');background-position:{$imgPos};">
+            </div>
+          </div>
         </div>
         <script defer src="{asset countdownBar.js front}"></script>
       {/if}

@@ -58,7 +58,7 @@ city:
 			energyBarTip: 'Your remaining energy'
 			descriptionDefault: 'Select a job from the list'
 			working: 'Working'
-			workingUntil: "You're on a job until %time%"
+			workingUntil: "You're on a job until "
 			distributeMasks:
 				title: 'Distribute face masks'
 				description: 'Distribute face masks in the city center.'
