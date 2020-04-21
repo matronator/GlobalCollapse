@@ -187,9 +187,9 @@ final class DefaultPresenter extends BasePresenter
 				]);
 				$reward = 25 * round($diff / 3600);
 				if ($reward > 0) {
-					if ($player->energy + $reward > $player->energy_max) {
+					if ($player->player_stats->energy + $reward > $player->player_stats->energy_max) {
 						$this->userRepository->getUser($player->id)->player_stats->update([
-							'energy=' => $player->energy_max
+							'energy=' => $player->player_stats->energy_max
 						]);
 					} else {
 						$this->userRepository->getUser($player->id)->player_stats->update([
