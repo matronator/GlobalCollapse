@@ -1,3 +1,5 @@
+import Push from "push.js"
+
 /* eslint-disable no-var */
 window.addEventListener(`DOMContentLoaded`, () => {
   // countdown
@@ -20,6 +22,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
       minutes -= 1
     }
     if (minutes <= 0 && seconds <= 0) {
+      Push.create("Job finished!")
       setTimeout(reloadWindow, 2000)
     }
     totalSeconds -= 1

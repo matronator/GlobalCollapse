@@ -6,6 +6,7 @@ dependencies:
   core-js: 3.6.4
   flatpickr: 4.6.3
   nouislider: 14.1.1
+  push.js: 1.0.12
   uikit: 3.3.7
 devDependencies:
   '@babel/core': 7.9.0
@@ -8766,6 +8767,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+  /push.js/1.0.12:
+    dev: false
+    resolution:
+      integrity: sha512-Mo/zkrPD58hcbMvC/9WveUPGz0PJ4T5UwQJP6DnMYbyxe7b1xM/9qqmJTMmDcprbZjCtLzf9wWtek7gA8O9QBw==
   /q/1.5.1:
     dev: true
     engines:
@@ -11658,6 +11663,7 @@ specifiers:
   postcss-mixins: ^6.2.3
   postcss-nesting: ^7.0.1
   prettier: ^1.19.1
+  push.js: ^1.0.12
   stylelint: ^13.2.1
   stylelint-config-prettier: ^8.0.1
   stylelint-prettier: ^1.1.2

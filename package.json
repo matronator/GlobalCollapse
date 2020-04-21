@@ -108,16 +108,6 @@
       "no-var": [
         "error"
       ],
-      "no-console": [
-        "warn",
-        {
-          "allow": [
-            "warn",
-            "error",
-            "info"
-          ]
-        }
-      ],
       "prefer-const": [
         "error"
       ],
@@ -354,6 +344,7 @@
     "core-js": "^3.6.4",
     "flatpickr": "^4.6.3",
     "nouislider": "^14.1.1",
+    "push.js": "^1.0.12",
     "uikit": "^3.3.7"
   }
 }

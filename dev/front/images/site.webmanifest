@@ -1,5 +1,5 @@
 {
-    "name": "Pandemic",
+    "name": "Global Collapse: Pandemic",
     "short_name": "Pandemic",
     "icons": [
         {
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#b91d1d",
+    "background_color": "#222222",
     "display": "standalone"
 }

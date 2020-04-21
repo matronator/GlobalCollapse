@@ -2,16 +2,25 @@
 <html lang="{$presenter->locale}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="description" content="{ifset #metaDescription}{include #metaDescription|stripHtml|trim}{/ifset}">
+    <meta name="keywords" content="coronavirus,game,pbbg,browser game,php game,covid-19,covid19,mmorpg,pandemic,mmo,browser based games">
     <meta name="copyright" content="© {php echo date('Y'); }">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Matronator; https://matronator.com">
 
     <title>{ifset #pageTitle}{include #pageTitle|striptags} | {/ifset}{$urlFullDomain|noescape}</title>
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
+    <!--------- iOS --------->
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Enable WAP -->
+    <meta name="apple-mobile-web-app-title" content="Pandemic"> <!-- Title -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar -->
+    <link rel="apple-touch-icon" sizes="76x76" href="{='dist/front/images/apple-touch-icon-ipad.png'|asset}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{='dist/front/images/apple-touch-icon-iphone-retina.png'|asset}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{='dist/front/images/apple-touch-icon-ipad-retina.png'|asset}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{='dist/front/images/apple-touch-icon.png'|asset}">
+    <!-- Splashscreens -->
     <link href="{='dist/front/images/splashscreens/iphone5_splash.jpg'|asset}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     <link href="{='dist/front/images/splashscreens/iphone6_splash.jpg'|asset}" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     <link href="{='dist/front/images/splashscreens/iphoneplus_splash.jpg'|asset}" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
@@ -23,16 +32,22 @@
     <link href="{='dist/front/images/splashscreens/ipadpro3_splash.jpg'|asset}" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
     <link href="{='dist/front/images/splashscreens/ipadpro2_splash.jpg'|asset}" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{='dist/front/images/apple-touch-icon.png'|asset}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{='dist/front/images/favicon-32x32.png'|asset}">
+    <!--------- Android --------->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!--------- Windows --------->
+    <meta name="msapplication-TileColor" content="#b91d1d">
+    <meta name="msapplication-navbutton-color" content="#b91d1d">
+    <meta name="msapplication-config" content="{='dist/front/images/browserconfig.xml'|asset}">
+
+    <!--------- Favicons --------->
     <link rel="icon" type="image/png" sizes="16x16" href="{='dist/front/images/favicon-16x16.png'|asset}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{='dist/front/images/favicon-32x32.png'|asset}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{='dist/front/images/favicon-48x48.png'|asset}">
     <link rel="manifest" href="{='dist/front/images/site.webmanifest'|asset}">
     <link rel="mask-icon" href="{='dist/front/images/safari-pinned-tab.svg'|asset}" color="#b91d1d">
-    <link rel="shortcut icon" href="{='dist/front/images/favicon.ico'|asset}">
-    <meta name="apple-mobile-web-app-title" content="Pandemic">
+    <link rel="shortcut icon" type="image/x-icon" href="{='dist/front/images/favicon.ico'|asset}">
     <meta name="application-name" content="Pandemic">
-    <meta name="msapplication-TileColor" content="#b91d1d">
-    <meta name="msapplication-config" content="{='dist/front/images/browserconfig.xml'|asset}">
     <meta name="theme-color" content="#b91d1d">
 
     <link rel="stylesheet" href="{asset index.css front}">
