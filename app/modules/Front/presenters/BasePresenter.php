@@ -36,7 +36,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->urlAbsolutePath = $this->getURL()->hostUrl;
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;
-		$this->template->user = (object) $this->user->getIdentity();
+		// $this->template->user = (object) $this->user->getIdentity();
 		$this->template->allPlayers = $this->userRepository->getTotalPlayers();
 		$this->template->onlinePlayers = $this->userRepository->getOnlinePlayers();
 		if ($this->user->isLoggedIn()) {

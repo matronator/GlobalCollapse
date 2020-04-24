@@ -4,6 +4,7 @@ dependencies:
   '@ckeditor/ckeditor5-ckfinder': 16.0.0
   choices.js: 9.0.1
   core-js: 3.6.4
+  easytimer.js: 4.1.1
   flatpickr: 4.6.3
   nouislider: 14.1.1
   push.js: 1.0.12
@@ -3530,6 +3531,10 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-8cAwm6md1YTiPpOvDULYJL4ZS6WfM5/cTeVVh4JsvyYZAoqlRVUpHL9Gr5Fy7HA6xcSZicUia3DeAgO3Us8E+Q==
+  /easytimer.js/4.1.1:
+    dev: false
+    resolution:
+      integrity: sha512-FVc3hfl7P8OR9HozuAysJIh7iQeuAmJrdP5x925JkJ9H8Nr8nmasWpcvdbQMrC091x8iTtokL0zdi8+9qoVrfQ==
   /eazy-logger/3.0.2:
     dependencies:
       tfunk: 3.1.0
@@ -11639,6 +11644,7 @@ specifiers:
   cssnano: ^4.1.10
   del: ^5.1.0
   dotenv: ^8.2.0
+  easytimer.js: ^4.1.1
   eslint: ^6.8.0
   eslint-config-prettier: ^6.10.0
   eslint-plugin-prettier: ^3.1.2

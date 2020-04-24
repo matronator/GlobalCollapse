@@ -26,7 +26,7 @@ intro:
 ui:
 	navbar:
 		covidTracker:
-			disclaimer: 'Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 2000<br>Úmrtí: 10000'
+			disclaimer: 'Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 1945<br>Úmrtí: 18752'
 			infected: 'Nakažených'
 			dead: 'Úmrtí'
 	login: 'Přihlásit se'

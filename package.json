@@ -342,6 +342,7 @@
     "@ckeditor/ckeditor5-ckfinder": "^16.0.0",
     "choices.js": "^9.0.1",
     "core-js": "^3.6.4",
+    "easytimer.js": "^4.1.1",
     "flatpickr": "^4.6.3",
     "nouislider": "^14.1.1",
     "push.js": "^1.0.12",

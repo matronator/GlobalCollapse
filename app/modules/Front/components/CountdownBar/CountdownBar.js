@@ -1,4 +1,7 @@
 import Push from "push.js"
+import Timer from "easytimer.js"
+
+const countdown = new Timer()
 
 /* eslint-disable no-var */
 window.addEventListener(`DOMContentLoaded`, () => {
@@ -12,7 +15,10 @@ window.addEventListener(`DOMContentLoaded`, () => {
   var seconds = Number(secondSpan.innerHTML)
   let totalSeconds = seconds + minutes * 60
 
-  setInterval(tick, 1000)
+  countdown.start()
+  countdown.addEventListener(`secondsUpdated`, e => {
+    tick()
+  })
 
   function tick() {
     if (seconds > 0) {
@@ -20,10 +26,6 @@ window.addEventListener(`DOMContentLoaded`, () => {
     } else {
       seconds = 59
       minutes -= 1
-    }
-    if (minutes <= 0 && seconds <= 0) {
-      Push.create("Job finished!")
-      setTimeout(reloadWindow, 2000)
     }
     totalSeconds -= 1
     const progressMax = Number(progressBar.dataset.barMax)
@@ -34,6 +36,10 @@ window.addEventListener(`DOMContentLoaded`, () => {
     progressBarFill.style.width = `${ newBarFill}%`
     secondSpan.innerHTML = seconds > 9 ? seconds : `0${ seconds}`
     minuteSpan.innerHTML = minutes > 9 ? minutes : `0${ minutes}`
+    if (minutes <= 0 && seconds <= 0) {
+      Push.create("Job finished!")
+      setTimeout(reloadWindow, 2000)
+    }
   }
   function reloadWindow() {
     window.location.reload(false)

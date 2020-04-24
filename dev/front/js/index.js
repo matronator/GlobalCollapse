@@ -61,7 +61,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
   // Counter
   const infected = document.getElementById("covidInfected")
   const dead = document.getElementById("covidDead")
-  const multiplier = { infected: 2000, dead: 10000 }
+  const multiplier = { infected: 1945, dead: 18752 }
   const urls = [
     "https://coronavirus-19-api.herokuapp.com/all",
     "https://corona.lmao.ninja/all"

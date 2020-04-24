@@ -4,32 +4,32 @@ parameters:
         locale: distributeMasks
         duration: 20
         energy: 15
-        money: 10
-        xp: 20
+        money: 15
+        xp: 25
         droprate: 20
     ],
     [
         locale: burnBodies
-        duration: 10
-        energy: 20
-        money: 25
+        duration: 15
+        energy: 15
+        money: 20
         xp: 10
         droprate: 20
     ],
     [
         locale: smuggleDrugs
-        duration: 30
+        duration: 20
         energy: 10
         money: 50
-        xp: 20
+        xp: 5
         droprate: 10
     ],
     [
         locale: escortScientist
-        duration: 15
-        energy: 15
-        money: 10
-        xp: 30
+        duration: 10
+        energy: 10
+        money: 5
+        xp: 20
         droprate: 15
     ]
   ]

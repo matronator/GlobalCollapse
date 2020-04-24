@@ -142,6 +142,13 @@ final class DefaultPresenter extends BasePresenter
 				$this->template->restingSince = $restingSince;
 				$nowDate = new DateTime();
 				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
+				$reward = intval(20 * round($diff / 3600));
+				$newEnergy = $player->player_stats->energy + $reward;
+				if ($newEnergy > $player->player_stats->energy_max) {
+					$newEnergy = $player->player_stats->energy_max;
+				}
+				$this->template->energyGained = $reward;
+				$this->template->newEnergy = $newEnergy;
 				if ($diff < 3600) {
 					$this->template->timePassed = round($diff / 60) . ' minutes';
 				} else if ($diff <= 5400) {
@@ -167,8 +174,8 @@ final class DefaultPresenter extends BasePresenter
 		$control = $form->isSubmitted();
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$isResting = $player->actions->resting;
-		if ($control->name == 'rest') {
-			if ($isResting <= 0) {
+		if ($control->name === 'rest') {
+			if (!$isResting) {
 				$playerRestStart = new DateTime();
 				$this->userRepository->getUser($player->id)->actions->update([
 					'resting' => 1,
@@ -177,28 +184,28 @@ final class DefaultPresenter extends BasePresenter
 				$this->flashMessage('You went to rest', 'success');
 				$this->redirect('this');
 			}
-		} else if ($control->name == 'wakeup') {
-			if ($isResting > 0) {
-				$restingSince = $this->userRepository->getUser($player->id)->actions->resting_start;
+		} else if ($control->name === 'wakeup') {
+			if ($isResting) {
+				$restingSince = $player->actions->resting_start;
 				$nowDate = new DateTime();
 				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
 				$this->userRepository->getUser($player->id)->actions->update([
 					'resting' => 0
 				]);
-				$reward = 25 * round($diff / 3600);
+				$reward = intval(20 * round($diff / 3600));
 				if ($reward > 0) {
 					if ($player->player_stats->energy + $reward > $player->player_stats->energy_max) {
 						$this->userRepository->getUser($player->id)->player_stats->update([
-							'energy=' => $player->player_stats->energy_max
+							'energy' => $player->player_stats->energy_max
 						]);
 					} else {
 						$this->userRepository->getUser($player->id)->player_stats->update([
 							'energy+=' => $reward
 						]);
 					}
+					$this->flashMessage('You regained ' . $reward . ' energy', 'success');
+					$this->redirect('this');
 				}
-				$this->flashMessage('You regained ' . $reward . ' energy', 'success');
-				$this->redirect('this');
 			}
 		}
 	}

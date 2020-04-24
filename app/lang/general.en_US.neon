@@ -29,7 +29,7 @@ intro:
 ui:
 	navbar:
 		covidTracker:
-			disclaimer: 'Disclaimer: Real-time statistics multiplied by a magnitude:<br>Infected: 2000<br>Deaths: 10000'
+			disclaimer: 'Disclaimer: Real-time statistics multiplied by a magnitude:<br>Infected: 1945<br>Deaths: 18752'
 			infected: 'Infected'
 			dead: 'Dead'
 	login: 'Login'
@@ -40,12 +40,19 @@ ui:
 	passwordV: 'Repeat password'
 	username: 'Username'
 	lastUpdated: 'Last updated'
+	ago: 'ago'
 	locationStatus:
 		closed: 'Closed'
 
 training:
 	timeLeft: 'Time left:'
 	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
+
+resting:
+	title: 'Rest'
+	intro: "Rest to replenish your energy. Every hour of resting gives you 20 energy."
+	restingSince: 'Resting since: '
+	stop: 'Stop resting'
 
 city:
 	bar:

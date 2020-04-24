@@ -1,3 +1,6 @@
+import Push from "push.js"
+import Timer from "easytimer.js"
+
 /* eslint-disable no-var */
 window.addEventListener(`DOMContentLoaded`, () => {
   // countdown
@@ -8,7 +11,12 @@ window.addEventListener(`DOMContentLoaded`, () => {
   var minutes = Number(minuteSpan.innerHTML)
   var seconds = Number(secondSpan.innerHTML)
 
-  setInterval(tick, 1000)
+  const countdown = new Timer()
+
+  countdown.start()
+  countdown.addEventListener(`secondsUpdated`, e => {
+    tick()
+  })
 
   function tick() {
     if (seconds > 0) {
@@ -23,6 +31,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
       }
     }
     if (hours <= 0 && minutes <= 0 && seconds <= 0) {
+      Push.create("Training done!")
       setTimeout(reloadWindow, 2000)
     }
     hourSpan.innerHTML = hours > 9 ? hours : `0${hours}`
