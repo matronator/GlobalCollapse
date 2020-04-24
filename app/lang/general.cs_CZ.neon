@@ -44,6 +44,12 @@ training:
 	timeLeft: 'Zbývá:'
 	spLeft: 'Dostupné skillpointy: <strong id="pointsLeft">%sp%</strong>'
 
+resting:
+	title: 'Odpočinek'
+	intro: "Odpočiň si a dobij si tak energii. Každou hodinu získáš zpět 20 energie."
+	restingSince: 'Odpočíváš od: '
+	stop: 'Vzbudit se'
+
 city:
 	bar:
 		closed: 'Bar je zavřený'
