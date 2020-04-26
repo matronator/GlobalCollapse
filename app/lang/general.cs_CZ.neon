@@ -37,6 +37,8 @@ ui:
 	passwordV: 'Heslo znovu'
 	username: 'Username'
 	lastUpdated: 'Naposledy aktualizováno'
+	ago: 'zpátky'
+	back: 'Zpět'
 	locationStatus:
 		closed: 'Zavřeno'
 
@@ -84,6 +86,20 @@ city:
 		scavengingSince: 'Jsi na průzkumu od:'
 		scavengingReturn: 'Vrátit se z průzkumu'
 		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
+
+stats:
+	strength:
+		title: 'Síla'
+		description: "Síla určuje kolik zranění udělíš při soubojích"
+	stamina:
+		title: 'Výdrž'
+		description: "Výdrž určuje kolik úderů vydržíš"
+	speed:
+		title: 'Rychlost'
+		description: "Rychlostí se vyhýbáš úderům"
+	power:
+		title: 'Moc'
+		description: "Tvá celková síla"
 
 drugs:
 	drugName: 'Droga'

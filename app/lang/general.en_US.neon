@@ -41,6 +41,7 @@ ui:
 	username: 'Username'
 	lastUpdated: 'Last updated'
 	ago: 'ago'
+	back: 'Back'
 	locationStatus:
 		closed: 'Closed'
 
@@ -88,6 +89,20 @@ city:
 		scavengingSince: 'You are scavenging since:'
 		scavengingReturn: 'Return from scavenging'
 		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
+
+stats:
+	strength:
+		title: 'Strength'
+		description: "Strength is used for dealing damage in combats"
+	stamina:
+		title: 'Stamina'
+		description: "Stamina determines how much damage you can take"
+	speed:
+		title: 'Speed'
+		description: "Speed is used for dodging hits in combats"
+	power:
+		title: 'Power'
+		description: "Your total power"
 
 drugs:
 	drugName: 'Drug'

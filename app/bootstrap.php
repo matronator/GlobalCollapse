@@ -21,7 +21,6 @@ class Bootstrap
 			->register();
 		$configurator->addConfig(__DIR__ . '/config/config.neon');
 		$configurator->addConfig(__DIR__ . '/config/config.local.neon');
-		$configurator->addConfig(__DIR__ . '/config/config.oauth.neon');
 		$configurator->addConfig(__DIR__ . '/config/jobs.neon');
 		$configurator->addParameters([
              'rootDir' => realpath(__DIR__ . '/..'),
