@@ -22,6 +22,7 @@ services:
 	- App\Model\EventsRepository
 	- App\Filter\ImageFilter
 	- App\FrontModule\Presenters\BarPresenter(%jobs%)
+	- App\FrontModule\Presenters\ApiPresenter(%jobs%)
 	imagePipe: \ImageGenerator(%wwwDir%)
 	imageStorage: \ImageStorage(%wwwDir%)
 	router: App\Router\RouterFactory::createRouter

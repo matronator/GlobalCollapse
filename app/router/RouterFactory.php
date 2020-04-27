@@ -22,6 +22,9 @@ class RouterFactory
 		$router[] = $adminRouter = new RouteList('Admin');
 		$adminRouter[] = new Route('admin/<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 
+		// APIs
+		$frontRouter[] = new Route('api/job', 'Api:job');
+
 		/////////////////////// FRONT ROUTES ///////////////////////
 		$router[] = $frontRouter = new RouteList('Front');
 		$frontRouter[] = new Route('sitemap.xml', 'Sitemap:default');
