@@ -7,6 +7,7 @@ namespace App\FrontModule\Presenters;
 use App\Model\UserRepository;
 use DateTime;
 use Nette\Application\UI\Presenter;
+use Nette\Security\AuthenticationException;
 
 final class ApiPresenter extends Presenter
 {
@@ -26,6 +27,19 @@ final class ApiPresenter extends Presenter
     $this->userRepository = $userRepository;
   }
 
+  protected function startup()
+	{
+    parent::startup();
+    $this->setLayout(false);
+    if (!$this->user->isLoggedIn()) {
+      $this->redirect('Default:login');
+    }
+  }
+
+  public function actionDefault() {
+    $this->redirect('Default:default');
+  }
+
   public function actionJob() {
     $data = [];
     $player = $this->userRepository->getUser($this->user->getIdentity()->id);
@@ -41,8 +55,8 @@ final class ApiPresenter extends Presenter
             $missionDuration = intval($currentMission['duration'] * 60);
             $s = $diff % 60;
             $m = $diff / 60 % 60;
-            $minutes = $m > 9 ? $m : '0'.$m;
-            $seconds = $s > 9 ? $s : '0'.$s;
+            $minutes = $m;
+            $seconds = $s;
             $timeMax = $missionDuration;
             $data = [
                 'mission' => true,
@@ -58,12 +72,14 @@ final class ApiPresenter extends Presenter
             $isOnMission = 0;
             $this->flashMessage('Job ended.', 'success');
             $this->sendJson([
-                'mission' => false
+                'mission' => false,
+                'new' => true
             ]);
         }
     } else {
         $this->sendJson([
-            'mission' => false
+            'mission' => false,
+            'new' => false
         ]);
     }
   }

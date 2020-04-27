@@ -22,6 +22,8 @@ class ActionLocker extends Component
     }
     if ($actions['mission'] == 1 && $presenter->isLinkCurrent('Default:rest')) {
       $presenter->redirect('Bar:default');
+    } else if ($actions['mission'] == 1 && $presenter->isLinkCurrent('City:wastelands')) {
+      $presenter->redirect('Bar:default');
     }
   }
 }

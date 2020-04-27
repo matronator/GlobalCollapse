@@ -2,10 +2,26 @@
 {define pageTitle}Bar{/define}
 {define metaDescription}Missions{/define}
 
+{define results}
+  <div>
+    {_general.city.bar.jobs.jobDone|noescape}
+  </div>
+  <table class="uk-table uk-table-striped uk-table-small">
+    <tr>
+      <td>Money</td>
+      <td>+ ${$money}</td>
+    </tr>
+    <tr>
+      <td>XP</td>
+      <td>+ {$xp}</td>
+    </tr>
+  </table>
+{/define}
+
 {block pageContent}
 <div class="uk-container" uk-height-viewport="expand: true">
   <div class="dashboard">
-    <div class="uk-card uk-width-expand uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
+    <div n:if="!$onMission" class="uk-card uk-width-expand uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
       <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/bar.jpg');background-position:center;">
         <h2 class="uk-heading-large">{if $closed}<del n:if="$closed">Bar</del>{else}Bar{/if}</h2>
         <div class="location-closed" n:if="$closed">{_general.ui.locationStatus.closed}</div>
@@ -18,7 +34,11 @@
           {/if}
         {else}
           <h3>{_general.city.bar.jobs.title}</h3>
-          <p>{_general.city.bar.jobs.description}</p>
+          {ifset $returned}
+            {include results, money => $moneyPlus, xp => $xpointsPlus}
+          {else}
+            <p>{_general.city.bar.jobs.description}</p>
+          {/ifset}
         {/if}
       </div>
     </div>

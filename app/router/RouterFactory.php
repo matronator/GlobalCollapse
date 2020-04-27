@@ -22,9 +22,6 @@ class RouterFactory
 		$router[] = $adminRouter = new RouteList('Admin');
 		$adminRouter[] = new Route('admin/<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 
-		// APIs
-		$frontRouter[] = new Route('api/job', 'Api:job');
-
 		/////////////////////// FRONT ROUTES ///////////////////////
 		$router[] = $frontRouter = new RouteList('Front');
 		$frontRouter[] = new Route('sitemap.xml', 'Sitemap:default');
@@ -34,6 +31,10 @@ class RouterFactory
 		$frontRouter[] = new Route('[<locale=en en|cs>/]darknet', 'City:darknet');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]wastelands', 'City:wastelands');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]player/detail/<username>', 'Player:detail');
+
+		// APIs
+		$frontRouter[] = new Route('api/job', 'Api:job');
+
 		$frontRouter[] = new Route('[<locale=en en|cs>/]<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 
 		return $router;

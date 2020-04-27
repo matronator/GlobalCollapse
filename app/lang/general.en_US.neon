@@ -29,7 +29,7 @@ intro:
 ui:
 	navbar:
 		covidTracker:
-			disclaimer: 'Disclaimer: Real-time statistics multiplied by a magnitude:<br>Infected: 1945<br>Deaths: 18752'
+			disclaimer: 'Disclaimer: Real-time statistics multiplied by a magnitude:<br>Infected: 1500<br>Deaths: 15000'
 			infected: 'Infected'
 			dead: 'Dead'
 	login: 'Login'
@@ -67,6 +67,7 @@ city:
 			descriptionDefault: 'Select a job from the list'
 			working: 'Working'
 			workingUntil: "You're on a job until "
+			jobDone: "You finished your job and earned the following rewards:"
 			distributeMasks:
 				title: 'Distribute face masks'
 				description: 'Distribute face masks in the city center.'

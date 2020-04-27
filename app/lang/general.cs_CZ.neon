@@ -26,7 +26,7 @@ intro:
 ui:
 	navbar:
 		covidTracker:
-			disclaimer: 'Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 1945<br>Úmrtí: 18752'
+			disclaimer: 'Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 1500<br>Úmrtí: 15000'
 			infected: 'Nakažených'
 			dead: 'Úmrtí'
 	login: 'Přihlásit se'
@@ -64,6 +64,7 @@ city:
 			descriptionDefault: 'Select a job from the list'
 			working: 'Pracuješ'
 			workingUntil: "Pracuješ do "
+			jobDone: "Dokončil jsi práci a získal jsi tyto odměny:"
 			distributeMasks:
 				title: 'Roznos roušek'
 				description: 'Distribute face masks in the city center.'

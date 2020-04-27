@@ -56,6 +56,18 @@ final class BarPresenter extends GamePresenter
 			$this->template->onMission = $isOnMission;
 			if (!$isOnMission) {
 				$session = $this->session;
+				$section = $session->getSection('returned');
+				if (isset($section['returned'])) {
+					$this->template->returned = true;
+					$this->template->moneyPlus = $section['money'];
+					$this->template->xpointsPlus = $section['exp'];
+					if ($section->times >= 3) {
+						unset($section->returned);
+					} else {
+						$section->times += 1;
+					}
+				}
+				$session = $this->session;
 				$section = $session->getSection('jobs');
 				$section->setExpiration('60 minutes');
 				$templateJobs = [];
@@ -93,8 +105,15 @@ final class BarPresenter extends GamePresenter
 					$this->template->timeMax = $missionDuration;
 					$this->template->jobName = $whatMission;
 				} else {
-					$this->endMission($whatMission);
+					$reward = $this->endMission($whatMission);
 					$isOnMission = 0;
+					$session = $this->session;
+					$section = $session->getSection('returned');
+					$section->returned = true;
+					$section->money = $reward['money'];
+					$section->exp = $reward['xp'];
+					$section->times = 1;
+					$this->flashMessage('Job completed', 'success');
 					$this->redirect('this');
 				}
 			}
@@ -114,6 +133,10 @@ final class BarPresenter extends GamePresenter
 			$this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
 				'on_mission' => 0
 			]);
+			return [
+				'xp' => $plusXp,
+				'money' => $plusMoney
+			];
 		}
 	}
 
