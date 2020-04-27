@@ -10,7 +10,7 @@ function checkJob() {
           postMessage({ type: "done" })
         }
       } else if (jsonData.mission === true) {
-        setTimeout(checkJob, 10000)
+        setTimeout(checkJob, 20000)
         postMessage(["update", jsonData.minutes, jsonData.seconds])
       }
     }
