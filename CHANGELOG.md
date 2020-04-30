@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Edited training
 - Better countdown timer
 - Notifications
+- Prepare buildings
 
 ## [0.0.8] - 2020-04-21
 

@@ -67,6 +67,7 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Edited training
 - Better countdown timer
 - Notifications
+- Prepare buildings
 
 ## [0.0.8] - 2020-04-21
 

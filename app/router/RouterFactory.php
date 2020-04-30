@@ -32,6 +32,7 @@ class RouterFactory
 		$frontRouter[] = new Route('[<locale=en en|cs>/]training', 'Default:training');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]darknet', 'City:darknet');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]wastelands', 'City:wastelands');
+		$frontRouter[] = new Route('[<locale=en en|cs>/]buildings', 'Buildings:default');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]player/detail/<username>', 'Player:detail');
 
 		// APIs

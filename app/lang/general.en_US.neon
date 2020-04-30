@@ -32,6 +32,7 @@ ui:
 			dead: 'Dead'
 	sidebar:
 		preparing: '(Preparing)'
+		new: 'NEW'
 		player:
 			account: 'Account'
 			training: 'Training'

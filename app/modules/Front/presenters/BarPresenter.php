@@ -62,7 +62,8 @@ final class BarPresenter extends GamePresenter
 					$this->template->moneyPlus = $section['money'];
 					$this->template->xpointsPlus = $section['exp'];
 					if ($section->times >= 2) {
-						unset($section->returnedJob);
+						unset($section['returnedJob']);
+						unset($section);
 					} else {
 						$section->times += 1;
 					}

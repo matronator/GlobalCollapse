@@ -21,6 +21,7 @@ services:
 	- App\Model\UserRepository
 	- App\Model\DrugsRepository
 	- App\Model\EventsRepository
+	- App\Model\BuildingsRepository
 	- App\Filter\ImageFilter
 	- App\FrontModule\Presenters\BasePresenter(%version%)
 	- App\FrontModule\Presenters\BarPresenter(%jobs%)

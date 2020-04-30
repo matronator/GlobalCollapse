@@ -19,7 +19,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
       minutes -= 1
     }
     updateTime(minutes, seconds)
-    if (minutes <= 0 && seconds <= 0) {
+    if (minutes < 0 && seconds < 0) {
       jobDone()
     }
   }
@@ -27,7 +27,11 @@ window.addEventListener(`DOMContentLoaded`, () => {
 
 export function jobDone() {
   Push.create("Job finished!")
-  setTimeout(window.location.reload(), 1000)
+  setTimeout(reload(), 2000)
+}
+
+function reload() {
+  window.location.reload()
 }
 
 export function updateTime(m, s) {

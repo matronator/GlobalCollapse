@@ -14,7 +14,7 @@
         <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">{_general.ui.sidebar.player.rest}</a></li>
         <li class="uk-nav-divider"></li>
         <li><a href="#">{_general.ui.sidebar.player.home}<small class="uk-text-light">&nbsp;{_general.ui.sidebar.preparing}</small></a></li>
-        <li><a href="#">{_general.ui.sidebar.player.buildings}<small class="uk-text-light">&nbsp;{_general.ui.sidebar.preparing}</small></a></li>
+        <li n:class="$presenter->isLinkCurrent('Buildings:*') ? uk-active"><a n:href="Buildings:default">{_general.ui.sidebar.player.buildings}</a></li>
       </ul>
     </li>
     <li class="uk-open uk-parent">
