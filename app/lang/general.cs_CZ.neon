@@ -27,8 +27,38 @@ ui:
 	navbar:
 		covidTracker:
 			disclaimer: 'Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 1500<br>Úmrtí: 15000'
+			disclaimerPlayers: '%users% Registered accounts<br>%online% Players online'
 			infected: 'Nakažených'
 			dead: 'Úmrtí'
+	sidebar:
+		preparing: '(Již brzy)'
+		new: 'NOVÉ'
+		player:
+			account: 'Účet'
+			training: 'Trénink'
+			rest: 'Odpočinek'
+			home: 'Domov'
+			buildings: 'Stavby'
+		city:
+			title: 'Město'
+			bar: 'Bar'
+			market: 'Tržnice'
+			darknet: 'Darknet'
+			wastelands: 'Pustina'
+		info:
+			title: 'Info'
+			about: 'O hře'
+			news: "Novinky"
+			donations: 'Podpořte nás'
+			contact: 'Kontakt'
+			help: 'Pomoc'
+			tos: 'Podmínky'
+			privacy: 'Ochrana soukromí'
+	footer:
+		createdBy: 'Vytvořil'
+		users: 'hráčů'
+		online: 'online'
+		reportBug: 'Nahlásit chybu'
 	login: 'Přihlásit se'
 	logout: 'Odhlásit se'
 	signup: 'Vytvořit účet'
@@ -39,10 +69,18 @@ ui:
 	lastUpdated: 'Naposledy aktualizováno'
 	ago: 'zpátky'
 	back: 'Zpět'
+	save: 'Uložit'
+	reset: 'Reset'
+	confirm: 'Potvrdit'
+	add: 'Přidat'
+	remove: 'Odebrat'
+	extra: 'Extra'
+	changeAvatar: 'Změnit avatar'
 	locationStatus:
 		closed: 'Zavřeno'
 
 training:
+	train: 'Trénovat'
 	timeLeft: 'Zbývá:'
 	spLeft: 'Dostupné skillpointy: <strong id="pointsLeft">%sp%</strong>'
 
@@ -89,6 +127,8 @@ city:
 		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
 
 stats:
+	stat: 'Atributy'
+	currentValue: 'Současná hodnota'
 	strength:
 		title: 'Síla'
 		description: "Síla určuje kolik zranění udělíš při soubojích"
@@ -100,7 +140,11 @@ stats:
 		description: "Rychlostí se vyhýbáš úderům"
 	power:
 		title: 'Moc'
+		powerTotal: 'Celková síla'
 		description: "Tvá celková síla"
+	energy: 'Energie'
+	money: 'Peníze'
+	level: 'Level'
 
 drugs:
 	drugName: 'Droga'
