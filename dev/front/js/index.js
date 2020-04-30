@@ -92,5 +92,5 @@ window.addEventListener(`DOMContentLoaded`, () => {
 
     request.send()
   }
-  covidCounter()
+  // covidCounter()
 })

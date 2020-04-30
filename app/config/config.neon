@@ -1,4 +1,5 @@
 parameters:
+	version: 0.1.8
 
 application:
 	mapping:
@@ -21,6 +22,7 @@ services:
 	- App\Model\DrugsRepository
 	- App\Model\EventsRepository
 	- App\Filter\ImageFilter
+	- App\FrontModule\Presenters\BasePresenter(%version%)
 	- App\FrontModule\Presenters\BarPresenter(%jobs%)
 	- App\FrontModule\Presenters\ApiPresenter(%jobs%)
 	imagePipe: \ImageGenerator(%wwwDir%)

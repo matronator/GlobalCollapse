@@ -3,10 +3,6 @@
 {define metaDescription}Player detail{/define}
 
 {block pageContent}
-{var $locStr = "strength"}
-{var $locSta = "stamina"}
-{var $locSpe = "speed"}
-{var $locPow = "power"}
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
     <div class="dashboard uk-flex" uk-margin>
       <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
@@ -20,15 +16,15 @@
           <div class="uk-width-expand">
             <table class="uk-table uk-table-small uk-table-divider">
               <tr>
-                <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.$locStr.description}">{_general.stats.$locStr.title}</td>
+                <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.strength.description}">{_general.stats.strength.title}</td>
                 <td class="uk-text-nowrap">{$otherPlayer->player_stats->strength}</td>
-                <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.$locSta.description}">{_general.stats.$locSta.title}</td>
+                <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.stamina.description}">{_general.stats.stamina.title}</td>
                 <td class="uk-text-nowrap">{$otherPlayer->player_stats->stamina}</td>
               </tr>
               <tr>
-                <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.$locSpe.description}">{_general.stats.$locSpe.title}</td>
+                <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.speed.description}">{_general.stats.speed.title}</td>
                 <td class="uk-text-nowrap">{$otherPlayer->player_stats->speed}</td>
-                <td class="uk-text-nowrap border-left" uk-tooltip="title:{_general.stats.$locPow.description}"><strong>{_general.stats.$locPow.title}</strong></td>
+                <td class="uk-text-nowrap border-left" uk-tooltip="title:{_general.stats.power.description}"><strong>{_general.stats.power.title}</strong></td>
                 <td class="uk-text-nowrap"><strong>{$otherPlayer->player_stats->power}</strong></td>
               </tr>
             </table>

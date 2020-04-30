@@ -12,9 +12,9 @@
       <small>{_general.homepage.introBeta}</small>
     </p>
     <div class="uk-flex uk-flex-middle uk-width-medium">
-      <a n:href="Login:default" class="uk-button uk-button-large uk-button-primary">Login</a>
+      <a n:href="Login:default" class="uk-button uk-button-large uk-button-primary">{_general.ui.login}</a>
       <hr class="uk-divider-vertical">
-      <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">Sign-Up</a>
+      <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">{_general.ui.signup}</a>
     </div>
   </div>
   <div class="dashboard uk-flex" n:if="$presenter->user->isLoggedIn()" uk-margin>
@@ -26,16 +26,16 @@
             <div class="uk-inline uk-position-relative">
               <img src="{$basePath}/dist/front/images/default-avatars/{$userAvatar}.jpg" class="uk-comment-avatar" width="96" height="96">
               <div class="uk-overlay uk-overlay-primary uk-position-center" id="avatarChange">
-                  <p class="text-tiny">Change avatar</p>
+                  <p class="text-tiny">{_general.ui.changeAvatar}</p>
               </div>
             </div>
           </a>
         </div>
         <div class="uk-width-expand uk-child-width-1-2 uk-flex">
           <ul class="uk-list uk-list-divider uk-margin-remove">
-            <li>Level</li>
-            <li>Money</li>
-            <li>Energy</li>
+            <li>{_general.stats.level}</li>
+            <li>{_general.stats.money}</li>
+            <li>{_general.stats.energy}</li>
           </ul>
           <ul class="uk-list uk-list-divider uk-margin-remove">
             <li>{$user->player_stats->level}</li>
@@ -60,7 +60,7 @@
             </label>
           {/foreach}
           <div class="avatar-submit-holder">
-            <button type="submit" class="uk-button uk-button-primary" n:name="save">Save</button>
+            <button type="submit" class="uk-button uk-button-primary" n:name="save">{_general.ui.save}</button>
           </div>
         {/form}
       </div>

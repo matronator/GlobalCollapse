@@ -56,13 +56,13 @@ final class BarPresenter extends GamePresenter
 			$this->template->onMission = $isOnMission;
 			if (!$isOnMission) {
 				$session = $this->session;
-				$section = $session->getSection('returned');
-				if (isset($section['returned'])) {
+				$section = $session->getSection('returnedJob');
+				if (isset($section['returnedJob'])) {
 					$this->template->returned = true;
 					$this->template->moneyPlus = $section['money'];
 					$this->template->xpointsPlus = $section['exp'];
-					if ($section->times >= 3) {
-						unset($section->returned);
+					if ($section->times >= 2) {
+						unset($section->returnedJob);
 					} else {
 						$section->times += 1;
 					}
@@ -108,8 +108,8 @@ final class BarPresenter extends GamePresenter
 					$reward = $this->endMission($whatMission);
 					$isOnMission = 0;
 					$session = $this->session;
-					$section = $session->getSection('returned');
-					$section->returned = true;
+					$section = $session->getSection('returnedJob');
+					$section->returnedJob = true;
 					$section->money = $reward['money'];
 					$section->exp = $reward['xp'];
 					$section->times = 1;

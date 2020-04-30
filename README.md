@@ -59,6 +59,15 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.1.0] - 2020-04-30
+
+- Job API
+- Changed: navbar, sidebar, footer
+- Locale almost done
+- Edited training
+- Better countdown timer
+- Notifications
+
 ## [0.0.8] - 2020-04-21
 
 - Added Missions
@@ -87,8 +96,3 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Fixed training with skillpoints
 - Fixed resting
 - Adjusted scavenging reward
-
-## [0.0.5] - 2020-03-24
-
-- Added training
-- Added leaderboard

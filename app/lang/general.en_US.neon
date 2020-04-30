@@ -2,9 +2,6 @@ error:
 	notFound: 'Sorry, the page you are looking for was not found.'
 	goBack: 'Back to homepage'
 
-player:
-	energy: 'Energy'
-
 homepage:
 	introLead: 'Deadly virus is spreading across the globe. Will you survive?'
 	introText: 'New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.'
@@ -30,8 +27,37 @@ ui:
 	navbar:
 		covidTracker:
 			disclaimer: 'Disclaimer: Real-time statistics multiplied by a magnitude:<br>Infected: 1500<br>Deaths: 15000'
+			disclaimerPlayers: '%users% Registered accounts<br>%online% Players online'
 			infected: 'Infected'
 			dead: 'Dead'
+	sidebar:
+		preparing: '(Preparing)'
+		player:
+			account: 'Account'
+			training: 'Training'
+			rest: 'Rest'
+			home: 'Home'
+			buildings: 'Buildings'
+		city:
+			title: 'City'
+			bar: 'Bar'
+			market: 'Market'
+			darknet: 'Darknet'
+			wastelands: 'Wastelands'
+		info:
+			title: 'Info'
+			about: 'About'
+			news: "News"
+			donations: 'Dontaions'
+			contact: 'Contact'
+			help: 'Help'
+			tos: 'Terms of Use'
+			privacy: 'Privacy Policy'
+	footer:
+		createdBy: 'Created by'
+		users: 'users'
+		online: 'online'
+		reportBug: 'Report a bug'
 	login: 'Login'
 	logout: 'Logout'
 	signup: 'Sign-Up'
@@ -42,10 +68,18 @@ ui:
 	lastUpdated: 'Last updated'
 	ago: 'ago'
 	back: 'Back'
+	save: 'Save'
+	reset: 'Reset'
+	confirm: 'Confirm'
+	add: 'Add'
+	remove: 'Remove'
+	extra: 'Extra'
+	changeAvatar: 'Change avatar'
 	locationStatus:
 		closed: 'Closed'
 
 training:
+	train: 'Train'
 	timeLeft: 'Time left:'
 	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
 
@@ -92,6 +126,8 @@ city:
 		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
 
 stats:
+	stat: 'Stat'
+	currentValue: 'Current value'
 	strength:
 		title: 'Strength'
 		description: "Strength is used for dealing damage in combats"
@@ -103,7 +139,11 @@ stats:
 		description: "Speed is used for dodging hits in combats"
 	power:
 		title: 'Power'
+		powerTotal: 'Power total'
 		description: "Your total power"
+	energy: 'Energy'
+	money: 'Money'
+	level: 'Level'
 
 drugs:
 	drugName: 'Drug'

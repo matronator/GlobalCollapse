@@ -82,10 +82,12 @@
         {include '../components/Navbar/Navbar.latte'}
 
         {if $presenter->user->isLoggedIn()}
-            {include '../components/Sidebar/Sidebar.latte'}
+            {include '../components/Sidebar/Sidebar.latte', loggedin => true}
+        {else}
+            {include '../components/Sidebar/Sidebar.latte', loggedin => false}
         {/if}
 
-        <div class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark{if $presenter->user->isLoggedIn()} main-section{/if}">
+        <div class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section">
             {include pageContent}
             {include '../components/Footer/Footer.latte'}
         </div>

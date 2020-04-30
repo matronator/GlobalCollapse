@@ -2,22 +2,22 @@
   <div class="training-holder">
     <table class="uk-table uk-table-striped uk-table-small uk-table-hover">
       <tr>
-        <td class="uk-text-nowrap">Strength</td>
+        <td class="uk-text-nowrap">{_general.stats.strength.title}</td>
         <td class="uk-text-nowrap">{$strength}<span class="uk-text-muted" n:if="$isTraining == 1"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-secondary" n:name="strength">Train - ${$strengthCost}</button></td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-secondary" n:name="strength">{_general.training.train} - ${$strengthCost}</button></td>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Stamina</td>
+        <td class="uk-text-nowrap">{_general.stats.stamina.title}</td>
         <td class="uk-text-nowrap">{$stamina}<span class="uk-text-muted" n:if="$isTraining == 2"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-danger" n:name="stamina">Train - ${$staminaCost}</button></td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-danger" n:name="stamina">{_general.training.train} - ${$staminaCost}</button></td>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Speed</td>
+        <td class="uk-text-nowrap">{_general.stats.speed.title}</td>
         <td class="uk-text-nowrap">{$speed}<span class="uk-text-muted" n:if="$isTraining == 3"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-primary" n:name="speed">Train - ${$speedCost}</button></td>
+        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-primary" n:name="speed">{_general.training.train} - ${$speedCost}</button></td>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Power total</td>
+        <td class="uk-text-nowrap">{_general.stats.power.powerTotal}</td>
         <td class="uk-text-nowrap">{$power}<span class="uk-text-muted" n:if="$isTraining != 0"> (+1)</span></td>
         <td class="uk-text-nowrap" n:if="$isTraining == 0"></td>
       </tr>

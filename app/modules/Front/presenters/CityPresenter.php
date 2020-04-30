@@ -60,13 +60,13 @@ final class CityPresenter extends GamePresenter
 		$actionLocker = new ActionLocker();
 		$actionLocker->checkActions($player, $this);
 		$session = $this->session;
-		$section = $session->getSection('returned');
-		if (isset($section['returned'])) {
+		$section = $session->getSection('returnedScavenging');
+		if (isset($section['returnedScavenging'])) {
 			$this->template->returned = true;
 			$this->template->hours = $section['hours'];
 			$this->template->money = $section['money'];
 			$this->template->xpoints = $section['exp'];
-			unset($section->returned);
+			unset($section->returnedScavenging);
 		}
 		$isScavenging = $player->actions->scavenging;
 		$this->template->scavenging = $isScavenging;
@@ -200,8 +200,8 @@ final class CityPresenter extends GamePresenter
 					$reward = $this->scavengeReward($diff / 3600);
 					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
 					$session = $this->session;
-					$section = $session->getSection('returned');
-					$section->returned = true;
+					$section = $session->getSection('returnedScavenging');
+					$section->returnedScavenging = true;
 					$section->hours = round($diff / 3600);
 					$section->money = $reward['money'];
 					$section->exp = $reward['xp'];

@@ -1,0 +1,5 @@
+body.page--info {
+  -webkit-user-select: initial;
+  -webkit-tap-highlight-color: initial;
+  -webkit-touch-callout: initial;
+}

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.0] - 2020-04-30
+
+- Job API
+- Changed: navbar, sidebar, footer
+- Locale almost done
+- Edited training
+- Better countdown timer
+- Notifications
+
 ## [0.0.8] - 2020-04-21
 
 - Added Missions

@@ -1,41 +1,88 @@
-<div class="uk-visible@m uk-light uk-background-secondary sidebar-main">
-  {block sidebar}
-    <div class="status-bar uk-flex uk-text-small uk-text-light">
-      <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$user->money}</span>
-      <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$user->player_stats->energy_max}</span>
+{define sidebarGame}
+  <div class="status-bar uk-flex uk-text-small uk-text-light">
+    <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$user->money}</span>
+    <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$user->player_stats->energy_max}</span>
+  </div>
+  <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
+    <li class="uk-open uk-parent">
+      <a href="#" class="uk-nav-header">
+        {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->player_stats->level}</small>
+      </a>
+      <ul class="uk-nav-sub">
+        <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.account}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a n:href="Default:training">{_general.ui.sidebar.player.training}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">{_general.ui.sidebar.player.rest}</a></li>
+        <li class="uk-nav-divider"></li>
+        <li><a href="#">{_general.ui.sidebar.player.home}<small class="uk-text-light">&nbsp;{_general.ui.sidebar.preparing}</small></a></li>
+        <li><a href="#">{_general.ui.sidebar.player.buildings}<small class="uk-text-light">&nbsp;{_general.ui.sidebar.preparing}</small></a></li>
+      </ul>
+    </li>
+    <li class="uk-open uk-parent">
+      <a href="#" class="uk-nav-header">{_general.ui.sidebar.city.title}</a>
+      <ul class="uk-nav-sub">
+        <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a n:href="Bar:">{_general.ui.sidebar.city.bar}</a></li>
+        <li class="uk-nav-divider"></li>
+        <li><a href="#">{_general.ui.sidebar.city.market}<small class="uk-text-light">&nbsp;{_general.ui.sidebar.preparing}</small></a></li>
+        <li n:class="$presenter->isLinkCurrent('City:darknet') ? uk-active"><a n:href="City:darknet">{_general.ui.sidebar.city.darknet}</a></li>
+        <li class="uk-nav-divider"></li>
+        <li n:class="$presenter->isLinkCurrent('City:wastelands') ? uk-active"><a n:href="City:wastelands">{_general.ui.sidebar.city.wastelands}</a></li>
+      </ul>
+    </li>
+    <li class="uk-nav-divider"></li>
+    <li class="uk-parent">
+      <a href="#" class="uk-nav-header">{_general.ui.sidebar.info.title}</a>
+      <ul class="uk-nav-sub">
+        <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">{_general.ui.sidebar.info.news}</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse#support-the-project" target="_blank" rel="noopener">{_general.ui.sidebar.info.donations}</a></li>
+        <li><a href="mailto:info@global-collapse.com">{_general.ui.sidebar.info.help}</a></li>
+        <li class="uk-nav-divider"></li>
+        <li n:class="$presenter->isLinkCurrent('Info:tos') ? uk-active"><a n:href="Info:tos">{_general.ui.sidebar.info.tos}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Info:privacy') ? uk-active"><a n:href="Info:privacy">{_general.ui.sidebar.info.privacy}</a></li>
+      </ul>
+    </li>
+  </ul>
+{/define}
+{define mobileMenu}
+  <a class="uk-navbar-item uk-logo uk-margin-bottom uk-hidden@m" n:href="Default:default">
+      <img src="{$basePath}/dist/front/images/logo-small.png" alt="Logo">
+  </a>
+  <div class="status-bar uk-flex uk-text-small uk-hidden@m">
+    <div class="uk-button-group">
+      <a class="uk-button uk-button-default" n:href="Login:default">{_general.ui.login}</a>
+      <a class="uk-button uk-button-default" n:href="Signup:default">{_general.ui.signup}</a>
     </div>
-    <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
-      <li class="uk-open uk-parent">
-        <a href="#" class="uk-nav-header">
-          {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->player_stats->level}</small>
-        </a>
-        <ul class="uk-nav-sub">
-          <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">Account</a></li>
-          <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a n:href="Default:training">Training</a></li>
-          <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">Rest</a></li>
-          <li class="uk-nav-divider"></li>
-          <li><a href="#">Home<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
-          <li><a href="#">Buildings<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
-        </ul>
-      </li>
-      <li class="uk-open uk-parent">
-        <a href="#" class="uk-nav-header">City</a>
-        <ul class="uk-nav-sub">
-          <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a n:href="Bar:">Bar</a></li>
-          <li class="uk-nav-divider"></li>
-          <li><a href="#">Market<small class="uk-text-light">&nbsp;(Preparing)</small></a></li>
-          <li n:class="$presenter->isLinkCurrent('City:darknet') ? uk-active"><a n:href="City:darknet">Darknet</a></li>
-          <li class="uk-nav-divider"></li>
-          <li n:class="$presenter->isLinkCurrent('City:wastelands') ? uk-active"><a n:href="City:wastelands">Wastelands</a></li>
-        </ul>
-      </li>
-    </ul>
-  {/block}
+  </div>
+  <ul class="uk-nav-default" uk-nav>
+    <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.info.about}</a></li>
+    <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">{_general.ui.sidebar.info.news}</a></li>
+    <li><a href="https://github.com/matronator/GlobalCollapse#support-the-project" target="_blank" rel="noopener">{_general.ui.sidebar.info.donations}</a></li>
+    <li><a href="mailto:info@global-collapse.com">{_general.ui.sidebar.info.help}</a></li>
+  </ul>
+  <div class="uk-flex uk-flex-column sidebar-footer uk-border-top">
+    <hr>
+    <div class="uk-flex uk-flex-between uk-text-small">
+      <small><a n:href="Info:tos" n:class="!$presenter->isLinkCurrent('Info:tos') ? uk-text-muted">{_general.ui.sidebar.info.tos}</a></small>
+      <small><a n:href="Info:privacy" n:class="!$presenter->isLinkCurrent('Info:privacy') ? uk-text-muted">{_general.ui.sidebar.info.privacy}</a></small>
+    </div>
+    <p class="uk-text-small uk-text-light uk-text-center"><small>Global Collapse &copy; 2020</small></p>
+  </div>
+{/define}
+
+<div class="uk-visible@m uk-light uk-background-secondary sidebar-main">
+  {if $loggedin}
+    {include sidebarGame}
+  {else}
+    {include mobileMenu}
+  {/if}
 </div>
-<div id="offcanvas" uk-offcanvas="mode: slide; overlay: true" class="uk-offcanvas">
+<div id="offcanvas" uk-offcanvas="mode: slide; overlay: true" class="uk-offcanvas offcanvas-main">
   <div class="uk-offcanvas-bar">
     <div class="uk-panel">
-      {include sidebar}
+      {if $loggedin}
+        {include sidebarGame}
+      {else}
+        {include mobileMenu}
+      {/if}
     </div>
   </div>
 </div>

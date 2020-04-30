@@ -26,6 +26,8 @@ class RouterFactory
 		$router[] = $frontRouter = new RouteList('Front');
 		$frontRouter[] = new Route('sitemap.xml', 'Sitemap:default');
 		$frontRouter[] = new Route('sitemap', 'Sitemap:default');
+		$frontRouter[] = new Route('[<locale=en en|cs>/]terms-of-use', 'Info:tos');
+		$frontRouter[] = new Route('[<locale=en en|cs>/]privacy-policy', 'Info:privacy');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]rest', 'Default:rest');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]training', 'Default:training');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]darknet', 'City:darknet');

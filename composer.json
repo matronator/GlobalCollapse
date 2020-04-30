@@ -1,8 +1,54 @@
 {
-	"name": "nette/web-project",
-	"description": "Global Collapse - PHP game",
+	"name": "matronator/GlobalCollapse",
+	"description": "Global Collapse: Pandemic - PHP game",
+	"homepage": "https://global-collapse.com",
 	"type": "project",
-	"license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"keywords": [
+		"coronavirus",
+		"game",
+		"pbbg",
+		"browser game",
+		"php game",
+		"covid 19",
+		"covid19",
+		"mmorpg",
+		"pandemic",
+		"mmo",
+		"browser based game"
+	],
+	"authors": [
+		{
+			"name": "Matej Bystricky",
+			"email": "info@matronator.com",
+			"homepage": "https://matronator.com",
+			"role": "Developer, designer, creator"
+		}
+	],
+	"funding": [
+		{
+			"type": "patreon",
+			"url": "https://www.patreon.com/matronator"
+		},
+		{
+			"type": "ko-fi",
+			"url": "https://ko-fi.com/matronator"
+		},
+		{
+			"type": "paypal",
+			"url": "https://www.paypal.me/matronator"
+		},
+		{
+			"type": "bitcoin",
+			"url": "https://www.blockchain.com/btc/payment_request?address=35VRpVQaqFWjUCnVRpGineShz76QyYgSVg"
+		}
+	],
+	"readme": "README.md",
+	"license": [
+		"MIT",
+		"BSD-3-Clause",
+		"GPL-2.0",
+		"GPL-3.0"
+	],
 	"require": {
 		"php": ">= 7.4",
 		"nette/application": "^3.0.4",
@@ -25,14 +71,16 @@
 		"tracy/tracy": "^2.7.3",
 		"latte/latte": "^2.6.2",
 		"kdyby/translation": "^3.0.3",
-      	"ext-json": "*",
+		"ext-json": "*",
 		"h4kuna/assets": "^1.0"
-    },
+	},
 	"require-dev": {
 		"nette/tester": "^2.3.0"
 	},
 	"autoload": {
-		"classmap": ["app/bootstrap.php"]
+		"classmap": [
+			"app/bootstrap.php"
+		]
 	},
 	"minimum-stability": "stable",
 	"config": {

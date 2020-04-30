@@ -3,28 +3,28 @@
     <p class="uk-text-center uk-margin-remove-bottom">{_general.training.spLeft, [sp => $skillpoints]|noescape}</p>
     <table class="uk-table uk-table-striped uk-table-small uk-table-hover">
       <tr>
-        <th class="uk-text-nowrap uk-table-expand">Stat</th>
+        <th class="uk-text-nowrap uk-table-expand">{_general.stats.stat}</th>
         <th class="uk-text-nowrap">Current value</th>
-        <th class="uk-text-nowrap border-left uk-table-auto uk-text-center">Add</th>
-        <th class="uk-text-nowrap uk-table-shrink uk-text-center">Extra</th>
-        <th class="uk-text-nowrap uk-table-auto uk-text-center">Remove</th>
+        <th class="uk-text-nowrap border-left uk-table-auto uk-text-center">{_general.ui.add}</th>
+        <th class="uk-text-nowrap uk-table-shrink uk-text-center">{_general.ui.extra}</th>
+        <th class="uk-text-nowrap uk-table-auto uk-text-center">{_general.ui.remove}</th>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Strength</td>
+        <td class="uk-text-nowrap">{_general.stats.strength.title}</td>
         <td class="uk-text-nowrap" data-total-stat="strength">{$strength}</td>
         <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="strength" id="strength-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
         <td class="uk-text-nowrap uk-text-center" data-extra-stat="strength">0</td>
         <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="strength" id="strength-remove" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Stamina</td>
+        <td class="uk-text-nowrap">{_general.stats.stamina.title}</td>
         <td class="uk-text-nowrap" data-total-stat="stamina">{$stamina}</td>
         <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="stamina" id="stamina-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
         <td class="uk-text-nowrap uk-text-center" data-extra-stat="stamina">0</td>
         <td class="uk-text-nowrap uk-text-center"><button type="button" data-remove-stat="stamina" class="removepoint uk-button uk-button-danger uk-button-small">-</button></td>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Speed</td>
+        <td class="uk-text-nowrap">{_general.stats.speed.title}</td>
         <td class="uk-text-nowrap" data-total-stat="speed">{$speed}</td>
         <td class="uk-text-nowrap border-left uk-text-center"><button type="button" data-add-stat="speed" id="speed-add" class="addpoint uk-button uk-button-secondary uk-button-small">+</button></td>
         <td class="uk-text-nowrap uk-text-center" data-extra-stat="speed">0</td>
@@ -32,8 +32,8 @@
       </tr>
     </table>
     <div class="uk-padding-small uk-width-expand uk-flex uk-flex-right">
-      <button type="button" class="uk-button uk-button-default uk-margin-right" id="btnReset">Reset</button>
-      <button type="submit" class="uk-button uk-button-primary" n:name="save">Confirm</button>
+      <button type="button" class="uk-button uk-button-default uk-margin-right" id="btnReset">{_general.ui.reset}</button>
+      <button type="submit" class="uk-button uk-button-primary" n:name="save">{_general.ui.confirm}</button>
     </div>
   </div>
 {/form}

@@ -32,13 +32,13 @@
         <div class="uk-width-expand">
           <table class="uk-table uk-table-small uk-table-divider">
             <tr>
-              <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">Strength</td>
+              <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">{_general.stats.strength.title}</td>
               <td class="uk-text-nowrap">{$user->player_stats->strength}</td>
-              <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">Stamina</td>
+              <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">{_general.stats.stamina.title}</td>
               <td class="uk-text-nowrap">{$user->player_stats->stamina}</td>
             </tr>
             <tr>
-              <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">Speed</td>
+              <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">{_general.stats.speed.title}</td>
               <td class="uk-text-nowrap">{$user->player_stats->speed}</td>
               <td class="uk-text-nowrap border-left" uk-tooltip="title:Your total power."><strong>Power</strong></td>
               <td class="uk-text-nowrap"><strong>{$user->player_stats->power}</strong></td>
