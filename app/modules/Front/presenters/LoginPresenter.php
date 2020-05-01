@@ -12,7 +12,6 @@ use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Random;
-use SimpleLog;
 
 /////////////////////// FRONT: Login PRESENTER ///////////////////////
 
