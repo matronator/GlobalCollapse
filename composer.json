@@ -1,5 +1,5 @@
 {
-	"name": "matronator/GlobalCollapse",
+	"name": "matronator/global-collapse",
 	"description": "Global Collapse: Pandemic - PHP game",
 	"homepage": "https://global-collapse.com",
 	"type": "project",
@@ -72,7 +72,8 @@
 		"latte/latte": "^2.6.2",
 		"kdyby/translation": "^3.0.3",
 		"ext-json": "*",
-		"h4kuna/assets": "^1.0"
+		"h4kuna/assets": "^1.0",
+		"contributte/monolog": "^0.4.1"
 	},
 	"require-dev": {
 		"nette/tester": "^2.3.0"

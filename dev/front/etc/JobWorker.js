@@ -1,6 +1,6 @@
 function checkJob() {
   const request = new XMLHttpRequest()
-  request.open("GET", `../../api/job`, true)
+  request.open("GET", `../../../api/job`, true)
   request.onload = function() {
     if (this.status >= 200 && this.status < 400) {
       // Success!

@@ -36,12 +36,6 @@ final class DefaultPresenter extends BasePresenter
 	protected function startup()
 	{
 			parent::startup();
-			if ($this->user->isLoggedIn()) {
-				$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-				if ($player->tutorial == 0) {
-					$this->redirect('Intro:');
-				}
-			}
 	}
 
 	public function renderDefault()
@@ -282,6 +276,7 @@ final class DefaultPresenter extends BasePresenter
 						'training' => $trainNumber,
 						'training_end' => $trainingEnd
 					]);
+					// $this->logger->addInfo($player->username . ' started ' . $trainSkill . ' training.');
 					$this->flashMessage('Training started', 'success');
 					$this->redirect('this');
 				} else {

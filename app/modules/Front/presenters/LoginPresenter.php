@@ -12,7 +12,7 @@ use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Random;
-
+use SimpleLog;
 
 /////////////////////// FRONT: Login PRESENTER ///////////////////////
 
@@ -74,10 +74,14 @@ final class LoginPresenter extends BasePresenter
 	{
 			try {
 					$this->getUser()->login($values->username, $values->password, NULL);
-					if ($values->backlink) {
-						$this->restoreRequest($values->backlink);
-					} else {
-							$this->redirect('Default:');
+					$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+					if ($player) {
+						$this->log($player->username, 'login');
+						if ($player->tutorial === 0) {
+							$this->redirect('Intro:default');
+						} else {
+							$this->redirect('Default:default');
+						}
 					}
 			} catch (AuthenticationException $e) {
 					$form->addError($e->getMessage());

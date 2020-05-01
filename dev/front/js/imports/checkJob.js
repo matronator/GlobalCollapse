@@ -9,7 +9,9 @@ let myworker
 function startWorker() {
   if (typeof Worker !== "undefined") {
     if (typeof myworker === "undefined") {
-      myworker = new Worker(`${window.location.origin}/dist/front/JobWorker.js`)
+      myworker = new Worker(
+        `${window.location.origin}/dist/front/etc/JobWorker.js`
+      )
     }
     myworker.onmessage = function(event) {
       if (event.data[0] === "update") {

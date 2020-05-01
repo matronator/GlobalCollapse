@@ -46,6 +46,7 @@ latte:
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension
 	assetsExtension: h4kuna\Assets\DI\AssetsExtension
+	monolog: Contributte\Monolog\DI\MonologExtension
 
 translation:
 	default: en
@@ -60,3 +61,11 @@ assetsExtension:
 	wwwDir: %wwwDir%
 	debugMode: %debugMode%
 	tempDir: %tempDir%
+
+monolog:
+	channel:
+		default:
+			handlers:
+				- Monolog\Handler\RotatingFileHandler(%appDir%/../log/gamelog.log, 30, Monolog\Logger::INFO)::setFormatter(Monolog\Formatter\LineFormatter("[%%%%datetime%%%%]%%%%level_name%%%%: %%%%message%%%% %%%%context%%%%\n", 'Y-m-d H:i:s', true, true))
+	hook:
+		toTracy: false

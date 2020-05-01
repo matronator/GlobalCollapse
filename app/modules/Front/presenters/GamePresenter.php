@@ -15,12 +15,7 @@ abstract class GamePresenter extends BasePresenter
   protected function startup() {
     parent::startup();
     if (!$this->user->isLoggedIn() && ($this->getName() != "Login" || $this->getName() != "Signup")) {
-      $this->redirect('Login:default', ['backlink' => $this->storeRequest()]);
-    } else {
-      $this->player = $this->user->getIdentity();
-      if ($this->player->tutorial == 0 && !$this->isLinkCurrent('Intro:default')) {
-        $this->redirect('Intro:');
-      }
+      $this->redirect('Login:default');
     }
   }
 }

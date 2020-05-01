@@ -24,12 +24,17 @@ final class AccountPresenter extends BasePresenter
         parent::startup();
 
         if (!$this->user->isLoggedIn())
-            $this->redirect('Login:default', ['backlink' => $this->storeRequest()]);
+            $this->redirect('Login:default');
     }
 
     public function actionLogout()
     {
         $this->user->logout();
         $this->redirect('Default:');
+    }
+
+    public function renderSettings()
+    {
+
     }
 }

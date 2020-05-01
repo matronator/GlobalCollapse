@@ -19,6 +19,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	/** @var \Kdyby\Translation\Translator @inject */
 	public $translator;
 
+	/** @var \Monolog\Logger @inject */
+  public $logger;
+
 	/** @var Model\UserRepository */
 	private $userRepository;
 
@@ -57,5 +60,36 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			$resource = $resource ? $resource : $this->name;
 			return $this->user->isAllowed($resource, $privilege);
 	}
+
+	/**
+   * log
+   *
+   * @param string|null $player  Name of the player
+   * @param string|null $type  Use a predefined template message
+   * @param string|null $msg  Custom message
+   * @param array|null $extra  Any extra parameters (will go into context)
+   * @return void
+   */
+  public function log(?string $player = null, ?string $type = null, ?string $msg = '', ?array $extra = []): void
+  {
+    $message = $msg;
+    if (isset($type)) {
+      switch ($type) {
+        case 'login':
+          $message = 'has logged in.';
+          break;
+        case 'signup':
+          $message = 'just signed up!';
+          break;
+        case 'logout':
+          $message = 'has logged out.';
+          break;
+      }
+    }
+    if ($player) {
+      $message = sprintf('%s ' . $message, $player);
+		}
+    $this->logger->info($message, $extra);
+  }
 
 }
