@@ -2,17 +2,17 @@ parameters:
   jobs: [
     [
         locale: distributeMasks
-        duration: 20
-        energy: 20
+        duration: 10
+        energy: 25
         money: 30
-        xp: 25
+        xp: 20
         droprate: 25
     ],
     [
         locale: burnBodies
         duration: 15
         energy: 15
-        money: 15
+        money: 40
         xp: 20
         droprate: 25
     ],
@@ -21,7 +21,7 @@ parameters:
         duration: 20
         energy: 15
         money: 40
-        xp: 15
+        xp: 20
         droprate: 15
     ],
     [
