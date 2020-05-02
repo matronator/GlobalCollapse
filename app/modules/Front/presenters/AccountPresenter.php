@@ -29,6 +29,7 @@ final class AccountPresenter extends BasePresenter
 
     public function actionLogout()
     {
+        $this->log($this->user->getIdentity()->username, 'logout');
         $this->user->logout();
         $this->redirect('Default:');
     }

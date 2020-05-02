@@ -114,6 +114,26 @@ final class DefaultPresenter extends BasePresenter
 					$this->template->trainingUntil = $trainingUntil;
 				} else {
 					$this->endTraining($isTraining);
+					$trainSkill = '';
+					switch ($isTraining) {
+						case 1:
+							$trainSkill = 'strength';
+						break;
+						case 2:
+							$trainSkill = 'stamina';
+						break;
+						case 3:
+							$trainSkill = 'speed';
+						break;
+					}
+					$this->log($player->username, 'train_end', [
+						'stat' => $trainSkill,
+						'strength' => $player->player_stats->strength,
+						'stamina' => $player->player_stats->stamina,
+						'speed' => $player->player_stats->speed,
+						'power' => $player->player_stats->power,
+						'energy' => $player->player_stats->energy
+					]);
 					$isTraining = 0;
 					$this->redirect('this');
 				}
@@ -175,6 +195,9 @@ final class DefaultPresenter extends BasePresenter
 					'resting' => 1,
 					'resting_start' => $playerRestStart
 				]);
+				$this->log($player->username, 'rest_start', [
+					'energy' => $player->player_stats->energy
+				]);
 				$this->flashMessage('You went to rest', 'success');
 				$this->redirect('this');
 			}
@@ -197,6 +220,10 @@ final class DefaultPresenter extends BasePresenter
 							'energy+=' => $reward
 						]);
 					}
+					$this->log($player->username, 'rest_end', [
+						'energyGained' => $reward,
+						'energy' => $player->player_stats->energy
+					]);
 					$this->flashMessage('You regained ' . $reward . ' energy', 'success');
 					$this->redirect('this');
 				}
@@ -276,7 +303,16 @@ final class DefaultPresenter extends BasePresenter
 						'training' => $trainNumber,
 						'training_end' => $trainingEnd
 					]);
-					// $this->logger->addInfo($player->username . ' started ' . $trainSkill . ' training.');
+					$this->log($player->username, 'train', [
+						'end' => $trainingEnd,
+						'stat' => $trainSkill,
+						'strength' => $player->player_stats->strength,
+						'stamina' => $player->player_stats->stamina,
+						'speed' => $player->player_stats->speed,
+						'power' => $player->player_stats->power,
+						'energy' => $player->player_stats->energy,
+						'money' => $player->money
+					]);
 					$this->flashMessage('Training started', 'success');
 					$this->redirect('this');
 				} else {
@@ -332,6 +368,14 @@ final class DefaultPresenter extends BasePresenter
 					'skillpoints-=' => $usedSp
 				]);
 				$this->userRepository->updateStatsAdd($player->id, $strength, $stamina, $speed);
+				$this->log($player->username, 'trainSP', [
+					'skillpoints' => $player->player_stats->skillpoints,
+					'used' => $usedSp,
+					'strength' => $player->player_stats->strength,
+					'stamina' => $player->player_stats->stamina,
+					'speed' => $player->player_stats->speed,
+					'power' => $player->player_stats->power
+				]);
 				$this->flashMessage('Skillpoints successfully assigned', 'success');
 				$this->redirect('this');
 			} else {
@@ -362,6 +406,9 @@ final class DefaultPresenter extends BasePresenter
 				$player->avatar = $selected;
 				$this->userRepository->getUser($player->id)->update([
 					'avatar' => $selected
+				]);
+				$this->log($player->username, 'avatar', [
+					'avatar' => $player->avatar
 				]);
 				$this->flashMessage('Avatar changed', 'success');
 				$this->redirect('this');

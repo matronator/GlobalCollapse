@@ -70,7 +70,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
    * @param array|null $extra  Any extra parameters (will go into context)
    * @return void
    */
-  public function log(?string $player = null, ?string $type = null, ?string $msg = '', ?array $extra = []): void
+  public function log(?string $player = null, ?string $type = null, ?array $extra = [], ?string $msg = ''): void
   {
     $message = $msg;
     if (isset($type)) {
@@ -83,6 +83,24 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
           break;
         case 'logout':
           $message = 'has logged out.';
+          break;
+        case 'rest_start':
+          $message = 'went to rest.';
+          break;
+        case 'rest_end':
+          $message = 'woke up from a rest.';
+          break;
+        case 'train':
+          $message = 'started training.';
+          break;
+        case 'train_end':
+          $message = 'finished training.';
+          break;
+        case 'trainSP':
+          $message = 'trained with skillpoints.';
+          break;
+        case 'avatar':
+          $message = 'changed avatar.';
           break;
       }
     }
