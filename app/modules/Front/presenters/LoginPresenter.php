@@ -75,7 +75,6 @@ final class LoginPresenter extends BasePresenter
 					$this->getUser()->login($values->username, $values->password, NULL);
 					$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 					if ($player) {
-						$this->log($player->username, 'login');
 						if ($player->tutorial === 0) {
 							$this->redirect('Intro:default');
 						} else {
