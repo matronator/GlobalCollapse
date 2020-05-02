@@ -33,9 +33,9 @@ final class SignupPresenter extends BasePresenter
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			if ($player->tutorial == 0) {
-				$this->redirect('Intro:default');
+				$this->canonicalize('Intro:default');
 			} else {
-				$this->redirect('Default:default');
+				$this->canonicalize('Default:default');
 			}
 		}
 	}

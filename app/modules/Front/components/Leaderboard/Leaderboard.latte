@@ -1,3 +1,12 @@
+{**
+*     Leaderboard
+*
+*     array     $users          Users to display
+*     number    $page           Page to display
+*     number    $lastPage       Last page
+*     number    $itemsPerPage   Items per page
+*}
+
 <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
   <thead>
     <tr>
@@ -9,7 +18,7 @@
   <tbody>
     {foreach $users as $otherUser}
       <tr>
-        <td class="uk-text-nowrap">{$iterator->counter}</td>
+        <td class="uk-text-nowrap">{$iterator->counter + $rankOffset - $itemsPerPage}</td>
         <td class="uk-text-nowrap">
           <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}.jpg" class="uk-comment-avatar" width="24" height="24">
           &nbsp;{if $otherUser->username != $user->username}<a n:href="Player:detail, $otherUser->username">{$otherUser->username}</a>{else}{$user->username}{/if}

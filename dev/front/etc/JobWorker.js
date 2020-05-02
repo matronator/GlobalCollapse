@@ -7,10 +7,10 @@ function checkJob() {
       const jsonData = JSON.parse(this.response)
       if (jsonData.mission === false) {
         if (jsonData.new === true) {
-          postMessage({ type: "done" })
+          postMessage(["done"])
         }
       } else if (jsonData.mission === true) {
-        setTimeout(checkJob, 20000)
+        setTimeout(checkJob, 15000)
         postMessage(["update", jsonData.minutes, jsonData.seconds])
       }
     }

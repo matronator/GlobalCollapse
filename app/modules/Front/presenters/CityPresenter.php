@@ -41,8 +41,8 @@ final class CityPresenter extends GamePresenter
 		$drugs = $this->drugsRepository->findAll();
 		$this->template->drugs = $drugs;
 		$this->template->updated = $this->drugsRepository->findDrug(1)->fetch();
-		if (isset($this->player->id)) {
-			$drugsInventory = $this->drugsRepository->findDrugInventory($this->player->id)->order('drugs_id', 'ASC')->fetchAll();
+		if (isset($this->getUser()->identity->id)) {
+			$drugsInventory = $this->drugsRepository->findDrugInventory($this->getUser()->identity->id)->order('drugs_id', 'ASC')->fetchAll();
 			if (count($drugsInventory) > 0) {
 				$this->template->drugsInventory = $drugsInventory;
 			}
@@ -123,17 +123,17 @@ final class CityPresenter extends GamePresenter
 				if ($player->money >= $totalPrice) {
 					foreach ($drugs as $drug) {
 						if ($values[$drug->name] > 0) {
-							$this->drugsRepository->buyDrugs($this->player->id, $drug->id, $values[$drug->name]);
-							$this->userRepository->getUser($this->player->id)->update([
+							$this->drugsRepository->buyDrugs($player->id, $drug->id, $values[$drug->name]);
+							$this->userRepository->getUser($player->id)->update([
 								'money-=' => $prices[$drug->name]
 							]);
 						}
 					}
 					$this->flashMessage('Purchase successful', 'success');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				} else {
 					$this->flashMessage('Not enough money', 'danger');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				}
 			} else if ($control->name === 'sell') {
 				$allGood = [];
@@ -141,13 +141,13 @@ final class CityPresenter extends GamePresenter
 				$soldDrugs = [];
 				foreach($drugs as $drug) {
 					if ($values[$drug->name] > 0) {
-						$sellDrug = $this->drugsRepository->sellDrug($this->player->id, $drug->id, $values[$drug->name]);
+						$sellDrug = $this->drugsRepository->sellDrug($player->id, $drug->id, $values[$drug->name]);
 						if (!$sellDrug) {
 							$missingDrugs = $missingDrugs . $drug->name . ', ';
 							array_push($allGood, $drug->name);
 						} else {
 							array_push($soldDrugs, $drug->name);
-							$this->userRepository->getUser($this->player->id)->update([
+							$this->userRepository->getUser($player->id)->update([
 								'money+=' => $prices[$drug->name]
 							]);
 						}
@@ -160,7 +160,7 @@ final class CityPresenter extends GamePresenter
 				} else if (count($allGood) === 0 && count($soldDrugs) > 0) {
 					$this->flashMessage('Drugs successfully sold.', 'success');
 				}
-				$this->redirect('this');
+				$this->canonicalize('this');
 			}
 		}
 	}
@@ -181,20 +181,20 @@ final class CityPresenter extends GamePresenter
 		if ($control->name == 'scavenge') {
 			if ($isScavenging <= 0 && $isOnMission <= 0) {
 				$playerScavengeStart = new DateTime();
-				$this->userRepository->getUser($this->player->id)->actions->update([
+				$this->userRepository->getUser($player->id)->actions->update([
 					'scavenging' => 1,
 					'scavenge_start' => $playerScavengeStart
 				]);
 				$this->flashMessage('You went scavenging to the wastelands', 'success');
-				$this->redirect('this');
+				$this->canonicalize('this');
 			}
 		} else if ($control->name == 'stopScavenging') {
 			if ($isScavenging > 0) {
-				$scavengingSince = $this->userRepository->getUser($this->player->id)->actions->scavenge_start;
+				$scavengingSince = $this->userRepository->getUser($player->id)->actions->scavenge_start;
 				$nowDate = new DateTime();
 				$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp());
 				if ($diff >= 3600) {
-					$this->userRepository->getUser($this->player->id)->actions->update([
+					$this->userRepository->getUser($player->id)->actions->update([
 						'scavenging' => 0
 					]);
 					$reward = $this->scavengeReward($diff / 3600);
@@ -205,10 +205,10 @@ final class CityPresenter extends GamePresenter
 					$section->hours = round($diff / 3600);
 					$section->money = $reward['money'];
 					$section->exp = $reward['xp'];
-					$this->redirect('this');
+					$this->canonicalize('this');
 				} else {
 					$this->flashMessage('You can return after at least an hour of scavenging', 'danger');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				}
 			}
 		}
@@ -224,8 +224,8 @@ final class CityPresenter extends GamePresenter
 		}
 		$plusXp = round($totalReward);
 		$plusMoney = round($totalMoney);
-		$this->userRepository->addXp($this->player->id, $plusXp);
-		$this->userRepository->getUser($this->player->id)->update([
+		$this->userRepository->addXp($this->getUser()->identity->id, $plusXp);
+		$this->userRepository->getUser($this->getUser()->identity->id)->update([
 			'money+=' => $totalMoney
 		]);
 		return [

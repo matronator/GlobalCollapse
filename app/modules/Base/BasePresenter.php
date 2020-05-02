@@ -50,29 +50,29 @@ class BasePresenter extends Presenter
         return $this->translator->translate($key, $args);
     }
 
-	protected function verifyRecaptcha($recaptcha_token)
-    {
-        $post_data = http_build_query(
-            [
-                'secret' => 'SECRET_KEY_HERE',
-                'response' => $recaptcha_token,
-                'remoteip' => $_SERVER['REMOTE_ADDR']
-            ]
-        );
-        $opts = [
-            'http' =>
-            [
-                'method'  => 'POST',
-                'header'  => 'Content-type: application/x-www-form-urlencoded',
-                'content' => $post_data
-            ]
-        ];
-        $context  = stream_context_create($opts);
-        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
-        $result = json_decode($response);
+	// protected function verifyRecaptcha($recaptcha_token)
+    // {
+    //     $post_data = http_build_query(
+    //         [
+    //             'secret' => 'SECRET_KEY_HERE',
+    //             'response' => $recaptcha_token,
+    //             'remoteip' => $_SERVER['REMOTE_ADDR']
+    //         ]
+    //     );
+    //     $opts = [
+    //         'http' =>
+    //         [
+    //             'method'  => 'POST',
+    //             'header'  => 'Content-type: application/x-www-form-urlencoded',
+    //             'content' => $post_data
+    //         ]
+    //     ];
+    //     $context  = stream_context_create($opts);
+    //     $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+    //     $result = json_decode($response);
 
-        return $result;
-    }
+    //     return $result;
+    // }
 
     public function getURL()
 	{

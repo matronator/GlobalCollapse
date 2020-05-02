@@ -37,9 +37,9 @@ final class LoginPresenter extends BasePresenter
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			if ($player->tutorial == 0) {
-				$this->redirect('Intro:default');
+				$this->canonicalize('Intro:default');
 			} else {
-				$this->redirect('Default:default');
+				$this->canonicalize('Default:default');
 			}
 		}
 	}
@@ -72,7 +72,7 @@ final class LoginPresenter extends BasePresenter
 	public function loginFormSucceeded(Form $form, ArrayHash $values): void
 	{
 			try {
-					$this->getUser()->login($values->username, $values->password, NULL);
+					$this->getUser()->login($values->username, $values->password);
 					$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 					if ($player) {
 						if ($player->tutorial === 0) {

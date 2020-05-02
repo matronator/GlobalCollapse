@@ -111,6 +111,16 @@
     </style>
 
     <script defer src="{asset index.js front}"></script>
+    {if $presenter->isLinkCurrent('Bar:default')}
+        {ifset $onMission}
+            <script n:if="$onMission >= 1" defer src="{asset countdownBar.js front}"></script>
+            <script n:if="$onMission < 1" defer src="{asset bar.js front}"></script>
+        {else}
+            {ifset $returned}
+                <script n:if="!$returned" defer src="{asset bar.js front}"></script>
+            {/ifset}
+        {/ifset}
+    {/if}
 
 </body>
 </html>

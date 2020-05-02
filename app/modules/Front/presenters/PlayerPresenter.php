@@ -26,7 +26,10 @@ final class PlayerPresenter extends BasePresenter
 			parent::startup();
 	}
 
-	public function renderDetail(string $username) {
+	public function renderDetail(?string $username = null) {
+		if (!$username) {
+			$this->canonicalize('Default:default');
+		}
 		$otherPlayer = $this->userRepository->getUserByName($username);
 		if ($otherPlayer) {
 			$this->template->otherPlayer = $otherPlayer;

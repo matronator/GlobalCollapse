@@ -65,6 +65,7 @@ ui:
 	email: 'E-mail'
 	password: 'Password'
 	passwordV: 'Repeat password'
+	newPassword: 'New password'
 	username: 'Username'
 	lastUpdated: 'Last updated'
 	ago: 'ago'
@@ -72,12 +73,17 @@ ui:
 	save: 'Save'
 	reset: 'Reset'
 	confirm: 'Confirm'
+	continue: 'Continue'
 	add: 'Add'
 	remove: 'Remove'
 	extra: 'Extra'
 	changeAvatar: 'Change avatar'
 	locationStatus:
 		closed: 'Closed'
+
+account:
+	accountSettings: 'Account settings'
+	changePassword: 'Change password'
 
 training:
 	train: 'Train'

@@ -4,22 +4,19 @@ declare(strict_types=1);
 
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
-use \Kdyby\Translation\Translator;
 use App\Model\UserRepository;
+use Nette\Application\BadRequestException;
 
 class ChangePasswordForm extends Control {
 
-    private $translator;
     private $userRepository;
     public $onSuccess;
     public $onError;
 
     public function __construct(
-        Translator $translator,
         UserRepository $userRepository
     )
     {
-        $this->translator = $translator;
         $this->userRepository = $userRepository;
     }
 
@@ -33,16 +30,20 @@ class ChangePasswordForm extends Control {
     public function createComponentForm()
     {
         $form = new Form;
+        $form->addPassword('newPassword', 'New password')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlId('newPassword')
+            ->setHtmlAttribute('placeholder', 'New password')
+            ->addRule(Form::MIN_LENGTH, 'Password has to be at least 6 characters long', 6)
+            ->setRequired();
+        $form->addPassword('passwordAgain', 'Repeat password')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlId('passwordAgain')
+            ->setHtmlAttribute('placeholder', 'Repeat password')
+            ->addRule(Form::EQUAL, 'Passwords don\'t match', $form['newPassword'])
+            ->setRequired();
+        $form->addSubmit('submit', 'Change password');
 
-        $form->addPassword('new_password', $this->translator->translate('m.account.newPassword'))
-        ->setRequired($this->translator->translate('m.formField.required'))
-        ->addRule(Form::MIN_LENGTH, $this->translator->translate('m.account.newPasswordMinLenght', ['passwordMinLenght' => 5]), 5);
-
-        $form->addPassword('new_password_verify', $this->translator->translate('m.account.newPasswordVerify'))
-        ->setRequired($this->translator->translate('m.formField.required'))
-        ->addRule(Form::EQUAL, $this->translator->translate('m.account.newPasswordMismatch'), $form['new_password']);
-
-        $form->addSubmit('submit', $this->translator->translate('m.account.changePassword'));
         $form->onSuccess[] = [$this, 'processForm'];
         return $form;
     }
@@ -54,10 +55,9 @@ class ChangePasswordForm extends Control {
             $values = $form->getValues(true);
 
             //Update password
-            $user = $this->parent->getUser()->identity;
-            $newPasswordHash = $this->userRepository->cypherPassword($values['new_password']);
+            $user = $this->presenter->user->getIdentity();
+            $newPasswordHash = $this->userRepository->cypherPassword($values['newPassword']);
             $this->userRepository->changeUserPassword($user->id, $newPasswordHash);
-
             $this->onSuccess($form);
         } catch (Nette\Security\AuthenticationException $e) {
             $this->onError($form);

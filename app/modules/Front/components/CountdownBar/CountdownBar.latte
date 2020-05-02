@@ -18,6 +18,6 @@
     data-bar-fill="{$fill}">
   <div class="countdown-bar-fill progress-bar-fill" style="width:{$fill}%;"></div>
   <p class="progress-bar-value uk-text-small">
-    <span id="cbMins" class="cb-time">{$minute}</span><span class="cb-divider">:</span><span id="cbSecs" class="cb-time">{$sec}</span>
+    <span id="cbMins" data-timer-minutes="{intval($minute)}" class="cb-time">{$minute}</span><span class="cb-divider">:</span><span id="cbSecs" data-timer-seconds="{intval($sec)}" class="cb-time">{$sec}</span>
   </p>
 </div>

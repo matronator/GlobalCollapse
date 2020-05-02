@@ -9,11 +9,11 @@
         {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->player_stats->level}</small>
       </a>
       <ul class="uk-nav-sub">
-        <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.account}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.home}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Account:settings') ? uk-active"><a n:href="Account:settings">{_general.ui.sidebar.player.account}</a></li>
         <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a n:href="Default:training">{_general.ui.sidebar.player.training}</a></li>
         <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">{_general.ui.sidebar.player.rest}</a></li>
         <li class="uk-nav-divider"></li>
-        <li><a href="#">{_general.ui.sidebar.player.home}<small class="uk-text-light">&nbsp;{_general.ui.sidebar.preparing}</small></a></li>
         <li n:class="$presenter->isLinkCurrent('Buildings:*') ? uk-active"><a n:href="Buildings:default">{_general.ui.sidebar.player.buildings}</a></li>
       </ul>
     </li>

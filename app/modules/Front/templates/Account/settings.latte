@@ -1,0 +1,12 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Account{/define}
+{define metaDescription}Account{/define}
+
+{block pageContent}
+<div class="uk-container-small uk-margin-auto uk-padding-top" uk-height-viewport="expand: true">
+  <div class="uk-text-center uk-width-1-3@m uk-margin-auto">
+    <h3>{_general.account.changePassword}</h3>
+    {control changePasswordForm}
+  </div>
+</div>
+{/block}

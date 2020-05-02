@@ -8,7 +8,7 @@ use Nette\Database\Table\ActiveRow;
 use Nette\Application\BadRequestException;
 use Nette\Database\Context;
 use Nette\Utils\ArrayHash;
-use Nette\Utils\Random;
+use Nette\Security\Passwords;
 
 const USER_ROLE_ADMIN = 'a';
 const USER_ROLE_USER = 'u';
@@ -85,6 +85,14 @@ class UserRepository
             ->fetch();
     }
 
+    public function getUserByEmail(?string $email = null): ?ActiveRow
+    {
+        if (!$email)
+            return null;
+        return $this->findAll()
+            ->where('username', $email);
+    }
+
     public function deleteUser(?int $id = null): ?ActiveRow
     {
         $user = $this->getUser($id);
@@ -112,6 +120,19 @@ class UserRepository
         $user = $this->findAll()->insert($values);
         // $this->mailService->sendPasswordLink($user);
         return $user;
+    }
+
+    public function changeUserPassword(int $userId, string $password) {
+        return $this->updateUser($userId, [
+            'password' => $password
+        ]);
+    }
+
+    public function cypherPassword(string $password): string
+    {
+        $passwords = new Passwords(PASSWORD_BCRYPT, ['cost' => 10]);
+        $hash = $passwords->hash($password);
+        return $hash;
     }
 
     public function createStats()
@@ -155,7 +176,7 @@ class UserRepository
         return $this->findAllActions()->insert([]);
     }
 
-    public function updateUser(int $id, ArrayHash $values): ActiveRow
+    public function updateUser(int $id, iterable $values): ActiveRow
     {
         $this->findAll()->wherePrimary($id)->update($values);
         return $this->getUser($id);

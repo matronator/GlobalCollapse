@@ -3,19 +3,22 @@
 {define metaDescription}Missions{/define}
 
 {define results}
-  <div>
-    {_general.city.bar.jobs.jobDone|noescape}
+  <div class="uk-text-center">
+    <div>
+      {_general.city.bar.jobs.jobDone|noescape}
+    </div>
+    <table class="uk-table uk-table-striped uk-table-small uk-width-1-2 uk-margin-auto">
+      <tr>
+        <td>Money</td>
+        <td>+ ${$money}</td>
+      </tr>
+      <tr class="border-bottom">
+        <td>XP</td>
+        <td>+ {$xp}</td>
+      </tr>
+    </table>
+    <a n:href="Bar:newjobs" class="uk-button uk-button-primary uk-button-large">{_general.ui.continue}</a>
   </div>
-  <table class="uk-table uk-table-striped uk-table-small">
-    <tr>
-      <td>Money</td>
-      <td>+ ${$money}</td>
-    </tr>
-    <tr>
-      <td>XP</td>
-      <td>+ {$xp}</td>
-    </tr>
-  </table>
 {/define}
 
 {block pageContent}
@@ -33,63 +36,63 @@
             {_general.city.bar.closedSocialDistancing}
           {/if}
         {else}
-          <h3>{_general.city.bar.jobs.title}</h3>
-          {ifset $returned}
+          <h3 n:if="!$returned">{_general.city.bar.jobs.title}</h3>
+          {if isset($returned) && $returned == true}
             {include results, money => $moneyPlus, xp => $xpointsPlus}
           {else}
             <p>{_general.city.bar.jobs.description}</p>
-          {/ifset}
+          {/if}
         {/if}
       </div>
     </div>
-    <div n:if="!$closed" class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
-      {if !$onMission}
-        {include '../../components/Jobs/Jobs.latte'}
-        <script defer src="{asset bar.js front}"></script>
-      {else}
-        <div class="uk-padding uk-text-center">
-          {var $imgSrc}
-          {var $imgPos}
-          {var $imgDir}
-          {switch $jobName}
-            {case distributeMasks}
-              {php $imgSrc = 'city'}
-              {php $imgPos = 'top'}
-              {php $imgDir = 'horizontal'}
-            {case burnBodies}
-              {php $imgSrc = 'biohazard'}
-              {php $imgPos = 'center -200px'}
-              {php $imgDir = 'vertical'}
-            {case smuggleDrugs}
-              {php $imgSrc = 'drugs'}
-              {php $imgPos = 'center'}
-              {php $imgDir = ''}
-            {case escortScientist}
-              {php $imgSrc = 'wastelands'}
-              {php $imgPos = 'center'}
-              {php $imgDir = 'vertical'}
-            {case default}
-              {php $imgSrc = 'bar'}
-              {php $imgPos = 'center'}
-              {php $imgDir = 'horizontal'}
-          {/switch}
-          <div class="job-img-split">
-            <div class="job-info">
-              <h3>{_general.city.bar.jobs.working}</h3>
-              <p>{_general.city.bar.jobs.workingUntil}{$workingUntil|date:'%T'}</p>
-              {include '../../components/CountdownBar/CountdownBar.latte',
-                minute => $minutes,
-                sec => $seconds,
-                max => $timeMax
-              }
-            </div>
-            <div class="job-image" style="background-image:url('{$basePath}/dist/front/images/illustrations/{$imgSrc}.jpg');background-position:{$imgPos};">
+    {if !$closed}
+      <div n:if="!$returned" class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+        {if !$onMission}
+          {include '../../components/Jobs/Jobs.latte'}
+        {else}
+          <div class="uk-padding uk-text-center">
+            {var $imgSrc}
+            {var $imgPos}
+            {var $imgDir}
+            {switch $jobName}
+              {case distributeMasks}
+                {php $imgSrc = 'city'}
+                {php $imgPos = 'top'}
+                {php $imgDir = 'horizontal'}
+              {case burnBodies}
+                {php $imgSrc = 'biohazard'}
+                {php $imgPos = 'center -200px'}
+                {php $imgDir = 'vertical'}
+              {case smuggleDrugs}
+                {php $imgSrc = 'drugs'}
+                {php $imgPos = 'center'}
+                {php $imgDir = ''}
+              {case escortScientist}
+                {php $imgSrc = 'wastelands'}
+                {php $imgPos = 'center'}
+                {php $imgDir = 'vertical'}
+              {case default}
+                {php $imgSrc = 'bar'}
+                {php $imgPos = 'center'}
+                {php $imgDir = 'horizontal'}
+            {/switch}
+            <div class="job-img-split">
+              <div class="job-info">
+                <h3>{_general.city.bar.jobs.working}</h3>
+                <p>{_general.city.bar.jobs.workingUntil}{$workingUntil|date:'%T'}</p>
+                {include '../../components/CountdownBar/CountdownBar.latte',
+                  minute => $minutes,
+                  sec => $seconds,
+                  max => $timeMax
+                }
+              </div>
+              <div class="job-image" style="background-image:url('{$basePath}/dist/front/images/illustrations/{$imgSrc}.jpg');background-position:{$imgPos};">
+              </div>
             </div>
           </div>
-        </div>
-        <script defer src="{asset countdownBar.js front}"></script>
-      {/if}
-    </div>
+        {/if}
+      </div>
+    {/if}
   </div>
 </div>
 {/block}

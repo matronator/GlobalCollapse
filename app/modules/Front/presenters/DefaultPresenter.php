@@ -67,12 +67,29 @@ final class DefaultPresenter extends BasePresenter
 			}
 
 			// Leaderboard
-			$lastPage = 0;
 			$page = 1;
-			$leaderboard = $this->userRepository->findUsers()->page($page, 10, $lastPage);
+			$lastPage = $page;
+			$itemsPerPage = 10;
+			$usersRanked = $this->userRepository->findUsers();
+			$position = 1;
+			foreach ($usersRanked as $currentUser) {
+				if ($currentUser->username == $player->username) {
+					break;
+				} else {
+					$position++;
+					if ($position - ($page * $itemsPerPage) >= $itemsPerPage) {
+						$page++;
+						$lastPage++;
+					}
+				}
+			}
+			$leaderboard = $this->userRepository->findUsers()->page($page, $itemsPerPage, $lastPage);
 			$this->template->users = $leaderboard;
 			$this->template->lastPage = $lastPage;
 			$this->template->page = $page;
+			$rankOffset = $page * $itemsPerPage;
+			$this->template->rankOffset = $rankOffset;
+			$this->template->itemsPerPage = $itemsPerPage;
 		} else {
 			$drugs = $this->drugsRepository->findAll();
 			$this->template->drugs = $drugs;
@@ -115,11 +132,11 @@ final class DefaultPresenter extends BasePresenter
 				} else {
 					$this->endTraining($isTraining);
 					$isTraining = 0;
-					$this->redirect('this');
+					$this->canonicalize('this');
 				}
 			}
 		} else {
-			$this->redirect('Login:default');
+			$this->canonicalize('Login:default');
 		}
 	}
 
@@ -152,7 +169,7 @@ final class DefaultPresenter extends BasePresenter
 				}
 			}
 		} else {
-			$this->redirect('Login:default');
+			$this->canonicalize('Login:default');
 		}
 	}
 
@@ -176,7 +193,7 @@ final class DefaultPresenter extends BasePresenter
 					'resting_start' => $playerRestStart
 				]);
 				$this->flashMessage('You went to rest', 'success');
-				$this->redirect('this');
+				$this->canonicalize('this');
 			}
 		} else if ($control->name === 'wakeup') {
 			if ($isResting) {
@@ -198,7 +215,7 @@ final class DefaultPresenter extends BasePresenter
 						]);
 					}
 					$this->flashMessage('You regained ' . $reward . ' energy', 'success');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				}
 			}
 		}
@@ -278,14 +295,14 @@ final class DefaultPresenter extends BasePresenter
 					]);
 					// $this->logger->addInfo($player->username . ' started ' . $trainSkill . ' training.');
 					$this->flashMessage('Training started', 'success');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				} else {
 					$this->flashMessage('Not enough energy', 'danger');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				}
 			} else {
 				$this->flashMessage('Not enough money', 'danger');
-				$this->redirect('this');
+				$this->canonicalize('this');
 			}
 		}
 	}
@@ -333,10 +350,10 @@ final class DefaultPresenter extends BasePresenter
 				]);
 				$this->userRepository->updateStatsAdd($player->id, $strength, $stamina, $speed);
 				$this->flashMessage('Skillpoints successfully assigned', 'success');
-				$this->redirect('this');
+				$this->canonicalize('this');
 			} else {
 				$this->flashMessage('Invalid stats, try again.', 'danger');
-				$this->redirect('this');
+				$this->canonicalize('this');
 			}
 		}
 	}
@@ -364,7 +381,7 @@ final class DefaultPresenter extends BasePresenter
 					'avatar' => $selected
 				]);
 				$this->flashMessage('Avatar changed', 'success');
-				$this->redirect('this');
+				$this->canonicalize('this');
 			}
 		}
 	}

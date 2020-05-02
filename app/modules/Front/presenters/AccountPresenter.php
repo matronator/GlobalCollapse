@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Model\UserRepository;
+use ChangePasswordForm;
 
 final class AccountPresenter extends BasePresenter
 {
@@ -24,17 +25,43 @@ final class AccountPresenter extends BasePresenter
         parent::startup();
 
         if (!$this->user->isLoggedIn())
-            $this->redirect('Login:default');
+            $this->canonicalize('Login:default');
     }
 
     public function actionLogout()
     {
         $this->user->logout();
-        $this->redirect('Default:');
+        $this->canonicalize('Default:');
     }
 
     public function renderSettings()
     {
-
     }
+
+    public function createComponentChangePasswordForm()
+    {
+        $form = $this->createChangePasswordForm();
+        $form->onSuccess[] = function($form) {
+            //Get values as array
+            $values = $form->getValues(true);
+
+            //Update password
+            $user = $this->getUser()->identity;
+            $newPasswordHash = $this->userRepository->cypherPassword($values['newPassword']);
+            $this->userRepository->changeUserPassword($user->id, $newPasswordHash);
+
+            //Show flashmessage and redirect
+            $this->flashMessage('Password changed', 'success');
+            $this->canonicalize('this');
+        };
+        $form->onError[] = function($form) {
+            $this->flashMessage('Something went wrong', 'danger');
+        };
+        return $form;
+    }
+
+    public function createChangePasswordForm()
+	{
+		return new ChangePasswordForm($this->userRepository);
+	}
 }

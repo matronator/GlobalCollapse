@@ -21,7 +21,7 @@
 .offcanvas-main > .uk-offcanvas-bar,
 .offcanvas-main > .uk-offcanvas-bar > .uk-panel {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
   & > .sidebar-footer {
     width: calc(100% - 50px);
   }

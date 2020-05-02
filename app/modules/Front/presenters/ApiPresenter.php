@@ -60,6 +60,7 @@ final class ApiPresenter extends Presenter
             $timeMax = $missionDuration;
             $data = [
                 'mission' => true,
+                'new' => false,
                 'name' => $whatMission,
                 'end' => $workingUntil,
                 'duration' => $timeMax,
@@ -68,9 +69,7 @@ final class ApiPresenter extends Presenter
             ];
             $this->sendJson($data);
         } else {
-            $this->endMission($whatMission);
             $isOnMission = 0;
-            $this->flashMessage('Job ended.', 'success');
             $this->sendJson([
                 'mission' => false,
                 'new' => true
@@ -81,22 +80,6 @@ final class ApiPresenter extends Presenter
             'mission' => false,
             'new' => false
         ]);
-    }
-  }
-
-  private function endMission($jobName) {
-    $key = array_search($jobName, array_column($this->allJobs, 'locale'));
-    $currentJob = $this->allJobs[$key];
-    if ($currentJob) {
-      $plusXp = $currentJob['xp'];
-      $plusMoney = $currentJob['money'];
-      $this->userRepository->addXp($this->user->getIdentity()->id, $plusXp);
-      $this->userRepository->getUser($this->user->getIdentity()->id)->update([
-        'money+=' => $plusMoney
-      ]);
-      $this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
-        'on_mission' => 0
-      ]);
     }
   }
 }

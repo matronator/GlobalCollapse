@@ -40,6 +40,7 @@ final class BarPresenter extends GamePresenter
 	}
 
 	public function renderDefault() {
+		$this->template->returned = false;
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$actionLocker = new ActionLocker();
 		$actionLocker->checkActions($player, $this);
@@ -57,38 +58,34 @@ final class BarPresenter extends GamePresenter
 			if (!$isOnMission) {
 				$session = $this->session;
 				$section = $session->getSection('returnedJob');
-				if (isset($section['returnedJob'])) {
+				if (isset($section['returnedJob']) && $section['returnedJob'] == 'new') {
 					$this->template->returned = true;
 					$this->template->moneyPlus = $section['money'];
 					$this->template->xpointsPlus = $section['exp'];
-					if ($section->times >= 2) {
-						unset($section['returnedJob']);
-						unset($section);
-					} else {
-						$section->times += 1;
-					}
-				}
-				$session = $this->session;
-				$section = $session->getSection('jobs');
-				$section->setExpiration('60 minutes');
-				$templateJobs = [];
-				if ($section['shown'] != true) {
-					$jobDeck = $this->allJobs;
-					for ($i = 0; $i < 3; $i++) {
-						$selectedJob = $this->getRandomWeightedElement($jobDeck);
-						$section['job-' . $i] = $selectedJob;
-						array_push($templateJobs, $selectedJob);
-						$jobKey = array_search($selectedJob, $jobDeck);
-						unset($jobDeck[$jobKey]);
-					}
-					$section['shown'] = true;
 				} else {
-					for ($i = 0; $i < 3; $i++) {
-						$selectedJob = $section['job-' . $i];
-						array_push($templateJobs, $selectedJob);
+					$this->template->returned = false;
+					$session = $this->session;
+					$section = $session->getSection('jobs');
+					$section->setExpiration('60 minutes');
+					$templateJobs = [];
+					if ($section['shown'] != true) {
+						$jobDeck = $this->allJobs;
+						for ($i = 0; $i < 3; $i++) {
+							$selectedJob = $this->getRandomWeightedElement($jobDeck);
+							$section['job-' . $i] = $selectedJob;
+							array_push($templateJobs, $selectedJob);
+							$jobKey = array_search($selectedJob, $jobDeck);
+							unset($jobDeck[$jobKey]);
+						}
+						$section['shown'] = true;
+					} else {
+						for ($i = 0; $i < 3; $i++) {
+							$selectedJob = $section['job-' . $i];
+							array_push($templateJobs, $selectedJob);
+						}
 					}
+					$this->template->jobs = $templateJobs;
 				}
-				$this->template->jobs = $templateJobs;
 			} else {
 				$whatMission = $player->actions->mission_name;
 				$workingUntil = $player->actions->mission_end;
@@ -115,10 +112,17 @@ final class BarPresenter extends GamePresenter
 					$section->exp = $reward['xp'];
 					$section->times = 1;
 					$this->flashMessage('Job completed', 'success');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				}
 			}
 		}
+	}
+
+	public function actionNewjobs() {
+		$session = $this->session;
+		$section = $session->getSection('returnedJob');
+		$section['returnedJob'] = 'old';
+		$this->canonicalize('Bar:default');
 	}
 
 	private function endMission($jobName) {
@@ -196,18 +200,18 @@ final class BarPresenter extends GamePresenter
 						unset($section);
 						unset($session);
 						$this->flashMessage('Job accepted', 'success');
-						$this->redirect('this');
+						$this->canonicalize('this');
 					} else {
 						$this->flashMessage('Not enough energy', 'danger');
-						$this->redirect('this');
+						$this->canonicalize('this');
 					}
 				} else {
 					$this->flashMessage('Something fishy going on...', 'danger');
-					$this->redirect('this');
+					$this->canonicalize('this');
 				}
 			} else {
 				$this->flashMessage('Something fishy going on...', 'danger');
-				$this->redirect('this');
+				$this->canonicalize('this');
 			}
 		}
 	}

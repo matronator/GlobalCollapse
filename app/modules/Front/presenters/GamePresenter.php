@@ -10,12 +10,10 @@ use App\Model;
 
 abstract class GamePresenter extends BasePresenter
 {
-  public $player;
-
   protected function startup() {
     parent::startup();
     if (!$this->user->isLoggedIn() && ($this->getName() != "Login" || $this->getName() != "Signup")) {
-      $this->redirect('Login:default');
+      $this->canonicalize('Login:default');
     }
   }
 }

@@ -26,15 +26,17 @@ final class IntroPresenter extends GamePresenter
 	protected function startup()
 	{
 			parent::startup();
-			if ($this->userRepository->getUser($this->player->id)->tutorial > 0) {
-				$this->redirect('Default:');
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			if ($this->userRepository->getUser($player->id)->tutorial > 0) {
+				$this->canonicalize('Default:');
 			}
 	}
 
 	public function renderDefault()
 	{
-		$this->template->uname = $this->player->username;
-		if ($this->player->tutorial == 0) {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$this->template->uname = $player->username;
+		if ($player->tutorial == 0) {
 			$this->template->disableSidebar = true;
 		}
 		$avatars = [];
@@ -68,6 +70,7 @@ final class IntroPresenter extends GamePresenter
 	}
 
 	public function introFormSucceeded(Form $form, $values): void {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$selected = $values->avatar;
 		$strength = intval($values->strength);
 		$stamina = intval($values->stamina);
@@ -75,15 +78,13 @@ final class IntroPresenter extends GamePresenter
 		$statsTotal = $strength + $stamina + $speed;
 		if ($statsTotal == 16) {
 			if ($selected >= 1 && $selected <= 21) {
-				if ($this->player) {
-					$this->player->avatar = $selected;
-					$this->userRepository->getUser($this->player->id)->update([
+				if ($player) {
+					$this->userRepository->getUser($player->id)->update([
 						'avatar' => $selected,
 						'skillpoints' => 0,
 						'tutorial' => 1
 					]);
-					$this->userRepository->updateStats($this->player->id, $strength, $stamina, $speed);
-					$this->player->tutorial = 1;
+					$this->userRepository->updateStats($player->id, $strength, $stamina, $speed);
 					$this->flashMessage('Intro completed!', 'success');
 					$this->redirect('this');
 				}
