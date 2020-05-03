@@ -9,11 +9,6 @@ import {
 } from "./imports/settings"
 import { toggle } from "./imports/helpers"
 
-// push notification
-// function notify(message, timeout) {
-//   // lol
-// }
-
 // UIKit
 UIkit.use(Icons)
 

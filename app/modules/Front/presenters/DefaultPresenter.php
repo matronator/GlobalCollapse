@@ -68,27 +68,23 @@ final class DefaultPresenter extends BasePresenter
 
 			// Leaderboard
 			$page = 1;
-			$lastPage = $page;
 			$itemsPerPage = 10;
 			$usersRanked = $this->userRepository->findUsers();
-			$position = 1;
+			$position = 0;
 			foreach ($usersRanked as $currentUser) {
-				if ($currentUser->username == $player->username) {
+				if ($currentUser->id == $player->id) {
 					break;
 				} else {
 					$position++;
-					if ($position - ($page * $itemsPerPage) >= $itemsPerPage) {
-						$page++;
-						$lastPage++;
-					}
 				}
 			}
-			$leaderboard = $this->userRepository->findUsers()->page($page, $itemsPerPage, $lastPage);
+			$page = intval(floor($position / $itemsPerPage)) + 1;
+			$lastPage = intval(round($this->userRepository->getTotalPlayers() / $itemsPerPage));
+			$leaderboard = $this->userRepository->findUsers()->page($page, $itemsPerPage);
 			$this->template->users = $leaderboard;
 			$this->template->lastPage = $lastPage;
 			$this->template->page = $page;
-			$rankOffset = $page * $itemsPerPage;
-			$this->template->rankOffset = $rankOffset;
+			$this->template->rankOffset = $position;
 			$this->template->itemsPerPage = $itemsPerPage;
 		} else {
 			$drugs = $this->drugsRepository->findAll();
@@ -193,7 +189,6 @@ final class DefaultPresenter extends BasePresenter
 					'resting_start' => $playerRestStart
 				]);
 				$this->flashMessage('You went to rest', 'success');
-				$this->redirect('this');
 			}
 		} else if ($control->name === 'wakeup') {
 			if ($isResting) {
@@ -215,7 +210,6 @@ final class DefaultPresenter extends BasePresenter
 						]);
 					}
 					$this->flashMessage('You regained ' . $reward . ' energy', 'success');
-					$this->redirect('this');
 				}
 			}
 		}

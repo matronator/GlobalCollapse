@@ -200,18 +200,14 @@ final class BarPresenter extends GamePresenter
 						unset($section);
 						unset($session);
 						$this->flashMessage('Job accepted', 'success');
-						$this->redirect('this');
 					} else {
 						$this->flashMessage('Not enough energy', 'danger');
-						$this->redirect('this');
 					}
 				} else {
 					$this->flashMessage('Something fishy going on...', 'danger');
-					$this->redirect('this');
 				}
 			} else {
 				$this->flashMessage('Something fishy going on...', 'danger');
-				$this->redirect('this');
 			}
 		}
 	}

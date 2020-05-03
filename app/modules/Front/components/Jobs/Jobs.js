@@ -1,13 +1,14 @@
-window.addEventListener(`DOMContentLoaded`, () => {
-  const jobs = document.querySelectorAll(`[data-job-name]`)
-  const duration = document.getElementById(`cost-duration`)
-  const energy = document.getElementById(`cost-energy`)
-  const money = document.getElementById(`reward-money`)
-  const xp = document.getElementById(`reward-xp`)
-  const description = document.getElementById(`jobDescription`)
-  const progressBar = document.getElementById(`bar-jobEnergy`)
+const jobs = document.querySelectorAll(`[data-job-name]`)
+const duration = document.getElementById(`cost-duration`)
+const energy = document.getElementById(`cost-energy`)
+const money = document.getElementById(`reward-money`)
+const xp = document.getElementById(`reward-xp`)
+const description = document.getElementById(`jobDescription`)
+const progressBar = document.getElementById(`bar-jobEnergy`)
+const progressBarValSpan = document.getElementById(`barTextValue`)
+
+if (jobs && duration && description && progressBar && money) {
   const progressBarFill = progressBar.querySelector(`.progress-bar-fill`)
-  const progressBarValSpan = document.getElementById(`barTextValue`)
   const progressValue = Number(progressBar.dataset.barValue)
   const progressMin = Number(progressBar.dataset.barMin)
   const progressMax = Number(progressBar.dataset.barMax)
@@ -21,7 +22,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
       description.innerHTML = job.dataset.jobDescription
       document.querySelectorAll(`li[data-job-name]`).forEach(liJob => {
         job.querySelector(
-          `[data-job-input="${ job.dataset.jobName}"]`
+          `[data-job-input="${job.dataset.jobName}"]`
         ).checked = true
         if (liJob.dataset.jobName === job.dataset.jobName) {
           liJob.classList.add(`selected`)
@@ -37,7 +38,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
         ((newBarValue - progressMin) / (progressMax - progressMin)) * 100
       )
       progressBar.dataset.barFill = newBarFill
-      progressBarFill.style.width = `${ newBarFill}%`
+      progressBarFill.style.width = `${newBarFill}%`
     })
   })
-})
+}

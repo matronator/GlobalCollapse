@@ -86,15 +86,13 @@ final class IntroPresenter extends GamePresenter
 					]);
 					$this->userRepository->updateStats($player->id, $strength, $stamina, $speed);
 					$this->flashMessage('Intro completed!', 'success');
-					$this->redirect('this');
+					$this->redirect('Default:default');
 				}
 			} else {
 				$this->flashMessage('Invalid avatar, please try again.', 'warning');
-				$this->redirect('this');
 			}
 		} else {
 			$this->flashMessage('Invalid stats, try again.', 'danger');
-			$this->redirect('this');
 		}
 	}
 }

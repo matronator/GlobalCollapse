@@ -31,7 +31,7 @@ final class AccountPresenter extends BasePresenter
     public function actionLogout()
     {
         $this->user->logout();
-        $this->redirect('Default:');
+        $this->redirect('Default:default');
     }
 
     public function renderSettings()
@@ -52,7 +52,6 @@ final class AccountPresenter extends BasePresenter
 
             //Show flashmessage and redirect
             $this->flashMessage('Password changed', 'success');
-            $this->redirect('this');
         };
         $form->onError[] = function($form) {
             $this->flashMessage('Something went wrong', 'danger');
