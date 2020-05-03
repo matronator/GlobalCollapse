@@ -29,7 +29,7 @@
             {var $drugName = $drug->name}
             <tr>
               <td class="uk-text-nowrap">{_general.drugs.$drugName.name}</td>
-              <td class="uk-text-nowrap">&dollar;{$drug->price} / g</td>
+              <td class="uk-text-nowrap">&dollar;{$drug->price|number} / g</td>
               <td class="uk-text-nowrap input-row">{input $drug->name} g</td>
               {*<td class="uk-text-nowrap border-left uk-text-right uk-text-light">&dollar;{$drug->past_price}</td>*}
               <td class="uk-text-nowrap border-left uk-text-right" data-drug-price="{$drug->name}">0</td>
@@ -37,7 +37,7 @@
           {/foreach}
           <tr class="border-bottom">
             <td class="uk-text-nowrap" colspan="2"></td>
-            <td class="uk-text-nowrap uk-text-right"><strong>Price total:</strong></td>
+            <td class="uk-text-nowrap uk-text-right"><strong>{_general.city.darknet.priceTotal}</strong></td>
             <td class="uk-text-nowrap border-left uk-text-right" id="priceTotal">0</td>
           </tr>
           <tr>

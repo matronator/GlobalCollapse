@@ -3,7 +3,9 @@ function sumAll(dName, tInput, tPrice) {
   const inputValue = tInput.value
   const totalPrice = document.getElementById(`priceTotal`)
   const priceOut = document.querySelector(`[data-drug-price="${dName}"]`)
-  priceOut.innerHTML = `&dollar;${inputValue * tPrice}`
+  priceOut.innerHTML = `&dollar;${new Intl.NumberFormat().format(
+    inputValue * tPrice
+  )}`
   var drugArray = []
   const drugInputs = document.querySelectorAll(`input[data-drug-input]`)
   drugInputs.forEach(current => {
@@ -13,7 +15,7 @@ function sumAll(dName, tInput, tPrice) {
   })
   const reducer = (accumulator, currentValue) => accumulator + currentValue
   const total = drugArray.reduce(reducer)
-  totalPrice.innerHTML = `&dollar;${total}`
+  totalPrice.innerHTML = `&dollar;${new Intl.NumberFormat().format(total)}`
 }
 
 window.addEventListener(`DOMContentLoaded`, () => {

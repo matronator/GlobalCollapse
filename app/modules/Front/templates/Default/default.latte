@@ -12,9 +12,9 @@
       <small>{_general.homepage.introBeta}</small>
     </p>
     <div class="uk-flex uk-flex-middle uk-width-medium">
-      <a n:href="Login:default" class="uk-button uk-button-large uk-button-primary">{_general.ui.login}</a>
+      <a n:href="Login:default" class="uk-button uk-button-primary">{_general.ui.login}</a>
       <hr class="uk-divider-vertical">
-      <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">{_general.ui.signup}</a>
+      <a n:href="Signup:default" class="uk-button uk-button-secondary">{_general.ui.signup}</a>
     </div>
   </div>
   <div class="dashboard uk-flex" n:if="$presenter->user->isLoggedIn()" uk-margin>
@@ -39,7 +39,7 @@
           </ul>
           <ul class="uk-list uk-list-divider uk-margin-remove">
             <li>{$user->player_stats->level}</li>
-            <li>${$user->money}</li>
+            <li>${$user->money|number}</li>
             <li>{$user->player_stats->energy} / {$user->player_stats->energy_max}</li>
           </ul>
         </div>

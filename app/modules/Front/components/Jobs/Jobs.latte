@@ -15,7 +15,7 @@
       {foreach $jobs as $job}
         {var $locale = $job['locale']}
         <li class="job-item {first}selected{/first}" data-job-name="{$locale}"
-            data-job-duration="{$job['duration']}"
+            data-job-duration="{$presenter->jobDuration(intval($job['duration']), $user->player_stats->level) / 60}"
             data-job-energy="{$job['energy']}"
             data-job-money="{$job['money']}"
             data-job-description="{_general.city.bar.jobs.$locale.description}"
@@ -31,14 +31,14 @@
     <table class="uk-table uk-table-divider uk-table-small">
       <tr>
         <td class="uk-text-nowrap uk-table-widt-shrink">{_general.city.bar.jobs.duration}</td>
-        <td class="uk-text-nowrap"><span id="cost-duration">10</span> minutes</td>
+        <td class="uk-text-nowrap"><span id="cost-duration">10</span> {_general.city.bar.jobs.minutes}</td>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Energy</td>
+        <td class="uk-text-nowrap">{_general.stats.energy}</td>
         <td class="uk-text-nowrap uk-text-danger">- <span id="cost-energy">20</span><span uk-icon="bolt"></span></td>
       </tr>
       <tr>
-        <td class="uk-text-nowrap">Money</td>
+        <td class="uk-text-nowrap">{_general.stats.money}</td>
         <td class="uk-text-nowrap">+ $<span id="reward-money">20</span></td>
       </tr>
       <tr>
@@ -49,7 +49,7 @@
   </div>
   <div class="uk-width-3-4 uk-margin-auto uk-text-center">
     <p id="jobDescription" class="uk-margin-top">{_general.city.bar.jobs.descriptionDefault}</p>
-    <button type="submit" class="uk-button uk-button-primary" n:name="work">Accept job</button>
+    <button type="submit" class="uk-button uk-button-primary" n:name="work">{_general.city.bar.jobs.acceptJob}</button>
   </div>
 </div>
 {/form}

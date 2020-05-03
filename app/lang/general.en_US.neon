@@ -109,6 +109,8 @@ city:
 			working: 'Working'
 			workingUntil: "You're on a job until "
 			jobDone: "You finished your job and earned the following rewards:"
+			minutes: 'minutes'
+			acceptJob: 'Accept job'
 			distributeMasks:
 				title: 'Distribute face masks'
 				description: 'Distribute face masks in the city center.'
@@ -123,6 +125,7 @@ city:
 				description: 'Escort a scientist safely through the wastelands to his lab.'
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'
+		priceTotal: 'Price total:'
 	wastelands:
 		wastelandsTitle: 'Wastelands'
 		scavengingTitle: 'Scavenging'
