@@ -130,10 +130,10 @@ final class CityPresenter extends GamePresenter
 						}
 					}
 					$this->flashMessage('Purchase successful', 'success');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				} else {
 					$this->flashMessage('Not enough money', 'danger');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				}
 			} else if ($control->name === 'sell') {
 				$allGood = [];
@@ -160,7 +160,7 @@ final class CityPresenter extends GamePresenter
 				} else if (count($allGood) === 0 && count($soldDrugs) > 0) {
 					$this->flashMessage('Drugs successfully sold.', 'success');
 				}
-				$this->canonicalize('this');
+				$this->redirect('this');
 			}
 		}
 	}
@@ -186,7 +186,7 @@ final class CityPresenter extends GamePresenter
 					'scavenge_start' => $playerScavengeStart
 				]);
 				$this->flashMessage('You went scavenging to the wastelands', 'success');
-				$this->canonicalize('this');
+				$this->redirect('this');
 			}
 		} else if ($control->name == 'stopScavenging') {
 			if ($isScavenging > 0) {
@@ -205,10 +205,10 @@ final class CityPresenter extends GamePresenter
 					$section->hours = round($diff / 3600);
 					$section->money = $reward['money'];
 					$section->exp = $reward['xp'];
-					$this->canonicalize('this');
+					$this->redirect('this');
 				} else {
 					$this->flashMessage('You can return after at least an hour of scavenging', 'danger');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				}
 			}
 		}

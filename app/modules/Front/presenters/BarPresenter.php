@@ -112,7 +112,7 @@ final class BarPresenter extends GamePresenter
 					$section->exp = $reward['xp'];
 					$section->times = 1;
 					$this->flashMessage('Job completed', 'success');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				}
 			}
 		}
@@ -122,7 +122,7 @@ final class BarPresenter extends GamePresenter
 		$session = $this->session;
 		$section = $session->getSection('returnedJob');
 		$section['returnedJob'] = 'old';
-		$this->canonicalize('Bar:default');
+		$this->redirect('Bar:default');
 	}
 
 	private function endMission($jobName) {
@@ -200,18 +200,18 @@ final class BarPresenter extends GamePresenter
 						unset($section);
 						unset($session);
 						$this->flashMessage('Job accepted', 'success');
-						$this->canonicalize('this');
+						$this->redirect('this');
 					} else {
 						$this->flashMessage('Not enough energy', 'danger');
-						$this->canonicalize('this');
+						$this->redirect('this');
 					}
 				} else {
 					$this->flashMessage('Something fishy going on...', 'danger');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				}
 			} else {
 				$this->flashMessage('Something fishy going on...', 'danger');
-				$this->canonicalize('this');
+				$this->redirect('this');
 			}
 		}
 	}

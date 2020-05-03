@@ -28,7 +28,7 @@ final class PlayerPresenter extends BasePresenter
 
 	public function renderDetail(?string $username = null) {
 		if (!$username) {
-			$this->canonicalize('Default:default');
+			$this->redirect('Default:default');
 		}
 		$otherPlayer = $this->userRepository->getUserByName($username);
 		if ($otherPlayer) {

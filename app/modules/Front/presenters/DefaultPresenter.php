@@ -132,11 +132,11 @@ final class DefaultPresenter extends BasePresenter
 				} else {
 					$this->endTraining($isTraining);
 					$isTraining = 0;
-					$this->canonicalize('this');
+					$this->redirect('this');
 				}
 			}
 		} else {
-			$this->canonicalize('Login:default');
+			$this->redirect('Login:default');
 		}
 	}
 
@@ -169,7 +169,7 @@ final class DefaultPresenter extends BasePresenter
 				}
 			}
 		} else {
-			$this->canonicalize('Login:default');
+			$this->redirect('Login:default');
 		}
 	}
 
@@ -193,7 +193,7 @@ final class DefaultPresenter extends BasePresenter
 					'resting_start' => $playerRestStart
 				]);
 				$this->flashMessage('You went to rest', 'success');
-				$this->canonicalize('this');
+				$this->redirect('this');
 			}
 		} else if ($control->name === 'wakeup') {
 			if ($isResting) {
@@ -215,7 +215,7 @@ final class DefaultPresenter extends BasePresenter
 						]);
 					}
 					$this->flashMessage('You regained ' . $reward . ' energy', 'success');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				}
 			}
 		}
@@ -295,14 +295,14 @@ final class DefaultPresenter extends BasePresenter
 					]);
 					// $this->logger->addInfo($player->username . ' started ' . $trainSkill . ' training.');
 					$this->flashMessage('Training started', 'success');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				} else {
 					$this->flashMessage('Not enough energy', 'danger');
-					$this->canonicalize('this');
+					$this->redirect('this');
 				}
 			} else {
 				$this->flashMessage('Not enough money', 'danger');
-				$this->canonicalize('this');
+				$this->redirect('this');
 			}
 		}
 	}
@@ -350,10 +350,10 @@ final class DefaultPresenter extends BasePresenter
 				]);
 				$this->userRepository->updateStatsAdd($player->id, $strength, $stamina, $speed);
 				$this->flashMessage('Skillpoints successfully assigned', 'success');
-				$this->canonicalize('this');
+				$this->redirect('this');
 			} else {
 				$this->flashMessage('Invalid stats, try again.', 'danger');
-				$this->canonicalize('this');
+				$this->redirect('this');
 			}
 		}
 	}
@@ -381,7 +381,7 @@ final class DefaultPresenter extends BasePresenter
 					'avatar' => $selected
 				]);
 				$this->flashMessage('Avatar changed', 'success');
-				$this->canonicalize('this');
+				$this->redirect('this');
 			}
 		}
 	}

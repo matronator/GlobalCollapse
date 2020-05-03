@@ -25,13 +25,13 @@ final class AccountPresenter extends BasePresenter
         parent::startup();
 
         if (!$this->user->isLoggedIn())
-            $this->canonicalize('Login:default');
+            $this->redirect('Login:default');
     }
 
     public function actionLogout()
     {
         $this->user->logout();
-        $this->canonicalize('Default:');
+        $this->redirect('Default:');
     }
 
     public function renderSettings()
@@ -40,7 +40,7 @@ final class AccountPresenter extends BasePresenter
 
     public function createComponentChangePasswordForm()
     {
-        $form = $this->createChangePasswordForm();
+        $form = new ChangePasswordForm($this->userRepository);
         $form->onSuccess[] = function($form) {
             //Get values as array
             $values = $form->getValues(true);
@@ -52,16 +52,11 @@ final class AccountPresenter extends BasePresenter
 
             //Show flashmessage and redirect
             $this->flashMessage('Password changed', 'success');
-            $this->canonicalize('this');
+            $this->redirect('this');
         };
         $form->onError[] = function($form) {
             $this->flashMessage('Something went wrong', 'danger');
         };
         return $form;
     }
-
-    public function createChangePasswordForm()
-	{
-		return new ChangePasswordForm($this->userRepository);
-	}
 }

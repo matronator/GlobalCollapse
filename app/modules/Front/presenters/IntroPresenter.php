@@ -28,7 +28,7 @@ final class IntroPresenter extends GamePresenter
 			parent::startup();
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			if ($this->userRepository->getUser($player->id)->tutorial > 0) {
-				$this->canonicalize('Default:');
+				$this->redirect('Default:');
 			}
 	}
 
