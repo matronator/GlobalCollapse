@@ -7,8 +7,17 @@
   <div class="dashboard">
     <div class="uk-card uk-width-auto uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
       <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/buildings.jpg');background-position:center;">
-        <h2 class="uk-heading-large">Buildings</h2>
+        <h2 class="uk-heading-large">{_general.buildings.title}</h2>
       </div>
+      <p>{_general.buildings.description}</p>
+    </div>
+    <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle" n:if="!$land">
+      <h3>Empty land for sale!</h3>
+      <p>Do you want to buy it for ${$emptyLand->price|number}?</p>
+      <a n:href="Buildings:buyLand, $user->money, $emptyLand->price" class="uk-button uk-button-primary">Buy (-${$emptyLand->price|number})</a>
+    </div>
+    <div class="uk-flex uk-flex-center" n:if="$land">
+      <h3>{$user->username}'s land</h3>
     </div>
   </div>
 </div>

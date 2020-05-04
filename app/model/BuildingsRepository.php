@@ -27,6 +27,11 @@ class BuildingsRepository
 
 	public function findPlayerBuildings(?int $userId = null)
 	{
-		return $this->database->table('buildings')->where('user_id', $userId);
+		return $this->database->table('player_buildings')->where('user_id', $userId);
+	}
+
+	public function findPlayerLand(?int $userId = null)
+	{
+		return $this->database->table('player_buildings')->where('user_id = ? && buildings_id = ?', $userId, 1);
 	}
 }

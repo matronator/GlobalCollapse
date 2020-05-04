@@ -181,3 +181,7 @@ drugs:
 			1: 'Cocaine'
 	Heroin:
 		name: 'Heroin'
+
+buildings:
+	title: 'Buildings'
+	description: 'Lorem ipsum'
