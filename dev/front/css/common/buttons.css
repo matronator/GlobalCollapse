@@ -1,0 +1,9 @@
+.uk-button.uk-button-large {
+  @media (max-width: 639px) {
+    /* padding: 0 30px; */
+    text-align: center;
+    /* font-size: 0.875rem; */
+    word-break: normal;
+    /* line-height: 3em; */
+  }
+}

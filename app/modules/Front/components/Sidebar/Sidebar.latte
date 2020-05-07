@@ -37,6 +37,7 @@
         <li><a href="mailto:info@global-collapse.com">{_general.ui.sidebar.info.help}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Info:tos') ? uk-active"><a n:href="Info:tos">{_general.ui.sidebar.info.tos}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Info:copyright') ? uk-active"><a n:href="Info:copyright">{_general.ui.sidebar.info.copyright}</a></li>
         <li n:class="$presenter->isLinkCurrent('Info:privacy') ? uk-active"><a n:href="Info:privacy">{_general.ui.sidebar.info.privacy}</a></li>
       </ul>
     </li>
@@ -46,13 +47,13 @@
   <a class="uk-navbar-item uk-logo uk-margin-bottom uk-hidden@m" n:href="Default:default">
       <img src="{$basePath}/dist/front/images/logo-small.png" alt="Logo">
   </a>
-  <div class="status-bar uk-flex uk-text-small uk-hidden@m">
+  <div class="uk-flex uk-text-small uk-margin-bottom uk-hidden@m">
     <div class="uk-button-group">
       <a class="uk-button uk-button-default" n:href="Login:default">{_general.ui.login}</a>
       <a class="uk-button uk-button-default" n:href="Signup:default">{_general.ui.signup}</a>
     </div>
   </div>
-  <ul class="uk-nav-default" uk-nav>
+  <ul class="uk-nav-default sidebar-nav" uk-nav>
     <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.info.about}</a></li>
     <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">{_general.ui.sidebar.info.news}</a></li>
     <li><a href="https://github.com/matronator/GlobalCollapse#support-the-project" target="_blank" rel="noopener">{_general.ui.sidebar.info.donations}</a></li>
@@ -60,9 +61,10 @@
   </ul>
   <div class="uk-flex uk-flex-column sidebar-footer uk-border-top">
     <hr>
-    <div class="uk-flex uk-flex-between uk-text-small">
+    <div class="uk-flex uk-flex-around uk-flex-wrap uk-text-small">
       <small><a n:href="Info:tos" n:class="!$presenter->isLinkCurrent('Info:tos') ? uk-text-muted">{_general.ui.sidebar.info.tos}</a></small>
       <small><a n:href="Info:privacy" n:class="!$presenter->isLinkCurrent('Info:privacy') ? uk-text-muted">{_general.ui.sidebar.info.privacy}</a></small>
+      <small><a n:href="Info:copyright" n:class="!$presenter->isLinkCurrent('Info:copyright') ? uk-text-muted">{_general.ui.sidebar.info.copyright}</a></small>
     </div>
     <p class="uk-text-small uk-text-light uk-text-center"><small>Global Collapse &copy; 2020</small></p>
   </div>
@@ -75,9 +77,14 @@
     {include mobileMenu}
   {/if}
 </div>
-<div id="offcanvas" uk-offcanvas="mode: slide; overlay: true" class="uk-offcanvas offcanvas-main">
+<div id="offcanvas" uk-offcanvas="mode: slide; overlay: true; selClose: .sidebar-close;" class="uk-offcanvas offcanvas-main">
   <div class="uk-offcanvas-bar">
-    <div class="uk-panel">
+    <div class="uk-panel offcanvas-panel">
+      <div class="uk-flex uk-flex-right uk-flex-row uk-hidden@m">
+        <button class="uk-button uk-button-link sidebar-close" type="button" title="Close sidebar">
+          <span uk-icon="close"></span>
+        </button>
+      </div>
       {if $loggedin}
         {include sidebarGame}
       {else}

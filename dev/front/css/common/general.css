@@ -11,7 +11,7 @@ body {
   -webkit-tap-highlight-color: unset;
   -webkit-touch-callout: unset;
 }
-@media (max-width: 639px) {
+@media (max-width: 640px) {
   body {
     -webkit-user-select: none;
     user-select: none;
@@ -39,14 +39,6 @@ body {
   @media (max-width: 1200px) {
     flex-direction: column-reverse;
   }
-}
-
-.status-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
 }
 
 .main-section {

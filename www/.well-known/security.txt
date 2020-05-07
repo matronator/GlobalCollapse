@@ -1,2 +1,28 @@
-# Our security address:
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+
+Contact: mailto:info@global-collapse.com
+
 Contact: mailto:security@matronator.com
+
+Preferred-Languages: en, cs
+
+Canonical: https://global-collapse.com/.well-known/security.txt
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEqbMQZACDS3rk4gsRxQv2IfA+oroFAl6zKEsACgkQxQv2IfA+
+orrujg//ahRDgF+t452LXrlT8x6yaEi5pg4BorKoO++fPsMQ2hIHwDIVhB7NTprJ
+L8Y+8umDfl8LxiVV2yLSSUD3mkb53nhSICsgmJd37TQUQCujw3n3T89DFaxwaraJ
+sFDacLblRqrKxk0y834B5Ry3e1PwOQF2ZqtCZz54Yrt/6e/G9RbYVPUJJUhU6nK8
+fwwWVcb7OZasy/48w0AkoSp0sgqRqfgbqUZutrRjabrLu5BPdFT8Ayfr6DpFiplY
+KTxsgfGtgHvaEOXulX64JzIdwTEifovv3XEymkReYvhDq/DbWtei5NcOGjM/hinL
+mwQ4AfI8+ndCoeZApr3ZyK8WVUNNx5qvuqRfh1CxCvrDEQZ9zc2uzBs7tK4qG2kf
+S0Oixut+UOmJVvdVfq98ODW4H+WbkikJfdRt9G6218extlEL1GO6I/LDh7y2pPOW
+yKRCos+JmDF/r3xajKEnTOxKeBMs7bH3Hm+BCQ3anHvoTV+VSfARm6c+1/YDbA7S
+eLPztCLfvSnHs0GvBF+qtOlUtn9d4EDf9W99HX6GYghBysCgNswEec2UXtdIrYCD
+KH1YCXEGLuXR81pCK2RQkJHUSvvq1nG1d6OIX7FPyxvPB1kXYtOhISaBgIMnHLGz
+7mIWyRXOKmq9J6I+ytG+3h9HkakEM9fmg3Rs6chN1/VNoev9n3w=
+=7fvs
+-----END PGP SIGNATURE-----

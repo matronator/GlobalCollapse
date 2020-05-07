@@ -53,6 +53,7 @@ ui:
 			contact: 'Contact'
 			help: 'Help'
 			tos: 'Terms of Use'
+			copyright: 'Copyright Notice'
 			privacy: 'Privacy Policy'
 	footer:
 		createdBy: 'Created by'

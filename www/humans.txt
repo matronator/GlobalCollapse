@@ -1,0 +1,39 @@
+/* TEAM */
+Title: Matronator
+Website: https://matronator.com
+
+/* THANKS */
+The Open Source community and everyone at Visualio (www.visualio.cz), thank you!!!
+
+/* SITE */
+Last update: 2020/05/07
+Standards: HTML5, CSS3, PostCSS, Humans.txt, security.txt
+Language: English / Czech
+Components: Nette Framework, UI KIT, StarterPack CMS
+Software: VSCodium, FileZilla, Photoshop
+
+------ Global Collapse: Pandemic -------
+
+¨¨¨¨¨¨¨¨¨¨¨¨hdmNNMMMMMMNNmdh¨¨¨¨¨¨¨¨¨¨¨¨
+¨¨¨¨¨¨¨¨hmNMMMMMMMMMMMMMMMMMMNmh¨¨¨¨¨¨¨¨
+¨¨¨¨¨¨dNMMMMMMMMMMMMMMMMMMMMMMMMNd¨¨¨¨¨¨
+¨¨¨¨dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNd¨¨¨¨
+¨¨¨mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm¨¨¨
+¨¨NMMMMMMMmmmNMMMMMMMMMMMMNmmmNMMMMMMN¨¨
+¨NMMMMMMN¨¨¨¨¨dMMMMMMMMMMm¨¨¨¨¨mMMMMMMN¨
+dMMMMMMMh¨¨¨¨¨¨dMMMMMMMMd¨¨¨¨¨¨¨MMMMMMMd
+NMMMMMMm¨¨¨¨¨¨¨¨hMMMMMMd¨¨¨¨¨¨¨¨dMMMMMMN
+MMMMMMM¨¨¨¨hm¨¨¨¨hNMMMh¨¨¨¨N¨¨¨¨¨NMMMMMM
+MMMMMMd¨¨¨¨mMN¨¨¨¨¨NNh¨¨¨¨NMm¨¨¨¨dMMMMMM
+NMMMMN¨¨¨¨hMMMN¨¨¨¨¨h¨¨¨¨NMMMh¨¨¨¨NMMMMN
+dMMMMh¨¨¨¨mMMMMN¨¨¨¨¨¨¨¨NMMMMm¨¨¨¨hMMMMd
+¨mMMm¨¨¨¨hMMMMMMNh¨¨¨¨hNMMMMMMh¨¨¨¨mMMN¨
+¨¨NMNNNNNNMMMMMMMMmmmNMMMMMMMMNNNNNNMN¨¨
+¨¨¨mMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm¨¨¨
+¨¨¨¨hNMMMMMMMMMMMMMMMMMMMMMMMMMMMMNd¨¨¨¨
+¨¨¨¨¨¨dNMMMMMMMMMMMMMMMMMMMMMMMMNd¨¨¨¨¨¨
+¨¨¨¨¨¨¨¨hdNMMMMMMMMMMMMMMMMMMNmh¨¨¨¨¨¨¨¨
+¨¨¨¨¨¨¨¨¨¨¨¨hdmNNMMMMMMNNmdh¨¨¨¨¨¨¨¨¨¨¨¨
+
+----- Created by Matronator © 2020 -----
+------------ matronator.com ------------
