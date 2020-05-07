@@ -1,6 +1,7 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA512
 
+Security policy: https://github.com/matronator/GlobalCollapse/blob/master/SECURITY.md#security-policy
 
 Contact: mailto:info@global-collapse.com
 
@@ -8,21 +9,19 @@ Contact: mailto:security@matronator.com
 
 Preferred-Languages: en, cs
 
-Canonical: https://global-collapse.com/.well-known/security.txt
-
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEqbMQZACDS3rk4gsRxQv2IfA+oroFAl6zKEsACgkQxQv2IfA+
-orrujg//ahRDgF+t452LXrlT8x6yaEi5pg4BorKoO++fPsMQ2hIHwDIVhB7NTprJ
-L8Y+8umDfl8LxiVV2yLSSUD3mkb53nhSICsgmJd37TQUQCujw3n3T89DFaxwaraJ
-sFDacLblRqrKxk0y834B5Ry3e1PwOQF2ZqtCZz54Yrt/6e/G9RbYVPUJJUhU6nK8
-fwwWVcb7OZasy/48w0AkoSp0sgqRqfgbqUZutrRjabrLu5BPdFT8Ayfr6DpFiplY
-KTxsgfGtgHvaEOXulX64JzIdwTEifovv3XEymkReYvhDq/DbWtei5NcOGjM/hinL
-mwQ4AfI8+ndCoeZApr3ZyK8WVUNNx5qvuqRfh1CxCvrDEQZ9zc2uzBs7tK4qG2kf
-S0Oixut+UOmJVvdVfq98ODW4H+WbkikJfdRt9G6218extlEL1GO6I/LDh7y2pPOW
-yKRCos+JmDF/r3xajKEnTOxKeBMs7bH3Hm+BCQ3anHvoTV+VSfARm6c+1/YDbA7S
-eLPztCLfvSnHs0GvBF+qtOlUtn9d4EDf9W99HX6GYghBysCgNswEec2UXtdIrYCD
-KH1YCXEGLuXR81pCK2RQkJHUSvvq1nG1d6OIX7FPyxvPB1kXYtOhISaBgIMnHLGz
-7mIWyRXOKmq9J6I+ytG+3h9HkakEM9fmg3Rs6chN1/VNoev9n3w=
-=7fvs
+iQIzBAEBCgAdFiEEqbMQZACDS3rk4gsRxQv2IfA+oroFAl60BkoACgkQxQv2IfA+
+orpknA//QrlQ4NKXvaKVnIWrp25Ykd7yPwy8/VpjhRHpgPmc6B8/VVpO6np2d3W0
+4Sn56hvjztQzN27qNpbiQFiqCvEMfh7D+JfBKq7Kc63eQe0XD4i6WVCYKuK9DOmI
+cLyxzS75xjjr0KM5DaJh9UoVfochI/iv9hyg+ULx/izMs0lrjJ3YLrs81LV3NuxZ
+DqJONHr1JF2i/w1NfPo+QsAxujMTlNKkdcvHR3v0gxyAg9RUlRwvlWu71xiDtmt9
+oZ0aVOVvF9Mv5Owb4O2XEEA8FyBEggRDUt/FWauQl2sf1BL3hms+UtQD96DeOJn5
+VYfHZLBoI/dKGKI8g8HBJqs4/QRH29MXZ8K7EvQwmthdBupQlp9sgZgqBzdgKH47
+YVj+2puxUzCkbWh1CVavLc6HNcI7nY7ZdZ6ezXOW18DoC+WqQ6N9HVroih2Vs8r8
+a1LkCLgmL0hcuHPP96mTGONZK3pr2JR4AhXvQvFm+g35K9/Wqr4deiGSAC3AdygS
+Ey7CmoBrrDEIo4sXkajK9njYb6mbG9Yr4dNzZnfrNFEiQF0nSO0C6Mx9J5Vaq4Bg
+Q94u/uJxQ/JqgxzEukzUGtHrRoXA6pzzNXjpSz1Z86BTGQTFcbjf3Ph4UiKcqE40
+WhUbIskwiMUIkcc3sDd5eD+glB1hOqLj5blArLKGGrbtfB4t/Pk=
+=gaN3
 -----END PGP SIGNATURE-----
