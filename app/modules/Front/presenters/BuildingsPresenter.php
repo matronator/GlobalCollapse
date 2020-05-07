@@ -45,10 +45,10 @@ final class BuildingsPresenter extends GamePresenter
 				'buildings_id' => 1
 			]);
 			$this->flashMessage('Land bought!', 'success');
-			$this->redirect('this');
+			$this->redirect('Buildings:default');
 		} else {
 			$this->flashMessage('Not enough money!', 'danger');
-			$this->redirect('this');
+			$this->redirect('Buildings:default');
 		}
 	}
 
