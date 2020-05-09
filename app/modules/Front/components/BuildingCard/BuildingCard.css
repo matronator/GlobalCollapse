@@ -18,6 +18,15 @@
   transition: all 100ms ease;
 }
 
+.building-image {
+  min-width: 188px;
+  min-height: 128px;
+  height: auto;
+  width: auto;
+  background-position: center;
+  background-size: cover;
+}
+
 .block-hidden {
   display: none;
   visibility: hidden;

@@ -148,6 +148,9 @@ td.input-row {
 }
 .uk-padding-tiny {
   padding: 10px 12px;
+  @media (--xs) {
+    padding: 0;
+  }
 }
 .avatar-option + .avatar-preview {
   cursor: pointer;
@@ -240,6 +243,15 @@ td.input-row {
     &\--4-xs { order: 4; }
     &\--5-xs { order: 5; }
     &\--6-xs { order: 6; }
+  }
+}
+
+.border {
+  &\--b-xs { border-bottom: none; }
+  &\--b { border-bottom: 1px solid #dddddd; }
+  @media (--xs) {
+    &\--b { border-bottom: none; }
+    &\--b-xs { border-bottom: 1px solid #dddddd; }
   }
 }
 

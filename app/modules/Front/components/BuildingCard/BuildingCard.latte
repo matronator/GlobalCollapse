@@ -10,7 +10,9 @@
 {var $income = $presenter->buildingsRepository->getBuildingIncome($baseIncome, $level)}
 <div class="uk-card uk-card-default uk-card-body uk-padding-small building-card">
   <div>
-    <div class="uk-placeholder"></div>
+    <div class="uk-width-1-1">
+      <div class="building-image" style="background-image:url({='dist/front/images/illustrations/buildings/'.$buildingName.'.jpg'|asset});"></div>
+    </div>
     <h4 class="uk-margin-remove-bottom">{_general.buildings.buildings.$buildingName.name}</h4>
     <span class="uk-text-small">{_general.stats.level} {$level}</span>
     <p class="uk-margin-small">
@@ -20,12 +22,12 @@
   <div class="building-info block-hidden" data-building-info="{$building->id}">
     <p class="uk-text-italic">{_general.buildings.buildings.$buildingName.description}</p>
     <div class="info-block">
-      <div class="uk-text-bold order--1 order--1-xs">{_general.buildings.type}</div>
-      <div class="uk-text-bold order--2 order--3-xs" n:if="$buildingType==drugs">{_general.buildings.productType}</div>
-      <div class="uk-text-bold order--3 order--5-xs" n:if="$buildingType==drugs">{_general.buildings.productIncome}</div>
-      <div class="order--4 order--2-xs">{_general.buildings.types.$buildingType.name}</div>
-      <div class="order--5 order--4-xs" n:if="$buildingType==drugs">{_general.buildings.buildings.$buildingName.product}</div>
-      <div class="order--6 order--6-xs" n:if="$buildingType==drugs">{$building->buildings->base_income}g / 5h</div>
+      <div class="uk-text-bold order--1 order--1-xs border--b uk-padding-tiny uk-padding-remove-horizontal">{_general.buildings.type}</div>
+      <div class="uk-text-bold order--2 order--3-xs border--b uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{_general.buildings.productType}</div>
+      <div class="uk-text-bold order--3 order--5-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{_general.buildings.productIncome}</div>
+      <div class="order--4 order--2-xs border--b border--b-xs uk-padding-tiny uk-padding-remove-horizontal">{_general.buildings.types.$buildingType.name}</div>
+      <div class="order--5 order--4-xs border--b border--b-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{_general.buildings.buildings.$buildingName.product}</div>
+      <div class="order--6 order--6-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{$building->buildings->base_income}g / 5h</div>
     </div>
   </div>
 </div>
