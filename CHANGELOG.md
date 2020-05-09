@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2020-05-09
+
+- Added player lands
+- Prepared building slots
+- More Czech translations
+- UI/UX improvements
+
 ## [0.1.0] - 2020-04-30
 
 - Job API

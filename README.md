@@ -32,6 +32,7 @@ Still very early access, so much of the features are still yet to come.
     - [x] Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
   - [ ] Weapon trade
 - [ ] **Buildings**
+  - [x] Player lands - each player will have own land with set number of plots to build buildings on
   - [ ] Resource production
     - [ ] Drug labs
     - [ ] Plantations
@@ -58,6 +59,13 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 ## Changelog
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
+
+## [0.1.1] - 2020-05-09
+
+- Added player lands
+- Prepared building slots
+- More Czech translations
+- UI/UX improvements
 
 ## [0.1.0] - 2020-04-30
 
@@ -91,9 +99,4 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Fix asset caching
   - New PHP dependency: h4kuna/assets
 
-## [0.0.6] - 2020-04-10
-
-- Added events
-- Fixed training with skillpoints
-- Fixed resting
-- Adjusted scavenging reward
+More in [CHANGELOG.md](CHANGELOG.md)
