@@ -52,7 +52,7 @@ class BuildingsRepository
 
 	public function buyLand(?int $userId = null)
 	{
-		$this->findPlayerLand($userId)->insert([
+		$newLand = $this->findPlayerLand($userId)->insert([
 			'user_id' => $userId
 		]);
 		$buildings = $this->findAllBuildings()->where('unlocked', 1);
@@ -60,13 +60,46 @@ class BuildingsRepository
 			$this->findAllPlayerBuildings($userId)->insert([
 				'buildings_id' => $building->id,
 				'user_id' => $userId,
+				'player_land_id' => $newLand->id,
 				'level' => 0
 			]);
+		}
+	}
+
+	public function buyBuilding(int $userId = 0, int $bId = 0)
+	{
+		$checkLocked = $this->findAllUnlocked($userId)->where('buildings_id', $bId);
+		if ($checkLocked) {
+			$checkFreeLand = $this->findPlayerLand($userId)->where('free_slots > ?', 0)->fetch();
+			if ($checkFreeLand) {
+				$this->findPlayerLand($userId)->update([
+					'free_slots-=' => 1
+				]);
+				$this->findAllPlayerBuildings($userId)->where('buildings_id', $bId)->update([
+					'level' => 1
+				]);
+				return $this->findAllPlayerBuildings($userId)->insert([
+					'buildings_id' => $bId,
+					'user_id' => $userId,
+					'player_land_id' => $checkFreeLand->id,
+					'level' => 0
+				]);
+			} else {
+				return false;
+			}
+		} else {
+			return false;
 		}
 	}
 
 	public function getLandPrice()
 	{
 		return $this->newLandPrice;
+	}
+
+	// Building income = baseIncome + round(baseIncome * ((level-1)/2)^1.05)
+	public function getBuildingIncome(int $baseIncome = 0, int $level = 1)
+	{
+		return $baseIncome + round($baseIncome * pow(($level - 1) / 2, 1.05));
 	}
 }

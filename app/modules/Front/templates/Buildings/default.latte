@@ -4,7 +4,7 @@
 
 {block pageContent}
 <div class="uk-container" uk-height-viewport="expand: true">
-  <div class="dashboard">
+  <div>
     <div class="uk-card uk-width-auto uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
       <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/buildings.jpg');background-position:center;">
         <h2 class="uk-heading-large">{_general.buildings.title}</h2>
@@ -14,21 +14,32 @@
     <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle" n:if="!$land">
       <h3>Empty land for sale!</h3>
       <p>Do you want to buy it for ${$emptyLand|number}?</p>
-      <a n:href="Buildings:buyLand, $user->money, $emptyLand" class="uk-button uk-button-primary">Buy (-${$emptyLand|number})</a>
+      <a n:href="Buildings:buyLand" class="uk-button uk-button-primary">Buy (-${$emptyLand|number})</a>
     </div>
     <div class="uk-text-center" n:if="$land">
       <h3>{$user->username}'s land</h3>
       <hr class="uk-divider-icon">
-      <div class="uk-flex-around" uk-grid>
-      {for $i = 0; $i < $land->free_slots; $i++}
-        <div>
-          <div class="uk-card uk-card-default uk-card-body">
-            <a href="#" class="uk-button uk-button-primary">Build (coming soon)</a>
-          </div>
+      <div class="uk-flex-around uk-grid-match player-land uk-flex-middle uk-child-width-auto" uk-grid>
+        <div n:foreach="$playerBuildings as $playerBulding" n:if="$playerBuildings">
+          {include '../../components/BuildingCard/BuildingCard.latte',
+            building => $playerBulding
+          }
         </div>
-      {/for}
+        {for $i = 0; $i < $land->free_slots; $i++}
+          <div>
+            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-middle uk-flex-center uk-flex-column">
+              <button type="button" data-build-button="{$i}" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Build</button>
+              <div class="buildings-list uk-width-expand block-hidden" data-build-list="{$i}">
+                {include '../../components/BuildingCard/BuildingList.latte',
+                  buildings => $unlockedBuildings
+                }
+              </div>
+            </div>
+          </div>
+        {/for}
       </div>
     </div>
   </div>
 </div>
+<script defer src="{asset buildings.js front}" n:if="$land"></script>
 {/block}

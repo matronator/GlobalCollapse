@@ -226,6 +226,23 @@ td.input-row {
   transform: rotateZ(-45deg);
 }
 
+.order {
+  &\--1 { order: 1; }
+  &\--2 { order: 2; }
+  &\--3 { order: 3; }
+  &\--4 { order: 4; }
+  &\--5 { order: 5; }
+  &\--6 { order: 6; }
+  @media (--xs) {
+    &\--1-xs { order: 1; }
+    &\--2-xs { order: 2; }
+    &\--3-xs { order: 3; }
+    &\--4-xs { order: 4; }
+    &\--5-xs { order: 5; }
+    &\--6-xs { order: 6; }
+  }
+}
+
 /* BADGE */
 .uk-badge {
   &\-outline {

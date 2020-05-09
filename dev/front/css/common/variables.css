@@ -35,21 +35,12 @@
 }
 
 @custom-media --min-mediaXL (min-width: $widthMediaXL);
-
 @custom-media --max-mediaXL (max-width: $widthMediaXL);
-
 @custom-media --min-mediaL (min-width: $widthMediaL);
-
 @custom-media --max-mediaL (max-width: $widthMediaL);
-
 @custom-media --min-mediaM (min-width: $widthMediaM);
-
 @custom-media --max-mediaM (max-width: $widthMediaM);
-
 @custom-media --min-mediaS (min-width: $widthMediaS);
-
 @custom-media --max-mediaS (max-width: $widthMediaS);
-
 @custom-media --min-mediaXS (min-width: $widthMediaXS);
-
 @custom-media --max-mediaXS (max-width: $widthMediaXS);

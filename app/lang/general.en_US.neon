@@ -185,4 +185,33 @@ drugs:
 
 buildings:
 	title: 'Buildings'
-	description: 'Lorem ipsum'
+	description: 'Buy a land to build production buildings that will earn you resources over time.'
+	showMore: 'Show more'
+	buildings:
+		weedhouse:
+			name: 'Weedhouse'
+			description: 'Grows weed'
+			product: 'Weed'
+		meth_lab:
+			name: 'Meth lab'
+			description: 'Cooks methamphetamine'
+			product: 'Meth'
+		ecstasy_lab:
+			name: 'Ecstasy factory'
+			description: 'Press ecstasy pills'
+			product: 'Ecstasy'
+		poppy_field:
+			name: 'Poppy field'
+			description: 'Grows opium'
+			product: 'Heroin'
+		coca_plantage:
+			name: 'Coca plantage'
+			description: 'Grows coca plants'
+			product: 'Cocaine'
+	type: 'Type'
+	productType: 'Produces'
+	productIncome: 'Amount'
+	types:
+		drugs:
+			name: 'Drug production'
+			description: 'Produces drugs'
