@@ -16,7 +16,7 @@ use ActionLocker;
 final class CityPresenter extends GamePresenter
 {
 
-	private $userRepository;
+	public $userRepository;
 	private $drugsRepository;
 
 	public function __construct(
@@ -193,7 +193,7 @@ final class CityPresenter extends GamePresenter
 					$this->userRepository->getUser($player->id)->actions->update([
 						'scavenging' => 0
 					]);
-					$reward = $this->scavengeReward($diff / 3600);
+					$reward = $this->scavengeReward($diff / 3600, $player->player_stats->level);
 					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
 					$session = $this->session;
 					$section = $session->getSection('returnedScavenging');
@@ -209,7 +209,7 @@ final class CityPresenter extends GamePresenter
 		}
 	}
 
-	public function scavengeReward($hours) {
+	public function scavengeReward($hours, $level) {
 		$totalHours = round($hours);
 		$totalReward = 0;
 		$totalMoney = 0;
@@ -217,8 +217,8 @@ final class CityPresenter extends GamePresenter
 			$totalReward += rand(2, 4);
 			$totalMoney += rand(2, 5);
 		}
-		$plusXp = round($totalReward);
-		$plusMoney = round($totalMoney);
+		$plusXp = round($this->userRepository->getRewardXp($totalReward, $level));
+		$plusMoney = round($this->userRepository->getRewardMoney($totalMoney, $level));
 		$this->userRepository->addXp($this->getUser()->identity->id, $plusXp);
 		$this->userRepository->getUser($this->getUser()->identity->id)->update([
 			'money+=' => $totalMoney

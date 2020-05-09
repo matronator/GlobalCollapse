@@ -12,7 +12,7 @@ parameters:
         locale: burnBodies
         duration: 15
         energy: 15
-        money: 40
+        money: 35
         xp: 20
         droprate: 25
     ],

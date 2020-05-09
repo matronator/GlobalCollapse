@@ -53,6 +53,7 @@ ui:
 			contact: 'Kontakt'
 			help: 'Pomoc'
 			tos: 'Podmínky'
+			copyright: 'Vlastnická práva'
 			privacy: 'Ochrana soukromí'
 	footer:
 		createdBy: 'Vytvořil'
@@ -65,6 +66,7 @@ ui:
 	email: 'E-mail'
 	password: 'Heslo'
 	passwordV: 'Heslo znovu'
+	newPassword: 'Nové heslo'
 	username: 'Username'
 	lastUpdated: 'Naposledy aktualizováno'
 	ago: 'zpátky'
@@ -72,12 +74,17 @@ ui:
 	save: 'Uložit'
 	reset: 'Reset'
 	confirm: 'Potvrdit'
+	continue: 'Pokračovat'
 	add: 'Přidat'
 	remove: 'Odebrat'
 	extra: 'Extra'
 	changeAvatar: 'Změnit avatar'
 	locationStatus:
 		closed: 'Zavřeno'
+
+account:
+	accountSettings: 'Nastavení účtu'
+	changePassword: 'Změnit heslo'
 
 training:
 	train: 'Trénovat'
@@ -103,6 +110,8 @@ city:
 			working: 'Pracuješ'
 			workingUntil: "Pracuješ do "
 			jobDone: "Dokončil jsi práci a získal jsi tyto odměny:"
+			minutes: 'minut'
+			acceptJob: 'Přijmout práci'
 			distributeMasks:
 				title: 'Roznos roušek'
 				description: 'Distribute face masks in the city center.'
@@ -117,6 +126,7 @@ city:
 				description: 'Escort a scientist safely through the wastelands to his lab.'
 	darknet:
 		about: 'Ceny se mění každých 5 hodin. Nakup za málo, prodej za hodně.'
+		priceTotal: 'Cena celkem:'
 	wastelands:
 		wastelandsTitle: 'Pustina'
 		scavengingTitle: 'Průzkum'
@@ -172,3 +182,36 @@ drugs:
 			1: 'Cocaine'
 	Heroin:
 		name: 'Heroin'
+
+buildings:
+	title: 'Stavby'
+	description: 'Kup si pozemek, kde budeš moci stavět budovy, které ti budou produkovat komodity na prodej.'
+	showMore: 'Více'
+	buildings:
+		weedhouse:
+			name: 'Pěstírna'
+			description: 'Pěstuje trávu'
+			product: 'Tráva'
+		meth_lab:
+			name: 'Varna'
+			description: 'Vaří pervitin'
+			product: 'Pervitin'
+		ecstasy_lab:
+			name: 'Tlačírna éčka'
+			description: 'Vyrábí pilule extáze'
+			product: 'Extáze'
+		poppy_field:
+			name: 'Makové pole'
+			description: 'Pěstuje opium'
+			product: 'Heroin'
+		coca_plantage:
+			name: 'Plantáž koky'
+			description: 'Pěstuje koku'
+			product: 'Kokain'
+	type: 'Typ'
+	productType: 'Vyrábí'
+	productIncome: 'Množství'
+	types:
+		drugs:
+			name: 'Výroba drog'
+			description: 'Produkuje drogy'

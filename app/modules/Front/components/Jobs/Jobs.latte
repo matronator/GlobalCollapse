@@ -17,9 +17,9 @@
         <li class="job-item {first}selected{/first}" data-job-name="{$locale}"
             data-job-duration="{round($presenter->jobDuration(intval($job['duration']), $user->player_stats->level) / 60, 1)}"
             data-job-energy="{$job['energy']}"
-            data-job-money="{$job['money']}"
+            data-job-money="{$presenter->userRepository->getRewardMoney($job['money'], $user->player_stats->level)}"
             data-job-description="{_general.city.bar.jobs.$locale.description}"
-            data-job-xp="{$job['xp']}">
+            data-job-xp="{$presenter->userRepository->getRewardXp($job['xp'], $user->player_stats->level)}">
           <label class="job-link" n:name="job:$locale">
             <input class="uk-radio uk-input job-input" {first}checked{/first} type="radio" n:name="job:$locale" data-job-input="{$locale}">
             {_general.city.bar.jobs.$locale.title}

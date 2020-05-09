@@ -182,6 +182,14 @@ class UserRepository
         return $this->getUser($id);
     }
 
+    public function getRewardMoney($jobmoney, $level) {
+		return $jobmoney + round($jobmoney * ($level - 1) * 0.05);
+	}
+
+	public function getRewardXp($jobxp, $level) {
+		return $jobxp + round($jobxp * ($level - 1) * 0.025);
+	}
+
     /**
      * Add experience points to player
      *

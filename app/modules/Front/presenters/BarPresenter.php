@@ -16,7 +16,7 @@ use ActionLocker;
 final class BarPresenter extends GamePresenter
 {
 
-	private $userRepository;
+	public $userRepository;
 	private $eventRepository;
 	/**
 	 * @var array
@@ -103,7 +103,7 @@ final class BarPresenter extends GamePresenter
 					$this->template->timeMax = $missionDuration;
 					$this->template->jobName = $whatMission;
 				} else {
-					$reward = $this->endMission($whatMission);
+					$reward = $this->endMission($whatMission, $player->player_stats->level);
 					$isOnMission = 0;
 					$session = $this->session;
 					$section = $session->getSection('returnedJob');
@@ -137,12 +137,12 @@ final class BarPresenter extends GamePresenter
 		$this->redirect('Bar:default');
 	}
 
-	private function endMission($jobName) {
+	private function endMission($jobName, $level) {
 		$key = array_search($jobName, array_column($this->allJobs, 'locale'));
 		$currentJob = $this->allJobs[$key];
 		if ($currentJob) {
-			$plusXp = $currentJob['xp'];
-			$plusMoney = $currentJob['money'];
+			$plusXp = $this->userRepository->getRewardXp($currentJob['xp'], $level);
+			$plusMoney = $this->userRepository->getRewardMoney($currentJob['money'], $level);
 			$this->userRepository->addXp($this->user->getIdentity()->id, $plusXp);
 			$this->userRepository->getUser($this->user->getIdentity()->id)->update([
 				'money+=' => $plusMoney
