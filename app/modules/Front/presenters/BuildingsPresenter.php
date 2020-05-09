@@ -31,28 +31,21 @@ final class BuildingsPresenter extends GamePresenter
   public function renderDefault() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$this->template->user = $player;
-		$playerLand = $this->getLand($player->id);
+		$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
 		$this->template->land = $playerLand;
 		if (!$playerLand) {
-			$this->template->emptyLand = $this->buildingsRepository->findAll()->where('type', 'land')->fetch();
+			$this->template->emptyLand = $this->buildingsRepository->getLandPrice();
 		}
 	}
 
 	public function actionBuyLand($playerMoney, $cost) {
-		if ($playerMoney >= $cost) {
-			$this->buildingsRepository->findPlayerBuildings($this->user->getIdentity()->id)->insert([
-				'user_id' => $this->user->getIdentity()->id,
-				'buildings_id' => 1
-			]);
+		if ($playerMoney >= $cost && !$this->buildingsRepository->findPlayerLand($this->user->getIdentity()->id)->fetch()) {
+			$this->buildingsRepository->buyLand($this->user->getIdentity()->id);
 			$this->flashMessage('Land bought!', 'success');
 			$this->redirect('Buildings:default');
 		} else {
 			$this->flashMessage('Not enough money!', 'danger');
 			$this->redirect('Buildings:default');
 		}
-	}
-
-	private function getLand(int $pId) {
-		return $this->buildingsRepository->findPlayerLand($pId)->fetchAll();
 	}
 }
