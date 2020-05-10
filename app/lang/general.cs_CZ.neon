@@ -212,6 +212,7 @@ buildings:
 	productType: 'Vyrábí'
 	productIncome: 'Množství'
 	incomeDescription: 'Tvé příjmy každých 5 hodin'
+	lastCollection: 'Naposledy vybráno:'
 	types:
 		drugs:
 			name: 'Výroba drog'
