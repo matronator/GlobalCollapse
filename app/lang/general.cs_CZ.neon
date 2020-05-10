@@ -211,6 +211,7 @@ buildings:
 	type: 'Typ'
 	productType: 'Vyrábí'
 	productIncome: 'Množství'
+	incomeDescription: 'Tvé příjmy každých 5 hodin'
 	types:
 		drugs:
 			name: 'Výroba drog'

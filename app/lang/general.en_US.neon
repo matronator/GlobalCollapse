@@ -211,6 +211,7 @@ buildings:
 	type: 'Type'
 	productType: 'Produces'
 	productIncome: 'Amount'
+	incomeDescription: 'Your income per 5 hours'
 	types:
 		drugs:
 			name: 'Drug production'

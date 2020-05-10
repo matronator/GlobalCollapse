@@ -50,11 +50,6 @@ class BuildingsRepository
 		return $this->database->table('player_lands')->where('user_id', $userId);
 	}
 
-	public function findPlayerIncome(?int $userId = null)
-	{
-		return $this->database->table('player_income')->where('user_id', $userId);
-	}
-
 	public function buyLand(?int $userId = null)
 	{
 		$newLand = $this->findPlayerLand($userId)->insert([
@@ -69,6 +64,11 @@ class BuildingsRepository
 				'level' => 0
 			]);
 		}
+	}
+
+	public function findPlayerIncome(?int $userId = null)
+	{
+		return $this->database->table('player_income')->where('user_id', $userId);
 	}
 
 	public function buyBuilding(int $userId = 0, int $bId = 0)
@@ -94,7 +94,7 @@ class BuildingsRepository
 						$incomeType = 'heroin';
 						break;
 					case 'coca_plantage':
-						$incomeType = 'cocaine';
+						$incomeType = 'coke';
 						break;
 				}
 				if ($incomeType != '') {
@@ -105,9 +105,15 @@ class BuildingsRepository
 							$incomeType => $income
 						]);
 					} else {
-						$this->findPlayerIncome($userId)->update([
-							$incomeType . '+=' => $income
-						]);
+						if (!$playerIncome->$incomeType) {
+							$this->findPlayerIncome($userId)->update([
+								$incomeType => $income
+							]);
+						} else {
+							$this->findPlayerIncome($userId)->update([
+								$incomeType . '+=' => $income
+							]);
+						}
 					}
 				}
 				$this->findPlayerLand($userId)->update([

@@ -40,6 +40,8 @@ final class BuildingsPresenter extends GamePresenter
 			$this->template->playerBuildings = $playerBuildings;
 			$unlockedBuildings = $this->buildingsRepository->findAllUnlocked($player->id);
 			$this->template->unlockedBuildings = $unlockedBuildings;
+			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
+			$this->template->playerIncome = $playerIncome;
 		}
 	}
 
@@ -49,6 +51,9 @@ final class BuildingsPresenter extends GamePresenter
 		$playerMoney = $player->money;
 		if ($playerMoney >= $cost && !$this->buildingsRepository->findPlayerLand($player->id)->fetch()) {
 			$this->buildingsRepository->buyLand($player->id);
+			$this->userRepository->getUser($player->id)->update([
+				'money-=' => $cost
+			]);
 			$this->flashMessage('Land bought!', 'success');
 			$this->redirect('Buildings:default');
 		} else {
@@ -65,6 +70,9 @@ final class BuildingsPresenter extends GamePresenter
 			$cost = $building->buildings->price;
 			if ($playerMoney >= $cost) {
 				$this->buildingsRepository->buyBuilding($player->id, $building->buildings_id);
+				$this->userRepository->getUser($player->id)->update([
+					'money-=' => $cost
+				]);
 				$this->flashMessage('Building bought!', 'success');
 				$this->redirect('Buildings:default');
 			} else {
