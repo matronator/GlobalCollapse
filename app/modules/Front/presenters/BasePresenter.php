@@ -22,8 +22,6 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	/** @var Model\UserRepository */
 	private $userRepository;
 
-	public $contactFormFactory;
-
 	public function injectRepository(
 		Model\UserRepository $userRepository
 	)
@@ -36,15 +34,21 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->urlAbsolutePath = $this->getURL()->hostUrl;
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;
-		// $this->template->user = (object) $this->user->getIdentity();
-		$this->template->allPlayers = $this->userRepository->getTotalPlayers();
-		$this->template->onlinePlayers = $this->userRepository->getOnlinePlayers();
+		$allPlayers = 0;
+		$session = $this->session;
+		$section = $session->getSection('general');
+		if (!$section['all_players']) {
+			$allPlayers = $this->userRepository->getTotalPlayers();
+			$section['all_players'] = $allPlayers;
+			$section->setExpiration('300 minutes');
+		} else {
+			$allPlayers = $section['all_players'];
+		}
+		$onlinePlayers = $this->userRepository->getOnlinePlayers();
+		$this->template->allPlayers = $allPlayers;
+		$this->template->onlinePlayers = $onlinePlayers;
 		if ($this->user->isLoggedIn()) {
 			$this->template->user = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$player = $this->user->getIdentity();
-      $this->userRepository->getUser($player->id)->update([
-				'last_active' => new DateTime()
-			]);
 		}
 	}
 

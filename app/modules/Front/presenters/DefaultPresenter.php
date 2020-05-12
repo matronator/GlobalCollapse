@@ -16,19 +16,14 @@ use ActionLocker;
 
 final class DefaultPresenter extends BasePresenter
 {
-	/** @var Model\ArticlesRepository */
-	private $articles;
-
 	private $userRepository;
 	private $drugsRepository;
 
 	public function __construct(
 		UserRepository $userRepository,
-		DrugsRepository $drugsRepository,
-		Model\ArticlesRepository $articles
+		DrugsRepository $drugsRepository
 	)
 	{
-		$this->articles = $articles;
 		$this->userRepository = $userRepository;
 		$this->drugsRepository = $drugsRepository;
 	}
@@ -40,7 +35,6 @@ final class DefaultPresenter extends BasePresenter
 
 	public function renderDefault()
 	{
-		$this->template->articles = $this->articles->findAll();
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$this->template->user = $player;
@@ -48,13 +42,12 @@ final class DefaultPresenter extends BasePresenter
 			for ($i = 1; $i <= 21; $i++) {
 				$avatars[$i] = $i;
 			}
-			$newStats = $this->userRepository->getUser($player->id);
 			$this->template->avatars = $avatars;
 			$this->template->userAvatar = $player->avatar;
-			$xp = $newStats->player_stats->xp;
+			$xp = $player->player_stats->xp;
 			$this->template->xp = $xp;
-			$xpMax = $newStats->player_stats->xp_max;
-			$xpMin = $newStats->player_stats->xp_min;
+			$xpMax = $player->player_stats->xp_max;
+			$xpMin = $player->player_stats->xp_min;
 			$this->template->xpMax = $xpMax;
 			$this->template->xpMin = $xpMin;
 

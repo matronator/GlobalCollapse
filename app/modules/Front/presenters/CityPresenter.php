@@ -35,17 +35,15 @@ final class CityPresenter extends GamePresenter
 
 	public function renderDarknet()
 	{
-		$newStats = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$actionLocker = new ActionLocker();
-		$actionLocker->checkActions($newStats, $this);
-		$drugs = $this->drugsRepository->findAll();
+		$actionLocker->checkActions($player, $this);
+		$drugs = $this->drugsRepository->findAll()->fetchAll();
 		$this->template->drugs = $drugs;
-		$this->template->updated = $this->drugsRepository->findDrug(1)->fetch();
-		if (isset($this->getUser()->identity->id)) {
-			$drugsInventory = $this->drugsRepository->findDrugInventory($this->getUser()->identity->id)->order('drugs_id', 'ASC')->fetchAll();
-			if (count($drugsInventory) > 0) {
-				$this->template->drugsInventory = $drugsInventory;
-			}
+		$this->template->updated = $drugs['1']->updated;
+		$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->order('drugs_id', 'ASC')->fetchAll();
+		if (count($drugsInventory) > 0) {
+			$this->template->drugsInventory = $drugsInventory;
 		}
 
 		foreach($drugs as $drug) {
@@ -186,7 +184,7 @@ final class CityPresenter extends GamePresenter
 			}
 		} else if ($control->name == 'stopScavenging') {
 			if ($isScavenging > 0) {
-				$scavengingSince = $this->userRepository->getUser($player->id)->actions->scavenge_start;
+				$scavengingSince = $player->actions->scavenge_start;
 				$nowDate = new DateTime();
 				$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp());
 				if ($diff >= 3600) {

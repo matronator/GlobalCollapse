@@ -11,18 +11,12 @@ use App\Model;
 
 final class SitemapPresenter extends BasePresenter
 {
-	/** @var Model\ArticlesRepository */
-	private $articles;
-
 	public function __construct(
-		Model\ArticlesRepository $articles
 	)
 	{
-		$this->articles = $articles;
 	}
 
 	public function renderDefault()
 	{
-		$this->template->articles = $this->articles->findAll()->fetchAll();
 	}
 }

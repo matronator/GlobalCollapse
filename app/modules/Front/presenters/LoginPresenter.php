@@ -17,17 +17,13 @@ use Nette\Utils\Random;
 
 final class LoginPresenter extends BasePresenter
 {
-	/** @var Model\ArticlesRepository */
-	private $articles;
 
 	private $userRepository;
 
 	public function __construct(
-		UserRepository $userRepository,
-		Model\ArticlesRepository $articles
+		UserRepository $userRepository
 	)
 	{
-		$this->articles = $articles;
 		$this->userRepository = $userRepository;
 	}
 
@@ -46,7 +42,6 @@ final class LoginPresenter extends BasePresenter
 
 	public function renderLogin()
 	{
-		$this->template->articles = $this->articles->findAll();
 	}
 
 	public function createComponentLoginForm(): Form

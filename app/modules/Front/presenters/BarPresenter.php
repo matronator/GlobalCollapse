@@ -45,7 +45,8 @@ final class BarPresenter extends GamePresenter
 		$actionLocker = new ActionLocker();
 		$actionLocker->checkActions($player, $this);
 		$this->template->closed = false;
-		$activeEvent = $this->eventRepository->getActive()->fetch();
+		// $activeEvent = $this->eventRepository->getActive()->fetch();
+		$activeEvent = false;
 		if ($activeEvent) {
 			$activeEventName = $activeEvent->slug;
 			if ($activeEventName == 'social-distancing') {
