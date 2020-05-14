@@ -64,6 +64,7 @@ ui:
 	logout: 'Logout'
 	signup: 'Sign-Up'
 	email: 'E-mail'
+	newEmail: 'New e-mail'
 	password: 'Password'
 	passwordV: 'Repeat password'
 	newPassword: 'New password'
@@ -187,6 +188,8 @@ buildings:
 	title: 'Buildings'
 	description: 'Buy a land to build production buildings that will earn you resources over time.'
 	showMore: 'Show more'
+	showLess: 'Show less'
+	demolish: 'Demolish'
 	buildings:
 		weedhouse:
 			name: 'Weedhouse'

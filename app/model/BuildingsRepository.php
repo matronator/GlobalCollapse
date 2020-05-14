@@ -28,6 +28,11 @@ class BuildingsRepository
 			$value = intval($value);
 		}
 		return $this->database->table('buildings')->where($key, $value);
+	}
+
+	public function getBuilding(int $id)
+	{
+		return $this->database->table('player_buildings')->where('id', $id);
   }
 
 	public function findAllPlayerBuildings(?int $userId = null)
@@ -132,6 +137,42 @@ class BuildingsRepository
 			} else {
 				return false;
 			}
+		} else {
+			return false;
+		}
+	}
+
+	public function demolishBuilding(int $bId, ?int $userId = null) {
+		$building = $this->getBuilding($bId)->fetch();
+		if ($building && isset($building->income)) {
+			$incomeType = '';
+			switch ($building->buildings->name) {
+				case 'weedhouse':
+					$incomeType = 'weed';
+					break;
+				case 'meth_lab':
+					$incomeType = 'meth';
+					break;
+				case 'ecstasy_lab':
+					$incomeType = 'ecstasy';
+					break;
+				case 'poppy_field':
+					$incomeType = 'heroin';
+					break;
+				case 'coca_plantage':
+					$incomeType = 'coke';
+					break;
+			}
+			if ($incomeType != '') {
+				$this->findPlayerIncome($userId)->update([
+					$incomeType . '-=' => $building->income
+				]);
+			}
+			$this->findPlayerLand($userId)->update([
+				'free_slots+=' => 1
+			]);
+			$this->getBuilding($bId)->delete();
+			return true;
 		} else {
 			return false;
 		}

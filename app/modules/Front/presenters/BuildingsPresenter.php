@@ -81,4 +81,15 @@ final class BuildingsPresenter extends GamePresenter
 			}
 		}
 	}
+
+	public function actionDemolish(int $b) {
+		$building = $this->buildingsRepository->demolishBuilding($b, $this->user->getIdentity()->id);
+		if ($building) {
+			$this->flashMessage('Building demolished!', 'success');
+			$this->redirect('Buildings:default');
+		} else {
+			$this->flashMessage('Building not found!', 'danger');
+			$this->redirect('Buildings:default');
+		}
+	}
 }

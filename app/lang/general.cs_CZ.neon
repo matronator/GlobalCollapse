@@ -64,6 +64,7 @@ ui:
 	logout: 'Odhlásit se'
 	signup: 'Vytvořit účet'
 	email: 'E-mail'
+	newEmail: 'Nový e-mail'
 	password: 'Heslo'
 	passwordV: 'Heslo znovu'
 	newPassword: 'Nové heslo'
@@ -187,6 +188,8 @@ buildings:
 	title: 'Stavby'
 	description: 'Kup si pozemek, kde budeš moci stavět budovy, které ti budou produkovat komodity na prodej.'
 	showMore: 'Více'
+	showLess: 'Show less'
+	demolish: 'Zbourat'
 	buildings:
 		weedhouse:
 			name: 'Pěstírna'
