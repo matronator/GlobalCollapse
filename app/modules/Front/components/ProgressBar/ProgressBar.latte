@@ -6,17 +6,19 @@
 *     $name         string?       Name of the bar to be used as id
 *     $type         string?       Fill color
 *     $added        number?       Added change
+*     $small        bool?         Small style
 *
 *}
 
 {var $fill = round((($value - $min) / ($max - $min)) * (100))}
-<div {ifset $name}id="bar-{$name}"{/ifset} class="progress-bar{ifset $type} {$type}{/ifset}" uk-tooltip="{_general.city.bar.jobs.energyBarTip}"
+<div {ifset $name}id="bar-{$name}"{/ifset} class="progress-bar{ifset $type} {$type}{/ifset}{ifset $small} progress-bar-small{/ifset}"
+      {if isset($type) && $type == 'yellow'} uk-tooltip="{_general.city.bar.jobs.energyBarTip}"{else} uk-tooltip="{_general.stats.xpTooltip}"{/if}
     data-bar-min="{$min}"
     data-bar-max="{$max}"
     data-bar-value="{$value}"
     data-bar-fill="{$fill}">
   <div class="progress-bar-fill" style="width:{$fill}%;"></div>
   <p class="progress-bar-value uk-text-small">
-    <span id="barTextValue">{$value}</span>/{$max}&nbsp;<span n:ifset="$added" class="progress-bar-value-added">(+{$added})</span>
+    <span {ifset $name}id="barTextValue-{$name}"{/ifset}>{$value}</span>/{$max}&nbsp;<span n:ifset="$added" class="progress-bar-value-added">(+{$added})</span>
   </p>
 </div>

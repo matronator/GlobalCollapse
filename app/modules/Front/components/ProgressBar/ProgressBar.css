@@ -7,6 +7,11 @@
   overflow: hidden;
   background: #aaa;
   border-radius: 6px;
+  &\-small {
+    margin: 10px auto;
+    height: 20px;
+    border-radius: 10px;
+  }
   &.yellow {
     background: #cacaca;
   }
@@ -16,8 +21,12 @@
     background: #1e87f0;
     transition: all 250ms ease;
   }
+  &\-small .progress-bar-value {
+    font-weight: 300;
+    font-size: 0.875em;
+  }
   &\-value {
-	position: absolute;
+	  position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);

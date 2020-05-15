@@ -156,6 +156,8 @@ stats:
 	energy: 'Energie'
 	money: 'Peníze'
 	level: 'Level'
+	xp: 'XP'
+	xpTooltip: 'Tvé zkušenosti'
 
 drugs:
 	drugName: 'Droga'

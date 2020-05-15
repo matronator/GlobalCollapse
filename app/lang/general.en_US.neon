@@ -156,6 +156,8 @@ stats:
 	energy: 'Energy'
 	money: 'Money'
 	level: 'Level'
+	xp: 'XP'
+	xpTooltip: 'Your XP'
 
 drugs:
 	drugName: 'Drug'
