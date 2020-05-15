@@ -33,9 +33,7 @@ Still very early access, so much of the features are still yet to come.
   - [ ] Weapon trade
 - [ ] **Buildings**
   - [x] Player lands - each player will have own land with set number of plots to build buildings on
-  - [ ] Resource production
-    - [ ] Drug labs
-    - [ ] Plantations
+  - [x] Resource production (drug labs, plantations, etc)
 - [ ] **Market** - for buying other stuff
 - [x] **Bar** - this is where you'll get your missions from
   - [x] Missions
@@ -60,6 +58,13 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.1.2] - 2020-05-15
+
+- Added: Buildings
+- Added: Player incomes (collected from buildings every 5 hours)
+- Adjusted mission and scavenging rewards (now based on level)
+- Database optimization
+
 ## [0.1.1] - 2020-05-09
 
 - Added player lands
@@ -83,20 +88,5 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Fixed countdowns
 - Added footer
 - New illustrations
-
-## [0.0.7] - 2020-04-15
-
-- Enable localization
-  - Added CZECH (cs_CZ)
-- Improve leaderboard sorting
-  - Default sort by power
-- UI/UX improvements
-  - Favicons edited
-  - iOS splashscreens edited
-  - Design fixes and adjustments
-    - Added footer
-  - Better responsivity
-- Fix asset caching
-  - New PHP dependency: h4kuna/assets
 
 More in [CHANGELOG.md](CHANGELOG.md)

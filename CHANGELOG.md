@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2020-05-15
+
+- Added: Buildings
+- Added: Player incomes (collected from buildings every 5 hours)
+- Adjusted mission and scavenging rewards (now based on level)
+- Database optimization
+
 ## [0.1.1] - 2020-05-09
 
 - Added player lands
