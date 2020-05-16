@@ -64,12 +64,12 @@ final class BuildingsPresenter extends GamePresenter
 
 	public function actionBuyBuilding(int $b) {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-		$building = $this->buildingsRepository->findAllUnlocked($player->id)->where('buildings_id', $b)->fetch();
-		if ($building) {
+		$building = $this->buildingsRepository->getBuilding($b)->fetch();
+		if (isset($building->user_id) && $building->user_id === $player->id && $building->level === 0) {
 			$playerMoney = $player->money;
 			$cost = $building->buildings->price;
 			if ($playerMoney >= $cost) {
-				$this->buildingsRepository->buyBuilding($player->id, $building->buildings_id);
+				$this->buildingsRepository->buyBuilding($player->id, $building->buildings_id, $b);
 				$this->userRepository->getUser($player->id)->update([
 					'money-=' => $cost
 				]);
@@ -85,7 +85,7 @@ final class BuildingsPresenter extends GamePresenter
 	public function actionUpgrade(int $b) {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
-		if ($building && $building->user_id === $player->id) {
+		if (isset($building->user_id) && $building->user_id === $player->id) {
 			$playerMoney = $player->money;
 			$cost = $this->getUpgradeCost($building->buildings->price, $building->level);
 			if (!$building->buildings->max_level || $building->level < $building->buildings->max_level) {
@@ -114,12 +114,16 @@ final class BuildingsPresenter extends GamePresenter
 	}
 
 	public function actionDemolish(int $b) {
-		$building = $this->buildingsRepository->demolishBuilding($b, $this->user->getIdentity()->id);
-		if ($building && $building->user_id === $this->user->getIdentity()->id) {
-			$this->flashMessage('Building demolished!', 'success');
-			$this->redirect('Buildings:default');
+		$building = $this->buildingsRepository->getBuilding($b)->fetch();
+		if ($building->user_id === $this->user->getIdentity()->id) {
+			if ($this->buildingsRepository->demolishBuilding($b, $this->user->getIdentity()->id)) {
+				$this->flashMessage('Building demolished!', 'success');
+				$this->redirect('Buildings:default');
+			} else {
+				$this->flashMessage('Building not found!', 'danger');
+				$this->redirect('Buildings:default');
+			}
 		} else {
-			$this->flashMessage('Building not found!', 'danger');
 			$this->redirect('Buildings:default');
 		}
 	}

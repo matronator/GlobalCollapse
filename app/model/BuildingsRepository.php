@@ -43,7 +43,7 @@ class BuildingsRepository
 
 	public function findAllUnlocked(?int $userId = null)
 	{
-		return $this->findAllPlayerBuildings($userId)->where('level', 0);
+		return $this->findAllPlayerBuildings($userId)->where('level <= ?', 0);
 	}
 
 	public function findPlayerBuildings(?int $userId = null)
@@ -77,12 +77,12 @@ class BuildingsRepository
 		return $this->database->table('player_income')->where('user_id', $userId);
 	}
 
-	public function buyBuilding(int $userId = 0, int $bId = 0)
+	public function buyBuilding(int $userId = 0, int $bId = 0, ?int $buildingsId)
 	{
-		$checkLocked = $this->findAllUnlocked($userId)->where('buildings_id', $bId);
-		if ($checkLocked) {
+		$checkLocked = $this->getBuilding($buildingsId)->fetch();
+		if (isset($checkLocked->level) && $checkLocked->level === 0) {
 			$checkFreeLand = $this->findPlayerLand($userId)->where('free_slots > ?', 0)->fetch();
-			if ($checkFreeLand) {
+			if (isset($checkFreeLand)) {
 				$origBuilding = $this->findAllBuildings()->where('id', $bId)->fetch();
 				$income = $origBuilding->base_income;
 				$incomeType = $this->getIncomeType($origBuilding->name);
@@ -108,16 +108,17 @@ class BuildingsRepository
 				$this->findPlayerLand($userId)->update([
 					'free_slots-=' => 1
 				]);
-				$this->findAllPlayerBuildings($userId)->where('buildings_id', $bId)->update([
+				$this->getBuilding($buildingsId)->update([
 					'level' => 1,
 					'income' => $this->findAllBuildings()->where('id', $bId)->fetch()->base_income
 				]);
-				return $this->findAllPlayerBuildings($userId)->insert([
+				$this->findPlayerBuildings($userId)->insert([
 					'buildings_id' => $bId,
 					'user_id' => $userId,
 					'player_land_id' => $checkFreeLand->id,
 					'level' => 0
 				]);
+				return true;
 			} else {
 				return false;
 			}

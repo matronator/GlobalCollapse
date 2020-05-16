@@ -7,7 +7,7 @@
     {var $buildingName = $building->buildings->name}
     <div>{_general.buildings.buildings.$buildingName.name}&nbsp;</div>
     <div>
-      <a n:href="Buildings:buyBuilding, $building->buildings_id">BUY (${$building->buildings->price|number})</a>
+      <a n:href="Buildings:buyBuilding, $building->id">BUY (${$building->buildings->price|number})</a>
     </div>
   </div>
 </div>
