@@ -108,6 +108,8 @@ final class BuildingsPresenter extends GamePresenter
 				$this->flashMessage('This building is at maximum level or is not upgradable!', 'danger');
 				$this->redirect('Buildings:default');
 			}
+		} else {
+			$this->redirect('Buildings:default');
 		}
 	}
 
