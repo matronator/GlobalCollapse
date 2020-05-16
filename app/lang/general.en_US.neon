@@ -192,6 +192,7 @@ buildings:
 	showMore: 'Show more'
 	showLess: 'Show less'
 	demolish: 'Demolish'
+	upgrade: 'Upgrade'
 	buildings:
 		weedhouse:
 			name: 'Weedhouse'

@@ -192,6 +192,7 @@ buildings:
 	showMore: 'Více'
 	showLess: 'Show less'
 	demolish: 'Zbourat'
+	upgrade: 'Upgradovat'
 	buildings:
 		weedhouse:
 			name: 'Pěstírna'

@@ -11,6 +11,7 @@ class BuildingsRepository
 	private $database;
 
 	private $newLandPrice = 1000;
+	// public $baseUpgradeTime = 3600; // 1 hour = 3600 seconds
 
 	public function __construct(Nette\Database\Context $database)
 	{
@@ -84,24 +85,7 @@ class BuildingsRepository
 			if ($checkFreeLand) {
 				$origBuilding = $this->findAllBuildings()->where('id', $bId)->fetch();
 				$income = $origBuilding->base_income;
-				$incomeType = '';
-				switch ($origBuilding->name) {
-					case 'weedhouse':
-						$incomeType = 'weed';
-						break;
-					case 'meth_lab':
-						$incomeType = 'meth';
-						break;
-					case 'ecstasy_lab':
-						$incomeType = 'ecstasy';
-						break;
-					case 'poppy_field':
-						$incomeType = 'heroin';
-						break;
-					case 'coca_plantage':
-						$incomeType = 'coke';
-						break;
-				}
+				$incomeType = $this->getIncomeType($origBuilding->name);
 				if ($incomeType != '') {
 					$playerIncome = $this->findPlayerIncome($userId)->fetch();
 					if (!$playerIncome) {
@@ -142,27 +126,38 @@ class BuildingsRepository
 		}
 	}
 
+	public function upgradeBuilding(int $bId, ?int $userId = null) {
+		$building = $this->getBuilding($bId)->fetch();
+		if ($building) {
+			$newLevel = $building->level + 1;
+			if (!$building->income || $building->income <= 0) {
+				$this->getBuilding($bId)->update([
+					'level' => $newLevel
+				]);
+			} else {
+				$newIncome = $this->getBuildingIncome($building->buildings->base_income, $newLevel);
+				$this->getBuilding($bId)->update([
+					'income' => $newIncome,
+					'level' => $newLevel
+				]);
+				$incomeType = $this->getIncomeType($building->buildings->name);
+				if ($incomeType != '') {
+					$incomeAdd = $newIncome - $building->income;
+					$this->findPlayerIncome($userId)->update([
+						$incomeType . '+=' => $incomeAdd
+					]);
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function demolishBuilding(int $bId, ?int $userId = null) {
 		$building = $this->getBuilding($bId)->fetch();
 		if ($building && isset($building->income)) {
-			$incomeType = '';
-			switch ($building->buildings->name) {
-				case 'weedhouse':
-					$incomeType = 'weed';
-					break;
-				case 'meth_lab':
-					$incomeType = 'meth';
-					break;
-				case 'ecstasy_lab':
-					$incomeType = 'ecstasy';
-					break;
-				case 'poppy_field':
-					$incomeType = 'heroin';
-					break;
-				case 'coca_plantage':
-					$incomeType = 'coke';
-					break;
-			}
+			$incomeType = $this->getIncomeType($building->buildings->name);
 			if ($incomeType != '') {
 				$this->findPlayerIncome($userId)->update([
 					$incomeType . '-=' => $building->income
@@ -183,7 +178,37 @@ class BuildingsRepository
 		return $this->newLandPrice;
 	}
 
+	private function getIncomeType(string $buildingName)
+	{
+		$incomeType = '';
+			switch ($buildingName) {
+				case 'weedhouse':
+					$incomeType = 'weed';
+					break;
+				case 'meth_lab':
+					$incomeType = 'meth';
+					break;
+				case 'ecstasy_lab':
+					$incomeType = 'ecstasy';
+					break;
+				case 'poppy_field':
+					$incomeType = 'heroin';
+					break;
+				case 'coca_plantage':
+					$incomeType = 'coke';
+					break;
+			}
+			return $incomeType;
+	}
+
 	// Building income = baseIncome + round(baseIncome * ((level-1)/2)^1.05)
+	/**
+	 * getBuildingIncome
+	 *
+	 * @param integer $baseIncome
+	 * @param integer $level
+	 * @return void
+	 */
 	public function getBuildingIncome(int $baseIncome = 0, int $level = 1)
 	{
 		return $baseIncome + round($baseIncome * pow(($level - 1) / 2, 1.05));

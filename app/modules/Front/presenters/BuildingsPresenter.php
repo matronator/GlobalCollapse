@@ -82,14 +82,47 @@ final class BuildingsPresenter extends GamePresenter
 		}
 	}
 
+	public function actionUpgrade(int $b) {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$building = $this->buildingsRepository->getBuilding($b)->fetch();
+		if ($building && $building->user_id === $player->id) {
+			$playerMoney = $player->money;
+			$cost = $this->getUpgradeCost($building->buildings->price, $building->level);
+			if (!$building->buildings->max_level || $building->level < $building->buildings->max_level) {
+				if ($playerMoney >= $cost) {
+					if ($this->buildingsRepository->upgradeBuilding($b, $player->id)) {
+						$this->userRepository->getUser($player->id)->update([
+							'money-=' => $cost
+						]);
+						$this->flashMessage('Building bought!', 'success');
+						$this->redirect('Buildings:default');
+					} else {
+						$this->flashMessage('Something fishy...', 'danger');
+						$this->redirect('Buildings:default');
+					}
+				} else {
+					$this->flashMessage('Not enough money!', 'danger');
+					$this->redirect('Buildings:default');
+				}
+			} else {
+				$this->flashMessage('This building is at maximum level or is not upgradable!', 'danger');
+				$this->redirect('Buildings:default');
+			}
+		}
+	}
+
 	public function actionDemolish(int $b) {
 		$building = $this->buildingsRepository->demolishBuilding($b, $this->user->getIdentity()->id);
-		if ($building) {
+		if ($building && $building->user_id === $this->user->getIdentity()->id) {
 			$this->flashMessage('Building demolished!', 'success');
 			$this->redirect('Buildings:default');
 		} else {
 			$this->flashMessage('Building not found!', 'danger');
 			$this->redirect('Buildings:default');
 		}
+	}
+
+	private function getUpgradeCost(int $basePrice = 0, int $level = 1) {
+		return round(($basePrice * $level) / 3, -1);
 	}
 }

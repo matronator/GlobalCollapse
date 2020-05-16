@@ -6,8 +6,11 @@
 {var $buildingType = $building->buildings->type}
 {var $baseIncome = $building->buildings->base_income}
 {var $level = $building->level}
+{var $maxLevel = $building->buildings->max_level}
+{var $canUpgrade = (!$maxLevel || $level < $maxLevel) ? true : false}
+{var $upgradeCost = round(($building->buildings->price * $level) / 3, -1)}
 {* Building income = baseIncome + round(baseIncome * ((level-1)/2)^1.05) *}
-{var $income = $presenter->buildingsRepository->getBuildingIncome($baseIncome, $level)}
+{* {var $income = $presenter->buildingsRepository->getBuildingIncome($baseIncome, $level)} *}
 <div class="uk-card uk-card-default uk-card-body uk-padding-small building-card">
   <div class="building-card-main">
     <div class="uk-width-1-1">
@@ -16,18 +19,21 @@
     <h4 class="uk-margin-remove-bottom">{_general.buildings.buildings.$buildingName.name}</h4>
     <span class="uk-text-small">{_general.stats.level} {$level}</span>
     <p class="uk-margin-small">
-      <button data-toggle-info="{$building->id}" class="uk-button uk-button-primary uk-button-small hide--s" type="button">{_general.buildings.showMore}</button>
+      <button data-toggle-info="{$building->id}" class="uk-button uk-button-default uk-button-small hide--s" type="button">{_general.buildings.showMore}</button>
     </p>
   </div>
   <div class="building-info block-hidden" data-building-info="{$building->id}" uk-height-match=".building-card-main">
     <p class="uk-text-italic">{_general.buildings.buildings.$buildingName.description}</p>
+    <p class="uk-text-center uk-margin-remove" n:if="$canUpgrade">
+      <a n:href="Buildings:upgrade, $building->id" class="uk-button uk-button-primary uk-button-small">{_general.buildings.upgrade} - ${$upgradeCost|number}</a>
+    </p>
     <div class="info-block">
       <div class="uk-text-bold order--1 order--1-xs border--b uk-padding-tiny uk-padding-remove-horizontal">{_general.buildings.type}</div>
       <div class="uk-text-bold order--2 order--3-xs border--b uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{_general.buildings.productType}</div>
       <div class="uk-text-bold order--3 order--5-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{_general.buildings.productIncome}</div>
       <div class="order--4 order--2-xs border--b border--b-xs uk-padding-tiny uk-padding-remove-horizontal">{_general.buildings.types.$buildingType.name}</div>
       <div class="order--5 order--4-xs border--b border--b-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{_general.buildings.buildings.$buildingName.product}</div>
-      <div class="order--6 order--6-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{$building->buildings->base_income}g / 5h</div>
+      <div class="order--6 order--6-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{$building->income}g / 5h</div>
     </div>
     <p class="uk-text-right uk-margin-remove">
       <a n:href="Buildings:demolish, $building->id" class="uk-button uk-button-danger uk-button-small">{_general.buildings.demolish}</a>
