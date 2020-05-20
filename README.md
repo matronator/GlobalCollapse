@@ -4,6 +4,8 @@
 <a href="https://www.paypal.me/matronator" target="_blank" style="margin-right:16px;"><img src=".github/paypal.png" height="36"></a>
 <a href="https://www.blockchain.com/btc/payment_request?address=35VRpVQaqFWjUCnVRpGineShz76QyYgSVg" target="_blank"><img src=".github/RibbonDonateBitcoin.png" height="36"></a></div>
 
+<a href="https://www.best-mmorpgs.com/">Vote on Best MMORPGs<img src="https://www.best-mmorpgs.com/button.php?u=matronator" alt="Vote on Best MMORPGs" style="display: none;" width="1px" height="1px" /></a>
+
 
 # Global Collapse: Pandemic
 
