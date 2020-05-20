@@ -6,7 +6,7 @@
       max => $user->player_stats->energy_max,
       value => $user->player_stats->energy,
       type => 'yellow',
-      name => 'jobEnergy'
+      name => 'energyBar'
     }
     <div>{_general.stats.level} {$user->player_stats->level}</div>
     {include '../../components/ProgressBar/ProgressBar.latte',
@@ -14,7 +14,8 @@
       max => $user->player_stats->xp_max,
       value => $user->player_stats->xp,
       name => 'jobXp',
-      small => true
+      small => true,
+      type => 'xp'
     }
   </div>
   <div class="uk-child-width-1-3@m uk-flex-center uk-margin-remove" uk-grid>

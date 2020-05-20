@@ -17,7 +17,7 @@
           max => $user->player_stats->energy_max,
           value => $newEnergy,
           type => 'yellow',
-          name => 'jobEnergy',
+          name => 'energyBar',
           added => $resting ? $energyGained : null
         }
         <p n:if="$resting" class="uk-margin-bottom">{_general.resting.restingSince}{$restingSince|date:'%d %B %Y, %T'}&nbsp;<strong>({$timePassed}&nbsp;{_general.ui.ago})</strong></p>

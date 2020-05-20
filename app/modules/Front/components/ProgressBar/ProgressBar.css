@@ -15,6 +15,9 @@
   &.yellow {
     background: #cacaca;
   }
+  &.red {
+    background: #999;
+  }
   &\-fill {
     position: relative;
     height: 100%;
@@ -37,6 +40,9 @@
 }
 .progress-bar.yellow .progress-bar-fill {
   background: #fadd5a;
+}
+.progress-bar.red .progress-bar-fill {
+  background: #ce3131;
 }
 .progress-bar.yellow .progress-bar-value {
   color: #000;

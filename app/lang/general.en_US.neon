@@ -92,6 +92,12 @@ training:
 	timeLeft: 'Time left:'
 	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
 
+pvp:
+	assault:
+		winReward: 'Money to win:'
+		loseReward: "Money to lose:"
+		attack: 'Attack'
+
 resting:
 	title: 'Rest'
 	intro: "Rest to replenish your energy. Every hour of resting gives you 20 energy."
@@ -143,17 +149,21 @@ stats:
 	strength:
 		title: 'Strength'
 		description: "Strength is used for dealing damage in combats"
+		pvp: 'Your strength'
 	stamina:
 		title: 'Stamina'
 		description: "Stamina determines how much damage you can take"
+		pvp: 'Your stamina'
 	speed:
 		title: 'Speed'
 		description: "Speed is used for dodging hits in combats"
+		pvp: 'Your speed'
 	power:
 		title: 'Power'
 		powerTotal: 'Power total'
 		description: "Your total power"
 	energy: 'Energy'
+	health: 'Health'
 	money: 'Money'
 	level: 'Level'
 	xp: 'XP'

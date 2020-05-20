@@ -1,0 +1,20 @@
+.dashboard-assaults {
+  & #attackerCard {
+    order: 1;
+    @media (--s) {
+      order: 3;
+    }
+  }
+  & #victimCard {
+    order: 2;
+    @media (--s) {
+      order: 1;
+    }
+  }
+  & #assaultControls {
+    order: 3;
+    @media (--s) {
+      order: 2;
+    }
+  }
+}

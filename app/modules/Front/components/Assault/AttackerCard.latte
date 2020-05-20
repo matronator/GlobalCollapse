@@ -1,0 +1,56 @@
+{**
+ * ASSAULT - Attacker Card
+ *
+ *   attacker         array         The attacking player (current user)
+ *}
+{var $strDiff = $attacker->player_stats->strength - $victim->player_stats->strength}
+{var $staDiff = $attacker->player_stats->stamina - $victim->player_stats->stamina}
+{var $speDiff = $attacker->player_stats->speed - $victim->player_stats->speed}
+{var $powDiff = $attacker->player_stats->power - $victim->player_stats->power}
+
+<div class="uk-card uk-width-expand@s uk-card-default uk-card-body" id="attackerCard">
+  <h3 class="uk-flex uk-flex-center uk-text-center uk-flex-middle uk-margin-remove-bottom">
+    {$attacker->username}&nbsp;<span class="uk-badge uk-badge-outline">{$attacker->player_stats->level}</span>
+  </h3>
+  {include '../../components/ProgressBar/ProgressBar.latte',
+    min => 0,
+    max => $attacker->player_stats->stamina * 2,
+    value => $attacker->player_stats->stamina * 2,
+    type => 'red',
+    small => true
+  }
+  <div class="split">
+    <div class="uk-width-auto">
+      <img src="{$basePath}/dist/front/images/default-avatars/{$attacker->avatar}.jpg" class="uk-comment-avatar" width="128" height="128">
+    </div>
+    <div class="uk-width-expand uk-margin-left">
+      <table class="uk-table uk-table-small uk-table-hover">
+        <tr>
+          <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.strength.description}">{_general.stats.strength.title}</td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-right uk-text-small uk-text-middle {if $strDiff > 0}uk-text-success{elseif $strDiff < 0}uk-text-danger{/if}"><span n:if="$strDiff > 0">+</span>{$strDiff}</td>
+          <td class="uk-text-nowrap uk-text-right">{$attacker->player_stats->strength}</td>
+        </tr>
+        <tr>
+          <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.stamina.description}">{_general.stats.stamina.title}</td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-right uk-text-small uk-text-middle {if $staDiff > 0}uk-text-success{elseif $staDiff < 0}uk-text-danger{/if}"><span n:if="$staDiff > 0">+</span>{$staDiff}</td>
+          <td class="uk-text-nowrap uk-text-right">{$attacker->player_stats->stamina}</td>
+        </tr>
+        <tr>
+          <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.speed.description}">{_general.stats.speed.title}</td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-right uk-text-small uk-text-middle {if $speDiff > 0}uk-text-success{elseif $speDiff < 0}uk-text-danger{/if}"><span n:if="$speDiff > 0">+</span>{$speDiff}</td>
+          <td class="uk-text-nowrap uk-text-right">{$attacker->player_stats->speed}</td>
+        </tr>
+        <tr>
+          <td class="uk-text-nowrap" uk-tooltip="title:{_general.stats.power.description}"><strong>{_general.stats.power.title}</strong></td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-right uk-text-small uk-text-middle {if $powDiff > 0}uk-text-success{elseif $powDiff < 0}uk-text-danger{/if}"><span n:if="$powDiff > 0">+</span>{$powDiff}</td>
+          <td class="uk-text-nowrap uk-text-right"><strong>{$attacker->player_stats->power}</strong></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="uk-flex uk-width-expand uk-flex-center">
+    <div class="">
+      {_general.pvp.assault.loseReward}&nbsp;${$cashMoneyLose|number}
+    </div>
+  </div>
+</div>

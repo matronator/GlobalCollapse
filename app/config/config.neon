@@ -2,6 +2,8 @@ parameters:
 	version: 0.1.8
 
 application:
+	errorPresenter: Error
+	catchExceptions: true
 	mapping:
 		*: App\*Module\Presenters\*Presenter
 

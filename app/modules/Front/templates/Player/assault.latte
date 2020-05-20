@@ -1,0 +1,28 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Player assault{/define}
+{define metaDescription}Player assault{/define}
+
+{block pageContent}
+  <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+    <div class="dashboard dashboard-assaults uk-flex" uk-margin>
+      <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center" id="assaultControls">
+        <div n:ifset="$results">
+          <div n:foreach="$results as $round" class="border-bottom">
+            {if $iterator->isFirst()}{else}
+            <p>
+              {$attacker} hits for {$round->attacker->dmg}! {$victim} has {$round->victim->hp} health left.
+            </p>
+            <p n:if="$round->victim->hp > 0">
+              {$victim} hits for {$round->victim->dmg}! {$attacker} has {$round->attacker->hp} health left.
+            </p>
+            {/if}
+          </div>
+          <h2>{$result|upper}!</h2>
+          <a n:href="Default:default" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
+        </div>
+        <hr>
+        <p class="uk-text-muted"><sub>Work in progress - it will look so much better when it's done (probably this weekend)</sub></p>
+      </div>
+    </div>
+  </div>
+{/block}

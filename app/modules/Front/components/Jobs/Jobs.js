@@ -4,14 +4,14 @@ const energy = document.getElementById(`cost-energy`)
 const money = document.getElementById(`reward-money`)
 const xp = document.getElementById(`reward-xp`)
 const description = document.getElementById(`jobDescription`)
-const progressBar = document.getElementById(`bar-jobEnergy`)
-const progressBarValSpan = document.getElementById(`barTextValue-jobEnergy`)
+const progressBar = document.getElementById(`bar-energyBar`)
+const progressBarValSpan = document.getElementById(`barTextValue-energyBar`)
 const progressBarXp = document.getElementById(`bar-jobXp`)
 const progressBarValSpanXp = document.getElementById(`barTextValue-jobXp`)
 
 if (jobs && duration && description && progressBar && progressBarXp && money) {
   const progressBarFill = progressBar.querySelector(
-    `#bar-jobEnergy .progress-bar-fill`
+    `#bar-energyBar .progress-bar-fill`
   )
   const progressValue = Number(progressBar.dataset.barValue)
   const progressMin = Number(progressBar.dataset.barMin)

@@ -23,7 +23,7 @@ Still very early access, so much of the features are still yet to come.
   - [x] Leveling
   - [x] Skill training
 - [ ] **MMO elements**
-  - [ ] PvP
+  - [x] PvP
   - [x] Leaderboard
 - [x] **Events**
   - [x] Social distancing event - bar is closed
@@ -58,6 +58,11 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.1.3] - 2020-05-21
+
+- Added: Player Assaults (PvP)!
+- Added: Building upgrades
+
 ## [0.1.2] - 2020-05-15
 
 - Added: Buildings
@@ -81,12 +86,5 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Better countdown timer
 - Notifications
 - Prepare buildings
-
-## [0.0.8] - 2020-04-21
-
-- Added Missions
-- Fixed countdowns
-- Added footer
-- New illustrations
 
 More in [CHANGELOG.md](CHANGELOG.md)
