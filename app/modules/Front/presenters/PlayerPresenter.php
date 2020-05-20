@@ -173,7 +173,7 @@ final class PlayerPresenter extends BasePresenter
 
 	private function calculateDamage($attackerStats, $victimStats) {
 		$attackerDodge = 0;
-		$dodgeChance = min(($attackerStats->speed - $victimStats->speed) + (($attackerStats->level - $victimStats->level) / 2), 90);
+		$dodgeChance = min(($victimStats->speed - $attackerStats->speed) + (($victimStats->level - $attackerStats->level) / 2), 90);
 		if ($dodgeChance > 0) {
 			$attackerDodge = $dodgeChance;
 		}
