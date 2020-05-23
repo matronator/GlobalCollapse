@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 - Added: Player Assaults (PvP)!
 - Added: Building upgrades
-- Fixed: #2
+- Fixed: Money overflowing 32bit integer range ([#2][i2])
 - UI Adjustments
 
 ## [0.1.2] - 2020-05-15
@@ -91,3 +91,6 @@ All notable changes to this project will be documented in this file.
 ## [0.0.1] - 2020-03-08
 
 - Project started
+
+
+[i2]: https://github.com/matronator/GlobalCollapse/issues/2
