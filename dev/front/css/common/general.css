@@ -149,7 +149,7 @@ td.input-row {
 .uk-padding-tiny {
   padding: 10px 12px;
   @media (--xs) {
-    padding: 0;
+    padding: 3px 5px;
   }
 }
 .avatar-option + .avatar-preview {

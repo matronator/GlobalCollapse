@@ -145,9 +145,7 @@ final class BarPresenter extends GamePresenter
 			$plusXp = $this->userRepository->getRewardXp($currentJob['xp'], $level);
 			$plusMoney = $this->userRepository->getRewardMoney($currentJob['money'], $level);
 			$this->userRepository->addXp($this->user->getIdentity()->id, $plusXp);
-			$this->userRepository->getUser($this->user->getIdentity()->id)->update([
-				'money+=' => $plusMoney
-			]);
+			$this->userRepository->addMoney($this->user->getIdentity()->id, $plusMoney);
 			$this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
 				'on_mission' => 0
 			]);

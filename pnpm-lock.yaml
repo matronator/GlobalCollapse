@@ -8,7 +8,7 @@ dependencies:
   flatpickr: 4.6.3
   nouislider: 14.1.1
   push.js: 1.0.12
-  uikit: 3.3.7
+  uikit: 3.4.6
 devDependencies:
   '@babel/core': 7.9.0
   '@babel/preset-env': 7.9.0_@babel+core@7.9.0
@@ -10796,10 +10796,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==
-  /uikit/3.3.7:
+  /uikit/3.4.6:
     dev: false
     resolution:
-      integrity: sha512-vY7chSjBpu3hgFHFbl/Cr2cUodoEew69uPPQl2E0WcK6UkG2DYhgV0XNDMNLpeGGfrw6C+H9cW89I7Gq7N8Ylw==
+      integrity: sha512-Se8DXGJ69NCxm8AQTok6I9aXxvklaBsdkr3REfbUorxeIQA6g96sPvzHCXrubqknoqEhH6npD14xtzxJGCvS8A==
   /ultron/1.1.1:
     dev: true
     resolution:
@@ -11673,6 +11673,6 @@ specifiers:
   stylelint: ^13.2.1
   stylelint-config-prettier: ^8.0.1
   stylelint-prettier: ^1.1.2
-  uikit: ^3.3.7
+  uikit: ^3.4.6
   vinyl-buffer: ^1.0.1
   yargs: ^15.3.1

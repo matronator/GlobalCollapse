@@ -58,10 +58,12 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
-## [0.1.3] - 2020-05-21
+## [0.1.3] - 2020-05-23
 
 - Added: Player Assaults (PvP)!
 - Added: Building upgrades
+- Fixed: #2
+- UI Adjustments
 
 ## [0.1.2] - 2020-05-15
 

@@ -122,9 +122,7 @@ final class CityPresenter extends GamePresenter
 					foreach ($drugs as $drug) {
 						if ($values[$drug->name] > 0) {
 							$this->drugsRepository->buyDrugs($player->id, $drug->id, $values[$drug->name]);
-							$this->userRepository->getUser($player->id)->update([
-								'money-=' => $prices[$drug->name]
-							]);
+							$this->userRepository->addMoney($player->id, -$prices[$drug->name]);
 						}
 					}
 					$this->flashMessage('Purchase successful', 'success');
@@ -143,9 +141,7 @@ final class CityPresenter extends GamePresenter
 							array_push($allGood, $drug->name);
 						} else {
 							array_push($soldDrugs, $drug->name);
-							$this->userRepository->getUser($player->id)->update([
-								'money+=' => $prices[$drug->name]
-							]);
+							$this->userRepository->addMoney($player->id, $prices[$drug->name]);
 						}
 					}
 				}
@@ -218,9 +214,7 @@ final class CityPresenter extends GamePresenter
 		$plusXp = round($this->userRepository->getRewardXp($totalReward, $level));
 		$plusMoney = round($this->userRepository->getRewardMoney($totalMoney, $level));
 		$this->userRepository->addXp($this->getUser()->identity->id, $plusXp);
-		$this->userRepository->getUser($this->getUser()->identity->id)->update([
-			'money+=' => $totalMoney
-		]);
+		$this->userRepository->addMoney($this->getUser()->identity->id, $totalMoney);
 		return [
 			'xp' => $plusXp,
 			'money' => $plusMoney

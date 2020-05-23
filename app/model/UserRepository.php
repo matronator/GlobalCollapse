@@ -22,6 +22,8 @@ class UserRepository
     private $expMaxBase = 50;
     private $maxEnergyBase = 100;
 
+    public $maxPlayerMoney = 999_999_999;
+
     public $roles = [
         USER_ROLE_ADMIN => 'Admin',
         USER_ROLE_USER => 'User',
@@ -182,8 +184,20 @@ class UserRepository
         return $this->getUser($id);
     }
 
+    public function addMoney(int $id, $amount)
+    {
+        if (is_numeric($amount)) {
+            $userMoney = $this->getUser($id)->money;
+            $total = (int)round($userMoney + $amount, 0);
+            $newTotal = $total <= $this->maxPlayerMoney ? $total : $this->maxPlayerMoney;
+            $this->findAll()->wherePrimary($id)->update([
+                'money' => $newTotal
+            ]);
+        }
+    }
+
     public function getRewardMoney($jobmoney, $level) {
-		return $jobmoney + round($jobmoney * ($level - 1) * 0.05);
+		return $jobmoney + (int)round($jobmoney * ($level - 1) * 0.05);
 	}
 
 	public function getRewardXp($jobxp, $level) {

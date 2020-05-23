@@ -51,9 +51,7 @@ final class BuildingsPresenter extends GamePresenter
 		$playerMoney = $player->money;
 		if ($playerMoney >= $cost && !$this->buildingsRepository->findPlayerLand($player->id)->fetch()) {
 			$this->buildingsRepository->buyLand($player->id);
-			$this->userRepository->getUser($player->id)->update([
-				'money-=' => $cost
-			]);
+			$this->userRepository->addMoney($player->id, -$cost);
 			$this->flashMessage('Land bought!', 'success');
 			$this->redirect('Buildings:default');
 		} else {
@@ -70,9 +68,7 @@ final class BuildingsPresenter extends GamePresenter
 			$cost = $building->buildings->price;
 			if ($playerMoney >= $cost) {
 				$this->buildingsRepository->buyBuilding($player->id, $building->buildings_id, $b);
-				$this->userRepository->getUser($player->id)->update([
-					'money-=' => $cost
-				]);
+				$this->userRepository->addMoney($player->id, -$cost);
 				$this->flashMessage('Building bought!', 'success');
 				$this->redirect('Buildings:default');
 			} else {
@@ -91,9 +87,7 @@ final class BuildingsPresenter extends GamePresenter
 			if (!$building->buildings->max_level || $building->level < $building->buildings->max_level) {
 				if ($playerMoney >= $cost) {
 					if ($this->buildingsRepository->upgradeBuilding($b, $player->id)) {
-						$this->userRepository->getUser($player->id)->update([
-							'money-=' => $cost
-						]);
+						$this->userRepository->addMoney($player->id, -$cost);
 						$this->flashMessage('Building bought!', 'success');
 						$this->redirect('Buildings:default');
 					} else {
@@ -128,7 +122,8 @@ final class BuildingsPresenter extends GamePresenter
 		}
 	}
 
-	private function getUpgradeCost(int $basePrice = 0, int $level = 1) {
-		return round(($basePrice * $level) / 3, -1);
+	private function getUpgradeCost(int $basePrice = 0, int $level = 1): int
+	{
+		return (int)round(($basePrice * $level) / 3, -1);
 	}
 }
