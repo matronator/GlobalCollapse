@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3a] - 2020-05-24
+
+- Updated: Darknet prices (see the [Wiki](https://github.com/matronator/GlobalCollapse/wiki/Darknet) for current prices)
+
 ## [0.1.3] - 2020-05-23
 
 - Added: Player Assaults (PvP)!
