@@ -6,22 +6,22 @@ parameters:
         energy: 25
         money: 30
         xp: 20
-        droprate: 25
+        droprate: 20
     ],
     [
         locale: burnBodies
         duration: 15
-        energy: 15
+        energy: 10
         money: 35
-        xp: 20
-        droprate: 25
+        xp: 15
+        droprate: 20
     ],
     [
         locale: smuggleDrugs
         duration: 20
         energy: 15
-        money: 40
-        xp: 20
+        money: 55
+        xp: 15
         droprate: 15
     ],
     [
@@ -30,6 +30,22 @@ parameters:
         energy: 20
         money: 5
         xp: 30
+        droprate: 10
+    ],
+    [
+        locale: constructionHelp
+        duration: 15
+        energy: 25
+        money: 40
+        xp: 25
+        droprate: 20
+    ],
+    [
+        locale: spyMission
+        duration: 7
+        energy: 15
+        money: 20
+        xp: 40
         droprate: 10
     ]
   ]

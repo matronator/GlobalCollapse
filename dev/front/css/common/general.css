@@ -19,7 +19,9 @@ body {
     -webkit-touch-callout: none;
   }
 }
-
+.uk-position-center {
+  width: 100%;
+}
 .uk-text-yellow {
   color: #fadd5a !important;
 }

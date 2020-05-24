@@ -87,6 +87,13 @@ account:
 	accountSettings: 'Account settings'
 	changePassword: 'Change password'
 
+faq:
+	title: 'Did you know... ?'
+	items:
+		1: "... that the maximum amount of money a player can have on hand is $999,999,999"
+		2: "... that you can train your stats while you're on a job?"
+		3: "... that you can still go scavenging while resting? To make the most of your time, go to rest first and then go scavenging. If you go scavenging first, you won't be able to go to rest until you return back."
+
 training:
 	train: 'Train'
 	timeLeft: 'Time left:'
@@ -131,6 +138,12 @@ city:
 			escortScientist:
 				title: 'Escort a scientist'
 				description: 'Escort a scientist safely through the wastelands to his lab.'
+			constructionHelp:
+				title: 'Construction help'
+				description: 'Help with the construction of a new refuge camp near the city limits.'
+			spyMission:
+				title: 'Spy mission'
+				description: 'Follow an arms dealer from the black market and collect intel.'
 	darknet:
 		about: 'The prices change every 5 hours. Buy for low, sell for high.'
 		priceTotal: 'Price total:'

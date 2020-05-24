@@ -60,6 +60,13 @@ Bitcoin: **35VRpVQaqFWjUCnVRpGineShz76QyYgSVg**
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.1.4] - 2020-05-24
+
+- Updated: Darknet prices (see the [Wiki](https://github.com/matronator/GlobalCollapse/wiki/Darknet) for current prices)
+- Added: New jobs
+- Added: "Did you know" cards during jobs
+- Adjusted: Experience gain from missions
+
 ## [0.1.3] - 2020-05-23
 
 - Added: Player Assaults (PvP)!
@@ -80,15 +87,5 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Prepared building slots
 - More Czech translations
 - UI/UX improvements
-
-## [0.1.0] - 2020-04-30
-
-- Job API
-- Changed: navbar, sidebar, footer
-- Locale almost done
-- Edited training
-- Better countdown timer
-- Notifications
-- Prepare buildings
 
 More in [CHANGELOG.md](CHANGELOG.md)

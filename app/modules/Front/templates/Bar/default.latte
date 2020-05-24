@@ -71,6 +71,14 @@
                 {php $imgSrc = 'wastelands'}
                 {php $imgPos = 'center'}
                 {php $imgDir = 'vertical'}
+              {case constructionHelp}
+                {php $imgSrc = 'buildings'}
+                {php $imgPos = 'center'}
+                {php $imgDir = ''}
+              {case spyMission}
+                {php $imgSrc = 'center'}
+                {php $imgPos = 'center'}
+                {php $imgDir = 'vertical'}
               {case default}
                 {php $imgSrc = 'bar'}
                 {php $imgPos = 'center'}
@@ -86,7 +94,10 @@
                   max => $timeMax
                 }
               </div>
-              <div class="job-image" style="background-image:url('{$basePath}/dist/front/images/illustrations/{$imgSrc}.jpg');background-position:{$imgPos};">
+              <div class="uk-inline">
+                <div class="job-image" style="background-image:url('{$basePath}/dist/front/images/illustrations/{$imgSrc}.jpg');background-position:{$imgPos};">
+                </div>
+                {include '../../components/DidYouKnow/DidYouKnow.latte'}
               </div>
             </div>
           </div>

@@ -196,12 +196,13 @@ class UserRepository
         }
     }
 
+    /** Job rewards */
     public function getRewardMoney($jobmoney, $level) {
 		return $jobmoney + (int)round($jobmoney * ($level - 1) * 0.05);
 	}
 
 	public function getRewardXp($jobxp, $level) {
-		return $jobxp + round($jobxp * ($level - 1) * 0.025);
+		return $jobxp + round($jobxp * ($level - 1) * 0.1);
 	}
 
     /**
@@ -234,14 +235,15 @@ class UserRepository
      * @return void
      */
     public function levelUp(int $id, int $lvl) {
+        $player = $this->getUser($id);
         $newLevel = $lvl + 1;
-        $energy = $this->getUser($id)->player_stats->energy_max;
+        $energy = $player->player_stats->energy_max;
         if ($newLevel <= 10) {
             $energy = $this->getMaxEnergy($newLevel);
         }
-        $oldMax = $this->getUser($id)->player_stats->xp_max;
+        $oldMax = $player->player_stats->xp_max;
         $newMax = $this->getMaxExp($newLevel);
-        $sp = $this->getUser($id)->skillpoints + 1;
+        $sp = $player->skillpoints + 1;
         $this->getUser($id)->update([
             'skillpoints' => $sp
         ]);
@@ -253,6 +255,26 @@ class UserRepository
             'energy_max' => $energy
         ]);
         return $newMax;
+    }
+
+    public function testUp($player, int $lvl) {
+        $newLevel = $lvl + 1;
+        $energy = $player->energy_max;
+        if ($newLevel <= 10) {
+            $energy = $this->getMaxEnergy($newLevel);
+        }
+        $oldMax = $player->xp_max;
+        $newMax = $this->getMaxExp($newLevel);
+        $oldPlayer = [
+            'level' => $newLevel,
+            'xp_min' => $oldMax,
+            'xp_max' => $newMax,
+            'xp' => $oldMax,
+            'energy' => $energy,
+            'energy_max' => $energy
+        ];
+        $newPlayer = (object) $oldPlayer;
+        return $newPlayer;
     }
 
     /**
@@ -268,7 +290,7 @@ class UserRepository
      * @return int
      */
     private function getMaxExp(int $lvl): int {
-        return round((pow($lvl, 2) * log($lvl)), -2) + ($this->expMaxBase * $lvl);
+        return round((pow($lvl, 2) * log($lvl)), -1) + ($this->expMaxBase * $lvl);
     }
 
     /**

@@ -87,10 +87,23 @@ account:
 	accountSettings: 'Nastavení účtu'
 	changePassword: 'Změnit heslo'
 
+faq:
+	title: 'Věděl jsi že... ?'
+	items:
+		1: "... hráč u sebe nemůže mít více než $999,999,999?"
+		2: "... můžeš trénovat i když zrovna pracuješ?"
+		3: "... můžeš jít na průzkum i když právě odpočíváš? Abys nejlépe využil svůj čas, nejprve jdi odpočívat a potom jdi na průzkum. Když půjdeš nejdřív na průzkum, už nebudeš moct jít odpočívat, dokud se zase nevrátíš zpět."
+
 training:
 	train: 'Trénovat'
 	timeLeft: 'Zbývá:'
 	spLeft: 'Dostupné skillpointy: <strong id="pointsLeft">%sp%</strong>'
+
+pvp:
+	assault:
+		winReward: 'Peníze za výhru:'
+		loseReward: "Ztráta za prohru:"
+		attack: 'Zaútoč'
 
 resting:
 	title: 'Odpočinek'
@@ -114,17 +127,23 @@ city:
 			minutes: 'minut'
 			acceptJob: 'Přijmout práci'
 			distributeMasks:
-				title: 'Roznos roušek'
-				description: 'Distribute face masks in the city center.'
+				title: 'Distribuce roušek'
+				description: 'Rozdávej roušky v centru města.'
 			burnBodies:
 				title: 'Pálení mrtvol'
-				description: 'Burn bodies of deceased in an incinerator to help prevent virus spread.'
+				description: 'Spal mrtvoly nakažených v peci za městem, pro omezení šíření viru.'
 			smuggleDrugs:
 				title: 'Pašování drog'
-				description: 'Smuggle drugs across the city border.'
+				description: 'Propašuj drogy přes hranice města.'
 			escortScientist:
 				title: 'Eskortuj vědce'
-				description: 'Escort a scientist safely through the wastelands to his lab.'
+				description: 'Bezpečně eskortuj vědce přes pustinu do jeho laboratoře.'
+			constructionHelp:
+				title: 'Pomoc na stavbě'
+				description: 'Help with the construction of a new refuge camp near the city limits.'
+			spyMission:
+				title: 'Špionáž'
+				description: 'Pronásleduj obchodníka se zbraněmi z černého trhu a sbírej informace.'
 	darknet:
 		about: 'Ceny se mění každých 5 hodin. Nakup za málo, prodej za hodně.'
 		priceTotal: 'Cena celkem:'
@@ -143,17 +162,21 @@ stats:
 	strength:
 		title: 'Síla'
 		description: "Síla určuje kolik zranění udělíš při soubojích"
+		pvp: 'Tvá síla'
 	stamina:
 		title: 'Výdrž'
 		description: "Výdrž určuje kolik úderů vydržíš"
+		pvp: 'Tvý výdrž'
 	speed:
 		title: 'Rychlost'
 		description: "Rychlostí se vyhýbáš úderům"
+		pvp: 'Tvý rychlost'
 	power:
 		title: 'Moc'
 		powerTotal: 'Celková síla'
 		description: "Tvá celková síla"
 	energy: 'Energie'
+	health: 'Zdraví'
 	money: 'Peníze'
 	level: 'Level'
 	xp: 'XP'

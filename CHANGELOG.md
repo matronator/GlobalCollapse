@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2020-05-24
+
+- Updated: Darknet prices (see the [Wiki](https://github.com/matronator/GlobalCollapse/wiki/Darknet) for current prices)
+- Added: New jobs
+- Added: "Did you know" cards during jobs
+- Adjusted: Experience gain from missions
+
 ## [0.1.3] - 2020-05-23
 
 - Added: Player Assaults (PvP)!
