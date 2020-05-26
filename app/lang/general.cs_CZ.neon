@@ -80,6 +80,7 @@ ui:
 	remove: 'Odebrat'
 	extra: 'Extra'
 	changeAvatar: 'Změnit avatar'
+	skip: 'Přeskočit'
 	locationStatus:
 		closed: 'Zavřeno'
 
@@ -93,6 +94,7 @@ faq:
 		1: "... hráč u sebe nemůže mít více než $999,999,999?"
 		2: "... můžeš trénovat i když zrovna pracuješ?"
 		3: "... můžeš jít na průzkum i když právě odpočíváš? Abys nejlépe využil svůj čas, nejprve jdi odpočívat a potom jdi na průzkum. Když půjdeš nejdřív na průzkum, už nebudeš moct jít odpočívat, dokud se zase nevrátíš zpět."
+		4: '... že se můžeš o hře naučit více na naší Wiki? Jdi na <a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">Wiki (na novém panelu)</a>'
 
 training:
 	train: 'Trénovat'

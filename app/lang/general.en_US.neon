@@ -80,6 +80,7 @@ ui:
 	remove: 'Remove'
 	extra: 'Extra'
 	changeAvatar: 'Change avatar'
+	skip: 'Skip'
 	locationStatus:
 		closed: 'Closed'
 
@@ -93,6 +94,7 @@ faq:
 		1: "... that the maximum amount of money a player can have on hand is $999,999,999"
 		2: "... that you can train your stats while you're on a job?"
 		3: "... that you can still go scavenging while resting? To make the most of your time, go to rest first and then go scavenging. If you go scavenging first, you won't be able to go to rest until you return back."
+		4: '... that you can learn more about the game on our Wiki? Go to <a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">Wiki (in new tab)</a>'
 
 training:
 	train: 'Train'

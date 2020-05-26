@@ -8,6 +8,8 @@
 {var $speDiff = $victim->player_stats->speed - $attacker->player_stats->speed}
 {var $powDiff = $victim->player_stats->power - $attacker->player_stats->power}
 
+{var $showStats = isset($noStats) ? $noStats : false}
+
 <div class="uk-card uk-width-expand@s uk-card-default uk-card-body" id="victimCard">
   <h3 class="uk-flex uk-flex-center uk-text-center uk-flex-middle uk-margin-remove-bottom">
     {$victim->username}&nbsp;<span class="uk-badge uk-badge-outline">{$victim->player_stats->level}</span>
@@ -17,11 +19,12 @@
     max => $victim->player_stats->stamina * 2,
     value => $victim->player_stats->stamina * 2,
     type => 'red',
-    small => true
+    small => true,
+    name => 'victimHp'
   }
   <div class="split">
     <div class="uk-width-expand uk-margin-right">
-      <table class="uk-table uk-table-small uk-table-hover">
+      <table class="uk-table uk-table-small uk-table-hover" n:if="!$showStats">
         <tr>
           <td class="uk-text-nowrap">{$victim->player_stats->strength}</td>
           <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $strDiff > 0}uk-text-success{elseif $strDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.strength.pvp}: {$attacker->player_stats->strength}"><span n:if="$strDiff > 0">+</span>{$strDiff}</td>

@@ -14,8 +14,6 @@ final class PlayerPresenter extends BasePresenter
 
 	private $userRepository;
 
-	private $otherUser;
-
 	public function __construct(
 		UserRepository $userRepository
 	)
@@ -34,7 +32,28 @@ final class PlayerPresenter extends BasePresenter
 		}
 		$otherPlayer = $this->userRepository->getUserByName($user);
 		if ($otherPlayer) {
-			$this->otherUser = $otherPlayer->username;
+			$reward = $this->getRewards($otherPlayer);
+			$this->template->otherPlayer = $otherPlayer;
+			$this->template->cashMoney = $reward['win_money'];
+			$this->template->cashMoneyLose = $reward['lose_money'];
+		} else {
+			$this->error();
+		}
+	}
+
+	public function renderAssault(int $id) {
+		if (!$id) {
+			$this->redirect('Default:default');
+		}
+		$assault = $this->assaultPlayer($id);
+		$result = json_decode($assault);
+		$this->template->rounds = $result->rounds;
+		$this->template->roundCount = count($result->rounds);
+		$this->template->result = $result->result;
+		$this->template->attacker = $result->attacker;
+		$this->template->victim = $result->victim;
+		$otherPlayer = $this->userRepository->getUser($id);
+		if ($otherPlayer) {
 			$reward = $this->getRewards($otherPlayer);
 			$this->template->otherPlayer = $otherPlayer;
 			$this->template->cashMoney = $reward['win_money'];
@@ -63,18 +82,6 @@ final class PlayerPresenter extends BasePresenter
 		$winReward['lose_money'] = round(($player->money / 100) * $percentage);
 
 		return $winReward;
-	}
-
-	public function renderAssault(int $id) {
-		if (!$id) {
-			$this->redirect('Default:default');
-		}
-		$assault = $this->assaultPlayer($id);
-		$result = json_decode($assault);
-		$this->template->results = $result->rounds;
-		$this->template->result = $result->result;
-		$this->template->attacker = $result->attacker;
-		$this->template->victim = $result->victim;
 	}
 
 	public function assaultPlayer(int $id) {

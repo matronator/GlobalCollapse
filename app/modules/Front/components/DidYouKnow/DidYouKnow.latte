@@ -2,10 +2,14 @@
   <div class="uk-slider-container uk-width-expand">
     <h3 class="uk-margin-remove-horizontal">{_general.faq.title}</h3>
     <ul class="uk-slider-items uk-child-width-1-1">
-      {for $i = 1; $i <= 3; $i++}
+      {for $i = 1; $i <= 4; $i++}
       <li>
         <div class="uk-text-center uk-padding uk-padding-remove-vertical">
-          <p class="uk-margin-remove">{_general.faq.items.$i}</p>
+          {if $i == 4}
+            <p class="uk-margin-remove">{_general.faq.items.$i|noescape}</p>
+          {else}
+            <p class="uk-margin-remove">{_general.faq.items.$i}</p>
+          {/if}
         </div>
       </li>
       {/for}
