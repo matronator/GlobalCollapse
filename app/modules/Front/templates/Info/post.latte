@@ -1,0 +1,22 @@
+{define bodyClass}page--info{/define}
+{define pageTitle}News{/define}
+{define metaDescription}News{/define}
+
+{block pageContent}
+  <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+    <div class="dashboard uk-flex uk-flex-top" uk-margin>
+      {* {var $img = $article['common']->image} *}
+      <div class="uk-card uk-card-body uk-card-default uk-width-1-1">
+        <article class="uk-article">
+          <h2 class="uk-article-title">{$translation->title}</h2>
+          <div class="uk-text-light">
+            {$translation->text|noescape}
+          </div>
+          <div class="uk-margin-top">
+            <a n:href="Info:news" class="uk-button uk-button-default">{_general.ui.back}</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+{/block}

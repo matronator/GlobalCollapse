@@ -1,4 +1,79 @@
 {layout '../@layoutSginedIn.latte'}
 
 {block content}
-{* TODO *}
+
+<h1 n:block="title"><strong>{ifset $row}Upravit{else}Vytvořit{/ifset}</strong> článek</h1>
+
+<div id="tabs">
+
+    {if count($presenter->localeList)>0}
+        <ul id="tabsnav" uk-switcher="connect: .langs" uk-tab>
+            <li><a href="#tab-lang-en">EN</a></li>
+        </ul>
+    {/if}
+
+    {form articleForm}
+        <ul class="uk-switcher langs">
+          <li id="tab-lang-en">
+
+              <div class="input text uk-margin-bottom">
+                  {label title /}
+                  {input title}
+              </div>
+
+              <div class="input textarea input-text uk-margin-bottom">
+                  {label text /}
+                  {input text}
+              </div>
+
+              <div class="tags uk-margin-bottom">
+                  {label tags /}
+                  {input tags data-role=>"tagsinput", placeholder=>'Vložte štítek'}
+              </div>
+
+          </li>
+        </ul>
+        <div class="uk-flex">
+            <div class="input text uk-margin-bottom uk-margin-right">
+                {label date /}
+                {input date class=>'uk-input datetime'}
+            </div>
+        </div>
+
+        <div class="input upload uk-margin-bottom">
+            <div class="text">
+                <span class="n1">Úvodní obrázek</span>
+                <span class="n2">Fotografie nahrávejte ve formátu .JPG nebo .PNG a do velikosti 4MB. Doporučené rozměry jsou 1220 x 400 px.</span>
+            </div>
+
+            <div class="file uk-margin-bottom">
+                {input image id=>'image'}
+                <label class="button-icon" for="image">
+							<span class="icon transition">
+								<i></i>
+							</span>
+                    <span class="label transition">Vybrat soubor</span>
+                </label>
+            </div>
+
+            {ifset $row->image}
+                {var $img = $basePath.$dir.$row->image}
+                <img src="{$img}" class="uk-responsive-width" alt=""/>
+            {/ifset}
+
+        </div>
+
+        <div class="uk-flex">
+            <div class="input storno">
+                <a n:href="default" class="uk-button uk-button-secondary">
+                    <span class="label transition">Zrušit</span>
+                </a>
+            </div>
+            <div class="input submit uk-margin-left">
+                <button class="uk-button uk-button-primary" n:name="save">
+                    <span class="label bg-c-1 bg-c-2-hover transition">Uložit</span>
+                </button>
+            </div>
+        </div>
+    {/form}
+</div>

@@ -40,6 +40,11 @@ class ArticlesRepository
         return $this->database->table('article_translation');
     }
 
+    public function findAllTags()
+    {
+        return $this->database->table('article_tag');
+    }
+
     public function findArticleTranslations(int $articleId)
     {
         return $this->database->table('article_translation')->where('article_id', $articleId);
@@ -86,17 +91,4 @@ class ArticlesRepository
         return $data;
 
     }
-
-	public function findAllImages()
-	{
-		return $this->database->table('article_images');
-	}
-
-	public function saveGallery(array $photos, int $id)
-	{
-		foreach ($photos as $photo) {
-			$this->findAllImages()->insert(array('article_id' => $id, 'filename' => $photo));
-		}
-	}
-
 }

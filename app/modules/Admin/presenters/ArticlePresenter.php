@@ -42,7 +42,7 @@ final class ArticlePresenter extends BasePresenter
         foreach ($articles as $article) {
             $data[$article->id] = [
                 'common' => $article,
-                'translation' => $this->articles->findAllTranslations()->where('article_id', $article->id)->where('locale', $this->defaultLocale)->fetch()
+                'translation' => $this->articles->findAllTranslations()->where('article_id', $article->id)->where('locale', 'en')->fetch()
             ];
         }
 
@@ -50,7 +50,7 @@ final class ArticlePresenter extends BasePresenter
 	}
 
 
-	public function renderEdit(int $id)
+	public function renderEdit(int $id = null)
     {
         $form = $this['articleForm'];
 
@@ -63,16 +63,14 @@ final class ArticlePresenter extends BasePresenter
             $translations = $this->articles->findArticleTranslations($id)->fetchAll();
 
             foreach ($translations as $translation) {
-                $defaults['title_'.$translation->locale] = $translation->title;
-                $defaults['htaccess_'.$translation->locale] = $translation->htaccess;
-                $defaults['perex_'.$translation->locale] = $translation->perex;
-                $defaults['text_'.$translation->locale] = $translation->text;
+                $defaults['title'] = $translation->title;
+                $defaults['htaccess'] = $translation->htaccess;
+                $defaults['perex'] = $translation->perex;
+                $defaults['text'] = $translation->text;
             }
 
-            foreach ($this->localeList as $locale) {
-                $tags = $this->articles->findAllTags()->select('title')->where('article_id', $id)->where('locale', $locale)->fetchAssoc('title');
-                $defaults['tags_'.$locale] = implode(',', array_keys($tags));
-            }
+            $tags = $this->articles->findAllTags()->select('title')->where('article_id', $id)->where('locale', 'en')->fetchAssoc('title');
+            $defaults['tags'] = implode(',', array_keys($tags));
 
             $form->setDefaults($defaults);
             $this->template->row = $row;
@@ -90,7 +88,6 @@ final class ArticlePresenter extends BasePresenter
     {
         $row = $this->articles->findAll()->get($id);
         $translations = $this->articles->findArticleTranslations($id);
-        $photos = $this->articles->findAllImages()->where('article_id', $id);
 
         if (!$row) {
             $this->flashMessage('Záznam nenalezen!');
@@ -98,11 +95,6 @@ final class ArticlePresenter extends BasePresenter
 
 			if($row->image) {
 				$this->imageStorage->delete($row->image, $this->articles->uploadDir);
-			}
-
-			foreach ($photos as $photo) {
-				$this->imageStorage->delete($photo, $this->articles->uploadDir);
-				$this->articles->findAllImages()->where('article_id', $photo)->delete();
 			}
 
             $this->articles->findArticleTranslations($id)->delete();
@@ -115,26 +107,10 @@ final class ArticlePresenter extends BasePresenter
         $this->redirect('default');
     }
 
-	public function actionDeletePhoto(int $id)
-	{
-		$row = $this->articles->findAllImages()->get($id);
-
-		if (!$row) {
-			$this->flashMessage('Záznam nenalezen!');
-		} else {
-			$this->flashMessage('Záznam úspěšně smazán!');
-			$this->articles->findAllImages()->wherePrimary($id)->delete();
-			$this->imageStorage->delete($row->filename, $this->articles->uploadDir);
-		}
-
-		$this->redirect('default');
-	}
-
 	public function handleShow(int $id, bool $visible)
     {
         $this->articles->findAll()->where('id', $id)->update(['visible' => !$visible]);
     }
-
 
 	/*********************** COMPONENT FACTORIES ***********************/
 	/**
@@ -145,26 +121,23 @@ final class ArticlePresenter extends BasePresenter
     {
         $form = new Form;
 
-        foreach ( $this->localeList as $lang ) {
+        $form->addText('title', 'Title')
+            ->setHtmlAttribute('class', 'uk-input');
+        $form->addTextarea('text', 'Text')
+            ->setHtmlAttribute('class', 'ckeditor uk-textarea');
 
-            $form->addText('title_'.$lang, $lang.': Název');
-            $form->addText('htaccess_'.$lang, $lang.': URL');
-            $form->addTextArea('perex_'.$lang, $lang.': Perex')
-                ->setAttribute('class', 'ckeditor');
-            $form->addTextarea('text_'.$lang, $lang.': Text')
-                ->setAttribute('class', 'ckeditor');
+        $form->addText('tags', 'Tags')
+            ->setHtmlAttribute('class', 'uk-input');
 
-            $form->addText('tags_'.$lang, $lang.': Štítky');
-        }
+        $form->addText('date', 'Date')
+            ->setDefaultValue(date('d.m.Y H:i:s'))
+            ->setHtmlAttribute('class', 'uk-input');
 
-        $form->addText('date', 'Datum')
-            ->setDefaultValue(date('d.m.Y H:i:00'));
+        $form->addUpload('image', 'Image');
 
-        $form->addUpload('image', 'Obrázek');
+        // $form->addMultiUpload('files', 'Files:');
 
-        $form->addMultiUpload('files', 'Soubory:');
-
-        $form->addSubmit('save', 'Uložit');
+        $form->addSubmit('save', 'Save');
         $form->onSuccess[] = [$this, 'articleFormSucceeded'];
         return $form;
     }
@@ -176,23 +149,6 @@ final class ArticlePresenter extends BasePresenter
 
         // Insert primary record
         $primaryData = [];
-
-
-        if( empty( trim($values->{'title_' . $this->defaultLocale})) ) { // default language title is not set
-            foreach ($this->localeList as $lang) {
-                if ( trim($values->{'title_' . $lang}) ) {
-                    $title = $values->{'title_' . $lang};
-                    break;
-                }
-            }
-        } else {
-            $title = $values->{'title_' . $this->defaultLocale};
-        }
-
-        if( !isset($title) ) {
-            $this->flashMessage('Nevložili jste titulek článku. Data nemohla být uložena.');
-            $this->redirect('default');
-        }
 
         // Set htaccess & date
         $primaryData['date'] = DateTime::createFromFormat('d.m.Y H:i:s', $values->date);
@@ -217,35 +173,29 @@ final class ArticlePresenter extends BasePresenter
             $articleId = $row->id;
         }
 
-        // Insert translations
-        foreach ( $this->localeList as $lang ) {
-            $this->articles->findAllTranslations()->insert([
-                'article_id' => $articleId,
-                'locale' => $lang,
-                'title' => $values->{'title_'.$lang},
-                'perex' => $values->{'perex_'.$lang},
-                'text' => $values->{'text_'.$lang},
-                'htaccess' => Strings::webalize($values->{'title_'.$lang}),
-                'updated_at' => new DateTime()
-            ]);
-
-            // Insert tags
-            $tags = explode(',', $values->{'tags_'.$lang});
-            foreach ($tags as $tag) {
-                if ($tag)
-                    $this->articles->findAllTags()->insert([
-                        'article_id' => $articleId,
-                        'locale' => $lang,
-                        'title' => trim($tag),
-                        'htaccess' => Strings::webalize($tag),
-                        'updated_at' => new DateTime()
-                    ]);
-            }
+        $this->articles->findAllTranslations()->insert([
+            'article_id' => $articleId,
+            'locale' => 'en',
+            'title' => $values->title,
+            'perex' => substr($values->text, 0, 50),
+            'text' => $values->text,
+            'htaccess' => Strings::webalize($values->title),
+            'updated_at' => new DateTime()
+        ]);
+        $tags = explode(',', $values->{'tags'});
+        // Insert tags
+        foreach ($tags as $tag) {
+            if ($tag)
+                $this->articles->findAllTags()->insert([
+                    'article_id' => $articleId,
+                    'locale' => 'en',
+                    'title' => trim($tag),
+                    'htaccess' => Strings::webalize($tag),
+                    'updated_at' => new DateTime()
+                ]);
         }
 
-
         // Redirect
-        $this->redirect('default');
-
+        $this->redirect('Article:default');
     }
 }

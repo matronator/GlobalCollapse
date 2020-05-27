@@ -29,12 +29,13 @@
       </ul>
     </li>
     <li class="uk-nav-divider"></li>
-    <li class="uk-parent">
+    <li n:class="$presenter->isLinkCurrent('Info:*') ? uk-open, uk-parent">
       <a href="#" class="uk-nav-header">{_general.ui.sidebar.info.title}</a>
       <ul class="uk-nav-sub">
-        <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">{_general.ui.sidebar.info.news}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Info:news') ? uk-active"><a n:href="Info:news">{_general.ui.sidebar.info.news}</a></li>
         <li><a href="https://github.com/matronator/GlobalCollapse#support-the-project" target="_blank" rel="noopener">{_general.ui.sidebar.info.donations}</a></li>
         <li><a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">{_general.ui.sidebar.info.help}</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">Changelog</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Info:tos') ? uk-active"><a n:href="Info:tos">{_general.ui.sidebar.info.tos}</a></li>
         <li n:class="$presenter->isLinkCurrent('Info:copyright') ? uk-active"><a n:href="Info:copyright">{_general.ui.sidebar.info.copyright}</a></li>
@@ -43,7 +44,7 @@
     </li>
   </ul>
 {/define}
-{define mobileMenu}
+{define notLogged}
   <a class="uk-navbar-item uk-logo uk-margin-bottom uk-hidden@m" n:href="Default:default">
       <img src="{$basePath}/dist/front/images/logo-small.png" alt="Logo">
   </a>
@@ -74,7 +75,7 @@
   {if $loggedin}
     {include sidebarGame}
   {else}
-    {include mobileMenu}
+    {include notLogged}
   {/if}
 </div>
 <div id="offcanvas" uk-offcanvas="mode: slide; overlay: true; selClose: .sidebar-close;" class="uk-offcanvas offcanvas-main">
@@ -88,7 +89,7 @@
       {if $loggedin}
         {include sidebarGame}
       {else}
-        {include mobileMenu}
+        {include notLogged}
       {/if}
     </div>
   </div>
