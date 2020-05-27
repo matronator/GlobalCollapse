@@ -86,11 +86,12 @@ function playRound(current) {
           vHpBarSpan,
           vHpBarFill,
           victimHp,
+          attackerDmg,
           aHpBar,
           aHpBarSpan,
           aHpBarFill
         )
-      }, 2000)
+      }, 1500)
     )
   }
 }
@@ -102,6 +103,7 @@ function attackerHit(
   vHpBarSpan,
   vHpBarFill,
   victimHp,
+  attackerDmg,
   aHpBar,
   aHpBarSpan,
   aHpBarFill
@@ -121,6 +123,11 @@ function attackerHit(
     round.classList.add(`uk-hidden`)
   })
   currentRound.classList.remove(`uk-hidden`)
+  const attackerDmgSpan = document.getElementById(`attackerDmg`)
+  attackerDmgSpan.innerHTML = `- ${attackerDmg}`
+  attackerDmgSpan.classList.remove(`hidden`)
+  const victimDmgSpan = document.getElementById(`victimDmg`)
+  victimDmgSpan.classList.add(`hidden`)
 
   if (victimHp > 0) {
     const { victimDmg, attackerHp } = currentRound.querySelector(
@@ -129,8 +136,15 @@ function attackerHit(
 
     timeouts.push(
       setTimeout(() => {
-        victimHit(aHpBar, aHpBarSpan, aHpBarFill, attackerHp, current)
-      }, 2000)
+        victimHit(
+          aHpBar,
+          aHpBarSpan,
+          aHpBarFill,
+          attackerHp,
+          victimDmg,
+          current
+        )
+      }, 1500)
     )
   } else {
     document.getElementById(`assaultResult`).classList.remove(`uk-hidden`)
@@ -139,7 +153,14 @@ function attackerHit(
   }
 }
 
-function victimHit(aHpBar, aHpBarSpan, aHpBarFill, attackerHp, current) {
+function victimHit(
+  aHpBar,
+  aHpBarSpan,
+  aHpBarFill,
+  attackerHp,
+  victimDmg,
+  current
+) {
   aHpBar.dataset.barValue = attackerHp
   aHpBarSpan.innerHTML = attackerHp
   let newBarFillA = Math.round(
@@ -150,6 +171,12 @@ function victimHit(aHpBar, aHpBarSpan, aHpBarFill, attackerHp, current) {
   }
   aHpBar.dataset.barFill = newBarFillA
   aHpBarFill.style.width = `${newBarFillA}%`
+
+  const victimDmgSpan = document.getElementById(`victimDmg`)
+  victimDmgSpan.innerHTML = `- ${victimDmg}`
+  victimDmgSpan.classList.remove(`hidden`)
+  const attackerDmgSpan = document.getElementById(`attackerDmg`)
+  attackerDmgSpan.classList.add(`hidden`)
 
   if (attackerHp > 0) {
     playRound(current + 1)

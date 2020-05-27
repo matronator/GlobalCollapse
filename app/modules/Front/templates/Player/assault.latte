@@ -5,16 +5,7 @@
 {block pageContent}
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
     <div class="dashboard dashboard-assaults uk-flex" uk-margin>
-      {include '../../components/Assault/AttackerCard.latte',
-        attacker => $user,
-        victim => $otherPlayer,
-        noStats => true
-      }
-      {include '../../components/Assault/VictimCard.latte',
-        victim => $otherPlayer,
-        attacker => $user,
-        noStats => true
-      }
+      {include '../../components/Assault/AssaultCard.latte'}
       <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center" id="assaultControls">
         <div n:ifset="$rounds" data-assault-rounds="{$roundCount}">
           <div n:foreach="$rounds as $round" class="border-bottom uk-hidden" data-assault-round="{$round->id}">
@@ -23,14 +14,14 @@
               {if $round->attacker->dmg != 'dodged'}
                 {$attacker} hits for {$round->attacker->dmg}! {$victim} has {$round->victim->hp} health left.
               {else}
-                {$attacker} swings, but {$victim} {$round->attacker->dmg} the attack!.
+                {$attacker} swings, but {$victim} dodged the attack!.
               {/if}
             </p>
             <p n:if="$round->victim->hp > 0" data-victim-round="{$round->id}" class="victim-round" data-victim-dmg="{$round->victim->dmg}" data-attacker-hp="{$round->attacker->hp}">
               {if $round->victim->dmg != 'dodged'}
                 {$victim} hits for {$round->victim->dmg}! {$attacker} has {$round->attacker->hp} health left.
               {else}
-                {$victim} swings, but {$attacker} {$round->attacker->dmg} the attack!.
+                {$victim} swings, but {$attacker} dodged the attack!.
               {/if}
             </p>
             {/if}

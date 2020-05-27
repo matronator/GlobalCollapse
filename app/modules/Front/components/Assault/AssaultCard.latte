@@ -1,0 +1,42 @@
+<div class="uk-card uk-width-expand@s uk-card-default uk-card-body" id="battle">
+  <div class="uk-text-left uk-flex uk-flex-middle flex-responsive">
+    <h4 class="uk-text-nowrap uk-margin-remove uk-padding-remove uk-width-1-4@s">
+      {$user->username}
+    </h4>
+    {include '../../components/ProgressBar/ProgressBar.latte',
+      min => 0,
+      max => $user->player_stats->stamina * 2,
+      value => $user->player_stats->stamina * 2,
+      type => 'red',
+      small => true,
+      name => 'attackerHp'
+    }
+  </div>
+  <div class="uk-width-expand uk-flex uk-flex-between">
+    <div class="uk-width-auto uk-flex uk-flex-column">
+      <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}.jpg" class="uk-comment-avatar uk-hidden@s" width="64" height="64">
+      <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}.jpg" class="uk-comment-avatar uk-visible@s" width="128" height="128">
+    </div>
+    <div class="uk-width-expand uk-text-danger uk-text-bold uk-flex uk-flex-center">
+        <div class="assault-hit hidden uk-text-left" id="victimDmg"></div>
+        <div class="assault-hit hidden uk-text-right" id="attackerDmg"></div>
+    </div>
+    <div class="uk-width-auto uk-flex uk-flex-column">
+      <img src="{$basePath}/dist/front/images/default-avatars/{$otherPlayer->avatar}.jpg" class="uk-comment-avatar uk-hidden@s" width="64" height="64">
+      <img src="{$basePath}/dist/front/images/default-avatars/{$otherPlayer->avatar}.jpg" class="uk-comment-avatar uk-visible@s" width="128" height="128">
+    </div>
+  </div>
+  <div class="uk-text-right uk-flex uk-flex-middle flex-responsive">
+    {include '../../components/ProgressBar/ProgressBar.latte',
+      min => 0,
+      max => $otherPlayer->player_stats->stamina * 2,
+      value => $otherPlayer->player_stats->stamina * 2,
+      type => 'red',
+      small => true,
+      name => 'victimHp'
+    }
+    <h4 class="uk-text-nowrap uk-margin-remove uk-padding-remove uk-width-1-4@s">
+      {$otherPlayer->username}
+    </h4>
+  </div>
+</div>
