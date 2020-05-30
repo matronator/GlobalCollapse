@@ -1,0 +1,55 @@
+{**
+ *         News feed
+ *
+ *  $data           array       Array with the articles
+ *  $pagination    ?boolean     Enable pagination
+ *  $page          ?number      Current page
+ *  $lastPage      ?number      Last page
+ *  $card          ?boolean     Card
+ *
+**}
+
+{foreach $data as $article}
+  {ifset $card}
+    {include 'ArticleCard.latte', article => $article, card => $card}
+  {else}
+    {include 'ArticleCard.latte', article => $article}
+    <hr>
+  {/ifset}
+{/foreach}
+
+{ifset $pagination}
+  <ul class="uk-pagination uk-flex-center uk-width-1-1">
+    <li n:class="$page==1 ? uk-disabled, uk-margin-auto-right">
+      {if $page > 1}
+        <a n:href="Info:news, 1"><span uk-icon="chevron-double-left"></span> First</a>
+      {/if}
+    </li>
+    {if $page > 1}
+      <li><a n:href="Info:news, $page-1"><span uk-pagination-previous></span></a></li>
+      <li class="uk-disabled" n:if="$page == $lastPage"><span>...</span></li>
+    {/if}
+
+    {for $i = $page - 1; $i <= $page + 1; $i++}
+      <li n:if="$i >= 1 && $i <= $lastPage" n:class="$i==$page ? uk-active">
+        {if $i == $page}
+          <span>{$i}</span>
+        {else}
+          <a n:href="Info:news, $i">{$i}</a>
+        {/if}
+      </li>
+    {/for}
+
+    {if $page < $lastPage}
+      <li class="uk-disabled" n:if="$page == 1"><span>...</span></li>
+      <li><a n:href="Info:news, $page+1"><span uk-pagination-next></span></a></li>
+    {/if}
+    <li n:class="$page == $lastPage ? uk-disabled, uk-margin-auto-left">
+      {if $page < $lastPage}
+        <a n:href="Info:news, $lastPage">Last <span uk-icon="chevron-double-right"></span></a>
+      {/if}
+    </li>
+  </ul>
+{else}
+  <a n:href="Info:news" class="uk-button uk-button-secondary uk-margin-top">All posts</a>
+{/ifset}

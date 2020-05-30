@@ -19,13 +19,18 @@ final class DefaultPresenter extends BasePresenter
 	private $userRepository;
 	private $drugsRepository;
 
+	/** @var Model\ArticlesRepository */
+  private $articleModel;
+
 	public function __construct(
 		UserRepository $userRepository,
-		DrugsRepository $drugsRepository
+		DrugsRepository $drugsRepository,
+		Model\ArticlesRepository $articleModel
 	)
 	{
 		$this->userRepository = $userRepository;
 		$this->drugsRepository = $drugsRepository;
+		$this->articleModel = $articleModel;
 	}
 
 	protected function startup()
@@ -42,6 +47,17 @@ final class DefaultPresenter extends BasePresenter
 			for ($i = 1; $i <= 21; $i++) {
 				$avatars[$i] = $i;
 			}
+			$articles = $this->articleModel->findAll()->select('*')->order('date DESC')->limit(2);
+			$lastPage = 0;
+			$data = [];
+			foreach ($articles as $article) {
+				$data[$article->id] = [
+					'common' => $article,
+					'translation' => $this->articleModel->findAllTranslations()->where('article_id', $article->id)->where('locale', 'en')->fetch()
+				];
+			}
+			$this->template->articles = $data;
+
 			$this->template->avatars = $avatars;
 			$this->template->userAvatar = $player->avatar;
 			$xp = $player->player_stats->xp;
@@ -82,6 +98,16 @@ final class DefaultPresenter extends BasePresenter
 		} else {
 			$drugs = $this->drugsRepository->findAll();
 			$this->template->drugs = $drugs;
+			$articles = $this->articleModel->findAll()->select('*')->order('date DESC')->limit(5);
+			$lastPage = 0;
+			$data = [];
+			foreach ($articles as $article) {
+				$data[$article->id] = [
+					'common' => $article,
+					'translation' => $this->articleModel->findAllTranslations()->where('article_id', $article->id)->where('locale', 'en')->fetch()
+				];
+			}
+			$this->template->articles = $data;
 		}
 	}
 

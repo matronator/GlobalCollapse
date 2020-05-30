@@ -1,0 +1,20 @@
+{**
+ *         Article card
+ *
+ *  $article        object       Article object
+ *
+**}
+
+{var $img = $article['common']->image}
+{ifset $card}<div class="uk-card uk-card-body uk-card-default uk-width-1-1">{/ifset}
+  <article class="uk-article uk-width-1-1">
+    <h2 class="uk-article-title"><a n:href="Info:post, $article['common']->id">{$article['translation']->title}</a></h2>
+    <p class="uk-article-meta">{$article['common']->created_at|date:'d M Y - H:i:s'}</p>
+    <div class="uk-text-light">
+      {$article['translation']->text|noescape|truncate:200}
+    </div>
+    <div class="uk-margin-top">
+      <a n:href="Info:post, $article['common']->id" class="{ifset $card}uk-button uk-button-default{/ifset}">More</a>
+    </div>
+  </article>
+{ifset $card}</div>{/ifset}

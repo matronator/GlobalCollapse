@@ -17,66 +17,77 @@
       <hr class="uk-divider-small uk-hidden@s" style="width:100%;">
       <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">{_general.ui.signup}</a>
     </div>
+    <div uk-margin>
+      {include '../../components/NewsFeed/NewsFeed.latte', data => $articles, card => true}
+    </div>
   </div>
   <div class="dashboard uk-flex uk-flex-top" n:if="$presenter->user->isLoggedIn()" uk-margin>
-    <div class="uk-card uk-width-expand@s uk-card-default uk-card-body">
-      <h3 class="uk-card-title">{$user->username}&nbsp;<small class="uk-text-muted uk-text-light">L{$user->player_stats->level}</small></h3>
-      <div class="uk-flex uk-flex-top">
-        <div class="uk-width-auto uk-margin-right">
-          <a href="#change-avatar" uk-toggle="target: #change-avatar;">
-            <div class="uk-inline uk-position-relative">
-              <img src="{$basePath}/dist/front/images/default-avatars/{$userAvatar}.jpg" class="uk-comment-avatar" width="96" height="96">
-              <div class="uk-overlay uk-overlay-primary uk-position-center" id="avatarChange">
-                  <p class="text-tiny">{_general.ui.changeAvatar}</p>
+    <div class="uk-width-expand">
+      <div class="uk-card uk-width-1-1 uk-card-default uk-card-body">
+        <h3 class="uk-card-title">{$user->username}&nbsp;<small class="uk-text-muted uk-text-light">L{$user->player_stats->level}</small></h3>
+        <div class="uk-flex uk-flex-top">
+          <div class="uk-width-auto uk-margin-right">
+            <a href="#change-avatar" uk-toggle="target: #change-avatar;">
+              <div class="uk-inline uk-position-relative">
+                <img src="{$basePath}/dist/front/images/default-avatars/{$userAvatar}.jpg" class="uk-comment-avatar" width="96" height="96">
+                <div class="uk-overlay uk-overlay-primary uk-position-center" id="avatarChange">
+                    <p class="text-tiny">{_general.ui.changeAvatar}</p>
+                </div>
               </div>
+            </a>
+          </div>
+          <div class="uk-width-expand uk-flex uk-flex-column">
+            <div class="uk-width-expand uk-flex uk-padding-tiny uk-child-width-1-2@s uk-text-center border-bottom" uk-tooltip="Maximum a player can have is $999,999,999">
+              <div class="uk-text-left@s uk-text-bold uk-width-auto uk-width-1-2@s">{_general.stats.money}</div>
+              <div class="uk-text-right uk-width-expand uk-width-1-2@s">${$user->money|number}</div>
             </div>
-          </a>
-        </div>
-        <div class="uk-width-expand uk-flex uk-flex-column">
-          <div class="uk-width-expand uk-flex uk-padding-tiny uk-child-width-1-2@s uk-text-center border-bottom" uk-tooltip="Maximum a player can have is $999,999,999">
-            <div class="uk-text-left@s uk-text-bold uk-width-auto uk-width-1-2@s">{_general.stats.money}</div>
-            <div class="uk-text-right uk-width-expand uk-width-1-2@s">${$user->money|number}</div>
-          </div>
-          <div class="uk-width-expand uk-flex uk-flex-row uk-padding-tiny uk-child-width-1-2 border-bottom">
-            <div class="uk-text-left uk-text-bold">{_general.stats.power.title}</div>
-            <div class="uk-text-right">{$user->player_stats->power}</div>
+            <div class="uk-width-expand uk-flex uk-flex-row uk-padding-tiny uk-child-width-1-2 border-bottom">
+              <div class="uk-text-left uk-text-bold">{_general.stats.power.title}</div>
+              <div class="uk-text-right">{$user->player_stats->power}</div>
+            </div>
           </div>
         </div>
+        <div class="uk-width-expand">
+          {include '../../components/ProgressBar/ProgressBar.latte',
+            min => $xpMin,
+            max => $xpMax,
+            value => $xp,
+            type => 'xp'
+          }
+        </div>
+        <div class="uk-width-expand">
+          {include '../../components/ProgressBar/ProgressBar.latte',
+            min => 0,
+            max => $user->player_stats->energy_max,
+            value => $user->player_stats->energy,
+            type => 'yellow',
+            name => 'energyBar',
+            small => true
+          }
+        </div>
+        <div id="change-avatar" hidden>
+          {form avatarForm}
+            {foreach $form[avatar]->items as $key => $label}
+              <label class="avatar-label" n:name="avatar:$key">
+                <input class="uk-radio uk-input avatar-option" type="radio" n:name="avatar:$key">
+                <img src="{$basePath}/dist/front/images/default-avatars/{$key}.jpg" class="uk-comment-avatar avatar-preview" width="86" height="86">
+              </label>
+            {/foreach}
+            <div class="avatar-submit-holder">
+              <button type="submit" class="uk-button uk-button-primary" n:name="save">{_general.ui.save}</button>
+            </div>
+          {/form}
+        </div>
       </div>
-      <div class="uk-width-expand">
-        {include '../../components/ProgressBar/ProgressBar.latte',
-          min => $xpMin,
-          max => $xpMax,
-          value => $xp,
-          type => 'xp'
-        }
-      </div>
-      <div class="uk-width-expand">
-        {include '../../components/ProgressBar/ProgressBar.latte',
-          min => 0,
-          max => $user->player_stats->energy_max,
-          value => $user->player_stats->energy,
-          type => 'yellow',
-          name => 'energyBar',
-          small => true
-        }
-      </div>
-      <div id="change-avatar" hidden>
-        {form avatarForm}
-          {foreach $form[avatar]->items as $key => $label}
-            <label class="avatar-label" n:name="avatar:$key">
-              <input class="uk-radio uk-input avatar-option" type="radio" n:name="avatar:$key">
-              <img src="{$basePath}/dist/front/images/default-avatars/{$key}.jpg" class="uk-comment-avatar avatar-preview" width="86" height="86">
-            </label>
-          {/foreach}
-          <div class="avatar-submit-holder">
-            <button type="submit" class="uk-button uk-button-primary" n:name="save">{_general.ui.save}</button>
-          </div>
-        {/form}
+      <div class="uk-margin-top uk-card uk-width-1-1 uk-card-default uk-card-body uk-visible@s">
+        {include '../../components/NewsFeed/NewsFeed.latte', data => $articles}
       </div>
     </div>
     <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
       {include '../../components/Leaderboard/Leaderboard.latte', users => $users, page => $page, lastPage => $lastPage, itemsPerPage => $itemsPerPage}
+    </div>
+    <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-hidden@s">
+      {include '../../components/NewsFeed/NewsFeed.latte', data => $articles}
     </div>
   </div>
 </div>

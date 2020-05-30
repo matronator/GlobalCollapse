@@ -5,20 +5,13 @@
 {block pageContent}
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
     <div class="dashboard uk-flex uk-flex-top" uk-margin>
-      {foreach $data as $article}
-        {var $img = $article['common']->image}
-        <div class="uk-card uk-card-body uk-card-default uk-width-1-1">
-          <article class="uk-article">
-            <h2 class="uk-article-title"><a n:href="Info:post, $article['common']->id">{$article['translation']->title}</a></h2>
-            <div class="uk-text-light">
-              {$article['translation']->text|noescape|truncate:200}
-            </div>
-            <div class="uk-margin-top">
-              <a n:href="Info:post, $article['common']->id" class="uk-button uk-button-default">More</a>
-            </div>
-          </article>
-        </div>
-      {/foreach}
+      {include '../../components/NewsFeed/NewsFeed.latte',
+        data => $data,
+        pagination => true,
+        page => $page,
+        lastPage => $lastPage,
+        card => true
+      }
     </div>
   </div>
 {/block}

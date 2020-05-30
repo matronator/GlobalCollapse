@@ -37,7 +37,7 @@ class ArticlesRepository
 
 	public function findAllTranslations()
     {
-        return $this->database->table('article_translation');
+        return $this->database->table('article_translation')->order('created_at DESC');
     }
 
     public function findAllTags()

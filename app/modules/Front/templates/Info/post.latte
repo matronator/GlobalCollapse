@@ -12,8 +12,12 @@
           <div class="uk-text-light">
             {$translation->text|noescape}
           </div>
+          <hr>
           <div class="uk-margin-top">
-            <a n:href="Info:news" class="uk-button uk-button-default">{_general.ui.back}</a>
+            <script>
+              document.write('<a href="' + document.referrer + '">&larr; Back</a>');
+            </script>
+            {* <a href="javascript:history.back()" class="uk-button uk-button-default">{_general.ui.back}</a> *}
           </div>
         </article>
       </div>

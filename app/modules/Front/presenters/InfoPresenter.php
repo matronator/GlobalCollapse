@@ -10,12 +10,12 @@ use DateTime;
 final class InfoPresenter extends BasePresenter
 {
   /** @var Model\ArticlesRepository */
-  private $articles;
+  private $articleModel;
 
   public function __construct(
-		Model\ArticlesRepository $articles
+    Model\ArticlesRepository $articleModel
 	){
-		$this->articles = $articles;
+    $this->articleModel = $articleModel;
 	}
 
 	protected function startup()
@@ -27,20 +27,24 @@ final class InfoPresenter extends BasePresenter
 
   }
 
-  public function renderNews() {
-    $articles = $this->articles->findAll()->select('*')->order('date DESC')->fetchAll();
+  public function renderNews(int $page = 1) {
+    $allArticles = $this->articleModel->findAll()->select('*')->order('date DESC');
+    $lastPage = 0;
+    $articles = $allArticles->page($page, 10, $lastPage);
     $data = [];
     foreach ($articles as $article) {
       $data[$article->id] = [
         'common' => $article,
-        'translation' => $this->articles->findAllTranslations()->where('article_id', $article->id)->where('locale', 'en')->fetch()
+        'translation' => $this->articleModel->findAllTranslations()->where('article_id', $article->id)->where('locale', 'en')->fetch()
       ];
     }
     $this->template->data = $data;
+    $this->template->page = $page;
+    $this->template->lastPage = $lastPage;
   }
 
   public function renderPost($id = 0) {
-    $this->template->data = $this->articles->findAll()->where('id', $id)->fetch();
-		$this->template->translation = $this->articles->findArticleTranslations($id)->where('locale', 'en')->fetch();
+    $this->template->data = $this->articleModel->findAll()->where('id', $id)->fetch();
+		$this->template->translation = $this->articleModel->findArticleTranslations($id)->where('locale', 'en')->fetch();
   }
 }
