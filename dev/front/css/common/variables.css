@@ -2,45 +2,35 @@
 
 :root {
   /* Colors */
-  --mainColor: gold;
-  --mainColorAccent: gold;
-  --secondaryColor: gold;
-  --secondaryColorAccent: gold;
-  --mainTextColor: black;
-  --secondaryTextColor: gray;
+  --c-red: #ce3131;
+  --c-green: #27ad32;
+  --c-blue: #076dd3;
+  --c-yellow: #fadd5a;
 
-  /* Sizes */
-  --gap: 40px;
-  --gap2x: calc(var(--gap) * 2);
-  --gap3x: calc(var(--gap) * 3);
-  --gap4x: calc(var(--gap) * 4);
-  --gap5x: calc(var(--gap) * 5);
+  --c-light-red: #f0506e;
+  --c-light-green: #32d296;
+  --c-light-blue: #1e87f0;
+  --c-light-yellow: #ffffdd;
 
-  /* Basic responsive breakpoints */
-  --widthXL: 1680px;
-  --widthL: 1430px;
-  --widthM: 1080px;
-  --widthS: 768px;
-  --widthXS: 640px;
+  --c-dark-0: #000000;
+  --c-dark-1: #111111;
+  --c-dark-2: #222222;
+  --c-dark-3: #333333;
+  --c-dark-4: #454545;
+  --c-dark-5: #666666;
 
-  /* Breakpoint offset */
-  --mediaOffset: 20px;
+  --c-light-0: #ffffff;
+  --c-light-1: #e5e5e5;
+  --c-light-2: #dddddd;
+  --c-light-3: #cacaca;
+  --c-light-4: #aaaaaa;
+  --c-light-5: #999999;
 
-  /* Responsive breakppoints with offset */
-  --widthMediaXL: calc(var(--widthXL) + var(--mediaOffset));
-  --widthMediaL: calc(var(--widthL) + var(--mediaOffset));
-  --widthMediaM: calc(var(--widthM) + var(--mediaOffset));
-  --widthMediaS: calc(var(--widthS) + var(--mediaOffset));
-  --widthMediaXS: calc(var(--widthXS) + var(--mediaOffset));
+  /* Main colors */
+  --white: var(--c-light-0);
+  --black: var(--c-dark-0);
+  --primary: var(--c-light-blue);
+  --secondary: var(--c-dark-2);
+  --danger: var(--c-light-red);
+  --success: var(--c-light-green);
 }
-
-@custom-media --min-mediaXL (min-width: $widthMediaXL);
-@custom-media --max-mediaXL (max-width: $widthMediaXL);
-@custom-media --min-mediaL (min-width: $widthMediaL);
-@custom-media --max-mediaL (max-width: $widthMediaL);
-@custom-media --min-mediaM (min-width: $widthMediaM);
-@custom-media --max-mediaM (max-width: $widthMediaM);
-@custom-media --min-mediaS (min-width: $widthMediaS);
-@custom-media --max-mediaS (max-width: $widthMediaS);
-@custom-media --min-mediaXS (min-width: $widthMediaXS);
-@custom-media --max-mediaXS (max-width: $widthMediaXS);

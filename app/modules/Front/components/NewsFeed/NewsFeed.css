@@ -40,6 +40,6 @@
   overflow-y: auto;
   & .newsfeed-article {
     padding: 20px;
-    border-bottom: 1px solid #dedede;
+    border-bottom: 1px solid var(--c-light-2)ddd;
   }
 }

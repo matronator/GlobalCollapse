@@ -5,7 +5,7 @@
   width: 100%;
   height: 30px;
   overflow: hidden;
-  background: #aaa;
+  background: var(--c-light-4);
   border-radius: 6px;
   &\-small {
     margin: 10px auto;
@@ -13,15 +13,15 @@
     border-radius: 10px;
   }
   &.yellow {
-    background: #cacaca;
+    background: var(--c-light-3);
   }
   &.red {
-    background: #999;
+    background: var(--c-light-5);
   }
   &\-fill {
     position: relative;
     height: 100%;
-    background: #1e87f0;
+    background: var(--primary);
     transition: all 250ms ease;
   }
   &\-small .progress-bar-value {
@@ -34,16 +34,16 @@
     left: 50%;
     transform: translate(-50%,-50%);
     margin: 0;
-    color: #fff;
+    color: var(--white);
     font-weight: 500;
   }
 }
 .progress-bar.yellow .progress-bar-fill {
-  background: #fadd5a;
+  background: var(--c-yellow);
 }
 .progress-bar.red .progress-bar-fill {
-  background: #ce3131;
+  background: var(--c-red);
 }
 .progress-bar.yellow .progress-bar-value {
-  color: #000;
+  color: var(--black);
 }

@@ -24,7 +24,7 @@ body {
   width: 100%;
 }
 .uk-text-yellow {
-  color: #fadd5a !important;
+  color: var(--c-yellow) !important;
 }
 
 .flex-responsive {
@@ -61,10 +61,10 @@ body {
 }
 
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--c-light-1);
 }
 .border-left {
-  border-left: 1px solid #e5e5e5;
+  border-left: 1px solid var(--c-light-1);
 }
 
 .dashboard {
@@ -118,7 +118,7 @@ td.input-row {
   padding-top: 20px;
   padding-bottom: 20px;
   margin: auto !important;
-  color: #e5e5e5;
+  color: var(--c-light-1);
 }
 #avatarChange {
   opacity: 0;
@@ -160,7 +160,7 @@ td.input-row {
   cursor: pointer;
 }
 .avatar-option:checked + .avatar-preview {
-  outline: 3px solid #f0506e;
+  outline: 3px solid var(--c-red);
 }
 .avatar-submit-holder {
   text-align: center;
@@ -215,7 +215,7 @@ td.input-row {
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.4);
     font-weight: 600;
-    color: #fff;
+    color: var(--white);
     align-items: center;
     justify-content: center;
   }
@@ -227,8 +227,8 @@ td.input-row {
   left: -50px;
   width: 200px;
   text-align: center;
-  background-color: #f0506e;
-  color: #fff;
+  background-color: var(--danger);
+  color: var(--white);
   transform-origin: center;
   transform: rotateZ(-45deg);
 }
@@ -252,10 +252,10 @@ td.input-row {
 
 .border {
   &\--b-xs { border-bottom: none; }
-  &\--b { border-bottom: 1px solid #dddddd; }
+  &\--b { border-bottom: 1px solid var(--c-light-2)ddd; }
   @media (--xs) {
     &\--b { border-bottom: none; }
-    &\--b-xs { border-bottom: 1px solid #dddddd; }
+    &\--b-xs { border-bottom: 1px solid var(--c-light-2)ddd; }
   }
 }
 
@@ -263,11 +263,11 @@ td.input-row {
 .uk-badge {
   &\-outline {
     background: transparent;
-    border: 1px solid #000;
-    color: #000;
+    border: 1px solid var(--black);
+    color: var(--black);
 
     &:hover {
-      color: #000;
+      color: var(--black);
     }
   }
 }

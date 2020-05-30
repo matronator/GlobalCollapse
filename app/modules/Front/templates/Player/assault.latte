@@ -10,24 +10,27 @@
         <div n:ifset="$rounds" data-assault-rounds="{$roundCount}">
           <div n:foreach="$rounds as $round" class="border-bottom uk-hidden" data-assault-round="{$round->id}">
             {if $iterator->isFirst()}{else}
-            <p class="attacker-round" data-attacker-round="{$round->id}" data-attacker-dmg="{$round->attacker->dmg}" data-victim-hp="{$round->victim->hp}">
-              {if $round->attacker->dmg != 'dodged'}
-                {$attacker} hits for {$round->attacker->dmg}! {$victim} has {$round->victim->hp} health left.
+              <p class="attacker-round" data-attacker-round="{$round->id}" data-attacker-dmg="{$round->attacker->dmg}" data-victim-hp="{$round->victim->hp}">
+                {if $round->attacker->dmg != 'dodged'}
+                  <span class="assault-attacker">{$attacker}</span> hits for {$round->attacker->dmg}! <span class="assault-victim">{$victim}</span> has {$round->victim->hp} health left.
+                {else}
+                  <span class="assault-attacker">{$attacker}</span> swings, but <span class="assault-victim">{$victim}</span> dodged the attack!.
+                {/if}
+              </p>
+              {if $round->victim->hp > 0}
+                <p data-victim-round="{$round->id}" class="victim-round" data-victim-dmg="{$round->victim->dmg}" data-attacker-hp="{$round->attacker->hp}">
+                  {if $round->victim->dmg != 'dodged'}
+                    <span class="assault-victim">{$victim}</span> hits for {$round->victim->dmg}! <span class="assault-attacker">{$attacker}</span> has {$round->attacker->hp} health left.
+                  {else}
+                    <span class="assault-victim">{$victim}</span> swings, but <span class="assault-attacker">{$attacker}</span> dodged the attack!.
+                  {/if}
+                </p>
               {else}
-                {$attacker} swings, but {$victim} dodged the attack!.
+                <div data-victim-round="{$round->id}" class="victim-round uk-hidden" data-victim-dmg="{$round->victim->dmg}" data-attacker-hp="{$round->attacker->hp}"></div>
               {/if}
-            </p>
-            <p n:if="$round->victim->hp > 0" data-victim-round="{$round->id}" class="victim-round" data-victim-dmg="{$round->victim->dmg}" data-attacker-hp="{$round->attacker->hp}">
-              {if $round->victim->dmg != 'dodged'}
-                {$victim} hits for {$round->victim->dmg}! {$attacker} has {$round->attacker->hp} health left.
-              {else}
-                {$victim} swings, but {$attacker} dodged the attack!.
-              {/if}
-            </p>
             {/if}
           </div>
           <h2 id="assaultResult" class="uk-hidden">{$result|upper}!</h2>
-          <button id="assaultSkip" class="uk-button uk-button-primary">{_general.ui.skip}</button>
           <a n:href="Default:default" id="assaultDone" class="uk-button uk-button-secondary uk-hidden"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
         </div>
         <hr>

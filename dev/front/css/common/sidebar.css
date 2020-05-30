@@ -5,8 +5,8 @@
   width: 240px;
   bottom: 0;
   padding: 10px 20px 0 20px;
-  border-top: 1px solid #111111;
-  border-right: 1px solid #111111;
+  border-top: 1px solid var(--c-dark-1)111;
+  border-right: 1px solid var(--c-dark-1)111;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
