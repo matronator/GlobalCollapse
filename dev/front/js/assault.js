@@ -1,19 +1,51 @@
 const totalRounds = document.querySelector(`[data-assault-rounds]`).dataset
   .assaultRounds
 
+let thisRound = 1
 const timeouts = []
 const rounds = document.querySelectorAll(`[data-assault-round]`)
 const skipBtn = document.getElementById(`assaultSkip`)
-const allAvatars = document.querySelectorAll(`.assault-avatar`)
 const attackerAvatar = document.querySelector(
   `.assault-avatar.assault-attacker`
 )
 const victimAvatar = document.querySelector(`.assault-avatar.assault-victim`)
 let canRun = true
 
+// Attacker animation
+const attackerDmgSpan = document.getElementById(`attackerDmg`)
+attackerDmgSpan.addEventListener("animationend", () => {
+  attackerDmgSpan.classList.remove("dmg-hit-attacker")
+  const currentRound = document.querySelector(
+    `[data-assault-round="${thisRound}"]`
+  )
+  const { victimHp } = currentRound.querySelector(
+    `.attacker-round[data-attacker-round="${thisRound}"]`
+  ).dataset
+  const aHpBar = document.getElementById(`bar-attackerHp`)
+  const aHpBarSpan = document.getElementById(`barTextValue-attackerHp`)
+  const aHpBarFill = aHpBar.querySelector(`#bar-attackerHp .progress-bar-fill`)
+  halfTime(victimHp, thisRound, aHpBar, aHpBarSpan, aHpBarFill, currentRound)
+})
+
+// Victim animation
+const victimDmgSpan = document.getElementById(`victimDmg`)
+victimDmgSpan.addEventListener("animationend", () => {
+  victimDmgSpan.classList.remove("dmg-hit-victim")
+  const currentRound = document.querySelector(
+    `[data-assault-round="${thisRound}"]`
+  )
+  const { attackerHp } = currentRound.querySelector(
+    `.victim-round[data-victim-round="${thisRound}"]`
+  ).dataset
+  if (attackerHp <= 0) {
+    attackerAvatar.classList.add(`assault-dead`)
+  }
+  newRound(attackerHp, thisRound)
+})
+
 document.addEventListener(`DOMContentLoaded`, () => {
   if (rounds && totalRounds > 0) {
-    playRound(1)
+    playRound(thisRound)
   }
 
   skipBtn.addEventListener(`click`, () => {
@@ -48,10 +80,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let newBarFill = Math.round(
       ((victimHp - 0) / (Number(vHpBar.dataset.barMax) - 0)) * 100
     )
-    if (newBarFill < 0) {
+    if (newBarFill <= 0) {
       newBarFill = 0
-      victimAvatar.classList.remove(`assault-player-current`)
-      attackerAvatar.classList.add(`assault-player-current`)
+      attackersTurn()
+      victimAvatar.classList.add(`assault-dead`)
     }
     vHpBar.dataset.barFill = newBarFill
     vHpBarFill.style.width = `${newBarFill}%`
@@ -61,8 +93,10 @@ document.addEventListener(`DOMContentLoaded`, () => {
     let newBarFillA = Math.round(
       ((attackerHp - 0) / (Number(aHpBar.dataset.barMax) - 0)) * 100
     )
-    if (newBarFillA < 0) {
+    if (newBarFillA <= 0) {
       newBarFillA = 0
+      victimsTurn()
+      attackerAvatar.classList.add(`assault-dead`)
     }
     aHpBar.dataset.barFill = newBarFillA
     aHpBarFill.style.width = `${newBarFillA}%`
@@ -80,12 +114,6 @@ function playRound(current) {
     const vHpBarSpan = document.getElementById(`barTextValue-victimHp`)
     const vHpBarFill = vHpBar.querySelector(`#bar-victimHp .progress-bar-fill`)
 
-    const aHpBar = document.getElementById(`bar-attackerHp`)
-    const aHpBarSpan = document.getElementById(`barTextValue-attackerHp`)
-    const aHpBarFill = aHpBar.querySelector(
-      `#bar-attackerHp .progress-bar-fill`
-    )
-
     if (current < totalRounds) {
       const currentRound = document.querySelector(
         `[data-assault-round="${current}"]`
@@ -98,17 +126,13 @@ function playRound(current) {
         setTimeout(() => {
           attackerHit(
             currentRound,
-            current,
             vHpBar,
             vHpBarSpan,
             vHpBarFill,
             victimHp,
-            attackerDmg,
-            aHpBar,
-            aHpBarSpan,
-            aHpBarFill
+            attackerDmg
           )
-        }, 1500)
+        }, 1250)
       )
     }
   }
@@ -116,22 +140,13 @@ function playRound(current) {
 
 function attackerHit(
   currentRound,
-  current,
   vHpBar,
   vHpBarSpan,
   vHpBarFill,
   victimHp,
-  attackerDmg,
-  aHpBar,
-  aHpBarSpan,
-  aHpBarFill
+  attackerDmg
 ) {
   if (canRun) {
-    timeouts.push(
-      setTimeout(() => {
-        victimsTurn()
-      }, 750)
-    )
     vHpBar.dataset.barValue = victimHp
     vHpBarSpan.innerHTML = victimHp
     let newBarFill = Math.round(
@@ -147,45 +162,15 @@ function attackerHit(
       round.classList.add(`uk-hidden`)
     })
     currentRound.classList.remove(`uk-hidden`)
-    const attackerDmgSpan = document.getElementById(`attackerDmg`)
+
     attackerDmgSpan.innerHTML = `- ${attackerDmg}`
     attackerDmgSpan.classList.remove(`hidden`)
-    const victimDmgSpan = document.getElementById(`victimDmg`)
+    attackerDmgSpan.classList.add(`dmg-hit-attacker`)
     victimDmgSpan.classList.add(`hidden`)
-
-    if (victimHp > 0) {
-      const { victimDmg, attackerHp } = currentRound.querySelector(
-        `.victim-round[data-victim-round="${current}"]`
-      ).dataset
-
-      timeouts.push(
-        setTimeout(() => {
-          victimHit(
-            aHpBar,
-            aHpBarSpan,
-            aHpBarFill,
-            attackerHp,
-            victimDmg,
-            current
-          )
-        }, 1500)
-      )
-    } else {
-      document.getElementById(`assaultResult`).classList.remove(`uk-hidden`)
-      document.getElementById(`assaultDone`).classList.remove(`uk-hidden`)
-      skipBtn.classList.add(`uk-hidden`)
-    }
   }
 }
 
-function victimHit(
-  aHpBar,
-  aHpBarSpan,
-  aHpBarFill,
-  attackerHp,
-  victimDmg,
-  current
-) {
+function victimHit(aHpBar, aHpBarSpan, aHpBarFill, attackerHp, victimDmg) {
   if (canRun) {
     attackerAvatar.classList.remove(`assault-player-current`)
     victimAvatar.classList.add(`assault-player-current`)
@@ -200,18 +185,58 @@ function victimHit(
     aHpBar.dataset.barFill = newBarFillA
     aHpBarFill.style.width = `${newBarFillA}%`
 
-    const victimDmgSpan = document.getElementById(`victimDmg`)
     victimDmgSpan.innerHTML = `- ${victimDmg}`
     victimDmgSpan.classList.remove(`hidden`)
-    const attackerDmgSpan = document.getElementById(`attackerDmg`)
+    victimDmgSpan.classList.add(`dmg-hit-victim`)
     attackerDmgSpan.classList.add(`hidden`)
+  }
+}
 
-    if (attackerHp > 0) {
-      playRound(current + 1)
+function newRound(attackerHp, current) {
+  if (attackerHp > 0) {
+    thisRound = current + 1
+    playRound(thisRound)
+  } else {
+    document.getElementById(`assaultResult`).classList.remove(`uk-hidden`)
+    document.getElementById(`assaultDone`).classList.remove(`uk-hidden`)
+    skipBtn.classList.add(`uk-hidden`)
+  }
+}
+function halfTime(
+  victimHp,
+  current,
+  aHpBar,
+  aHpBarSpan,
+  aHpBarFill,
+  currentRound
+) {
+  if (canRun) {
+    if (victimHp > 0) {
+      timeouts.push(
+        setTimeout(() => {
+          victimsTurn()
+        }, 750)
+      )
+      const { victimDmg, attackerHp } = currentRound.querySelector(
+        `.victim-round[data-victim-round="${current}"]`
+      ).dataset
+      timeouts.push(
+        setTimeout(() => {
+          victimHit(
+            aHpBar,
+            aHpBarSpan,
+            aHpBarFill,
+            attackerHp,
+            victimDmg,
+            current
+          )
+        }, 1250)
+      )
     } else {
       document.getElementById(`assaultResult`).classList.remove(`uk-hidden`)
       document.getElementById(`assaultDone`).classList.remove(`uk-hidden`)
       skipBtn.classList.add(`uk-hidden`)
+      victimAvatar.classList.add(`assault-dead`)
     }
   }
 }

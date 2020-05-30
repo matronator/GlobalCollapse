@@ -252,11 +252,12 @@ td.input-row {
 
 .border {
   &\--b-xs { border-bottom: none; }
-  &\--b { border-bottom: 1px solid var(--c-light-2)ddd; }
+  &\--b { border-bottom: 1px solid var(--c-light-2); }
   @media (--xs) {
     &\--b { border-bottom: none; }
-    &\--b-xs { border-bottom: 1px solid var(--c-light-2)ddd; }
+    &\--b-xs { border-bottom: 1px solid var(--c-light-2); }
   }
+  &\--t { border-top: 1px solid var(--c-light-2); }
 }
 
 /* BADGE */
