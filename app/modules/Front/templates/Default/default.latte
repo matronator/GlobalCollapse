@@ -79,14 +79,14 @@
           {/form}
         </div>
       </div>
-      <div class="uk-margin-top uk-card uk-width-1-1 uk-card-default uk-card-body uk-visible@s">
-        {include '../../components/NewsFeed/NewsFeed.latte', data => $articles}
+      <div class="uk-padding-remove uk-margin-top uk-card uk-width-1-1 uk-card-default uk-card-body uk-visible@s newsfeed-wrapper newsfeed-wrapper-shadow">
+        {include '../../components/NewsFeed/NewsFeed.latte', data => $articles, compact => true}
       </div>
     </div>
     <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
       {include '../../components/Leaderboard/Leaderboard.latte', users => $users, page => $page, lastPage => $lastPage, itemsPerPage => $itemsPerPage}
     </div>
-    <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-hidden@s">
+    <div class="uk-padding-remove uk-card uk-width-1-1 uk-card-default uk-card-body uk-hidden@s newsfeed-wrapper">
       {include '../../components/NewsFeed/NewsFeed.latte', data => $articles}
     </div>
   </div>

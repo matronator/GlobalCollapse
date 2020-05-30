@@ -81,6 +81,10 @@ ui:
 	extra: 'Extra'
 	changeAvatar: 'Change avatar'
 	skip: 'Skip'
+	allPosts: 'All posts'
+	more: 'More'
+	last: 'Last'
+	first: 'First'
 	locationStatus:
 		closed: 'Closed'
 

@@ -56,9 +56,10 @@
   </div>
   <ul class="uk-nav-default sidebar-nav" uk-nav>
     <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.info.about}</a></li>
-    <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">{_general.ui.sidebar.info.news}</a></li>
+    <li n:class="$presenter->isLinkCurrent('Info:news') ? uk-active"><a n:href="Info:news">{_general.ui.sidebar.info.news}</a></li>
     <li><a href="https://github.com/matronator/GlobalCollapse#support-the-project" target="_blank" rel="noopener">{_general.ui.sidebar.info.donations}</a></li>
     <li><a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">{_general.ui.sidebar.info.help}</a></li>
+    <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">Changelog</a></li>
   </ul>
   <div class="uk-flex uk-flex-column sidebar-footer uk-border-top">
     <hr>

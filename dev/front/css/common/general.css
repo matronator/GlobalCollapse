@@ -10,6 +10,7 @@ body {
   user-select: unset;
   -webkit-tap-highlight-color: unset;
   -webkit-touch-callout: unset;
+  overflow-x: hidden;
 }
 @media (max-width: 640px) {
   body {
@@ -46,6 +47,7 @@ body {
 .main-section {
   padding-top: 30px;
   padding-bottom: 30px;
+  overflow-x: hidden;
 }
 
 .split {

@@ -30,7 +30,7 @@ final class InfoPresenter extends BasePresenter
   public function renderNews(int $page = 1) {
     $allArticles = $this->articleModel->findAll()->select('*')->order('date DESC');
     $lastPage = 0;
-    $articles = $allArticles->page($page, 10, $lastPage);
+    $articles = $allArticles->page($page, 6, $lastPage);
     $data = [];
     foreach ($articles as $article) {
       $data[$article->id] = [
