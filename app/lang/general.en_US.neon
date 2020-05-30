@@ -83,8 +83,8 @@ ui:
 	skip: 'Skip'
 	allPosts: 'All posts'
 	more: 'More'
-	last: 'Last'
 	first: 'First'
+	last: 'Last'
 	locationStatus:
 		closed: 'Closed'
 
