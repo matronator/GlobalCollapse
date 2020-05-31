@@ -108,6 +108,7 @@ training:
 pvp:
 	assault:
 		winReward: 'Money to win:'
+		winRewardXp: 'XP for victory:'
 		loseReward: "Money to lose:"
 		attack: 'Attack'
 

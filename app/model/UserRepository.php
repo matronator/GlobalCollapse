@@ -188,7 +188,7 @@ class UserRepository
     {
         if (is_numeric($amount)) {
             $userMoney = $this->getUser($id)->money;
-            $total = (int)round($userMoney + $amount, 0);
+            $total = (int)max(round($userMoney + $amount, 0), 0);
             $newTotal = $total <= $this->maxPlayerMoney ? $total : $this->maxPlayerMoney;
             $this->findAll()->wherePrimary($id)->update([
                 'money' => $newTotal

@@ -151,9 +151,9 @@
     transition: all 200ms ease-out;
   }
   &.assault-dead {
-    background-color: var(--c-dark-5);
+    background: url('images/dead.jpg');
     & > img {
-      opacity: 0.5;
+      opacity: 0.1;
     }
   }
   &::after {

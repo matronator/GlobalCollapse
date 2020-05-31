@@ -35,29 +35,49 @@ final class PlayerPresenter extends BasePresenter
 			$reward = $this->getRewards($otherPlayer);
 			$this->template->otherPlayer = $otherPlayer;
 			$this->template->cashMoney = $reward['win_money'];
+			$this->template->xpReward = $reward['win_xp'];
 			$this->template->cashMoneyLose = $reward['lose_money'];
 		} else {
 			$this->error();
 		}
 	}
 
-	public function renderAssault(int $id) {
+	public function renderAssault(int $id = null) {
 		if (!$id) {
 			$this->redirect('Default:default');
 		}
-		$assault = $this->assaultPlayer($id);
-		$result = json_decode($assault);
-		$this->template->rounds = $result->rounds;
-		$this->template->roundCount = count($result->rounds);
-		$this->template->result = $result->result;
-		$this->template->attacker = $result->attacker;
-		$this->template->victim = $result->victim;
 		$otherPlayer = $this->userRepository->getUser($id);
-		if ($otherPlayer) {
-			$reward = $this->getRewards($otherPlayer);
+		if ($otherPlayer && isset($otherPlayer->id)) {
 			$this->template->otherPlayer = $otherPlayer;
-			$this->template->cashMoney = $reward['win_money'];
-			$this->template->cashMoneyLose = $reward['lose_money'];
+
+			// simulate assault on the server and get results to send back to client
+			$assault = $this->assaultPlayer($otherPlayer->id);
+			$result = json_decode($assault);
+			$assaultResult = $result->result;
+
+			$this->template->rounds = $result->rounds;
+			$this->template->roundCount = count($result->rounds);
+			$this->template->result = $assaultResult;
+			$this->template->attacker = $result->attacker;
+			$this->template->victim = $result->victim;
+			// get the rewards
+			$reward = $this->getRewards($otherPlayer);
+			$winReward = $reward['win_money'];
+			$xpReward = $reward['win_xp'];
+			$defeatPenalty = $reward['lose_money'];
+			$playerId = $this->user->getIdentity()->id;
+			if ($assaultResult == 'win') {
+				$this->userRepository->addMoney($playerId, $winReward);
+				if ($xpReward > 0) {
+					$this->userRepository->addXp($playerId, $xpReward);
+				}
+				$this->userRepository->addMoney($otherPlayer->id, round($winReward / 10 * (-1), 0));
+			} else {
+				$this->userRepository->addMoney($playerId, $defeatPenalty * (-1));
+			}
+			$this->template->cashMoney = $winReward;
+			$this->template->cashMoneyLose = $defeatPenalty;
+			$this->template->xpReward = $xpReward;
 		} else {
 			$this->error();
 		}
@@ -72,14 +92,14 @@ final class PlayerPresenter extends BasePresenter
 		$victimPower = $victim->player_stats->power;
 		$winReward = [];
 
-		$ratio = max(10, (((3 * $victimPower) - (2 * $attackerPower)) / $attackerPower) * ((3 * $victimLevel) / $attackerLevel));
-		$percentage = min($ratio, 100);
-		$winReward['win_money'] = round(($victimMoney / 100) * $percentage);
-		$winReward['win_xp'] = round(2 * $ratio);
-
-		$ratio = max(10, (((3 * $attackerPower) - (2 * $victimPower)) / $victimPower) * ((3 * $attackerLevel) / $victimLevel));
+		$ratio = max(0, (((3 * $victimPower) - ($attackerPower)) / sqrt($attackerPower)) * ((3 * $victimLevel) / $attackerLevel));
 		$percentage = min($ratio, 50);
-		$winReward['lose_money'] = round(($player->money / 100) * $percentage);
+		$winReward['win_money'] = (int)round(($victimMoney / 100) * $percentage);
+		$winReward['win_xp'] = round(min($ratio, 10 + min($attackerLevel / 7, 25)));
+
+		$ratio = max(0, (((3 * $attackerPower) - (2 * $victimPower)) / sqrt($victimPower)) * ((3 * $attackerLevel) / $victimLevel));
+		$percentage = min($ratio, 50);
+		$winReward['lose_money'] = (int)round(min(max(($player->money / 100) * $percentage, 50), $player->money));
 
 		return $winReward;
 	}
@@ -193,7 +213,6 @@ final class PlayerPresenter extends BasePresenter
 	}
 
 	/**
-	 *
 	 * --------------- Reward formula -------------------
 	 * --------------------------------------------------
 	 *
@@ -212,7 +231,8 @@ final class PlayerPresenter extends BasePresenter
 	 *
 	 *           R = ( VM / 100 ) * p
 	 *
-	 *
+	 * The victim will only lose 10% of that, but the attacker gets the full amount
+	 * If the victim's level is under 10, they don't lose any money
 	 */
 
 	/**

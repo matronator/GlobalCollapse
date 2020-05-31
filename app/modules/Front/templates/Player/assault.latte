@@ -8,7 +8,12 @@
       {include '../../components/Assault/AssaultCard.latte'}
       <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center" id="assaultControls">
         <div n:ifset="$rounds" data-assault-rounds="{$roundCount}">
-          <div n:foreach="$rounds as $round" class="border-bottom uk-hidden" data-assault-round="{$round->id}">
+          <div id="assaultResult" class="uk-hidden">
+            <h2>{$result|upper}!</h2>
+            <p n:if="$result == 'win'">You won the assault and stole ${$cashMoney|number} from <strong>{$victim}</strong>. You gained {$xpReward} XP</p>
+            <p n:if="$result == 'defeat'">{$victim} fight you off and beat you. They stole ${$cashMoneyLose|number} from you.</p>
+          </div>
+          <div n:foreach="$rounds as $round" class="uk-hidden uk-margin-bottom" data-assault-round="{$round->id}">
             {if $iterator->isFirst()}{else}
               <p class="attacker-round" data-attacker-round="{$round->id}" data-attacker-dmg="{$round->attacker->dmg}" data-victim-hp="{$round->victim->hp}">
                 {if $round->attacker->dmg != 'dodged'}
@@ -30,10 +35,8 @@
               {/if}
             {/if}
           </div>
-          <h2 id="assaultResult" class="uk-hidden">{$result|upper}!</h2>
           <a n:href="Default:default" id="assaultDone" class="uk-button uk-button-secondary uk-hidden"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
         </div>
-        <hr>
       </div>
     </div>
   </div>
