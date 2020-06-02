@@ -54,38 +54,38 @@ window.addEventListener(`DOMContentLoaded`, () => {
   toggle(togglers)
 
   // Counter
-  function covidCounter() {
-    const infected = document.getElementById("covidInfected")
-    const dead = document.getElementById("covidDead")
-    const multiplier = { infected: 1500, dead: 15000 }
-    const urls = [
-      "https://coronavirus-19-api.herokuapp.com/all",
-      "https://corona.lmao.ninja/all"
-    ]
-    const take = 0
-    const requestUrl = urls[take]
+  // function covidCounter() {
+  //   const infected = document.getElementById("covidInfected")
+  //   const dead = document.getElementById("covidDead")
+  //   const multiplier = { infected: 1500, dead: 15000 }
+  //   const urls = [
+  //     "https://coronavirus-19-api.herokuapp.com/all",
+  //     "https://corona.lmao.ninja/all"
+  //   ]
+  //   const take = 0
+  //   const requestUrl = urls[take]
 
-    const request = new XMLHttpRequest()
-    request.open("GET", requestUrl, true)
+  //   const request = new XMLHttpRequest()
+  //   request.open("GET", requestUrl, true)
 
-    request.onload = function() {
-      if (this.status >= 200 && this.status < 400) {
-        // Success!
-        const data = JSON.parse(this.response)
-        infected.innerHTML = new Intl.NumberFormat().format(
-          data.cases * multiplier.infected
-        )
-        dead.innerHTML = new Intl.NumberFormat().format(
-          data.deaths * multiplier.dead
-        )
-      }
-    }
+  //   request.onload = function() {
+  //     if (this.status >= 200 && this.status < 400) {
+  //       // Success!
+  //       const data = JSON.parse(this.response)
+  //       infected.innerHTML = new Intl.NumberFormat().format(
+  //         data.cases * multiplier.infected
+  //       )
+  //       dead.innerHTML = new Intl.NumberFormat().format(
+  //         data.deaths * multiplier.dead
+  //       )
+  //     }
+  //   }
 
-    request.onerror = function() {
-      // There was a connection error of some sort
-    }
+  //   request.onerror = function() {
+  //     // There was a connection error of some sort
+  //   }
 
-    request.send()
-  }
+  //   request.send()
+  // }
   // covidCounter()
 })

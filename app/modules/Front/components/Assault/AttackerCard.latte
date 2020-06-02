@@ -51,7 +51,7 @@
       </table>
     </div>
   </div>
-  <div class="uk-flex uk-width-expand uk-flex-center">
+  <div class="uk-flex uk-width-expand uk-flex-center" n:if="$attacker->id != $victim->id">
     <div>
       {_general.pvp.assault.loseReward}&nbsp;${$cashMoneyLose|number}
     </div>

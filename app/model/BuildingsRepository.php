@@ -212,6 +212,6 @@ class BuildingsRepository
 	 */
 	public function getBuildingIncome(int $baseIncome = 0, int $level = 1)
 	{
-		return $baseIncome + round($baseIncome * pow(($level - 1) / 2, 1.05));
+		return $baseIncome + round($baseIncome * pow(($level - 1) / 2, 1.02));
 	}
 }

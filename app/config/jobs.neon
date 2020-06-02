@@ -2,8 +2,8 @@ parameters:
   jobs: [
     [
         locale: distributeMasks
-        duration: 20
-        energy: 10
+        duration: 25
+        energy: 5
         money: 30
         xp: 20
         droprate: 15
@@ -14,38 +14,38 @@ parameters:
         energy: 25
         money: 35
         xp: 15
-        droprate: 20
+        droprate: 10
     ],
     [
         locale: smuggleDrugs
-        duration: 20
+        duration: 15
         energy: 15
-        money: 55
-        xp: 15
-        droprate: 10
+        money: 60
+        xp: 10
+        droprate: 15
     ],
     [
         locale: escortScientist
         duration: 10
-        energy: 20
+        energy: 15
         money: 5
-        xp: 30
+        xp: 25
         droprate: 10
     ],
     [
         locale: constructionHelp
         duration: 15
-        energy: 25
+        energy: 20
         money: 40
-        xp: 25
+        xp: 30
         droprate: 20
     ],
     [
         locale: spyMission
         duration: 7
-        energy: 15
-        money: 20
+        energy: 20
+        money: 10
         xp: 40
-        droprate: 10
+        droprate: 5
     ]
   ]

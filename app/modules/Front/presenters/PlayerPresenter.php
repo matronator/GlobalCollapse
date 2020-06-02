@@ -33,6 +33,8 @@ final class PlayerPresenter extends BasePresenter
 		$otherPlayer = $this->userRepository->getUserByName($user);
 		if ($otherPlayer) {
 			$reward = $this->getRewards($otherPlayer);
+			$sessionSection = $this->session->getSection('assault');
+			$sessionSection['victim'] = $otherPlayer->id;
 			$this->template->otherPlayer = $otherPlayer;
 			$this->template->cashMoney = $reward['win_money'];
 			$this->template->xpReward = $reward['win_xp'];
@@ -42,44 +44,87 @@ final class PlayerPresenter extends BasePresenter
 		}
 	}
 
-	public function renderAssault(int $id = null) {
-		if (!$id) {
+	public function renderAssault(?string $match = null) {
+		// check hash
+		$sessionSection = $this->session->getSection('assault');
+		if (isset($sessionSection['hash']) && $sessionSection['hash'] == $match) {
+			$playerId = $this->user->getIdentity()->id;
+			$id = $sessionSection['victim'];
+			$otherPlayer = $this->userRepository->getUser($id);
+			// check if victim exists and isn't the current player
+			if ($otherPlayer && $playerId != $otherPlayer->id) {
+				$this->template->otherPlayer = $otherPlayer;
+				$result = $sessionSection['results'];
+				unset($sessionSection['results']);
+				unset($sessionSection['victim']);
+				unset($sessionSection['hash']);
+				unset($sessionSection);
+				$assaultResult = $result->result;
+
+				$this->template->rounds = $result->rounds;
+				$this->template->roundCount = count($result->rounds);
+				$this->template->result = $assaultResult;
+				$this->template->attacker = $result->attacker;
+				$this->template->victim = $result->victim;
+				// get the rewards
+				$reward = $this->getRewards($otherPlayer);
+				$winReward = $reward['win_money'];
+				$xpReward = $reward['win_xp'];
+				$defeatPenalty = $reward['lose_money'];
+				if ($assaultResult == 'win') {
+					$this->userRepository->addMoney($playerId, $winReward);
+					if ($xpReward > 0) {
+						$this->userRepository->addXp($playerId, $xpReward);
+					}
+					$this->userRepository->addMoney($otherPlayer->id, round($winReward / 10 * (-1), 0));
+				} else {
+					$this->userRepository->addMoney($playerId, $defeatPenalty * (-1));
+				}
+				$this->template->cashMoney = $winReward;
+				$this->template->cashMoneyLose = $defeatPenalty;
+				$this->template->xpReward = $xpReward;
+			} else {
+				$this->redirect('Default:default');
+			}
+		} else {
 			$this->redirect('Default:default');
 		}
-		$otherPlayer = $this->userRepository->getUser($id);
-		if ($otherPlayer && isset($otherPlayer->id)) {
-			$this->template->otherPlayer = $otherPlayer;
+	}
 
-			// simulate assault on the server and get results to send back to client
-			$assault = $this->assaultPlayer($otherPlayer->id);
-			$result = json_decode($assault);
-			$assaultResult = $result->result;
-
-			$this->template->rounds = $result->rounds;
-			$this->template->roundCount = count($result->rounds);
-			$this->template->result = $assaultResult;
-			$this->template->attacker = $result->attacker;
-			$this->template->victim = $result->victim;
-			// get the rewards
-			$reward = $this->getRewards($otherPlayer);
-			$winReward = $reward['win_money'];
-			$xpReward = $reward['win_xp'];
-			$defeatPenalty = $reward['lose_money'];
-			$playerId = $this->user->getIdentity()->id;
-			if ($assaultResult == 'win') {
-				$this->userRepository->addMoney($playerId, $winReward);
-				if ($xpReward > 0) {
-					$this->userRepository->addXp($playerId, $xpReward);
-				}
-				$this->userRepository->addMoney($otherPlayer->id, round($winReward / 10 * (-1), 0));
-			} else {
-				$this->userRepository->addMoney($playerId, $defeatPenalty * (-1));
-			}
-			$this->template->cashMoney = $winReward;
-			$this->template->cashMoneyLose = $defeatPenalty;
-			$this->template->xpReward = $xpReward;
+	public function actionAttack() {
+		$sessionSection = $this->session->getSection('assault');
+		$id = $sessionSection['victim'];
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		if (!$id || (isset($id) && $id == $player->id)) {
+			$this->redirect('Default:default');
 		} else {
-			$this->error();
+			$otherPlayer = $this->userRepository->getUser($id);
+			if (!$otherPlayer) {
+				$this->redirect('Default:default');
+			} else {
+				if ($player->id == $otherPlayer->id) {
+					$this->redirect('Default:default');
+				} else {
+					if ($player->player_stats->energy < 10) {
+						$this->flashMessage('Not enough energy!', 'warning');
+						$this->redirect('Default:rest');
+					} else {
+						// assault
+						$assault = $this->assaultPlayer($otherPlayer->id);
+						$result = json_decode($assault);
+						$sessionSection['results'] = $result;
+						$sessionSection['victim'] = $otherPlayer->id;
+						// hash
+						$timestamp = (string)time();
+						$bytes = random_bytes(5);
+						$hash = $timestamp . bin2hex($bytes);
+						$sessionSection['hash'] = $hash;
+						// redirect to animation
+						$this->userRepository->addEnergy($player->id, -10);
+						$this->redirect('Player:assault', $hash);
+					}
+				}
+			}
 		}
 	}
 

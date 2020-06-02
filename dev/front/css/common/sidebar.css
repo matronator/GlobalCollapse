@@ -7,7 +7,7 @@
   padding: 10px 20px 0 20px;
   border-top: 1px solid var(--c-dark-1)111;
   border-right: 1px solid var(--c-dark-1)111;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -18,7 +18,7 @@
   flex-direction: column;
   justify-content: flex-start;
   height: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .sidebar-footer {

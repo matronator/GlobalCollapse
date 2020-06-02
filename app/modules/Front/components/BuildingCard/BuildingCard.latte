@@ -8,7 +8,7 @@
 {var $level = $building->level}
 {var $maxLevel = $building->buildings->max_level}
 {var $canUpgrade = (!$maxLevel || $level < $maxLevel) ? true : false}
-{var $upgradeCost = round(($building->buildings->price * $level) / 3, -1)}
+{var $upgradeCost = round(($building->buildings->price * pow($level, 1.05)) / 2, -1)}
 {* Building income = baseIncome + round(baseIncome * ((level-1)/2)^1.05) *}
 {* {var $income = $presenter->buildingsRepository->getBuildingIncome($baseIncome, $level)} *}
 <div class="uk-card uk-card-default uk-card-body uk-padding-small building-card">

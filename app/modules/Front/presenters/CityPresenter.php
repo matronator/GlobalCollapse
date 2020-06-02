@@ -40,7 +40,17 @@ final class CityPresenter extends GamePresenter
 		$actionLocker->checkActions($player, $this);
 		$drugs = $this->drugsRepository->findAll()->fetchAll();
 		$this->template->drugs = $drugs;
-		$this->template->updated = $drugs['1']->updated;
+		$updated = $drugs['1']->updated;
+		$this->template->updated = $updated;
+		$now = new DateTime();
+		$diff = abs($updated->getTimestamp() - $now->getTimestamp());
+		if ($diff < 3600) {
+			$this->template->timeAgo = round($diff / 60) . ' minutes';
+		} else if ($diff <= 5400) {
+			$this->template->timeAgo = round($diff / 3600) . ' hour';
+		} else {
+			$this->template->timeAgo = round($diff / 3600) . ' hours';
+		}
 		$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->order('drugs_id', 'ASC')->fetchAll();
 		if (count($drugsInventory) > 0) {
 			$this->template->drugsInventory = $drugsInventory;

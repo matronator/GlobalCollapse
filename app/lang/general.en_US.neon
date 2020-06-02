@@ -85,6 +85,7 @@ ui:
 	more: 'More'
 	first: 'First'
 	last: 'Last'
+	done: 'Done'
 	locationStatus:
 		closed: 'Closed'
 

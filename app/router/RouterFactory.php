@@ -37,6 +37,7 @@ class RouterFactory
 		$frontRouter[] = new Route('[<locale=en en|cs>/]wastelands', 'City:wastelands');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]buildings', 'Buildings:default');
 		$frontRouter[] = new Route('[<locale=en en|cs>/]player/detail/<user>', 'Player:detail');
+		$frontRouter[] = new Route('[<locale=en en|cs>/]player/assault/<match>', 'Player:assault');
 
 		// APIs
 		$frontRouter[] = new Route('api/job', 'Api:job');

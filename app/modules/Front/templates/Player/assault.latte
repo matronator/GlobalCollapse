@@ -4,7 +4,7 @@
 
 {block pageContent}
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
-    <div class="dashboard dashboard-assaults uk-flex" uk-margin>
+    <div class="dashboard dashboard-assaults uk-flex" uk-margin n:ifset="$result">
       {include '../../components/Assault/AssaultCard.latte'}
       <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center" id="assaultControls">
         <div n:ifset="$rounds" data-assault-rounds="{$roundCount}">
@@ -35,7 +35,7 @@
               {/if}
             {/if}
           </div>
-          <a n:href="Default:default" id="assaultDone" class="uk-button uk-button-secondary uk-hidden"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
+          <a n:href="Player:detail, $victim" id="assaultDone" class="uk-button uk-button-secondary uk-hidden"><span uk-icon="arrow-left"></span>{_general.ui.done}</a>
         </div>
       </div>
     </div>

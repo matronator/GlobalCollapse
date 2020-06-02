@@ -196,6 +196,12 @@ class UserRepository
         }
     }
 
+    public function addEnergy(int $id, $energy) {
+        $this->getUser($id)->player_stats->update([
+            'energy+=' => $energy
+        ]);
+    }
+
     /** Job rewards */
     public function getRewardMoney($jobmoney, $level) {
 		return $jobmoney + (int)round($jobmoney * ($level - 1) * 0.05);
@@ -255,26 +261,6 @@ class UserRepository
             'energy_max' => $energy
         ]);
         return $newMax;
-    }
-
-    public function testUp($player, int $lvl) {
-        $newLevel = $lvl + 1;
-        $energy = $player->energy_max;
-        if ($newLevel <= 10) {
-            $energy = $this->getMaxEnergy($newLevel);
-        }
-        $oldMax = $player->xp_max;
-        $newMax = $this->getMaxExp($newLevel);
-        $oldPlayer = [
-            'level' => $newLevel,
-            'xp_min' => $oldMax,
-            'xp_max' => $newMax,
-            'xp' => $oldMax,
-            'energy' => $energy,
-            'energy_max' => $energy
-        ];
-        $newPlayer = (object) $oldPlayer;
-        return $newPlayer;
     }
 
     /**
