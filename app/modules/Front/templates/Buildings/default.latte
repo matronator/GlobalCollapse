@@ -18,7 +18,7 @@
     </div>
     <div class="uk-text-center" n:if="$land">
       <h3>{$user->username}'s land</h3>
-      <div n:if="$playerIncome">
+      <div n:ifset="$playerIncome->last_collection">
         <p>{_general.buildings.incomeDescription} <small class="uk-text-italic">({_general.buildings.lastCollection} {$playerIncome->last_collection|date:'%T'} - <strong>{$timeAgo}</strong> ago)</small>:</p>
         <div class="uk-flex-around uk-text-small" uk-grid>
           <div>{_general.stats.money}: {$playerIncome->money ? $playerIncome->money : 0|number}</div>
