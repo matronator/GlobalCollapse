@@ -106,6 +106,7 @@ training:
 	spLeft: 'Dostupné skillpointy: <strong id="pointsLeft">%sp%</strong>'
 
 pvp:
+	allPlayers: 'Všichni hráči'
 	assault:
 		winReward: 'Peníze za výhru:'
 		loseReward: "Ztráta za prohru:"

@@ -44,6 +44,27 @@ final class PlayerPresenter extends BasePresenter
 		}
 	}
 
+	public function renderLeaderboard(int $page = 1) {
+		if ($this->user->isLoggedIn()) {
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+
+			$usersRanked = $this->userRepository->findAll()->select('*')->order('player_stats.power DESC');
+			$lastPage = 0;
+			$ranked = $usersRanked->page($page, 20, $lastPage);
+			$data = [];
+			foreach ($ranked as $rankedPlayer) {
+				array_push($data, $rankedPlayer);
+			}
+			$this->template->user = $player;
+			$this->template->data = $data;
+			$this->template->page = $page;
+			$this->template->itemsPerPage = 20;
+			$this->template->lastPage = $lastPage;
+		} else {
+			$this->redirect('Default:default');
+		}
+	}
+
 	public function renderAssault(?string $match = null) {
 		// check hash
 		$sessionSection = $this->session->getSection('assault');

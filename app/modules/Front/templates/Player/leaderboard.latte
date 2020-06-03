@@ -1,0 +1,65 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Leaderboard{/define}
+{define metaDescription}Leaderboard{/define}
+
+{block pageContent}
+  <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+    <div class="dashboard uk-flex" uk-margin>
+      <div class="uk-card uk-width-expand uk-card-default uk-card-body">
+        <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+          <thead>
+            <tr>
+              <th class="uk-text-nowrap uk-table-shrink">#</th>
+              <th class="uk-text-nowrap uk-table-expand">Player</th>
+              <th class="uk-text-nowrap">Power</th>
+            </tr>
+          </thead>
+          <tbody>
+            {foreach $data as $otherUser}
+              <tr>
+                <td class="uk-text-nowrap uk-text-middle">{$iterator->counter + (($page - 1) * $itemsPerPage)}</td>
+                <td class="uk-text-nowrap">
+                  <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}.jpg" class="uk-comment-avatar uk-hidden@s" width="24" height="24">
+                  <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}.jpg" class="uk-comment-avatar uk-visible@s" width="48" height="48">
+                  &nbsp;{if $otherUser->username != $user->username}<a n:href="Player:detail, $otherUser->username">{$otherUser->username}</a>{else}{$user->username}{/if}
+                </td>
+                <td class="uk-text-nowrap uk-text-middle">{$otherUser->player_stats->power}</td>
+              </tr>
+            {/foreach}
+          </tbody>
+        </table>
+        <ul class="uk-pagination uk-flex-center uk-width-1-1">
+          <li n:class="$page==1 ? uk-disabled, uk-margin-auto-right">
+            {if $page > 1}
+              <a n:href="Player:leaderboard, 1"><span uk-icon="chevron-double-left"></span> {_general.ui.first}</a>
+            {/if}
+          </li>
+          {if $page > 1}
+            <li><a n:href="Player:leaderboard, $page-1"><span uk-pagination-previous></span></a></li>
+            <li class="uk-disabled" n:if="$page == $lastPage && $page > 2"><span>...</span></li>
+          {/if}
+
+          {for $i = $page - 1; $i <= $page + 1; $i++}
+            <li n:if="$i >= 1 && $i <= $lastPage" n:class="$i==$page ? uk-active">
+              {if $i == $page}
+                <span>{$i}</span>
+              {else}
+                <a n:href="Player:leaderboard, $i">{$i}</a>
+              {/if}
+            </li>
+          {/for}
+
+          {if $page < $lastPage}
+            <li class="uk-disabled" n:if="$page == 1 && $lastPage > 2"><span>...</span></li>
+            <li><a n:href="Player:leaderboard, $page+1"><span uk-pagination-next></span></a></li>
+          {/if}
+          <li n:class="$page == $lastPage ? uk-disabled, uk-margin-auto-left">
+            {if $page < $lastPage}
+              <a n:href="Player:leaderboard, $lastPage">{_general.ui.last} <span uk-icon="chevron-double-right"></span></a>
+            {/if}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{/block}

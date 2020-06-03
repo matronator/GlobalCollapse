@@ -85,6 +85,9 @@
     </div>
     <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
       {include '../../components/Leaderboard/Leaderboard.latte', users => $users, page => $page, lastPage => $lastPage, itemsPerPage => $itemsPerPage}
+      <div class="uk-text-center">
+        <a n:href="Player:leaderboard">{_general.pvp.allPlayers}</a>
+      </div>
     </div>
     <div class="uk-padding-remove uk-card uk-width-1-1 uk-card-default uk-card-body uk-hidden@s newsfeed-wrapper">
       {include '../../components/NewsFeed/NewsFeed.latte', data => $articles}

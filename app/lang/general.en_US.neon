@@ -107,6 +107,7 @@ training:
 	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
 
 pvp:
+	allPlayers: 'All players'
 	assault:
 		winReward: 'Money to win:'
 		winRewardXp: 'XP for victory:'

@@ -41,7 +41,7 @@ final class BuildingsPresenter extends GamePresenter
 			$unlockedBuildings = $this->buildingsRepository->findAllUnlocked($player->id)->order('buildings.price DESC');
 			$this->template->unlockedBuildings = $unlockedBuildings;
 			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
-			if ($playerIncome) {
+			if (isset($playerIncome->last_collection)) {
 				$this->template->playerIncome = $playerIncome;
 				$updated = $playerIncome->last_collection;
 				$now = new DateTime();
