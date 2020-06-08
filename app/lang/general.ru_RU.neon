@@ -1,255 +1,259 @@
 error:
-	notFound: 'Sorry, the page you are looking for was not found.'
-	goBack: 'Back to homepage'
+	notFound: 'Страница, которую ты ищешь, пропала в пустошах.'
+	goBack: 'Вернуться на главную'
 
 homepage:
-	introLead: 'Deadly virus is spreading across the globe. Will you survive?'
-	introText: 'New deadly strain of coronavirus is spreading across the entire planet. The world economy is in ruins and governments are collapsing. Join now to see if you can survive in this dystopian future.'
-	introBeta: 'This is an early access, it is unlikely but possible that game accounts might get deleted.'
+	introLead: 'Смертоносный вирус охватил весь земной шар. Выживешь ли ты?'
+	introText: 'Новый смертельный штамм коронавируса распространяется по всей планете. Мировая экономика пала, а правительства разваливаются. Присоединяйся сейчас, чтобы выжить в этом мрачном будущем.'
+	introBeta: 'Игра находится в раннем доступе, новые возможности и улучшения появляются каждую неделю.'
 
 intro:
-	title: 'Welcome to Global Collapse: Pandemic!'
-	greetings: "Welcome to Global Collapse, %username%! Before you can begin your fight for survival, there's couple of things we have to do first. Let's start by choosing your avatar."
+	title: 'Приветствую в Global Collapse: Pandemic!'
+	greetings: "Приветствую в Global Collapse, %username%! Прежде чем сразиться за свою жизнь, расскажи немного о себе. Для начала выбери аватар."
 	steps:
 		1:
-			title: 'Choose your avatar'
-			subtitle: "Don't worry, you can always change it later, in your profile section."
+			title: 'Выбери аватар'
+			subtitle: "При необходимости ты сможешь сменить его позже."
 		2:
-			response: "<p>Great choice, now that's the look of a true survivor! Now let's take a look at your stats.</p>"
-			title: 'Assign your stats'
-			subtitle: "You have 4 starting stat points to distribute between your base stats. Hover over a stat to get more info about it. You can earn stat points in training or when you reach a new level."
+			response: "<p>Хороший выбор, теперь ты выглядишь достойно. Давай взглянем на твои умения.</p>"
+			title: 'Распредели характеристики'
+			subtitle: "У тебя 4 очка для повышения базовых характеристик. Наведи на умение, чтобы узнать больше о нем. Ты можешь повышать умения тренировкой или при достижении нового уровня."
 		3:
-			response: "Great, now you're good to go! Or do you need five more minutes?"
-			title: 'Are you ready?'
-			subtitle: "Click continue to start your adventure."
+			response: "Отлично, теперь ты твой персонаж готов выживать в нелегкое время!"
+			title: 'А ты готов?'
+			subtitle: "Нажми продолжить когда будешь готов."
 
 ui:
 	navbar:
 		covidTracker:
-			disclaimer: 'Disclaimer: Real-time statistics multiplied by a magnitude:<br>Infected: 1500<br>Deaths: 15000'
-			disclaimerPlayers: '%users% Registered accounts<br>%online% Players online'
-			infected: 'Infected'
-			dead: 'Dead'
+			disclaimer: 'Дисклеймер: статистика в реальном времени умножена на <br>Инфицированных: 1500<br>Смертей: 15000'
+			disclaimerPlayers: '%users% игроков зарегистрировано<br>%online% игроков в сети'
+			infected: 'Заражено'
+			dead: 'Погибло'
 	sidebar:
-		preparing: '(Preparing)'
+		preparing: '(Подготовка)'
 		new: 'NEW'
 		player:
-			account: 'Account'
-			training: 'Training'
-			rest: 'Rest'
-			home: 'Home'
-			buildings: 'Buildings'
+			account: 'Аккаунт'
+			training: 'Тренировка'
+			rest: 'Отдых'
+			home: 'Дом'
+			buildings: 'Собственность'
 		city:
-			title: 'City'
-			bar: 'Bar'
-			market: 'Market'
-			darknet: 'Darknet'
-			wastelands: 'Wastelands'
+			title: 'Город'
+			bar: 'Бар'
+			market: 'Маркет'
+			darknet: 'Даркнет'
+			wastelands: 'Пустоши'
 		info:
-			title: 'Info'
-			about: 'About'
-			news: "News"
-			donations: 'Donations'
-			contact: 'Contact'
-			help: 'Help'
-			tos: 'Terms of Use'
-			copyright: 'Copyright Notice'
-			privacy: 'Privacy Policy'
+			title: 'Информация'
+			about: 'Об игре'
+			news: "Новости"
+			donations: 'Помощь автору (донат)'
+			contact: 'Контакты'
+			help: 'Помощь'
+			tos: 'Правила использования'
+			copyright: 'Авторские права'
+			privacy: 'Конфиденциальность'
 	footer:
-		createdBy: 'Created by'
-		users: 'users'
-		online: 'online'
-		reportBug: 'Report a bug'
-	login: 'Login'
-	logout: 'Logout'
-	signup: 'Sign-Up'
+		createdBy: 'Создал '
+		users: 'пользователи'
+		online: 'онлайн'
+		reportBug: 'Сообщить о проблеме'
+	login: 'Вход'
+	logout: 'Выход'
+	signup: 'Регистрация'
 	email: 'E-mail'
-	newEmail: 'New e-mail'
-	password: 'Password'
-	passwordV: 'Repeat password'
-	newPassword: 'New password'
-	username: 'Username'
-	lastUpdated: 'Last updated'
-	ago: 'ago'
-	back: 'Back'
-	save: 'Save'
-	reset: 'Reset'
-	confirm: 'Confirm'
-	continue: 'Continue'
-	add: 'Add'
-	remove: 'Remove'
-	extra: 'Extra'
-	changeAvatar: 'Change avatar'
-	skip: 'Skip'
-	allPosts: 'All posts'
-	more: 'More'
-	first: 'First'
-	last: 'Last'
+	newEmail: 'Новый e-mail'
+	password: 'Пароль'
+	passwordV: 'Повтори пароль'
+	newPassword: 'Новый пароль'
+	username: 'Имя пользователя'
+	lastUpdated: 'Последнее обновление'
+	ago: 'назад'
+	back: 'Назад'
+	save: 'Сохранить'
+	reset: 'Сброс'
+	confirm: 'Принять'
+	continue: 'Продолжить'
+	add: 'Добавить'
+	remove: 'Убрать'
+	extra: 'Больше'
+	changeAvatar: 'Сменить аватар'
+	skip: 'Пропустить'
+	allPosts: 'Все посты'
+	more: 'Больше'
+	first: 'Первый'
+	last: 'Последний'
 	locationStatus:
-		closed: 'Closed'
+		closed: 'Закрыто'
 
 account:
-	accountSettings: 'Account settings'
-	changePassword: 'Change password'
+	accountSettings: 'Настройки аккаунта'
+	changePassword: 'Сменить пароль'
 
 faq:
-	title: 'Did you know... ?'
+	title: 'Знаешь ли ты, что... ?'
 	items:
-		1: "... that the maximum amount of money a player can have on hand is $999,999,999"
-		2: "... that you can train your stats while you're on a job?"
-		3: "... that you can still go scavenging while resting? To make the most of your time, go to rest first and then go scavenging. If you go scavenging first, you won't be able to go to rest until you return back."
-		4: '... that you can learn more about the game on our Wiki? Go to <a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">Wiki (in new tab)</a>'
+		1: "... максимальное количество денег, которое ты можешь иметь - $999,999,999"
+		2: "... ты можешь тренироваться даже пока работаешь"
+		3: "... ты все еще можешь выйти в пустоши, пока отдыхаешь? Для этого сначала иди отдыхать, а потом в пустоши. Если же сначала уйдешь в пустоши, то отдохнуть не получится."
+		4: '... ты можешь узнать больше в нашей <a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">Wiki (откроется в новой вкладке)</a>'
 
 training:
-	train: 'Train'
-	timeLeft: 'Time left:'
-	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
+	train: 'Тренировка'
+	timeLeft: 'Времени осталось:'
+	spLeft: 'Очков умений: <strong id="pointsLeft">%sp%</strong>'
 
 pvp:
 	assault:
-		winReward: 'Money to win:'
-		winRewardXp: 'XP for victory:'
-		loseReward: "Money to lose:"
-		attack: 'Attack'
+		winReward: 'Денег за победу:'
+		winRewardXp: 'Опыт за победу:'
+		loseReward: "Деньги при проигрыше:"
+		attack: 'Атака'
 
 resting:
-	title: 'Rest'
-	intro: "Rest to replenish your energy. Every hour of resting gives you 20 energy."
-	restingSince: 'Resting since: '
-	stop: 'Stop resting'
+	title: 'Отдых'
+	intro: "Отдых восстанавливает энергию. За каждый час отдыха восстанавливается 20 энергии."
+	restingSince: 'Отдых с: '
+	stop: 'Хватит отдыхать'
 
 city:
 	bar:
-		closed: 'Bar is closed'
-		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
+		closed: 'Бар закрыт'
+		closedSocialDistancing: 'Бар временно закрыт из-за социальной дистанцированности, вызванной недавним ростом случаев заболевания коронавирусом. Вы можете поискать работу в даркнете.'
 		jobs:
-			title: 'Jobs'
-			description: "Choose a job that you like and get to work. You'll get a reward after it's done."
-			duration: 'Duration'
-			energyBarTip: 'Your remaining energy'
-			descriptionDefault: 'Select a job from the list'
-			working: 'Working'
-			workingUntil: "You're on a job until "
-			jobDone: "You finished your job and earned the following rewards:"
-			minutes: 'minutes'
-			acceptJob: 'Accept job'
+			title: 'Работа'
+			description: "Выбери желаемую работу. Ты получишь вознаграждение по окончанию работы."
+			duration: 'Время'
+			energyBarTip: 'Оставшаяся энергия'
+			descriptionDefault: 'Выбери работу'
+			working: 'Работешь'
+			workingUntil: "Ты на работе до "
+			jobDone: "Ты закончил работать и получил следующее:"
+			minutes: 'минут'
+			acceptJob: 'Начать работу'
 			distributeMasks:
-				title: 'Distribute face masks'
-				description: 'Distribute face masks in the city center.'
+				title: 'Производство масок'
+				description: 'Производство масок в центре города.'
 			burnBodies:
-				title: 'Burn corpses'
-				description: 'Burn bodies of deceased in an incinerator to help prevent virus spread.'
+				title: 'Сжигание трупов'
+				description: 'Сжигай тела в мусорной печи для предотвращения распространения вируса.'
 			smuggleDrugs:
 				title: 'Smuggle drugs'
-				description: 'Smuggle drugs across the city border.'
+				description: 'Контрабанда наркотиков через городскую границу.'
 			escortScientist:
-				title: 'Escort a scientist'
-				description: 'Escort a scientist safely through the wastelands to his lab.'
+				title: 'Сопровождение ученых'
+				description: 'Сопровождай группу ученых через пустоши.'
 			constructionHelp:
-				title: 'Construction help'
-				description: 'Help with the construction of a new refuge camp near the city limits.'
+				title: 'Помощь в строительстве'
+				description: 'Помоги со строительством лагеря беженцев недалеко от города.'
 			spyMission:
-				title: 'Spy mission'
-				description: 'Follow an arms dealer from the black market and collect intel.'
+				title: 'Шпионаж'
+				description: 'Следуй за торговцем оружия с даркнета и собирай информацию.'
 	darknet:
-		about: 'The prices change every 5 hours. Buy for low, sell for high.'
-		priceTotal: 'Price total:'
+		about: 'Цены меняются каждые 5 часов. Покупай дешево - продавай дороже.'
+		priceTotal: 'Итого:'
 	wastelands:
-		wastelandsTitle: 'Wastelands'
-		scavengingTitle: 'Scavenging'
-		scavengingText: 'You can go scavenging for loot into the wastelands outside of the city. You can return from scavenging any time after one hour have passed, but the longer you scavenge, the better reward you get.'
-		scavenging: 'You cannot do anything else, because you are currently scavenging outside of the city. Do you want to return back?'
-		scavengingSince: 'You are scavenging since:'
-		scavengingReturn: 'Return from scavenging'
-		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
+		wastelandsTitle: 'Пустоши'
+		scavengingTitle: 'Уборка мусора'
+		scavengingText: 'Ты можешь пойти убирать мусор в пустоши за городом, и возможно найдешь нечто полезное. Ты сможешь вернуться не раннее чем через час. Помни, чем больше ты в пустошах, тем больше найдешь.'
+		scavenging: 'Ты не можешь заняться чем-то еще, потому что ты в пустошах за городом. Хочешь вернуться?'
+		scavengingSince: 'Ты в пустошах с:'
+		scavengingReturn: 'Вернуться из пустошей'
+		scavengeDone: '<p>Ты вернулся в город после <strong>%hours% часов</strong>, проведенных в пустошах.</p></p>Ты продал всё, что нашел, и набрался опыта.</p>'
 
 stats:
-	stat: 'Stat'
-	currentValue: 'Current value'
+	stat: 'Умения'
+	currentValue: 'Текущее значение'
 	strength:
-		title: 'Strength'
-		description: "Strength is used for dealing damage in combats"
-		pvp: 'Your strength'
+		title: 'Сила'
+		description: "Сила используется для нанесения урона в бою"
+		pvp: 'Твоя сила'
 	stamina:
-		title: 'Stamina'
-		description: "Stamina determines how much damage you can take"
-		pvp: 'Your stamina'
+		title: 'Выносливость'
+		description: "Выносливость отвечает за то, сколько урона ты можешь получить"
+		pvp: 'Твоя выносливость'
 	speed:
-		title: 'Speed'
-		description: "Speed is used for dodging hits in combats"
-		pvp: 'Your speed'
+		title: 'Скорость'
+		description: "Скорость нужна для уклонения от атак"
+		pvp: 'Твоя скорость'
 	power:
-		title: 'Power'
-		powerTotal: 'Power total'
-		description: "Your total power"
-	energy: 'Energy'
-	health: 'Health'
-	money: 'Money'
-	level: 'Level'
-	xp: 'XP'
-	xpTooltip: 'Your XP'
+		title: 'Общий ресурс'
+		powerTotal: 'Общий ресурс'
+		description: "Твой общий ресурс"
+	energy: 'Энергия'
+	health: 'Жизнь'
+	money: 'Деньги'
+	level: 'Уровень'
+	xp: 'опыт'
+	xpTooltip: 'Твой опыт'
 
 drugs:
-	drugName: 'Drug'
-	yourStash: 'Your stash'
+	drugName: 'Наркотики'
+	yourStash: 'Твоя заначка'
 	Weed:
-		name: 'Weed'
+		name: 'Травка'
 		alt:
-			1: 'Cannabis'
-			2: 'THC'
-			3: 'Marijuana'
+			1: 'Канабис'
+			2: 'Ганжа'
+			3: 'Маривана'
 	Ecstasy:
-		name: 'Ecstasy'
+		name: 'Экстази'
 		alt:
 			1: 'MDMA'
 			2: 'XTC'
-			3: 'Molly'
+			3: 'Молли'
 	Meth:
-		name: 'Meth'
+		name: 'Мет'
 		alt:
-			1: 'Crystal meth'
-			2: 'Methamphetamine'
+			1: 'Кристал-мет'
+			2: 'Метамфетамин'
 	Coke:
-		name: 'Coke'
+		name: 'Кокаин'
 		alt:
-			1: 'Cocaine'
+			1: 'Кока'
+			2: 'Кокс'
 	Heroin:
-		name: 'Heroin'
+		name: 'Героин'
+		alt:
+			1: 'Гера'
+			2: 'Герыч'
 
 buildings:
-	title: 'Buildings'
-	description: 'Buy a land to build production buildings that will earn you resources over time.'
-	showMore: 'Show more'
-	showLess: 'Show less'
-	demolish: 'Demolish'
-	upgrade: 'Upgrade'
+	title: 'Собственность'
+	description: 'Для постройки необходимо купить территорию в пустошах.'
+	showMore: 'Показать больше'
+	showLess: 'Меньше'
+	demolish: 'Снести'
+	upgrade: 'Улучшить'
 	buildings:
 		weedhouse:
-			name: 'Weedhouse'
-			description: 'Grows weed'
-			product: 'Weed'
+			name: 'Теплица'
+			description: 'Теплица для выращивания травки'
+			product: 'Трава'
 		meth_lab:
-			name: 'Meth lab'
-			description: 'Cooks methamphetamine'
-			product: 'Meth'
+			name: 'Лаборатория'
+			description: 'Лаборатория для производства мета'
+			product: 'Мет'
 		ecstasy_lab:
-			name: 'Ecstasy factory'
-			description: 'Press ecstasy pills'
-			product: 'Ecstasy'
+			name: 'Завод'
+			description: 'Завод по изготовлению таблеток'
+			product: 'Экстази'
 		poppy_field:
-			name: 'Poppy field'
-			description: 'Grows opium'
-			product: 'Heroin'
+			name: 'Маковые поля'
+			description: 'Поля мака для производства опиума'
+			product: 'Героин'
 		coca_plantage:
-			name: 'Coca plantage'
-			description: 'Grows coca plants'
-			product: 'Cocaine'
-	type: 'Type'
-	productType: 'Produces'
-	productIncome: 'Amount'
-	incomeDescription: 'Your income per 5 hours'
-	lastCollection: 'last collection:'
+			name: 'Плантация кокаина'
+			description: 'Плантация для выращивания кокаина'
+			product: 'Кокаин'
+	type: 'Тип'
+	productType: 'Производство'
+	productIncome: 'Количество'
+	incomeDescription: 'Сбор каждые 5 часов'
+	lastCollection: 'Последний сбор:'
 	types:
 		drugs:
-			name: 'Drug production'
-			description: 'Produces drugs'
+			name: 'Производство наркотиков'
+			description: 'Производит наркотики'
