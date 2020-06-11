@@ -63,6 +63,7 @@ final class BarPresenter extends GamePresenter
 					$this->template->returned = true;
 					$this->template->moneyPlus = $section['money'];
 					$this->template->xpointsPlus = $section['exp'];
+					unset($section['hash']);
 				} else {
 					$this->template->returned = false;
 					$session = $this->session;
@@ -129,19 +130,32 @@ final class BarPresenter extends GamePresenter
 		}
 	}
 
-	public function actionNewjobs() {
-		$session = $this->session;
-		$section = $session->getSection('returnedJob');
-		$section['returnedJob'] = 'old';
-		$sectionList = $session->getSection('jobs');
-		$sectionList['shown'] = false;
-		$this->redirect('Bar:default');
+	public function actionNewjobs(?string $hash = null) {
+		if ($hash) {
+			$session = $this->session;
+			$section = $session->getSection('returnedJob');
+			if ($section['hash'] == $hash) {
+				$section['returnedJob'] = 'old';
+				$sectionList = $session->getSection('jobs');
+				$sectionList['shown'] = false;
+				$this->redirect('Bar:default');
+			} else {
+				$this->redirect('Bar:default');
+			}
+		} else {
+			$this->redirect('Bar:default');
+		}
 	}
 
 	private function endMission($jobName, $level) {
 		$key = array_search($jobName, array_column($this->allJobs, 'locale'));
 		$currentJob = $this->allJobs[$key];
 		if ($currentJob) {
+			$section = $this->session->getSection('returnedJob');
+			$timestamp = (string)time();
+			$bytes = random_bytes(5);
+			$hash = $timestamp . bin2hex($bytes);
+			$section['hash'] = $hash;
 			$plusXp = $this->userRepository->getRewardXp($currentJob['xp'], $level);
 			$plusMoney = $this->userRepository->getRewardMoney($currentJob['money'], $level);
 			$this->userRepository->addXp($this->user->getIdentity()->id, $plusXp);

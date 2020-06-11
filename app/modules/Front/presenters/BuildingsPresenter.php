@@ -41,8 +41,9 @@ final class BuildingsPresenter extends GamePresenter
 			$unlockedBuildings = $this->buildingsRepository->findAllUnlocked($player->id)->order('buildings.price DESC');
 			$this->template->unlockedBuildings = $unlockedBuildings;
 			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
+			$this->template->playerIncome = $playerIncome;
 			if (isset($playerIncome->last_collection)) {
-				$this->template->playerIncome = $playerIncome;
+				$this->template->lastCollection = $playerIncome->last_collection;
 				$updated = $playerIncome->last_collection;
 				$now = new DateTime();
 				$diff = abs($updated->getTimestamp() - $now->getTimestamp());
@@ -54,6 +55,7 @@ final class BuildingsPresenter extends GamePresenter
 					$this->template->timeAgo = round($diff / 3600) . ' hours';
 				}
 			} else {
+				$this->template->noLastCollection = true;
 				$testIncome = $this->buildingsRepository->findPlayerIncome(1)->fetch();
 				$updated = $testIncome->last_collection;
 				$now = new DateTime();

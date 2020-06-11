@@ -66,5 +66,7 @@ if (jobs && duration && description && progressBar && progressBarXp && money) {
 }
 
 document.addEventListener(`DOMContentLoaded`, e => {
-  jobs.item(0).click()
+  if (jobs.item(0)) {
+    jobs.item(0).click()
+  }
 })

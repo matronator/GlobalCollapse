@@ -251,6 +251,7 @@ buildings:
 	productIncome: 'Amount'
 	incomeDescription: 'Your income per 5 hours'
 	lastCollection: 'last collection:'
+	noCollections: 'No collections yet'
 	types:
 		drugs:
 			name: 'Drug production'
