@@ -11,6 +11,7 @@ use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 use DateTime;
 use ActionLocker;
+use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -143,7 +144,7 @@ final class DefaultPresenter extends BasePresenter
 					$this->template->hours = $h > 9 ? $h : '0'.$h;
 					$this->template->minutes = $m > 9 ? $m : '0'.$m;
 					$this->template->seconds = $s > 9 ? $s : '0'.$s;
-					$this->template->trainingUntil = $trainingUntil;
+					$this->template->trainingUntil = Timezones::getUserTime($trainingUntil, $this->userPrefs->timezone);
 				} else {
 					$this->endTraining($isTraining);
 					$isTraining = 0;
@@ -165,10 +166,10 @@ final class DefaultPresenter extends BasePresenter
 			$this->template->resting = $isResting;
 			if ($isResting) {
 				$restingSince = $player->actions->resting_start;
-				$this->template->restingSince = $restingSince;
+				$this->template->restingSince = Timezones::getUserTime($restingSince, $this->userPrefs->timezone);
 				$nowDate = new DateTime();
 				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
-				$reward = intval(20 * round($diff / 3600));
+				$reward = intval(10 * round($diff / 1800));
 				$newEnergy = $player->player_stats->energy + $reward;
 				if ($newEnergy > $player->player_stats->energy_max) {
 					$newEnergy = $player->player_stats->energy_max;
@@ -217,7 +218,7 @@ final class DefaultPresenter extends BasePresenter
 				$this->userRepository->getUser($player->id)->actions->update([
 					'resting' => 0
 				]);
-				$reward = intval(20 * round($diff / 3600));
+				$reward = intval(10 * round($diff / 1800));
 				if ($reward > 0) {
 					if ($player->player_stats->energy + $reward > $player->player_stats->energy_max) {
 						$this->userRepository->getUser($player->id)->player_stats->update([
@@ -306,14 +307,11 @@ final class DefaultPresenter extends BasePresenter
 					]);
 					// $this->logger->addInfo($player->username . ' started ' . $trainSkill . ' training.');
 					$this->flashMessage('Training started', 'success');
-					$this->redirect('this');
 				} else {
 					$this->flashMessage('Not enough energy', 'danger');
-					$this->redirect('this');
 				}
 			} else {
 				$this->flashMessage('Not enough money', 'danger');
-				$this->redirect('this');
 			}
 		}
 	}
@@ -361,10 +359,8 @@ final class DefaultPresenter extends BasePresenter
 				]);
 				$this->userRepository->updateStatsAdd($player->id, $strength, $stamina, $speed);
 				$this->flashMessage('Skillpoints successfully assigned', 'success');
-				$this->redirect('this');
 			} else {
 				$this->flashMessage('Invalid stats, try again.', 'danger');
-				$this->redirect('this');
 			}
 		}
 	}
@@ -392,7 +388,6 @@ final class DefaultPresenter extends BasePresenter
 					'avatar' => $selected
 				]);
 				$this->flashMessage('Avatar changed', 'success');
-				$this->redirect('this');
 			}
 		}
 	}

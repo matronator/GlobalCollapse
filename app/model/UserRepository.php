@@ -64,6 +64,22 @@ class UserRepository
         return $this->database->table('player_stats');
     }
 
+    public function getSettings(int $userId)
+    {
+        $settings = $this->database->table('user_settings')->where('user_id', $userId);
+        if ($settings->count() <= 0) {
+            $settings->insert([
+                'user_id' => $userId
+            ]);
+        }
+        return $settings;
+    }
+
+    public function getUserTimezone(int $userId)
+    {
+        return $this->getSettings($userId)->fetch();
+    }
+
     public function findAllActions()
     {
         return $this->database->table('actions');

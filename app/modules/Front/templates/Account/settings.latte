@@ -4,9 +4,17 @@
 
 {block pageContent}
 <div class="uk-container-small uk-margin-auto uk-padding-top" uk-height-viewport="expand: true">
-  <div class="uk-text-center uk-width-1-3@m uk-margin-auto">
-    <h3>{_general.account.changePassword}</h3>
-    {control changePasswordForm}
+  <div class="dashboard uk-flex uk-flex-top" uk-margin>
+    <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-1-2@m">
+      <h3>{_general.account.changePassword}</h3>
+      {control changePasswordForm}
+    </div>
+    <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-expand@m">
+      <h3>{_general.account.datetimePrefs.title}</h3>
+      <p>{_general.account.datetimePrefs.yourTime} <strong>{$userLocalTime|date:'%B %d, %Y - %R'}</strong></p>
+      {control datetimeForm}
+    </div>
   </div>
 </div>
+<script defer src="{asset settings.js front}"></script>
 {/block}

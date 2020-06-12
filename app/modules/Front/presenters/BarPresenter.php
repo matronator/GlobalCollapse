@@ -10,6 +10,7 @@ use App\Model\EventsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
+use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -63,7 +64,7 @@ final class BarPresenter extends GamePresenter
 					$this->template->returned = true;
 					$this->template->moneyPlus = $section['money'];
 					$this->template->xpointsPlus = $section['exp'];
-					unset($section['hash']);
+					$this->template->newJobsHash = $section['hash'];
 				} else {
 					$this->template->returned = false;
 					$session = $this->session;
@@ -101,7 +102,7 @@ final class BarPresenter extends GamePresenter
 					$m = $diff / 60 % 60;
 					$this->template->minutes = $m > 9 ? $m : '0'.$m;
 					$this->template->seconds = $s > 9 ? $s : '0'.$s;
-					$this->template->workingUntil = $workingUntil;
+					$this->template->workingUntil = Timezones::getUserTime($workingUntil, $this->userPrefs->timezone, $this->userPrefs->dst);
 					$this->template->timeMax = $missionDuration;
 					$this->template->jobName = $whatMission;
 				} else {
@@ -136,6 +137,7 @@ final class BarPresenter extends GamePresenter
 			$section = $session->getSection('returnedJob');
 			if ($section['hash'] == $hash) {
 				$section['returnedJob'] = 'old';
+				unset($section['hash']);
 				$sectionList = $session->getSection('jobs');
 				$sectionList['shown'] = false;
 				$this->redirect('Bar:default');

@@ -6,6 +6,10 @@ namespace App\FrontModule\Presenters;
 
 use App\Model\UserRepository;
 use ChangePasswordForm;
+use DateTime;
+use DatetimeForm;
+use DateTimeZone;
+use Timezones;
 
 final class AccountPresenter extends BasePresenter
 {
@@ -36,6 +40,8 @@ final class AccountPresenter extends BasePresenter
 
     public function renderSettings()
     {
+        $now = Timezones::getUserTime(new DateTime(), $this->userPrefs->timezone, $this->userPrefs->dst);
+        $this->template->userLocalTime = $now;
     }
 
     public function createComponentChangePasswordForm()
@@ -52,6 +58,36 @@ final class AccountPresenter extends BasePresenter
 
             //Show flashmessage and redirect
             $this->flashMessage('Password changed', 'success');
+        };
+        $form->onError[] = function($form) {
+            $this->flashMessage('Something went wrong', 'danger');
+        };
+        return $form;
+    }
+
+    public function createComponentDatetimeForm()
+    {
+        $form = new DatetimeForm($this->userRepository);
+        $form->onSuccess[] = function($form) {
+            //Get values as array
+            $values = $form->getValues();
+            $userSettings = $this->userRepository->getSettings($this->presenter->user->getIdentity()->id);
+            $section = $this->session->getSection('preferences');
+            if (!$values->dst) {
+                $userSettings->update([
+                    'timezone' => $values->timezone,
+                    'dst' => 0
+                ]);
+                $section->dst = null;
+            } else {
+                $userSettings->update([
+                    'timezone' => $values->timezone,
+                    'dst' => 1
+                ]);
+                $section->dst = true;
+            }
+            $section->timezone = $values->timezone;
+            $this->flashMessage('Datetime preferences updated', 'success');
         };
         $form->onError[] = function($form) {
             $this->flashMessage('Something went wrong', 'danger');

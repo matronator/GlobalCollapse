@@ -92,6 +92,11 @@ ui:
 account:
 	accountSettings: 'Account settings'
 	changePassword: 'Change password'
+	datetimePrefs:
+		title: 'Date and time preferences'
+		timezone: 'Timezone'
+		dst: 'DST / Summer time'
+		yourTime: 'Your current time is'
 
 faq:
 	title: 'Did you know... ?'
@@ -116,7 +121,7 @@ pvp:
 
 resting:
 	title: 'Rest'
-	intro: "Rest to replenish your energy. Every hour of resting gives you 20 energy."
+	intro: "Rest to replenish your energy. Every half hour of resting gives you 10 energy."
 	restingSince: 'Resting since: '
 	stop: 'Stop resting'
 

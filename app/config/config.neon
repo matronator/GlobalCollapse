@@ -30,6 +30,7 @@ services:
 	- App\FrontModule\Presenters\ApiPresenter(%jobs%)
 	imagePipe: \ImageGenerator(%wwwDir%)
 	imageStorage: \ImageStorage(%wwwDir%)
+	timezones: \Timezones
 	router: App\Router\RouterFactory::createRouter
 	nette.latteFactory:
 	    setup:

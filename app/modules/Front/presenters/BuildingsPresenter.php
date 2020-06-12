@@ -8,6 +8,7 @@ use App\Model;
 use DateTime;
 use App\Model\UserRepository;
 use App\Model\BuildingsRepository;
+use Timezones;
 
 final class BuildingsPresenter extends GamePresenter
 {
@@ -43,7 +44,7 @@ final class BuildingsPresenter extends GamePresenter
 			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
 			$this->template->playerIncome = $playerIncome;
 			if (isset($playerIncome->last_collection)) {
-				$this->template->lastCollection = $playerIncome->last_collection;
+				$this->template->lastCollection = Timezones::getUserTime($playerIncome->last_collection, $this->userPrefs->timezone);
 				$updated = $playerIncome->last_collection;
 				$now = new DateTime();
 				$diff = abs($updated->getTimestamp() - $now->getTimestamp());

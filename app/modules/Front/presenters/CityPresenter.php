@@ -10,6 +10,7 @@ use App\Model\DrugsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
+use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -41,7 +42,7 @@ final class CityPresenter extends GamePresenter
 		$drugs = $this->drugsRepository->findAll()->fetchAll();
 		$this->template->drugs = $drugs;
 		$updated = $drugs['1']->updated;
-		$this->template->updated = $updated;
+		$this->template->updated = Timezones::getUserTime($updated, $this->userPrefs->timezone);
 		$now = new DateTime();
 		$diff = abs($updated->getTimestamp() - $now->getTimestamp());
 		if ($diff < 3600) {
@@ -80,7 +81,7 @@ final class CityPresenter extends GamePresenter
 		$this->template->scavenging = $isScavenging;
 		if ($isScavenging > 0) {
 			$scavengingSince = $player->actions->scavenge_start;
-			$this->template->scavengingSince = $scavengingSince;
+			$this->template->scavengingSince = Timezones::getUserTime($scavengingSince, $this->userPrefs->timezone);
 			$nowDate = new DateTime();
 			$diff = abs($scavengingSince->getTimestamp() - $nowDate->getTimestamp());
 			if ($diff < 3600) {
@@ -198,14 +199,13 @@ final class CityPresenter extends GamePresenter
 						'scavenging' => 0
 					]);
 					$reward = $this->scavengeReward($diff / 3600, $player->player_stats->level);
-					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
 					$session = $this->session;
 					$section = $session->getSection('returnedScavenging');
 					$section->returnedScavenging = true;
 					$section->hours = round($diff / 3600);
 					$section->money = $reward['money'];
 					$section->exp = $reward['xp'];
-					$this->redirect('this');
+					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
 				} else {
 					$this->flashMessage('You can return after at least an hour of scavenging', 'danger');
 				}

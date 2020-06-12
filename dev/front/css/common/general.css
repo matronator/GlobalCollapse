@@ -260,6 +260,12 @@ td.input-row {
   &\--t { border-top: 1px solid var(--c-light-2); }
 }
 
+.uk-select, option.selected {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* BADGE */
 .uk-badge {
   &\-outline {

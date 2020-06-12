@@ -1,0 +1,19 @@
+{form form class=>"datetimeForm"}
+    <div class="uk-margin">
+        <label class="uk-form-label" for="timezone">{_general.account.datetimePrefs.timezone}</label>
+        <div class="uk-form-controls">
+            {input timezone}
+        </div>
+    </div>
+    <div class="uk-margin">
+        <label class="uk-form-label" for="dst">{_general.account.datetimePrefs.dst}</label>
+        <div class="uk-form-controls">
+            {input dst}
+        </div>
+    </div>
+    <div class="uk-margin">
+        <div class="uk-form-controls">
+            <button type="submit" class="uk-button uk-button-primary uk-margin-auto" n:name="save">Update</button>
+        </div>
+    </div>
+{/form}

@@ -8,6 +8,7 @@ use App\Model\UserRepository;
 use DateTime;
 use Nette\Application\UI\Presenter;
 use Nette\Security\AuthenticationException;
+use Timezones;
 
 final class ApiPresenter extends Presenter
 {
@@ -62,7 +63,7 @@ final class ApiPresenter extends Presenter
                 'mission' => true,
                 'new' => false,
                 'name' => $whatMission,
-                'end' => $workingUntil,
+                'end' => Timezones::getUserTime($workingUntil, $this->userPrefs->timezone, $this->userPrefs->dst),
                 'duration' => $timeMax,
                 'minutes' => $minutes,
                 'seconds' => $seconds

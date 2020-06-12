@@ -7,6 +7,8 @@ namespace App\FrontModule\Presenters;
 use App\Model;
 use App\Model\UserRepository;
 use DateTime;
+use stdClass;
+use Timezones;
 
 /////////////////////// FRONT: BASE PRESENTER ///////////////////////
 // Base presenter for all frontend presenters
@@ -15,6 +17,8 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 {
 	/** @persistent */
 	public $locale;
+
+	public $userPrefs;
 
 	/** @var \Kdyby\Translation\Translator @inject */
 	public $translator;
@@ -49,6 +53,25 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->onlinePlayers = $onlinePlayers;
 		if ($this->user->isLoggedIn()) {
 			$this->template->user = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$sectionPrefs = $this->session->getSection('preferences');
+			$userPreferences = new stdClass();
+			if (isset($sectionPrefs->timezone)) {
+				$userPreferences->timezone = $sectionPrefs->timezone;
+				if (isset($sectionPrefs->dst)) {
+					$userPreferences->dst = $sectionPrefs->dst;
+				} else {
+					$userPreferences->dst = false;
+				}
+			} else {
+				$tz = $this->userRepository->getUserTimezone($this->user->getIdentity()->id);
+				if (!$tz->dst || $tz->dst == 0) {
+					$userPreferences->dst = false;
+				} else {
+					$userPreferences->dst = true;
+				}
+				$userPreferences->timezone = $tz->timezone;
+			}
+			$this->userPrefs = $userPreferences;
 		}
 	}
 
