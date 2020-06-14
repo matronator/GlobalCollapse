@@ -57,7 +57,7 @@ ui:
 			privacy: 'Ochrana soukromí'
 	footer:
 		createdBy: 'Vytvořil'
-		translatedBy: 'Ruský překlad:'
+		translatedBy: '' # leave empty to only appear in RU
 		users: 'hráčů'
 		online: 'online'
 		reportBug: 'Nahlásit chybu'

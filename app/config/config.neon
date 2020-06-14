@@ -47,17 +47,15 @@ latte:
 
 # extensions
 extensions:
-	translation: Kdyby\Translation\DI\TranslationExtension
+	translation: Contributte\Translation\DI\TranslationExtension
 	assetsExtension: h4kuna\Assets\DI\AssetsExtension
 
 translation:
-	default: en
-	fallback: [en_US, en]
-	whitelist: ['en', 'ru', 'cs']
-	dirs: [/app/locale]
-	debugger: true
-	resolvers:
-		session: true
+	locales:
+		default: en
+		whitelist: ['en', 'ru', 'cs']
+	dirs:
+		- %appDir%/lang
 
 assetsExtension:
 	wwwDir: %wwwDir%

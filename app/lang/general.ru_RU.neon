@@ -57,7 +57,7 @@ ui:
 			privacy: 'Конфиденциальность'
 	footer:
 		createdBy: 'Создал'
-		translatedBy: 'Автор леревода:'
+		translatedBy: 'Автор леревода: <a href="https://vk.com/pase80" target="_blank" rel="noopener">pase80</a>'
 		users: 'пользователи'
 		online: 'онлайн'
 		reportBug: 'Сообщить о проблеме'

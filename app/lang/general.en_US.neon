@@ -57,7 +57,7 @@ ui:
 			privacy: 'Privacy Policy'
 	footer:
 		createdBy: 'Created by'
-		translatedBy: 'Russian translation by'
+		translatedBy: '' # leave empty to only appear in RU
 		users: 'users'
 		online: 'online'
 		reportBug: 'Report a bug'
@@ -66,6 +66,7 @@ ui:
 	signup: 'Sign-Up'
 	email: 'E-mail'
 	newEmail: 'New e-mail'
+	emailV: 'Repeat e-mail'
 	password: 'Password'
 	passwordV: 'Repeat password'
 	newPassword: 'New password'
@@ -93,6 +94,7 @@ ui:
 account:
 	accountSettings: 'Account settings'
 	changePassword: 'Change password'
+	changeEmail: 'Change e-mail'
 	datetimePrefs:
 		title: 'Date and time preferences'
 		timezone: 'Timezone'
