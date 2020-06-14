@@ -53,7 +53,7 @@ extensions:
 translation:
 	default: en
 	fallback: [en_US, en]
-	whitelist: ['en', 'cs']
+	whitelist: ['en', 'ru', 'cs']
 	dirs: [/app/locale]
 	debugger: true
 	resolvers:

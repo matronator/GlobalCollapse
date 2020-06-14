@@ -56,7 +56,8 @@ ui:
 			copyright: 'Авторские права'
 			privacy: 'Конфиденциальность'
 	footer:
-		createdBy: 'Создал '
+		createdBy: 'Создал'
+		translatedBy: 'Автор леревода:'
 		users: 'пользователи'
 		online: 'онлайн'
 		reportBug: 'Сообщить о проблеме'

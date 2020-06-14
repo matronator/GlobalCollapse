@@ -57,6 +57,7 @@ ui:
 			privacy: 'Privacy Policy'
 	footer:
 		createdBy: 'Created by'
+		translatedBy: 'Russian translation by'
 		users: 'users'
 		online: 'online'
 		reportBug: 'Report a bug'

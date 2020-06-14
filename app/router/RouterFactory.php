@@ -26,23 +26,23 @@ class RouterFactory
 		$router[] = $frontRouter = new RouteList('Front');
 		$frontRouter[] = new Route('sitemap.xml', 'Sitemap:default');
 		$frontRouter[] = new Route('sitemap', 'Sitemap:default');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]news[/<page>[/<id>]]', 'Info:news');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]news/<post>/<id>', 'Info:post');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]copyright-notice', 'Info:copyright');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]terms-of-use', 'Info:tos');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]privacy-policy', 'Info:privacy');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]rest', 'Default:rest');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]training', 'Default:training');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]darknet', 'City:darknet');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]wastelands', 'City:wastelands');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]buildings', 'Buildings:default');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]player/detail/<user>', 'Player:detail');
-		$frontRouter[] = new Route('[<locale=en en|cs>/]player/assault/<match>', 'Player:assault');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]news[/<page>[/<id>]]', 'Info:news');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]news/<post>/<id>', 'Info:post');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]copyright-notice', 'Info:copyright');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]terms-of-use', 'Info:tos');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]privacy-policy', 'Info:privacy');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]rest', 'Default:rest');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]training', 'Default:training');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]darknet', 'City:darknet');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]wastelands', 'City:wastelands');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]buildings', 'Buildings:default');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]player/detail/<user>', 'Player:detail');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]player/assault/<match>', 'Player:assault');
 
 		// APIs
 		$frontRouter[] = new Route('api/job', 'Api:job');
 
-		$frontRouter[] = new Route('[<locale=en en|cs>/]<presenter>/<action>[/<id>]', 'Default:default'); //most general route
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 
 		return $router;
 	}

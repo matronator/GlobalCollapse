@@ -32,9 +32,10 @@ class BasePresenter extends Presenter
 	{
 		parent::startup();
 
-        $this->localeList = ['en', 'cs'];
+        $this->localeList = ['en', 'ru', 'cs'];
         $this->localeArrayMap = [
             'en' => 'English',
+            'ru' => 'Russian',
             'cs' => 'Čeština'
         ];
     }
