@@ -208,7 +208,7 @@ final class DefaultPresenter extends BasePresenter
 					'resting' => 1,
 					'resting_start' => $playerRestStart
 				]);
-				$this->flashMessage('You went to rest', 'success');
+				$this->flashMessage($this->translator->translate('general.messages.success.restStart'), 'success');
 			}
 		} else if ($control->name === 'wakeup') {
 			if ($isResting) {
@@ -229,7 +229,7 @@ final class DefaultPresenter extends BasePresenter
 							'energy+=' => $reward
 						]);
 					}
-					$this->flashMessage('You regained ' . $reward . ' energy', 'success');
+					$this->flashMessage($this->translator->translate('general.messages.success.restEnd', $reward), 'success');
 				}
 			}
 		}
@@ -306,12 +306,12 @@ final class DefaultPresenter extends BasePresenter
 						'training_end' => $trainingEnd
 					]);
 					// $this->logger->addInfo($player->username . ' started ' . $trainSkill . ' training.');
-					$this->flashMessage('Training started', 'success');
+					$this->flashMessage($this->translator->translate('general.messages.success.trainingStart'), 'success');
 				} else {
-					$this->flashMessage('Not enough energy', 'danger');
+					$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughEnergy'), 'danger');
 				}
 			} else {
-				$this->flashMessage('Not enough money', 'danger');
+				$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
 			}
 		}
 	}
@@ -358,9 +358,9 @@ final class DefaultPresenter extends BasePresenter
 					'skillpoints-=' => $usedSp
 				]);
 				$this->userRepository->updateStatsAdd($player->id, $strength, $stamina, $speed);
-				$this->flashMessage('Skillpoints successfully assigned', 'success');
+				$this->flashMessage($this->translator->translate('general.messages.success.skillpointsAssigned'), 'success');
 			} else {
-				$this->flashMessage('Invalid stats, try again.', 'danger');
+				$this->flashMessage($this->translator->translate('general.messages.danger.invalidStats'), 'danger');
 			}
 		}
 	}
@@ -387,7 +387,7 @@ final class DefaultPresenter extends BasePresenter
 				$this->userRepository->getUser($player->id)->update([
 					'avatar' => $selected
 				]);
-				$this->flashMessage('Avatar changed', 'success');
+				$this->flashMessage($this->translator->translate('general.messages.success.avatarChanged'), 'success');
 			}
 		}
 	}

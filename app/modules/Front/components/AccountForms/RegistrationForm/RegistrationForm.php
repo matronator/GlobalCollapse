@@ -7,7 +7,7 @@ use Nette\Application\UI\Form;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Utils\DateTime;
-use \Kdyby\Translation\Translator;
+use \Contributte\Translation\Translator;
 use App\Model\UserRepository;
 
 class RegistrationForm extends Control {
@@ -83,6 +83,6 @@ class RegistrationForm extends Control {
 
     private function sendRegistrationEmail($values)
     {
-        
+
     }
 }

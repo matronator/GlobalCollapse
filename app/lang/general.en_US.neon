@@ -23,6 +23,21 @@ intro:
 			title: 'Are you ready?'
 			subtitle: "Click continue to start your adventure."
 
+messages:
+	success:
+		registration: "Registration successful! You can now login"
+		restStart: "You went to rest"
+		restEnd: "You gained %reward% energy"
+		trainingStart: "Training started"
+		skillpointsAssigned: "Skillpoints successfully assigned"
+		avatarChanged: "Avatar changed"
+	info:
+	warning:
+	danger:
+		notEnoughMoney: "Not enough money"
+		notEnoughEnergy: "Not enough energy"
+		invalidStats: "Invalid stats, try again"
+
 ui:
 	navbar:
 		covidTracker:
@@ -95,6 +110,7 @@ account:
 	accountSettings: 'Account settings'
 	changePassword: 'Change password'
 	changeEmail: 'Change e-mail'
+	currentEmail: 'Your current e-mail is'
 	datetimePrefs:
 		title: 'Date and time preferences'
 		timezone: 'Timezone'

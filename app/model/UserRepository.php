@@ -146,6 +146,12 @@ class UserRepository
         ]);
     }
 
+    public function changeUserEmail(int $userId, string $email) {
+        return $this->updateUser($userId, [
+            'email' => $email
+        ]);
+    }
+
     public function cypherPassword(string $password): string
     {
         $passwords = new Passwords(PASSWORD_BCRYPT, ['cost' => 10]);

@@ -6,6 +6,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model\UserRepository;
 use ChangePasswordForm;
+use ChangeEmailForm;
 use DateTime;
 use DatetimeForm;
 use DateTimeZone;
@@ -58,6 +59,26 @@ final class AccountPresenter extends BasePresenter
 
             //Show flashmessage and redirect
             $this->flashMessage('Password changed', 'success');
+        };
+        $form->onError[] = function($form) {
+            $this->flashMessage('Something went wrong', 'danger');
+        };
+        return $form;
+    }
+
+    public function createComponentChangeEmailForm()
+    {
+        $form = new ChangeEmailForm($this->userRepository);
+        $form->onSuccess[] = function($form) {
+            //Get values as array
+            $values = $form->getValues(true);
+
+            //Update password
+            $user = $this->getUser()->identity;
+            $this->userRepository->changeUserEmail($user->id, $values['newEmail']);
+
+            //Show flashmessage and redirect
+            $this->flashMessage('E-mails changed', 'success');
         };
         $form->onError[] = function($form) {
             $this->flashMessage('Something went wrong', 'danger');

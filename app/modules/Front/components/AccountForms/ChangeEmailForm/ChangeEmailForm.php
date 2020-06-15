@@ -30,16 +30,18 @@ class ChangeEmailForm extends Control {
     public function createComponentForm()
     {
         $form = new Form;
-        $form->addPassword('password', 'Password')
+        $form->addEmail('email', 'Email')
             ->setHtmlAttribute('class', 'uk-input')
-            ->setHtmlId('password')
-            ->setHtmlAttribute('placeholder', 'Password')
+            ->setHtmlId('email')
+            ->setHtmlAttribute('placeholder', 'Email')
+            ->addRule(Form::EMAIL, 'Email not valid')
             ->setRequired();
         $form->addEmail('newEmail', 'New email')
             ->setHtmlAttribute('class', 'uk-input')
             ->setHtmlId('newEmail')
             ->setHtmlAttribute('placeholder', 'New email')
             ->addRule(Form::EMAIL, 'Email not valid')
+            ->addRule(FORM::EQUAL, 'Emails don\'t match', $form['email'])
             ->setRequired();
         $form->addSubmit('submit', 'Change e-mail');
 
@@ -52,11 +54,9 @@ class ChangeEmailForm extends Control {
         try {
             //Get values as array
             $values = $form->getValues(true);
-
             //Update password
             $user = $this->presenter->user->getIdentity();
-            $newPasswordHash = $this->userRepository->cypherPassword($values['newPassword']);
-            $this->userRepository->changeUserPassword($user->id, $newPasswordHash);
+            $this->userRepository->changeUserEmail($user->id, $values['newEmail']);
             $this->onSuccess($form);
         } catch (Nette\Security\AuthenticationException $e) {
             $this->onError($form);

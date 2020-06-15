@@ -7,7 +7,7 @@ use Nette\Application\UI\Form;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 use Nette\Utils\DateTime;
-use \Kdyby\Translation\Translator;
+use \Contributte\Translation\Translator;
 use App\Model\ContactFormRepository;
 
 class ContactForm extends Control {
@@ -65,7 +65,7 @@ class ContactForm extends Control {
             ->setRequired($this->translator->translate('form.general.requiredConsent'));
 
         $form->addHidden('recaptcha_token');
-        
+
         $form->addSubmit('send', $this->translator->translate('form.contact.send'));
 
         $form->onSuccess[] = [$this, 'processForm'];
@@ -75,7 +75,7 @@ class ContactForm extends Control {
     public function processForm(Form $form, $values)
     {
         $recaptcha = $this->verifyRecaptcha($values->recaptcha_token);
-    
+
         if ($recaptcha->success && $recaptcha->score > 0.49){
 
             $mailer = new SendmailMailer;

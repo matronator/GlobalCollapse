@@ -5,14 +5,21 @@
 {block pageContent}
 <div class="uk-container-small uk-margin-auto uk-padding-top" uk-height-viewport="expand: true">
   <div class="dashboard uk-flex uk-flex-top" uk-margin>
-    <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-1-2@m">
-      <h3>{_general.account.changePassword}</h3>
-      {control changePasswordForm}
-    </div>
-    <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-expand@m">
+    <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-expand">
       <h3>{_general.account.datetimePrefs.title}</h3>
       <p>{_general.account.datetimePrefs.yourTime} <strong>{$userLocalTime|date:'%B %d, %Y - %R'}</strong></p>
       {control datetimeForm}
+    </div>
+    <div class="uk-width-1-1 uk-flex split">
+      <div class="uk-card uk-card-body uk-text-center uk-card-default split-left">
+        <h3>{_general.account.changePassword}</h3>
+        {control changePasswordForm}
+      </div>
+      <div class="uk-card uk-card-body uk-text-center uk-card-default split-right">
+        <h3>{_general.account.changeEmail}</h3>
+        <p>{_general.account.currentEmail} <strong>{$user->email}</strong></p>
+        {control changeEmailForm}
+      </div>
     </div>
   </div>
 </div>

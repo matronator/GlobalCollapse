@@ -20,7 +20,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
 	public $userPrefs;
 
-	/** @var \Kdyby\Translation\Translator @inject */
+	/** @var \Contributte\Translation\Translator @inject */
 	public $translator;
 
 	/** @var Model\UserRepository */

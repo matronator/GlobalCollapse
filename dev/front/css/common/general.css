@@ -54,9 +54,26 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  & > .split-left {
+    width: 50%;
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  & > .split-right {
+    width: 50%;
+    flex-grow: 1;
+    margin-left: 10px;
+  }
   @media (max-width: 640px) {
     flex-direction: column;
     align-items: center;
+    & > .split-left, & > .split-right {
+      width: 100%;
+      flex-grow: 1;
+      margin-top: 10px;
+      margin-right: 0;
+      margin-left: 0;
+    }
   }
 }
 

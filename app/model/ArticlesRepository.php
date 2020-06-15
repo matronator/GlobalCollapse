@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Nette;
-use \Kdyby\Translation\Translator;
+use \Contributte\Translation\Translator;
 
 
 class ArticlesRepository
