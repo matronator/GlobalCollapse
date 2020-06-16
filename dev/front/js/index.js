@@ -16,6 +16,17 @@ UIkit.use(Icons)
 NetteForms.initOnLoad()
 
 window.addEventListener(`DOMContentLoaded`, () => {
+  // Check if standalone
+  if (window.matchMedia(`(display-mode: standalone)`).matches) {
+    const pwaPrompt = document.getElementById(`pwaPrompt`)
+    pwaPrompt.classList.add(`shown`)
+    pwaPrompt.addEventListener(`click`, () => {
+      pwaPrompt.classList.remove(`shown`)
+      setTimeout(() => {
+        pwaPrompt.remove()
+      }, 500)
+    })
+  }
   // sortable
   UIkit.util.on(
     ".js-sortable",

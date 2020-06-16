@@ -295,3 +295,58 @@ td.input-row {
     }
   }
 }
+
+/* PWA prompt */
+.pwa_prompt-wrapper {
+  position: fixed;
+  bottom: 20px;
+  display: none;
+  left: 50%;
+  width: 95vw;
+  min-height: 10px;
+  background-color: rgba(240,240,240,0.4);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--c-light-4);
+  transform: translateX(-50%);
+  border-radius: 7px;
+  opacity: 0;
+  transition: all 250ms ease;
+  @media (--s) {
+    display: block;
+  }
+  &.shown {
+    opacity: 1;
+  }
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    background-color: transparent;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-top: 10px solid rgba(255,255,255,1);
+    border-bottom: 10px solid rgba(0,0,0,0);
+    border-left: 10px solid rgba(0,0,0,0);
+    border-right: 10px solid rgba(0,0,0,0);
+  }
+  &::before {
+    width: 23px;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 11px solid rgba(170,170,170,1);
+    border-bottom: 11px solid rgba(0,0,0,0);
+    border-left: 11px solid rgba(0,0,0,0);
+    border-right: 11px solid rgba(0,0,0,0);
+  }
+}
+
+.pwa_prompt-text {
+  padding: 6px;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+}
