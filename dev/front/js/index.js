@@ -30,6 +30,7 @@ window.addEventListener(`DOMContentLoaded`, () => {
     if (showAgain) {
       const pwaPrompt = document.getElementById(`pwaPrompt`)
       pwaPrompt.classList.add(`shown`)
+      localStorage.setItem(`pwaPromptShown`, new Date().getTime())
       pwaPrompt.addEventListener(`click`, () => {
         pwaPrompt.classList.remove(`shown`)
         setTimeout(() => {
