@@ -17,15 +17,26 @@ NetteForms.initOnLoad()
 
 window.addEventListener(`DOMContentLoaded`, () => {
   // Check if standalone
-  if (window.matchMedia(`(display-mode: standalone)`).matches) {
-    const pwaPrompt = document.getElementById(`pwaPrompt`)
-    pwaPrompt.classList.add(`shown`)
-    pwaPrompt.addEventListener(`click`, () => {
-      pwaPrompt.classList.remove(`shown`)
-      setTimeout(() => {
-        pwaPrompt.remove()
-      }, 500)
-    })
+  if (!window.matchMedia(`(display-mode: standalone)`).matches) {
+    const alreadyShown = localStorage.getItem(`pwaPromptShown`)
+    let showAgain = true
+    if (alreadyShown) {
+      const currentTime = new Date().getTime()
+      const duration = 7 * 24 * 60 * 60 * 1000 // 7 days 24 h 60 min 60 sec 1000 milisec = 1 week
+      if (currentTime - alreadyShown <= duration) {
+        showAgain = false
+      }
+    }
+    if (showAgain) {
+      const pwaPrompt = document.getElementById(`pwaPrompt`)
+      pwaPrompt.classList.add(`shown`)
+      pwaPrompt.addEventListener(`click`, () => {
+        pwaPrompt.classList.remove(`shown`)
+        setTimeout(() => {
+          pwaPrompt.remove()
+        }, 500)
+      })
+    }
   }
   // sortable
   UIkit.util.on(
