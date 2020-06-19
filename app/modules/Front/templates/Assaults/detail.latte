@@ -1,0 +1,24 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Player detail{/define}
+{define metaDescription}Player detail{/define}
+
+{block pageContent}
+  <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+    <div class="dashboard dashboard-assaults uk-flex" uk-margin>
+      {include '../../components/Assault/AttackerCard.latte',
+        attacker => $user,
+        victim => $otherPlayer
+      }
+      {include '../../components/Assault/VictimCard.latte',
+        victim => $otherPlayer,
+        attacker => $user
+      }
+      <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center" id="assaultControls">
+        <a n:href="Player:detail, $otherPlayer->username" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
+        {if $user->id != $otherPlayer->id}
+          <a n:href="Assaults:attack" class="uk-button uk-button-primary">Attack!</a>
+        {/if}
+      </div>
+    </div>
+  </div>
+{/block}

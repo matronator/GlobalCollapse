@@ -5,18 +5,35 @@
 {block pageContent}
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
     <div class="dashboard dashboard-assaults uk-flex" uk-margin>
-      {include '../../components/Assault/AttackerCard.latte',
-        attacker => $user,
-        victim => $otherPlayer
-      }
-      {include '../../components/Assault/VictimCard.latte',
-        victim => $otherPlayer,
-        attacker => $user
-      }
-      <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center" id="assaultControls">
-        <a n:href="Default:default" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
+      <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center">
+        <div class="split uk-flex-bottom">
+          <div>
+            <h3 class="uk-margin-remove-bottom">
+              {$otherPlayer->username}&nbsp;<small class="uk-text-muted">Level {$otherPlayer->player_stats->level}</small>
+            </h3>
+          </div>
+        </div>
+        <div class="split">
+          <div class="uk-width-auto">
+            <img src="{$basePath}/dist/front/images/default-avatars/{$otherPlayer->avatar}.jpg" class="uk-comment-avatar" width="128" height="128">
+          </div>
+          <div class="uk-width-expand">
+            <ul class="uk-list uk-list-striped assaults-stat-list">
+              <li>Attacks won: <strong>{$aStatsV ? $aStatsV->attacks_won : 0}</strong></li>
+              <li>Attacks lost: <strong>{$aStatsV ? $aStatsV->attacks_lost : 0}</strong></li>
+              <li>Defenses won: <strong>{$aStatsV ? $aStatsV->defenses_won : 0}</strong></li>
+              <li>Defenses lost: <strong>{$aStatsV ? $aStatsV->defenses_lost : 0}</strong></li>
+              <li>Total attacks: <strong>{$aStatsV ? $aStatsV->total_attacks : 0}</strong></li>
+              <li>Total defenses: <strong>{$aStatsV ? $aStatsV->total_defenses : 0}</strong></li>
+              <li>Total assaults: <strong>{$aStatsV ? $aStatsV->total : 0}</strong></li>
+            </ul>
+          </div>
+        </div>
         {if $user->id != $otherPlayer->id}
-          <a n:href="Player:attack" class="uk-button uk-button-primary">Attack!</a>
+          <a n:href="Player:leaderboard" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
+          <a n:href="Assaults:detail, $otherPlayer->username" class="uk-button uk-button-primary">Assault</a>
+        {else}
+          <a n:href="Player:leaderboard" class="uk-button uk-button-primary">Leaderboard</a>
         {/if}
       </div>
     </div>

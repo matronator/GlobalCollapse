@@ -31,12 +31,18 @@ messages:
 		trainingStart: "Training started"
 		skillpointsAssigned: "Skillpoints successfully assigned"
 		avatarChanged: "Avatar changed"
+		purchaseSuccessful: "Purchase successful"
+		scavengingStart: "You went scavenging to the wastelands"
+		drugsSold: "Drugs successfully sold"
+		landBought: "Land successfully bought!"
+		buildingBought: "Building bought"
 	info:
 	warning:
 	danger:
 		notEnoughMoney: "Not enough money"
 		notEnoughEnergy: "Not enough energy"
 		invalidStats: "Invalid stats, try again"
+		somethingFishy: "Something fishy going on..."
 
 ui:
 	navbar:
@@ -54,6 +60,7 @@ ui:
 			rest: 'Rest'
 			home: 'Home'
 			buildings: 'Buildings'
+			assaults: 'Assaults'
 		city:
 			title: 'City'
 			bar: 'Bar'
