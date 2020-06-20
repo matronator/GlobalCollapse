@@ -361,6 +361,9 @@ CREATE TABLE `user` (
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`actions_id`) REFERENCES `actions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `user` (`id`, `username`, `email`, `ip`, `password`, `date_log`, `registration`, `role`, `avatar`, `money`, `skillpoints`, `tutorial`, `player_stats_id`, `actions_id`, `last_active`) VALUES
+(1,	'matronator',	'info@matronator.com',	'127.0.0.1',	'$2y$10$ttxpvkn7uKZDLgo4NdX1/OzcevLAYU4IB4tdA7kBig2aIpzLMVM0m',	'2020-06-20 10:55:40',	'2020-03-27 12:31:51',	'a',	'6',	591776460,	0,	1,	1,	1,	'2020-06-20 12:55:40');
+
 
 DROP TABLE IF EXISTS `user_settings`;
 CREATE TABLE `user_settings` (
