@@ -1,0 +1,21 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Buildings{/define}
+{define metaDescription}Buildings{/define}
+
+{block pageContent}
+<div class="uk-container" uk-height-viewport="expand: true">
+  <div>
+    <div class="uk-card uk-width-auto uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
+      <div class="uk-card-media illustration-card lands-land_card" style="background-image:url('{$basePath}/dist/front/images/illustrations/lands.jpg');">
+        <h2 class="uk-heading-large lands-title_card">{_general.buildings.lands.title}</h2>
+      </div>
+    </div>
+    <div class="uk-text-center" n:if="$land">
+      <h3>{$user->username}'s land</h3>
+      <hr class="uk-divider-icon uk-margin-remove-top">
+      <div class="uk-flex-around uk-grid-match player-land uk-flex-middle uk-child-width-auto" uk-grid>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}

@@ -17,12 +17,23 @@
       <a n:href="Buildings:buyLand" class="uk-button uk-button-primary">Buy (-${$emptyLand|number})</a>
     </div>
     <div class="uk-text-center" n:if="$land">
-      <h3>{$user->username}'s land</h3>
+      <div class="uk-card uk-card-secondary uk-dark uk-card-body uk-margin-bottom">
+        <h3>{$user->username}'s land</h3>
+        <p class="uk-text-small uk-hidden@s"><a href="#landInfo" class="uk-text-light" uk-toggle="target: #landInfo;">{_general.buildings.lands.toggleDetails}</a></p>
+        <div id="landInfo" class="">
+          <div class="land-card uk-flex-between flex-responsive uk-margin-bottom uk-text-lighter uk-text-small uk-grid-divider uk-child-width-1-4@s" uk-grid>
+            <div><span>{_general.stats.level}:</span> <strong>{$land->level}</strong></div>
+            <div><span>{_general.buildings.lands.slots}</span> <strong>{$land->slots}</strong></div>
+            <div><span>{_general.buildings.lands.upgradeCost}</span> <strong>${$landUpgradeCost|number}</strong></div>
+            <div><span>{_general.buildings.lands.upgradeTime}</span> <strong>12 hours</strong></div>
+          </div>
+          {* <hr> *}
+          <a n:href="Buildings:upgradeLand" class="uk-margin-top uk-button uk-button-primary">{_general.buildings.upgrade}</a>
+        </div>
+      </div>
       <div n:ifset="$playerIncome">
-        <p n:if="!isset($noLastCollection) && isset($lastCollection)">{_general.buildings.incomeDescription} <small class="uk-text-italic">({_general.buildings.lastCollection} {$lastCollection|date:'%T'} - <strong>{$timeAgo}</strong> ago)</small>:</p>
-        <p n:ifset="$noLastCollection">{_general.buildings.incomeDescription} <small class="uk-text-italic">({_general.buildings.lastCollection} {_general.buildings.noCollections}):</small></p>
-        <div class="uk-flex-around uk-text-small" uk-grid>
-          <div>{_general.stats.money}: {$playerIncome->money ? $playerIncome->money : 0|number}</div>
+        <div class="uk-flex-around uk-text-small uk-grid-small" uk-grid>
+          <div >{_general.stats.money}: {$playerIncome->money ? $playerIncome->money : 0|number}</div>
           <div>{_general.drugs.Weed.name}: {$playerIncome->weed ? $playerIncome->weed : 0|number}g</div>
           <div>{_general.drugs.Ecstasy.name}: {$playerIncome->ecstasy ? $playerIncome->ecstasy : 0|number}g</div>
           <div>{_general.drugs.Meth.name}: {$playerIncome->meth ? $playerIncome->meth : 0|number}g</div>
@@ -31,6 +42,8 @@
         </div>
       </div>
       <hr class="uk-divider-icon uk-margin-remove-top">
+      <p n:if="!isset($noLastCollection) && isset($lastCollection)"><small class="uk-text-italic">{_general.buildings.lastCollection} {$lastCollection|date:'%T'} (<strong>{$timeAgo}</strong> ago)</small></p>
+      <p n:ifset="$noLastCollection"><small class="uk-text-italic">({_general.buildings.lastCollection} {_general.buildings.noCollections}):</small></p>
       <div class="uk-flex-around uk-grid-match player-land uk-flex-middle uk-child-width-auto" uk-grid>
         <div n:foreach="$playerBuildings as $playerBulding" n:if="$playerBuildings">
           {include '../../components/BuildingCard/BuildingCard.latte',

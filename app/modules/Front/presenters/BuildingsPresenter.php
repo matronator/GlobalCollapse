@@ -31,7 +31,6 @@ final class BuildingsPresenter extends GamePresenter
 
   public function renderDefault() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-		$this->template->user = $player;
 		$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
 		$this->template->land = $playerLand;
 		if (!$playerLand) {
@@ -43,6 +42,7 @@ final class BuildingsPresenter extends GamePresenter
 			$this->template->unlockedBuildings = $unlockedBuildings;
 			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
 			$this->template->playerIncome = $playerIncome;
+			$this->template->landUpgradeCost = $this->buildingsRepository->getLandUpgradeCost($playerLand->level);
 			if (isset($playerIncome->last_collection)) {
 				$this->template->lastCollection = Timezones::getUserTime($playerIncome->last_collection, $this->userPrefs->timezone);
 				$updated = $playerIncome->last_collection;
@@ -72,6 +72,32 @@ final class BuildingsPresenter extends GamePresenter
 		}
 	}
 
+	public function renderLands() {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
+		$this->template->land = $playerLand;
+	}
+
+	public function actionUpgradeLand() {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
+		if (isset($playerLand->level) && $playerLand->level >= 1 && !$playerLand->is_upgrading) {
+			$cost = $this->buildingsRepository->getLandUpgradeCost($playerLand->level);
+			$playerMoney = $player->money;
+			if ($playerMoney >= $cost) {
+				$this->buildingsRepository->startLandUpgrade($player->id);
+				$this->userRepository->addMoney($player->id, -$cost);
+				$this->flashMessage($this->translate('general.messages.success.landUpgradeStart'), 'success');
+				$this->redirect('Buildings:default');
+			} else {
+				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
+				$this->redirect('Buildings:default');
+			}
+		} else {
+			$this->redirect('Buildings:default');
+		}
+	}
+
 	public function actionBuyLand() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$cost = $this->buildingsRepository->getLandPrice();
@@ -79,10 +105,10 @@ final class BuildingsPresenter extends GamePresenter
 		if ($playerMoney >= $cost && !$this->buildingsRepository->findPlayerLand($player->id)->fetch()) {
 			$this->buildingsRepository->buyLand($player->id);
 			$this->userRepository->addMoney($player->id, -$cost);
-			$this->flashMessage('Land bought!', 'success');
+			$this->flashMessage($this->translate('general.messages.success.landBought'), 'success');
 			$this->redirect('Buildings:default');
 		} else {
-			$this->flashMessage('Not enough money!', 'danger');
+			$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 			$this->redirect('Buildings:default');
 		}
 	}
@@ -96,10 +122,10 @@ final class BuildingsPresenter extends GamePresenter
 			if ($playerMoney >= $cost) {
 				$this->buildingsRepository->buyBuilding($player->id, $building->buildings_id, $b);
 				$this->userRepository->addMoney($player->id, -$cost);
-				$this->flashMessage('Building bought!', 'success');
+				$this->flashMessage($this->translate('general.messages.success.buildingBought'), 'success');
 				$this->redirect('Buildings:default');
 			} else {
-				$this->flashMessage('Not enough money!', 'danger');
+				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 				$this->redirect('Buildings:default');
 			}
 		}
@@ -115,14 +141,14 @@ final class BuildingsPresenter extends GamePresenter
 				if ($playerMoney >= $cost) {
 					if ($this->buildingsRepository->upgradeBuilding($b, $player->id)) {
 						$this->userRepository->addMoney($player->id, -$cost);
-						$this->flashMessage('Building bought!', 'success');
+						$this->flashMessage($this->translate('general.messages.success.buildingBought'), 'success');
 						$this->redirect('Buildings:default');
 					} else {
-						$this->flashMessage('Something fishy...', 'danger');
+						$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 						$this->redirect('Buildings:default');
 					}
 				} else {
-					$this->flashMessage('Not enough money!', 'danger');
+					$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 					$this->redirect('Buildings:default');
 				}
 			} else {

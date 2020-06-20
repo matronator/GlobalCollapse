@@ -36,6 +36,7 @@ messages:
 		drugsSold: "Drugs successfully sold"
 		landBought: "Land successfully bought!"
 		buildingBought: "Building bought"
+		landUpgradeStart: "Land upgrade started"
 	info:
 	warning:
 	danger:
@@ -60,6 +61,7 @@ ui:
 			rest: 'Rest'
 			home: 'Home'
 			buildings: 'Buildings'
+			lands: 'Lands'
 			assaults: 'Assaults'
 		city:
 			title: 'City'
@@ -251,7 +253,7 @@ drugs:
 
 buildings:
 	title: 'Buildings'
-	description: 'Buy a land to build production buildings that will earn you resources over time.'
+	description: 'Buy a land to build production buildings that will earn you resources over time. Currently the collections for all resources happen every 5 hours'
 	showMore: 'Show more'
 	showLess: 'Show less'
 	demolish: 'Demolish'
@@ -277,6 +279,12 @@ buildings:
 			name: 'Coca plantage'
 			description: 'Grows coca plants'
 			product: 'Cocaine'
+	lands:
+		title: 'Lands'
+		slots: 'Free slots:'
+		upgradeTime: 'Upgrade time:'
+		upgradeCost: 'Upgrade cost:'
+		toggleDetails: 'Hide details'
 	type: 'Type'
 	productType: 'Produces'
 	productIncome: 'Amount'

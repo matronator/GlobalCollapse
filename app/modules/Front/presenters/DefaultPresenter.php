@@ -293,7 +293,7 @@ final class DefaultPresenter extends BasePresenter
 					$currentEnergy -= 10;
 					$now = new DateTime();
 					$trainingEndTS = $now->getTimestamp();
-					// Training time = 5 minutes = 3éés
+					// Training time = 5 minutes = 300s
 					$trainingEndTS += 300;
 					$now->setTimestamp($trainingEndTS);
 					$trainingEnd = $now->format('Y-m-d H:i:s');

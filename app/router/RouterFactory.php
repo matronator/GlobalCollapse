@@ -35,6 +35,7 @@ class RouterFactory
 		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]training', 'Default:training');
 		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]darknet', 'City:darknet');
 		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]wastelands', 'City:wastelands');
+		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]lands', 'Buildings:lands');
 		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]buildings', 'Buildings:default');
 		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]player/detail/<user>', 'Player:detail');
 		$frontRouter[] = new Route('[<locale=en en|ru|cs>/]assaults', 'Assaults:default');

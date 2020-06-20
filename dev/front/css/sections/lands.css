@@ -1,0 +1,56 @@
+.illustration-card.lands-land_card {
+  min-height: 200px;
+  background-position: top 46% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @media (--xs-plus) {
+    min-height: 250px;
+  }
+  @media (--s-plus) {
+    min-height: 300px;
+  }
+  @media (--m-plus) {
+    min-height: 400px;
+  }
+  & > h2.lands-title_card {
+    align-items: flex-start;
+    padding-top: 5vw;
+    padding-bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+    @media (--xs-plus) {
+      padding-top: 0;
+      padding-bottom: 0;
+      align-items: center;
+    }
+    @media (--s-plus) {
+      padding-top: 0;
+      padding-bottom: 10vw;
+      align-items: center;
+    }
+    @media (--m-plus) {
+      padding-top: 0;
+      padding-bottom: 4vw;
+      align-items: center;
+    }
+    @media (--l) {
+      padding-top: 0;
+      padding-bottom: 4vw;
+      font-size: 6vw;
+      align-items: center;
+    }
+  }
+}
+
+.land-card {
+  & > div {
+    display: flex;
+    flex-direction: column;
+    @media (--s) {
+      flex-direction: row;
+      justify-content: center;
+      & > span {
+        margin-right: 5px;
+      }
+    }
+  }
+}

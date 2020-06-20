@@ -136,9 +136,9 @@ final class CityPresenter extends GamePresenter
 							$this->userRepository->addMoney($player->id, -$prices[$drug->name]);
 						}
 					}
-					$this->flashMessage('Purchase successful', 'success');
+					$this->flashMessage($this->translator->translate('general.messages.success.purchaseSuccessful'), 'success');
 				} else {
-					$this->flashMessage('Not enough money', 'danger');
+					$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
 				}
 			} else if ($control->name === 'sell') {
 				$allGood = [];
@@ -161,7 +161,7 @@ final class CityPresenter extends GamePresenter
 				} else if (count($allGood) > 0 && count($soldDrugs) === 0) {
 					$this->flashMessage('You can\'t sell drugs you don\'t have.', 'danger');
 				} else if (count($allGood) === 0 && count($soldDrugs) > 0) {
-					$this->flashMessage('Drugs successfully sold.', 'success');
+					$this->flashMessage($this->translate('general.messages.success.drugsSold'), 'success');
 				}
 			}
 		}
@@ -187,7 +187,7 @@ final class CityPresenter extends GamePresenter
 					'scavenging' => 1,
 					'scavenge_start' => $playerScavengeStart
 				]);
-				$this->flashMessage('You went scavenging to the wastelands', 'success');
+				$this->flashMessage($this->translate('general.messages.success.scavengingStart'), 'success');
 			}
 		} else if ($control->name == 'stopScavenging') {
 			if ($isScavenging > 0) {

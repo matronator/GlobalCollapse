@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use DateTime;
 use Nette;
 use Nette\Utils\ArrayHash;
 
@@ -11,7 +12,7 @@ class BuildingsRepository
 	private $database;
 
 	private $newLandPrice = 1000;
-	// public $baseUpgradeTime = 3600; // 1 hour = 3600 seconds
+	public $baseUpgradeCost = 50000;
 
 	public function __construct(Nette\Database\Context $database)
 	{
@@ -68,6 +69,69 @@ class BuildingsRepository
 				'user_id' => $userId,
 				'player_land_id' => $newLand->id,
 				'level' => 0
+			]);
+		}
+	}
+
+	public function startLandUpgrade(int $userId)
+	{
+		$land = $this->findPlayerLand($userId);
+		if ($land->count() > 0) {
+			$this->pauseProduction($userId);
+			$now = new DateTime();
+			$upgradeEndTS = $now->getTimestamp();
+			$upgradeEndTS += 43200;
+			$now->setTimestamp($upgradeEndTS);
+			$upgradeEnd = $now->format('Y-m-d H:i:s');
+			$land->update([
+				'is_upgrading' => 1,
+				'upgrade_end' => $upgradeEnd
+			]);
+			return $upgradeEnd;
+		} else {
+			return false;
+		}
+	}
+
+	public function upgradeLand(int $userId)
+	{
+		$landData = $this->findPlayerLand($userId)->fetch();
+		if ($landData && isset($landData->is_upgrading) && $landData->is_upgrading == 1) {
+			$slotsAdd = 1;
+			switch (true) {
+				case in_array($landData->level, range(1, 25)):
+					$slotsAdd = 1;
+				break;
+				case in_array($landData->level, range(26, 50)):
+					$slotsAdd = 2;
+				break;
+				case ($landData->level > 50):
+					$slotsAdd = 3;
+				break;
+			}
+			$land = $this->findPlayerLand($userId);
+			$this->pauseProduction($userId, true);
+			$land->update([
+				'is_upgrading' => 0,
+				'level+=' => 1,
+				'slots+=' => $slotsAdd,
+				'free_slots+=' => $slotsAdd
+			]);
+		}
+	}
+
+	public function pauseProduction(int $userId, bool $resume = false)
+	{
+		$income = $this->findPlayerIncome($userId);
+		$pause = $resume ? 0 : 1;
+		if ($income->count() > 0) {
+			$income->update([
+				'paused' => $pause
+			]);
+		} else {
+			$income->insert([
+				'user_id' => $userId,
+				'paused' => $pause
 			]);
 		}
 	}
@@ -177,6 +241,11 @@ class BuildingsRepository
 	public function getLandPrice()
 	{
 		return $this->newLandPrice;
+	}
+
+	public function getLandUpgradeCost(int $level)
+	{
+		return (int)round($this->baseUpgradeCost * pow($level, 2), -2);
 	}
 
 	private function getIncomeType(string $buildingName)
