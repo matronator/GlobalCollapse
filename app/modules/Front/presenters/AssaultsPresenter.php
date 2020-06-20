@@ -52,9 +52,7 @@ final class AssaultsPresenter extends GamePresenter
 			$this->template->xpReward = $reward['win_xp'];
 			$this->template->cashMoneyLose = $reward['lose_money'];
 			$aStatsP = $this->assaultsRepository->findPlayerAssaultStats($this->user->getIdentity()->id);
-			$aStatsV = $this->assaultsRepository->findPlayerAssaultStats($otherPlayer->id);
 			$this->template->aStatsP = $aStatsP->fetch();
-			$this->template->aStatsV = $aStatsV->fetch();
 		} else {
 			$this->error();
 		}

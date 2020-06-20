@@ -18,15 +18,7 @@
             <img src="{$basePath}/dist/front/images/default-avatars/{$otherPlayer->avatar}.jpg" class="uk-comment-avatar" width="128" height="128">
           </div>
           <div class="uk-width-expand">
-            <ul class="uk-list uk-list-striped assaults-stat-list">
-              <li>Attacks won: <strong>{$aStatsV ? $aStatsV->attacks_won : 0}</strong></li>
-              <li>Attacks lost: <strong>{$aStatsV ? $aStatsV->attacks_lost : 0}</strong></li>
-              <li>Defenses won: <strong>{$aStatsV ? $aStatsV->defenses_won : 0}</strong></li>
-              <li>Defenses lost: <strong>{$aStatsV ? $aStatsV->defenses_lost : 0}</strong></li>
-              <li>Total attacks: <strong>{$aStatsV ? $aStatsV->total_attacks : 0}</strong></li>
-              <li>Total defenses: <strong>{$aStatsV ? $aStatsV->total_defenses : 0}</strong></li>
-              <li>Total assaults: <strong>{$aStatsV ? $aStatsV->total : 0}</strong></li>
-            </ul>
+            {include '../../components/Assault/AssaultStats.latte', stats => $aStatsV}
           </div>
         </div>
         {if $user->id != $otherPlayer->id}

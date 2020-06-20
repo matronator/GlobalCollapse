@@ -39,8 +39,8 @@ final class PlayerPresenter extends BasePresenter
 		$otherPlayer = $this->userRepository->getUserByName($user);
 		if ($otherPlayer) {
 			$this->template->otherPlayer = $otherPlayer;
-			$aStatsV = $this->assaultsRepository->findPlayerAssaultStats($otherPlayer->id);
-			$this->template->aStatsV = $aStatsV->fetch();
+			$aStatsV = $this->assaultsRepository->findPlayerAssaultStats($otherPlayer->id)->fetch();
+			$this->template->aStatsV = $aStatsV;
 		} else {
 			$this->error();
 		}
