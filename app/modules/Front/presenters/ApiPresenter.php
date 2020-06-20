@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\FrontModule\Presenters;
 
+use App\Model;
 use App\Model\UserRepository;
 use DateTime;
-use Nette\Application\UI\Presenter;
-use Nette\Security\AuthenticationException;
 use Timezones;
 
-final class ApiPresenter extends Presenter
+final class ApiPresenter extends GamePresenter
 {
     private $userRepository;
     /**
@@ -32,9 +31,6 @@ final class ApiPresenter extends Presenter
 	{
     parent::startup();
     $this->setLayout(false);
-    if (!$this->user->isLoggedIn()) {
-      $this->redirect('Default:login');
-    }
   }
 
   public function actionDefault() {
@@ -63,7 +59,7 @@ final class ApiPresenter extends Presenter
                 'mission' => true,
                 'new' => false,
                 'name' => $whatMission,
-                'end' => Timezones::getUserTime($workingUntil, $this->userPrefs->timezone, $this->userPrefs->dst),
+                'end' => $workingUntil,
                 'duration' => $timeMax,
                 'minutes' => $minutes,
                 'seconds' => $seconds

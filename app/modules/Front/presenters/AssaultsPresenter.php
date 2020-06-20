@@ -139,7 +139,7 @@ final class AssaultsPresenter extends GamePresenter
 						$sessionSection['hash'] = $hash;
 						// redirect to animation
 						$this->userRepository->addEnergy($player->id, -10);
-						$this->redirect('Player:assault', $hash);
+						$this->redirect('Assaults:assault', $hash);
 					}
 				}
 			}
