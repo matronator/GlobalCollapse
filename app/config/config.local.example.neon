@@ -1,0 +1,65 @@
+application:
+	catchExceptions: false # For debugging
+
+# If you're not working on localhost or have different hostname set-up, change the host value (in dns parameter) to
+# either your hostname (ie. mac.local, local, ...) or the IP address you're running MySQL from.
+# If your MySQL is running on a non-standard port, also include the port number (ie: localhost:8889)
+# If your database has different name than 'globalcollapse',
+#   change the dbname value (in dns parameter) to the name of your database
+database:
+	dsn: 'mysql:host=localhost;dbname=globalcollapse'
+	user: 'root'
+	password: 'root'
+
+# For testing purposes, this will override the duration of all jobs to 1 minute
+parameters:
+  jobs!: [
+    [
+        locale: distributeMasks
+        duration: 1
+        energy: 5
+        money: 30
+        xp: 20
+        droprate: 15
+    ],
+    [
+        locale: burnBodies
+        duration: 1
+        energy: 25
+        money: 35
+        xp: 15
+        droprate: 10
+    ],
+    [
+        locale: smuggleDrugs
+        duration: 1
+        energy: 15
+        money: 60
+        xp: 10
+        droprate: 15
+    ],
+    [
+        locale: escortScientist
+        duration: 1
+        energy: 15
+        money: 5
+        xp: 25
+        droprate: 10
+    ],
+    [
+        locale: constructionHelp
+        duration: 1
+        energy: 20
+        money: 40
+        xp: 30
+        droprate: 20
+    ],
+    [
+        locale: spyMission
+        duration: 1
+        energy: 20
+        money: 10
+        xp: 40
+        droprate: 5
+    ]
+  ]
