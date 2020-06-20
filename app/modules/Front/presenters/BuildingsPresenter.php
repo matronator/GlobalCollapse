@@ -43,8 +43,30 @@ final class BuildingsPresenter extends GamePresenter
 			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
 			$this->template->playerIncome = $playerIncome;
 			$this->template->landUpgradeCost = $this->buildingsRepository->getLandUpgradeCost($playerLand->level);
+			$this->template->landUpgradeTime = round($this->buildingsRepository->getLandUpgradeTime($playerLand->level) / 3600, 0);
+			$isUpgrading = $playerLand->is_upgrading;
+			$this->template->isUpgrading = $isUpgrading;
+			if ($isUpgrading > 0) {
+				$upgradeUntil = $playerLand->upgrade_end;
+				$now = new DateTime();
+				$diff = $upgradeUntil->getTimestamp() - $now->getTimestamp();
+				if ($diff >= 0) {
+					$s = $diff % 60;
+					$m = $diff / 60 % 60;
+					$h = $diff / 3600 % 60;
+					$this->template->hours = $h > 9 ? $h : '0'.$h;
+					$this->template->minutes = $m > 9 ? $m : '0'.$m;
+					$this->template->seconds = $s > 9 ? $s : '0'.$s;
+					$this->template->upgradeUntil = Timezones::getUserTime($upgradeUntil, $this->userPrefs->timezone, $this->userPrefs->dst);
+				} else {
+					$this->buildingsRepository->upgradeLand($player->id);
+					$isUpgrading = 0;
+					$this->flashMessage('Land upgraded!', 'success');
+					$this->redirect('Buildings:default');
+				}
+			}
 			if (isset($playerIncome->last_collection)) {
-				$this->template->lastCollection = Timezones::getUserTime($playerIncome->last_collection, $this->userPrefs->timezone);
+				$this->template->lastCollection = Timezones::getUserTime($playerIncome->last_collection, $this->userPrefs->timezone, $this->userPrefs->dst);
 				$updated = $playerIncome->last_collection;
 				$now = new DateTime();
 				$diff = abs($updated->getTimestamp() - $now->getTimestamp());

@@ -166,7 +166,7 @@ final class DefaultPresenter extends BasePresenter
 			$this->template->resting = $isResting;
 			if ($isResting) {
 				$restingSince = $player->actions->resting_start;
-				$this->template->restingSince = Timezones::getUserTime($restingSince, $this->userPrefs->timezone);
+				$this->template->restingSince = Timezones::getUserTime($restingSince, $this->userPrefs->timezone, $this->userPrefs->dst);
 				$nowDate = new DateTime();
 				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
 				$reward = intval(10 * round($diff / 1800));

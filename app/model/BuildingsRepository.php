@@ -13,6 +13,7 @@ class BuildingsRepository
 
 	private $newLandPrice = 1000;
 	public $baseUpgradeCost = 50000;
+	public $baseUpgradeTime = 3600; // 1 hour
 
 	public function __construct(Nette\Database\Context $database)
 	{
@@ -77,10 +78,11 @@ class BuildingsRepository
 	{
 		$land = $this->findPlayerLand($userId);
 		if ($land->count() > 0) {
+			$landData = $this->findPlayerLand($userId)->fetch();
 			$this->pauseProduction($userId);
 			$now = new DateTime();
 			$upgradeEndTS = $now->getTimestamp();
-			$upgradeEndTS += 43200;
+			$upgradeEndTS += $this->getLandUpgradeTime($landData->level);
 			$now->setTimestamp($upgradeEndTS);
 			$upgradeEnd = $now->format('Y-m-d H:i:s');
 			$land->update([
@@ -246,6 +248,12 @@ class BuildingsRepository
 	public function getLandUpgradeCost(int $level)
 	{
 		return (int)round($this->baseUpgradeCost * pow($level, 2), -2);
+	}
+
+	public function getLandUpgradeTime(int $level)
+	{
+		// return (int)round($this->baseUpgradeTime * pow($level, 2), -2);
+		return (int)round($this->baseUpgradeTime * pow(($level), 1.05), 0);
 	}
 
 	private function getIncomeType(string $buildingName)

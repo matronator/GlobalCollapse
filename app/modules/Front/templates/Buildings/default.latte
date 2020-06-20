@@ -16,7 +16,7 @@
       <p>Do you want to buy it for ${$emptyLand|number}?</p>
       <a n:href="Buildings:buyLand" class="uk-button uk-button-primary">Buy (-${$emptyLand|number})</a>
     </div>
-    <div class="uk-text-center" n:if="$land">
+    <div class="uk-text-center" n:if="$land && !$isUpgrading">
       <div class="uk-card uk-card-secondary uk-dark uk-card-body uk-margin-bottom">
         <h3>{$user->username}'s land</h3>
         <p class="uk-text-small uk-hidden@s"><a href="#landInfo" class="uk-text-light" uk-toggle="target: #landInfo;">{_general.buildings.lands.toggleDetails}</a></p>
@@ -25,7 +25,7 @@
             <div><span>{_general.stats.level}:</span> <strong>{$land->level}</strong></div>
             <div><span>{_general.buildings.lands.slots}</span> <strong>{$land->slots}</strong></div>
             <div><span>{_general.buildings.lands.upgradeCost}</span> <strong>${$landUpgradeCost|number}</strong></div>
-            <div><span>{_general.buildings.lands.upgradeTime}</span> <strong>12 hours</strong></div>
+            <div><span>{_general.buildings.lands.upgradeTime}</span> <strong>{$landUpgradeTime} hours</strong></div>
           </div>
           {* <hr> *}
           <a n:href="Buildings:upgradeLand" class="uk-margin-top uk-button uk-button-primary">{_general.buildings.upgrade}</a>
@@ -62,6 +62,15 @@
             </div>
           </div>
         {/for}
+      </div>
+    </div>
+    <div class="uk-text-center" n:if="$land && isset($isUpgrading) && $isUpgrading > 0">
+      <div class="uk-card uk-width-expand uk-card-default uk-card-body">
+        <h3>
+          Land expansion in progress...
+        </h3>
+        <p>Upgrading until <strong>{$upgradeUntil|date:'%T'}</strong></p>
+        <p>During land upgrade, you can't access your buildings and you won't collect any resources from production.</p>
       </div>
     </div>
   </div>
