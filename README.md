@@ -7,7 +7,7 @@
 <a href="https://www.best-mmorpgs.com/" target="_blank">Vote on Best MMORPGs<img src="https://www.best-mmorpgs.com/button.php?u=matronator" alt="Vote on Best MMORPGs" style="display: none;" width="1px" height="1px" /></a>
 
 
-# Global Collapse: Pandemic
+# Global Collapse: Pandemic (Now PWA compatible!)
 
 ### Deadly virus is spreading across the globe. Will you survive?
 
@@ -21,6 +21,9 @@ MMORPG Persistent Browser Based Game (PBBG) set in an alternate near future in w
 
 Still very early access, so much of the features are still yet to come.
 
+- [x] PWA
+  - [x] Players can add the site to their home screen and have it behave like a native app
+  - [ ] Offline capabilities
 - [ ] **RPG Character**
   - [x] Leveling
   - [x] Skill training
