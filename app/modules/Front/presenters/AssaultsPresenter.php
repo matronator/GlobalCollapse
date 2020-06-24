@@ -34,27 +34,28 @@ final class AssaultsPresenter extends GamePresenter
 
 	public function renderDefault() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-		$aStatsP = $this->assaultsRepository->findPlayerAssaultStats($player->id);
-		$this->template->aStatsP = $aStatsP->fetch();
+		$aStatsP = $this->assaultsRepository->findPlayerAssaultStats($player->id)->fetch();
+		$this->template->aStatsP = $aStatsP;
 	}
 
 	public function renderDetail(?string $user = null) {
 		if (!$user || $user == $this->userRepository->getUser($this->user->getIdentity()->id)->username) {
 			$this->redirect('Default:default');
-		}
-		$otherPlayer = $this->userRepository->getUserByName($user);
-		if ($otherPlayer) {
-			$reward = $this->getRewards($otherPlayer);
-			$sessionSection = $this->session->getSection('assault');
-			$sessionSection['victim'] = $otherPlayer->id;
-			$this->template->otherPlayer = $otherPlayer;
-			$this->template->cashMoney = $reward['win_money'];
-			$this->template->xpReward = $reward['win_xp'];
-			$this->template->cashMoneyLose = $reward['lose_money'];
-			$aStatsP = $this->assaultsRepository->findPlayerAssaultStats($this->user->getIdentity()->id);
-			$this->template->aStatsP = $aStatsP->fetch();
 		} else {
-			$this->error();
+			$otherPlayer = $this->userRepository->getUserByName($user);
+			if ($otherPlayer) {
+				$reward = $this->getRewards($otherPlayer);
+				$sessionSection = $this->session->getSection('assault');
+				$sessionSection['victim'] = $otherPlayer->id;
+				$this->template->otherPlayer = $otherPlayer;
+				$this->template->cashMoney = $reward['win_money'];
+				$this->template->xpReward = $reward['win_xp'];
+				$this->template->cashMoneyLose = $reward['lose_money'];
+				$aStatsP = $this->assaultsRepository->findPlayerAssaultStats($this->user->getIdentity()->id);
+				$this->template->aStatsP = $aStatsP->fetch();
+			} else {
+				$this->error();
+			}
 		}
 	}
 

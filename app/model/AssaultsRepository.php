@@ -21,20 +21,20 @@ class AssaultsRepository
 
 	public function findPlayerAssaultStats(int $userId)
 	{
-		return $this->database->table('assault_stats')->where('id', $userId);
+		return $this->database->table('assault_stats')->where('user_id', $userId);
 	}
 
 	public function addAssaultVictory(int $attackerId, int $victimId)
 	{
 		$attackerStats = $this->findPlayerAssaultStats($attackerId)->fetch();
-		if (isset($attackerStats->total)) {
-			$this->findPlayerAssaultStats($attackerId)->update([
+		if (isset($attackerStats) && is_object($attackerStats)) {
+			$attackerStats = $this->findPlayerAssaultStats($attackerId)->update([
 				"attacks_won+=" => 1,
 				"total_attacks+=" => 1,
 				"total+=" => 1
 			]);
 		} else {
-			$this->findPlayerAssaultStats($attackerId)->insert([
+			$attackerStats = $this->findPlayerAssaultStats($attackerId)->insert([
 				"user_id" => $attackerId,
 				"attacks_won" => 1,
 				"total_attacks" => 1,
@@ -42,14 +42,14 @@ class AssaultsRepository
 			]);
 		}
 		$victimStats = $this->findPlayerAssaultStats($victimId)->fetch();
-		if (isset($victimStats->total)) {
-			$this->findPlayerAssaultStats($victimId)->update([
+		if (isset($victimStats) && is_object($victimStats)) {
+			$victimStats = $this->findPlayerAssaultStats($victimId)->update([
 				"defenses_lost+=" => 1,
 				"total_defenses+=" => 1,
 				"total+=" => 1
 			]);
 		} else {
-			$this->findPlayerAssaultStats($victimId)->insert([
+			$victimStats = $this->findPlayerAssaultStats($victimId)->insert([
 				"user_id" => $victimId,
 				"defenses_lost" => 1,
 				"total_defenses" => 1,
@@ -62,7 +62,7 @@ class AssaultsRepository
 	public function addAssaultDefeat(int $attackerId, int $victimId)
 	{
 		$attackerStats = $this->findPlayerAssaultStats($attackerId)->fetch();
-		if (isset($attackerStats->total)) {
+		if (isset($attackerStats) && is_object($attackerStats)) {
 			$this->findPlayerAssaultStats($attackerId)->update([
 				"attacks_lost+=" => 1,
 				"total_attacks+=" => 1,
@@ -77,7 +77,7 @@ class AssaultsRepository
 			]);
 		}
 		$victimStats = $this->findPlayerAssaultStats($victimId)->fetch();
-		if (isset($victimStats->total)) {
+		if (isset($victimStats) && is_object($victimStats)) {
 			$this->findPlayerAssaultStats($victimId)->update([
 				"defenses_won+=" => 1,
 				"total_defenses+=" => 1,

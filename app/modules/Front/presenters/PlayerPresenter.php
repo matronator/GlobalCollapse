@@ -35,14 +35,15 @@ final class PlayerPresenter extends BasePresenter
 	public function renderDetail(?string $user = null) {
 		if (!$user) {
 			$this->redirect('Default:default');
-		}
-		$otherPlayer = $this->userRepository->getUserByName($user);
-		if ($otherPlayer) {
-			$this->template->otherPlayer = $otherPlayer;
-			$aStatsV = $this->assaultsRepository->findPlayerAssaultStats($otherPlayer->id)->fetch();
-			$this->template->aStatsV = $aStatsV;
 		} else {
-			$this->error();
+			$otherPlayer = $this->userRepository->getUserByName($user);
+			if ($otherPlayer) {
+				$this->template->otherPlayer = $otherPlayer;
+				$aStatsV = $this->assaultsRepository->findPlayerAssaultStats($otherPlayer->id)->fetch();
+				$this->template->aStatsV = $aStatsV;
+			} else {
+				$this->error();
+			}
 		}
 	}
 
