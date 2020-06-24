@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2020-06-24
+
+- Mobile pop-up informing that the site is PWA compatible and instructions how to install
+- Added: Russian translation (by [pase80](https://vk.com/pase80))
+- Added: Leaderboard with all player, not just top 10
+- Added: News page
+- Added: Account settings
+  - Timezone preferences
+  - Email settings
+- Added: Assault statistics
+- Added: Land upgrades
+  - Players can now upgrade their lands to get more building slots
+- Changed: Assaults page and player detail
+- Various updates and minor fixes
+
 ## [0.1.4] - 2020-05-24
 
 - Updated: Darknet prices (see the [Wiki](https://github.com/matronator/GlobalCollapse/wiki/Darknet) for current prices)
