@@ -18,18 +18,12 @@
     </div>
     <div class="uk-text-center" n:if="$land && !$isUpgrading">
       <div class="uk-card uk-card-secondary uk-dark uk-card-body uk-margin-bottom">
-        <h3>{$user->username}'s land</h3>
-        <p class="uk-text-small uk-hidden@s"><a href="#landInfo" class="uk-text-light" uk-toggle="target: #landInfo;">{_general.buildings.lands.toggleDetails}</a></p>
-        <div id="landInfo" class="">
-          <div class="land-card uk-flex-between flex-responsive uk-margin-bottom uk-text-lighter uk-text-small uk-grid-divider uk-child-width-1-4@s" uk-grid>
-            <div><span>{_general.stats.level}:</span> <strong>{$land->level}</strong></div>
-            <div><span>{_general.buildings.lands.slots}</span> <strong>{$land->slots}</strong></div>
-            <div><span>{_general.buildings.lands.upgradeCost}</span> <strong>${$landUpgradeCost|number}</strong></div>
-            <div><span>{_general.buildings.lands.upgradeTime}</span> <strong>{$landUpgradeTime} hours</strong></div>
-          </div>
-          {* <hr> *}
-          <a n:href="Buildings:upgradeLand" class="uk-margin-top uk-button uk-button-primary">{_general.buildings.upgrade}</a>
-        </div>
+        {include '../../components/LandCard/LandCard.latte',
+          land => $land,
+          upCost => $landUpgradeCost,
+          upTime => $landUpgradeTime,
+          upSlots => $landUpgradeTime
+        }
       </div>
       <div n:ifset="$playerIncome">
         <div class="uk-flex-around uk-text-small uk-grid-small" uk-grid>

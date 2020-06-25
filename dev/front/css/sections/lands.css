@@ -1,3 +1,5 @@
+@import "../../../../app/modules/Front/components/LandCard/LandCard.css";
+
 .illustration-card.lands-land_card {
   min-height: 200px;
   background-position: top 46% center;
@@ -37,20 +39,6 @@
       padding-bottom: 4vw;
       font-size: 6vw;
       align-items: center;
-    }
-  }
-}
-
-.land-card {
-  & > div {
-    display: flex;
-    flex-direction: column;
-    @media (--s) {
-      flex-direction: row;
-      justify-content: center;
-      & > span {
-        margin-right: 5px;
-      }
     }
   }
 }

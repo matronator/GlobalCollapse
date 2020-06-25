@@ -99,18 +99,7 @@ class BuildingsRepository
 	{
 		$landData = $this->findPlayerLand($userId)->fetch();
 		if ($landData && isset($landData->is_upgrading) && $landData->is_upgrading == 1) {
-			$slotsAdd = 1;
-			switch (true) {
-				case in_array($landData->level, range(1, 25)):
-					$slotsAdd = 1;
-				break;
-				case in_array($landData->level, range(26, 50)):
-					$slotsAdd = 2;
-				break;
-				case ($landData->level > 50):
-					$slotsAdd = 3;
-				break;
-			}
+			$slotsAdd = $this->getLandSlotGain($landData->level);
 			$land = $this->findPlayerLand($userId);
 			$this->pauseProduction($userId, true);
 			$land->update([
@@ -136,6 +125,23 @@ class BuildingsRepository
 				'paused' => $pause
 			]);
 		}
+	}
+
+	public function getLandSlotGain(int $level)
+	{
+		$slotsAdd = 1;
+			switch (true) {
+				case in_array($level, range(1, 25)):
+					$slotsAdd = 1;
+				break;
+				case in_array($level, range(26, 50)):
+					$slotsAdd = 2;
+				break;
+				case ($level > 50):
+					$slotsAdd = 3;
+				break;
+			}
+			return $slotsAdd;
 	}
 
 	public function findPlayerIncome(?int $userId = null)

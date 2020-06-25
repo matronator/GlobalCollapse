@@ -1,0 +1,40 @@
+{**
+ *     ----- LAND CARD -----
+ *     Card with player's main land information
+ *
+ *     $land              object          Land object
+ *     $upCost            number          Cost of upgrade to next level
+ *     $upTime            number          Duration of upgrade to next level
+ *     $upSlots           number          Number of additional slots after upgrade
+ *
+ **}
+
+<div class="uk-card uk-card-secondary uk-dark uk-card-body uk-margin-bottom">
+  <h3>{$user->username}'s land</h3>
+  <p class="uk-text-small uk-hidden@s"><a href="#landInfo" class="uk-text-light" uk-toggle="target: #landInfo;">{_general.buildings.lands.toggleDetails}</a></p>
+  <div id="landInfo" class="landCard-main">
+    <div class="land-card uk-margin-bottom uk-text-lighter uk-grid-divider uk-text-small uk-child-width-1-4@l uk-child-width-1-2@s" uk-grid>
+      <div>
+        <div class="landCard-info"><span>{_general.stats.level}:</span> <strong>{$land->level}</strong></div>
+      </div>
+      <div>
+        <div class="landCard-info uk-flex uk-flex-column">
+          <div class="uk-width-expand">
+            <span>{_general.buildings.lands.slots}</span> <strong>{$land->slots}</strong>
+          </div>
+          <div class="uk-width-expand" uk-tooltip="title:{_general.buildings.lands.slotIncreaseTooltip}">
+            <span>{_general.buildings.lands.nextLevel}</span> <strong>+{$upSlots}</strong>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="landCard-info"><span>{_general.buildings.lands.upgradeCost}</span> <strong>${$upCost|number}</strong></div>
+      </div>
+      <div>
+        <div class="landCard-info"><span>{_general.buildings.lands.upgradeTime}</span> <strong>{$upTime} hours</strong></div>
+      </div>
+    </div>
+    {* <hr> *}
+    <a n:href="Buildings:upgradeLand" class="uk-margin-top uk-button uk-button-primary">{_general.buildings.upgrade}</a>
+  </div>
+</div>

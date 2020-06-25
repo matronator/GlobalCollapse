@@ -282,6 +282,8 @@ buildings:
 	lands:
 		title: 'Lands'
 		slots: 'Free slots:'
+		nextLevel: 'Next level:'
+		slotIncreaseTooltip: 'Additional slots after upgrade'
 		upgradeTime: 'Upgrade time:'
 		upgradeCost: 'Upgrade cost:'
 		toggleDetails: 'Hide details'
