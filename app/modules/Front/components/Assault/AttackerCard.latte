@@ -14,7 +14,7 @@
   <h3 class="uk-flex uk-flex-center uk-text-center uk-flex-middle uk-margin-remove-bottom">
     {$attacker->username}&nbsp;<span class="uk-badge uk-badge-outline">{$attacker->player_stats->level}</span>
   </h3>
-  {include '../../components/ProgressBar/ProgressBar.latte',
+  {include '../../components/UI/ProgressBar/ProgressBar.latte',
     min => 0,
     max => $attacker->player_stats->stamina * 2,
     value => $attacker->player_stats->stamina * 2,

@@ -18,11 +18,11 @@
     </div>
     <div class="uk-text-center" n:if="$land && !$isUpgrading">
       <div class="uk-card uk-card-secondary uk-dark uk-card-body uk-margin-bottom">
-        {include '../../components/LandCard/LandCard.latte',
+        {include '../../components/Buildings/LandCard/LandCard.latte',
           land => $land,
           upCost => $landUpgradeCost,
           upTime => $landUpgradeTime,
-          upSlots => $landUpgradeTime
+          upSlots => $landSlotsNext
         }
       </div>
       <div n:ifset="$playerIncome">
@@ -40,7 +40,7 @@
       <p n:ifset="$noLastCollection"><small class="uk-text-italic">({_general.buildings.lastCollection} {_general.buildings.noCollections}):</small></p>
       <div class="uk-flex-around uk-grid-match player-land uk-flex-middle uk-child-width-auto" uk-grid>
         <div n:foreach="$playerBuildings as $playerBulding" n:if="$playerBuildings">
-          {include '../../components/BuildingCard/BuildingCard.latte',
+          {include '../../components/Buildings/BuildingCard/BuildingCard.latte',
             building => $playerBulding
           }
         </div>
@@ -49,7 +49,7 @@
             <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-middle uk-flex-center uk-flex-column">
               <button type="button" data-build-button="{$i}" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Build</button>
               <div class="buildings-list uk-width-expand block-hidden" data-build-list="{$i}">
-                {include '../../components/BuildingCard/BuildingList.latte',
+                {include '../../components/Buildings/BuildingCard/BuildingList.latte',
                   buildings => $unlockedBuildings
                 }
               </div>

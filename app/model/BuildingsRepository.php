@@ -130,18 +130,18 @@ class BuildingsRepository
 	public function getLandSlotGain(int $level)
 	{
 		$slotsAdd = 1;
-			switch (true) {
-				case in_array($level, range(1, 25)):
-					$slotsAdd = 1;
-				break;
-				case in_array($level, range(26, 50)):
-					$slotsAdd = 2;
-				break;
-				case ($level > 50):
-					$slotsAdd = 3;
-				break;
-			}
-			return $slotsAdd;
+		switch (true) {
+			case in_array($level, range(1, 25)):
+				$slotsAdd = 1;
+			break;
+			case in_array($level, range(26, 50)):
+				$slotsAdd = 2;
+			break;
+			case ($level > 50):
+				$slotsAdd = 3;
+			break;
+		}
+		return $slotsAdd;
 	}
 
 	public function findPlayerIncome(?int $userId = null)

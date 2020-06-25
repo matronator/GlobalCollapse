@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="uk-width-expand uk-flex">
-        {include '../../components/ProgressBar/ProgressBar.latte',
+        {include '../../components/UI/ProgressBar/ProgressBar.latte',
           min => $user->player_stats->xp_min,
           max => $user->player_stats->xp_max,
           value => $user->player_stats->xp,

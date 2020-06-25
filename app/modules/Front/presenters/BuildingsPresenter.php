@@ -43,6 +43,7 @@ final class BuildingsPresenter extends GamePresenter
 			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
 			$this->template->playerIncome = $playerIncome;
 			$this->template->landUpgradeCost = $this->buildingsRepository->getLandUpgradeCost($playerLand->level);
+			$this->template->landSlotsNext = $this->buildingsRepository->getLandSlotGain($playerLand->level);
 			$this->template->landUpgradeTime = round($this->buildingsRepository->getLandUpgradeTime($playerLand->level) / 3600, 0);
 			$isUpgrading = $playerLand->is_upgrading;
 			$this->template->isUpgrading = $isUpgrading;

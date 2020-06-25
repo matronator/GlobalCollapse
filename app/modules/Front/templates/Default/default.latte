@@ -18,7 +18,7 @@
       <a n:href="Signup:default" class="uk-button uk-button-large uk-button-secondary">{_general.ui.signup}</a>
     </div>
     <div uk-margin>
-      {include '../../components/NewsFeed/NewsFeed.latte', data => $articles, card => true}
+      {include '../../components/UI/NewsFeed/NewsFeed.latte', data => $articles, card => true}
     </div>
   </div>
   <div class="dashboard uk-flex uk-flex-top" n:if="$presenter->user->isLoggedIn()" uk-margin>
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="uk-width-expand">
-          {include '../../components/ProgressBar/ProgressBar.latte',
+          {include '../../components/UI/ProgressBar/ProgressBar.latte',
             min => $xpMin,
             max => $xpMax,
             value => $xp,
@@ -56,7 +56,7 @@
           }
         </div>
         <div class="uk-width-expand">
-          {include '../../components/ProgressBar/ProgressBar.latte',
+          {include '../../components/UI/ProgressBar/ProgressBar.latte',
             min => 0,
             max => $user->player_stats->energy_max,
             value => $user->player_stats->energy,
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="uk-padding-remove uk-margin-top uk-card uk-width-1-1 uk-card-default uk-card-body uk-visible@s newsfeed-wrapper newsfeed-wrapper-shadow">
-        {include '../../components/NewsFeed/NewsFeed.latte', data => $articles, compact => true}
+        {include '../../components/UI/NewsFeed/NewsFeed.latte', data => $articles, compact => true}
       </div>
     </div>
     <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="uk-padding-remove uk-card uk-width-1-1 uk-card-default uk-card-body uk-hidden@s newsfeed-wrapper">
-      {include '../../components/NewsFeed/NewsFeed.latte', data => $articles}
+      {include '../../components/UI/NewsFeed/NewsFeed.latte', data => $articles}
     </div>
   </div>
 </div>

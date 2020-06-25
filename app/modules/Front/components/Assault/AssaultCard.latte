@@ -3,7 +3,7 @@
     <h4 class="uk-text-nowrap uk-margin-remove uk-padding-remove uk-width-1-4@s">
       {$user->username}
     </h4>
-    {include '../../components/ProgressBar/ProgressBar.latte',
+    {include '../../components/UI/ProgressBar/ProgressBar.latte',
       min => 0,
       max => $user->player_stats->stamina * 2,
       value => $user->player_stats->stamina * 2,
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="uk-text-right uk-flex uk-flex-middle flex-responsive">
-    {include '../../components/ProgressBar/ProgressBar.latte',
+    {include '../../components/UI/ProgressBar/ProgressBar.latte',
       min => 0,
       max => $otherPlayer->player_stats->stamina * 2,
       value => $otherPlayer->player_stats->stamina * 2,

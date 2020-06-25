@@ -45,9 +45,9 @@
 /* Components */
 
 @import "../../../app/modules/Front/components/Training/Training.css";
-@import "../../../app/modules/Front/components/ProgressBar/ProgressBar.css";
+@import "../../../app/modules/Front/components/UI/ProgressBar/ProgressBar.css";
 @import "../../../app/modules/Front/components/Jobs/Jobs.css";
-@import "../../../app/modules/Front/components/BuildingCard/BuildingCard.css";
+@import "../../../app/modules/Front/components/Buildings/BuildingCard/BuildingCard.css";
 @import "../../../app/modules/Front/components/Assault/Assault.css";
-@import "../../../app/modules/Front/components/DidYouKnow/DidYouKnow.css";
-@import "../../../app/modules/Front/components/NewsFeed/NewsFeed.css";
+@import "../../../app/modules/Front/components/UI/DidYouKnow/DidYouKnow.css";
+@import "../../../app/modules/Front/components/UI/NewsFeed/NewsFeed.css";

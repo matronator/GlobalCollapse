@@ -12,7 +12,7 @@
         {if !$resting}
           {var $newEnergy = $user->player_stats->energy}
         {/if}
-        {include '../../components/ProgressBar/ProgressBar.latte',
+        {include '../../components/UI/ProgressBar/ProgressBar.latte',
           min => 0,
           max => $user->player_stats->energy_max,
           value => $newEnergy,
