@@ -1,0 +1,39 @@
+{**
+ * Latest Assaults
+ *
+ *      array          $assaults           Array with assaults
+**}
+<h3>Latest assaults</h3>
+<ul class="uk-list uk-list-striped uk-width-expand">
+  <li class="uk-flex-around uk-child-width-1-4@s" uk-grid>
+    <div>
+      <span class="uk-nav-header">{_general.pvp.assault.type}</span>
+    </div>
+    <div>
+      <span class="uk-nav-header">{_general.pvp.assault.opponent}</span>
+    </div>
+    <div>
+      <span class="uk-nav-header">{_general.pvp.assault.result}</span>
+    </div>
+    <div>
+      <span class="uk-nav-header">{_general.ui.date}</span>
+    </div>
+  </li>
+
+  <li class="uk-flex-around uk-child-width-1-4@s assault-record uk-grid-small uk-grid-divider" uk-grid n:foreach="$assaults as $assault">
+    {var $assaultType = $assault->attacker == $user->id ? 'Attack' : 'Defense'}
+    {var $opponent = $assaultType == 'Attack' ? $assault->victim_name : $assault->attacker_name}
+    <div>
+      <span>{$assaultType}</span>
+    </div>
+    <div>
+      <span><a n:href="Player:detail, $opponent">{$opponent}</a></span>
+    </div>
+    <div>
+      <span>{$assault->result|capitalize}</span>
+    </div>
+    <div>
+      <span>{$presenter->toUserDate($assault->date)|date:'%d.%M.%Y - %T'}</span>
+    </div>
+  </li>
+</ul>

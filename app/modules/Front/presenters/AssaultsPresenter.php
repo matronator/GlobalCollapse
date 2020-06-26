@@ -7,6 +7,7 @@ namespace App\FrontModule\Presenters;
 use App\Model;
 use App\Model\UserRepository;
 use App\Model\AssaultsRepository;
+use DateTime;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -35,7 +36,9 @@ final class AssaultsPresenter extends GamePresenter
 	public function renderDefault() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$aStatsP = $this->assaultsRepository->findPlayerAssaultStats($player->id)->fetch();
+		$latestAssaults = $this->assaultsRepository->getLatestAssaults($player->id);
 		$this->template->aStatsP = $aStatsP;
+		$this->template->latestAssaults = $latestAssaults;
 	}
 
 	public function renderDetail(?string $user = null) {
@@ -69,12 +72,16 @@ final class AssaultsPresenter extends GamePresenter
 			// check if victim exists and isn't the current player
 			if ($otherPlayer && $playerId != $otherPlayer->id) {
 				$this->template->otherPlayer = $otherPlayer;
-				$result = $sessionSection['results'];
+				$jsonResult = $sessionSection['results'];
+				$result = json_decode($jsonResult);
 				unset($sessionSection['results']);
 				unset($sessionSection['victim']);
 				unset($sessionSection['hash']);
 				unset($sessionSection);
 				$assaultResult = $result->result;
+
+				// Save assault record
+				$assaultId = $this->assaultsRepository->recordAssault($playerId, $otherPlayer->id, new DateTime(), $assaultResult, $result->attacker, $otherPlayer->username, $jsonResult);
 
 				$this->template->rounds = $result->rounds;
 				$this->template->roundCount = count($result->rounds);
@@ -89,12 +96,12 @@ final class AssaultsPresenter extends GamePresenter
 				if ($assaultResult == 'win') {
 					$this->userRepository->addMoney($playerId, $winReward);
 					if ($xpReward > 0) {
-						$this->assaultsRepository->addAssaultVictory($playerId, $otherPlayer->id);
+						$this->assaultsRepository->addAssaultVictory($playerId, $otherPlayer->id, $assaultId);
 						$this->userRepository->addXp($playerId, $xpReward);
 					}
 					$this->userRepository->addMoney($otherPlayer->id, round($winReward / 10 * (-1), 0));
 				} else {
-					$this->assaultsRepository->addAssaultDefeat($playerId, $otherPlayer->id);
+					$this->assaultsRepository->addAssaultDefeat($playerId, $otherPlayer->id, $assaultId);
 					$this->userRepository->addMoney($playerId, $defeatPenalty * (-1));
 				}
 				$this->template->cashMoney = $winReward;
@@ -129,7 +136,7 @@ final class AssaultsPresenter extends GamePresenter
 						// assault
 						$assault = $this->assaultPlayer($otherPlayer->id);
 						$result = json_decode($assault);
-						$sessionSection['results'] = $result;
+						$sessionSection['results'] = $assault;
 						$sessionSection['victim'] = $otherPlayer->id;
 						// hash
 						$timestamp = (string)time();

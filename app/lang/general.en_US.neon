@@ -112,6 +112,7 @@ ui:
 	first: 'First'
 	last: 'Last'
 	done: 'Done'
+	date: 'Date'
 	locationStatus:
 		closed: 'Closed'
 
@@ -146,6 +147,9 @@ pvp:
 		winRewardXp: 'XP for victory:'
 		loseReward: "Money to lose:"
 		attack: 'Attack'
+		type: 'Type'
+		opponent: 'Opponent'
+		result: 'Result'
 
 resting:
 	title: 'Rest'

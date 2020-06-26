@@ -22,7 +22,10 @@
           </div>
         </div>
         {if $user->id != $otherPlayer->id}
-          <a n:href="Player:leaderboard" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
+          <script>
+            document.write('<a class="uk-button uk-button-secondary" href="' + document.referrer + '"><span uk-icon="arrow-left"></span>{_general.ui.back|noescape}</a>');
+          </script>
+          {* <a n:href="Player:leaderboard" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a> *}
           <a n:href="Assaults:detail, $otherPlayer->username" class="uk-button uk-button-primary">Assault</a>
         {else}
           <a n:href="Player:leaderboard" class="uk-button uk-button-primary">Leaderboard</a>

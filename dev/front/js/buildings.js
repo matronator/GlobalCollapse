@@ -1,1 +1,1 @@
-import "../../../app/modules/Front/components/BuildingCard/BuildingCard"
+import "../../../app/modules/Front/components/Buildings/BuildingCard/BuildingCard"

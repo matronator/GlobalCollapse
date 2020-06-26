@@ -36,7 +36,7 @@
         </div>
       </div>
       <hr class="uk-divider-icon uk-margin-remove-top">
-      <p n:if="!isset($noLastCollection) && isset($lastCollection)"><small class="uk-text-italic">{_general.buildings.lastCollection} {$lastCollection|date:'%T'} (<strong>{$timeAgo}</strong> ago)</small></p>
+      <p n:if="!isset($noLastCollection) && isset($lastCollection)"><small class="uk-text-italic">{_general.buildings.lastCollection|capitalize} {$lastCollection|date:'%T'} (<strong>{$timeAgo}</strong> ago)</small></p>
       <p n:ifset="$noLastCollection"><small class="uk-text-italic">({_general.buildings.lastCollection} {_general.buildings.noCollections}):</small></p>
       <div class="uk-flex-around uk-grid-match player-land uk-flex-middle uk-child-width-auto" uk-grid>
         <div n:foreach="$playerBuildings as $playerBulding" n:if="$playerBuildings">

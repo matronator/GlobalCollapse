@@ -3,50 +3,72 @@
  *
  *      object          $stats           Stats to show
  *}
-<ul class="assaults-stat-list uk-list uk-width-2-3 uk-width-1-3@s uk-margin-auto">
-  <li class="uk-flex uk-flex-row uk-flex-center uk-nav-header border--t" data-assault-type="attack">
-    Attacks
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="attack" data-assault-result="victory">
-    <div>Won</div>
-    <div><strong>{$stats ? $stats->attacks_won : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="attack" data-assault-result="defeat">
-    <div>Lost</div>
-    <div><strong>{$stats ? $stats->attacks_lost : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="attack" data-assault-result="all">
-    <div>Total</div>
-    <div><strong>{$stats ? $stats->total_attacks : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-center uk-nav-header border--t" data-assault-type="defense">
-    Defenses
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="defense" data-assault-result="victory">
-    <div>Won</div>
-    <div><strong>{$stats ? $stats->defenses_won : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="defense" data-assault-result="defeat">
-    <div>Lost</div>
-    <div><strong>{$stats ? $stats->defenses_lost : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="defense" data-assault-result="all">
-    <div>Total</div>
-    <div><strong>{$stats ? $stats->total_defenses : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-center uk-nav-header border--t" data-assault-type="defense">
-    Total
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="all" data-assault-result="victory">
-    <div>Won</div>
-    <div><strong>{$stats ? $stats->defenses_won + $stats->attacks_won : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="all" data-assault-result="defeat">
-    <div>Lost</div>
-    <div><strong>{$stats ? $stats->defenses_lost + $stats->attacks_lost : 0}</strong></div>
-  </li>
-  <li class="uk-flex uk-flex-row uk-flex-between" data-assault-type="all" data-assault-result="all">
-    <div>Total</div>
-    <div><strong>{$stats ? $stats->total : 0}</strong></div>
-  </li>
-</ul>
+<div class="uk-flex-center uk-child-width-expand@s uk-margin-bottom" uk-grid>
+
+  <div>
+    <table class="uk-table uk-table-small uk-table-hover uk-table-divider">
+      <tr data-assault-type="attack">
+        <th colspan="2" class="uk-text-nowrap uk-text-center">
+          Attacks
+        </th>
+      </tr>
+      <tr data-assault-type="attack" data-assault-result="victory">
+        <td class="uk-text-nowrap">Won:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->attacks_won : 0}</strong></td>
+      </tr>
+      <tr data-assault-type="attack" data-assault-result="defeat">
+        <td class="uk-text-nowrap">Lost:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->attacks_lost : 0}</strong></td>
+      </tr>
+      <tr data-assault-type="attack" data-assault-result="all">
+        <td class="uk-text-nowrap">Total:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->total_attacks : 0}</strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <table class="uk-table uk-table-small uk-table-hover uk-table-divider">
+      <tr data-assault-type="defense">
+        <th colspan="2" class="uk-text-nowrap uk-text-center">
+          Defenses
+        </th>
+      </tr>
+      <tr data-assault-type="defense" data-assault-result="victory">
+        <td class="uk-text-nowrap">Won:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->defenses_won : 0}</strong></td>
+      </tr>
+      <tr data-assault-type="defense" data-assault-result="defeat">
+        <td class="uk-text-nowrap">Lost:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->defenses_lost : 0}</strong></td>
+      </tr>
+      <tr data-assault-type="defense" data-assault-result="all">
+        <td class="uk-text-nowrap">Total:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->total_defenses : 0}</strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <table class="uk-table uk-table-small uk-table-hover uk-table-divider">
+      <tr data-assault-type="defense">
+        <th colspan="2" class="uk-text-nowrap uk-text-center">
+          Total
+        </th>
+      </tr>
+      <tr data-assault-type="all" data-assault-result="victory">
+        <td class="uk-text-nowrap">Won:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->defenses_won + $stats->attacks_won : 0}</strong></td>
+      </tr>
+      <tr data-assault-type="all" data-assault-result="defeat">
+        <td class="uk-text-nowrap">Lost:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->defenses_lost + $stats->attacks_lost : 0}</strong></td>
+      </tr>
+      <tr data-assault-type="all" data-assault-result="all">
+        <td class="uk-text-nowrap">Total:</td>
+        <td class="uk-text-nowrap"><strong>{$stats ? $stats->total : 0}</strong></td>
+      </tr>
+    </table>
+  </div>
+
+</div>

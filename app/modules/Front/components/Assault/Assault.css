@@ -203,3 +203,9 @@ span.assault-attacker {
   color: var(--primary);
   font-weight: 700;
 }
+
+.assault-record span {
+  @media (--s) {
+    padding: 5px 0;
+  }
+}
