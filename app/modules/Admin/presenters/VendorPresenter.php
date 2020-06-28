@@ -28,7 +28,7 @@ final class VendorPresenter extends BasePresenter
 
 	public function renderDefault()
 	{
-		$this->template->data = $this->darknet->findAllVendors();
+		$this->template->data = $this->darknet->findAllVendors()->order('level');
 	}
 
 	public function renderEdit(int $id = null)

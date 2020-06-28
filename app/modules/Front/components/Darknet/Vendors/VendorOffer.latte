@@ -4,7 +4,7 @@
 *     $id           number         Unique ID to link elements for JS
 *}
 {var $drugName = $offer->drug->name}
-<div class="uk-card uk-card-default uk-card-body uk-padding-small darknet-offer uk-width-1-3@s"
+<div class="uk-card uk-card-default uk-card-body uk-padding-small darknet-offer"
      data-offer-id="{$id}" data-offer-price="{$offer->drug->price}" data-vendor-charge="{$offer->vendor->charge}"
      data-vendor-money="{$offer->vendor->money}" data-offer-stock="{$offer->quantity}">
   {form vendorOfferForm-$id}
@@ -14,7 +14,7 @@
     <p class="uk-margin-remove-top">{_general.darknet.inStock}: {$offer->quantity|number}g</p>
     <input name="offerInput{$id}" id="offerInput{$id}" type="number" class="uk-input darknet-offer-input" min="0" max="{$offer->quantity}">
     <small uk-tooltip="title:{_general.darknet.vendorFeeTooltip}">{_general.darknet.vendorFee}: {$offer->vendor->charge * 100}%</small>
-    <div class="uk-child-width-1-2 uk-grid-divider uk-margin-top uk-grid-small" uk-grid>
+    <div class="uk-child-width-1-2@s uk-grid-divider uk-margin-top uk-grid-small" uk-grid>
       <div class="uk-text-center">
         <h3>Buy</h3>
         {if $offer->quantity > 0}

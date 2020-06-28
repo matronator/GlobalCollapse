@@ -380,11 +380,6 @@ CREATE TABLE `vendor_offers` (
   CONSTRAINT `vendor_offers_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `vendor_offers` (`id`, `vendor_id`, `drug_id`, `quantity`, `limit`, `active`) VALUES
-(1,	1,	3,	1000,	100,	1),
-(2,	2,	2,	2000,	500,	1),
-(3,	3,	3,	4992,	1000,	1);
-
 DROP TABLE IF EXISTS `vendors`;
 CREATE TABLE `vendors` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -398,6 +393,40 @@ CREATE TABLE `vendors` (
   `active_until` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Darknet starting data
+
+INSERT INTO `vendor_offers` (`id`, `vendor_id`, `drug_id`, `quantity`, `limit`, `active`) VALUES
+(1,	1,	5,	819,	82,	1),
+(2,	2,	1,	1742,	174,	1),
+(3,	3,	2,	873,	87,	1),
+(4,	4,	4,	1976,	198,	1),
+(5,	5,	3,	4705,	471,	1),
+(6,	6,	3,	1728,	173,	1),
+(7,	7,	1,	6566,	657,	1),
+(8,	8,	4,	7816,	782,	1),
+(9,	4,	2,	1926,	193,	1),
+(10,	10,	1,	6390,	639,	1),
+(11,	1,	1,	860,	86,	1),
+(12,	2,	2,	926,	93,	1),
+(13,	3,	4,	633,	63,	1),
+(14,	9,	3,	1160,	116,	1),
+(15,	5,	2,	1175,	118,	1),
+(16,	6,	5,	1674,	167,	1),
+(17,	7,	4,	5908,	591,	1),
+(18,	8,	3,	5744,	574,	1),
+(19,	8,	1,	3348,	335,	1),
+(20,	10,	5,	2170,	217,	1),
+(21,	1,	2,	991,	99,	1),
+(22,	2,	5,	490,	49,	1),
+(23,	3,	1,	2313,	231,	1),
+(24,	4,	3,	2016,	202,	1),
+(25,	5,	1,	1390,	139,	1),
+(26,	6,	2,	4692,	469,	1),
+(27,	7,	3,	2303,	230,	1),
+(28,	9,	4,	2992,	299,	1),
+(29,	9,	5,	8496,	850,	1),
+(30,	10,	4,	6960,	696,	1);
 
 INSERT INTO `vendors` (`id`, `name`, `money`, `base_money`, `level`, `active`, `charge`, `active_since`, `active_until`) VALUES
 (1,	'HeisenbergDE',	500000,	500000,	1,	1,	0.050,	NULL,	NULL),

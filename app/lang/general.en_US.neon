@@ -255,6 +255,8 @@ drugs:
 			1: 'Cocaine'
 	Heroin:
 		name: 'Heroin'
+		alt:
+			1: 'Heroin'
 
 darknet:
 	postedBy: 'Posted by'

@@ -95,6 +95,27 @@ final class CityPresenter extends GamePresenter
     return $multi;
 	}
 
+	public function actionGenerateOffers()
+	{
+		// $drugs = $this->drugsRepository->findAll()->fetchAll();
+		// $vendors = $this->drugsRepository->findAllVendors()->fetchAll();
+		// $drugDeck = [];
+		// foreach ($drugs as $drug) {
+		// 	array_push($drugDeck, $drug);
+		// 	array_push($drugDeck, $drug);
+		// }
+		// foreach ($vendors as $vendor) {
+		// 	shuffle($drugDeck);
+		// 	$chosenDrugKey = array_rand($drugDeck);
+		// 	$chosenDrug = $drugDeck[$chosenDrugKey];
+		// 	$quantity = rand(200, 1000) * $vendor->level;
+		// 	$limit = (int) round($quantity / 10, 0);
+		// 	$this->drugsRepository->createOffer($vendor->id, $chosenDrug->id, $quantity, $limit);
+		// 	unset($drugDeck[$chosenDrugKey]);
+		// }
+		$this->redirect('City:alphabay');
+	}
+
 	public function actionOfferBuy(string $hash = null, int $quantity = null)
 	{
 		if ($hash == null || $quantity == null) {

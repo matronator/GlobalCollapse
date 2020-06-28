@@ -112,13 +112,24 @@ class DrugsRepository
 
 	public function findAvailableOffers(int $playerLevel)
 	{
-		$vendorLevel = (int) min(floor($playerLevel / 10), 15);
+		$vendorLevel = (int) max(min(round($playerLevel / 10), 10), 1);
 		return $this->database->table('vendor_offers')->where('vendor.level', $vendorLevel);
 	}
 
 	public function findOffer(int $offerId)
 	{
 		return $this->database->table('vendor_offers')->where('id', $offerId);
+	}
+
+	public function createOffer(int $vendorId, int $drugId, int $quantity, int $limit, ?int $active = 1)
+	{
+		$this->findAllOffers()->insert([
+			'vendor_id' => $vendorId,
+			'drug_id' => $drugId,
+			'quantity' => $quantity,
+			'limit' => $limit,
+			'active' => $active
+		]);
 	}
 
 	public function offerBuy(int $offerId, int $userId, int $quantity)
