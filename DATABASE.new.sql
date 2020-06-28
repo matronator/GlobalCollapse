@@ -54,45 +54,6 @@ CREATE TABLE `article_translation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
-DROP TABLE IF EXISTS `assault_stats`;
-CREATE TABLE `assault_stats` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `attacks_won` int NOT NULL DEFAULT '0',
-  `defenses_won` int NOT NULL DEFAULT '0',
-  `attacks_lost` int NOT NULL DEFAULT '0',
-  `defenses_lost` int NOT NULL DEFAULT '0',
-  `total_attacks` int NOT NULL DEFAULT '0',
-  `total_defenses` int NOT NULL DEFAULT '0',
-  `total` int NOT NULL DEFAULT '0',
-  `last_attack` int DEFAULT NULL,
-  `last_defense` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `last_attack` (`last_attack`),
-  KEY `last_defense` (`last_defense`),
-  CONSTRAINT `assault_stats_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `assault_stats_ibfk_2` FOREIGN KEY (`last_attack`) REFERENCES `assaults` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `assault_stats_ibfk_3` FOREIGN KEY (`last_defense`) REFERENCES `assaults` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-DROP TABLE IF EXISTS `assaults`;
-CREATE TABLE `assaults` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
-  `attacker` int NOT NULL,
-  `defender` int NOT NULL,
-  `result` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `attacker` (`attacker`),
-  KEY `defender` (`defender`),
-  CONSTRAINT `assaults_ibfk_1` FOREIGN KEY (`attacker`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `assaults_ibfk_2` FOREIGN KEY (`defender`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
 DROP TABLE IF EXISTS `buildings`;
 CREATE TABLE `buildings` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -376,3 +337,76 @@ CREATE TABLE `user_settings` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_settings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `assault_replays`;
+CREATE TABLE `assault_replays` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `assault_id` int NOT NULL,
+  `data` json NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `assault_id` (`assault_id`),
+  CONSTRAINT `assault_replays_ibfk_1` FOREIGN KEY (`assault_id`) REFERENCES `assaults` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+DROP TABLE IF EXISTS `assaults`;
+CREATE TABLE `assaults` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `attacker` int NOT NULL,
+  `defender` int NOT NULL,
+  `result` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attacker_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `victim_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `attacker` (`attacker`),
+  KEY `defender` (`defender`),
+  CONSTRAINT `assaults_ibfk_1` FOREIGN KEY (`attacker`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `assaults_ibfk_2` FOREIGN KEY (`defender`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `vendor_offers`;
+CREATE TABLE `vendor_offers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int NOT NULL,
+  `drug_id` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1000',
+  `limit` int NOT NULL DEFAULT '0',
+  `active` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `drug_id` (`drug_id`),
+  KEY `vendor_id` (`vendor_id`),
+  CONSTRAINT `vendor_offers_ibfk_1` FOREIGN KEY (`drug_id`) REFERENCES `drugs` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `vendor_offers_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `vendor_offers` (`id`, `vendor_id`, `drug_id`, `quantity`, `limit`, `active`) VALUES
+(1,	1,	3,	1000,	100,	1),
+(2,	2,	2,	2000,	500,	1),
+(3,	3,	3,	4992,	1000,	1);
+
+DROP TABLE IF EXISTS `vendors`;
+CREATE TABLE `vendors` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `money` int NOT NULL DEFAULT '10000',
+  `base_money` int NOT NULL DEFAULT '10000',
+  `level` int NOT NULL DEFAULT '1',
+  `active` int NOT NULL DEFAULT '0',
+  `charge` decimal(7,3) DEFAULT '0.050',
+  `active_since` datetime DEFAULT NULL,
+  `active_until` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `vendors` (`id`, `name`, `money`, `base_money`, `level`, `active`, `charge`, `active_since`, `active_until`) VALUES
+(1,	'HeisenbergDE',	500000,	500000,	1,	1,	0.050,	NULL,	NULL),
+(2,	'happypillz',	500000,	500000,	2,	1,	0.050,	NULL,	NULL),
+(3,	'DutchDeal',	5000456,	50000,	3,	1,	0.050,	NULL,	NULL),
+(4,	'StealthPharmacyUK',	10000,	50000,	4,	1,	0.020,	'2020-06-28 21:57:20',	NULL),
+(5,	'Apocalypse_drugs',	250000,	250000,	5,	1,	0.030,	'2020-06-28 21:59:23',	NULL),
+(6,	'HeisenbergDE',	600000,	600000,	6,	1,	0.060,	NULL,	NULL),
+(7,	'happypillz',	500000,	600000,	7,	1,	0.050,	NULL,	NULL),
+(8,	'DutchDeal',	1000000,	1000000,	8,	1,	0.080,	NULL,	NULL),
+(9,	'StealthPharmacyUK',	10000,	150000,	9,	1,	0.020,	'2020-06-28 21:57:20',	NULL),
+(10,	'Apocalypse_drugs',	250000,	350000,	10,	1,	0.025,	'2020-06-28 21:59:23',	NULL);
