@@ -44,6 +44,7 @@ messages:
 		notEnoughEnergy: "Not enough energy"
 		invalidStats: "Invalid stats, try again"
 		somethingFishy: "Something fishy going on..."
+		orderBuyTooMany: "You're trying to buy more than the vendor has in stock."
 
 ui:
 	navbar:
@@ -254,6 +255,13 @@ drugs:
 			1: 'Cocaine'
 	Heroin:
 		name: 'Heroin'
+
+darknet:
+	postedBy: 'Posted by'
+	inStock: 'In stock'
+	vendorMoney: "Vendor's money"
+	vendorFee: "Vendor's fee"
+	vendorFeeTooltip: "Additional charge for buy orders"
 
 buildings:
 	title: 'Buildings'

@@ -1,0 +1,36 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Darknet{/define}
+{define metaDescription}Darknet{/define}
+
+{block pageContent}
+<div class="uk-container" uk-height-viewport="expand: true">
+  <div class="dashboard">
+    <div class="uk-card uk-width-1-1 uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
+      <div class="uk-card-media illustration-card uk-margin-bottom" style="background-image:url('{$basePath}/dist/front/images/illustrations/darknet.jpg');">
+        <h2 class="uk-heading-large">Darknet</h2>
+      </div>
+      <div class="uk-grid-small uk-grid-divider uk-child-width-expand@s uk-flex-around" uk-grid>
+        <div n:foreach="$drugs as $drug">
+          <div class="uk-flex flex-responsive-flip uk-text-small uk-child-width-expand@s">
+            <div class="uk-text-center@s uk-text-left">
+              {$drug->name}:
+            </div>
+            <div class="uk-text-center@s uk-text-right">
+              <span class="uk-text-bold">{$playerDrugs[$drug->name] ? $playerDrugs[$drug->name] : 0|number}</span>
+              <span class="uk-text-light">g</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard uk-flex" uk-margin>
+    {foreach $offers as $offer}
+      {var $offerId = $vendorOffers[$offer->id]}
+      {include '../../components/Darknet/Vendors/VendorOffer.latte', offer => $vendorOffers[$offerId], id => $offerId}
+      {* {control vendorOfferForm-$offer->id} *}
+    {/foreach}
+  </div>
+</div>
+<script defer src="{asset darknet.js front}"></script>
+{/block}

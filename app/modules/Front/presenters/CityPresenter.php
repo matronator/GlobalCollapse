@@ -10,6 +10,8 @@ use App\Model\DrugsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
+use Nette\Application\UI\Multiplier;
+use VendorOfferForm;
 use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
@@ -32,6 +34,103 @@ final class CityPresenter extends GamePresenter
 	protected function startup()
 	{
 			parent::startup();
+	}
+
+	public function renderAlphabay() {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$drugs = $this->drugsRepository->findAll()->fetchAll();
+		$this->template->drugs = $drugs;
+		$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->order('drugs_id', 'ASC')->fetchAll();
+		$playerDrugs = [];
+		if (count($drugsInventory) > 0) {
+			foreach ($drugsInventory as $drug) {
+				$playerDrugs[$drug->drugs->name] = $drug->quantity;
+			}
+			// $this->template->drugsInventory = $drugsInventory;
+		}
+		$this->template->playerDrugs = $playerDrugs;
+		// Vendors
+		$vendors = $this->drugsRepository->findAllVendors()->where('active', 1);
+		$this->template->vendors = $vendors;
+		$offers = $this->drugsRepository->findAvailableOffers($player->player_stats->level)->where('vendor_offers.active', 1);
+		$vendorOffers = [];
+		$sessionOffers = $this->session->getSection('darknetOffers');
+		foreach($offers as $offer) {
+			$timestamp = (string)time();
+			$bytes = random_bytes(5);
+			$hash =  $timestamp . $offer->id . bin2hex($bytes);
+			$vendorOffers[$offer->id] = $hash;
+			$vendorOffers[$hash] = $offer;
+			$sessionOffers[(string) $offer->id] = $hash;
+			$sessionOffers[$hash] = $offer->id;
+		}
+		$this->template->vendorOffers = $vendorOffers;
+		$this->template->offers = $offers;
+	}
+
+	protected function createComponentVendorOfferForm(): Multiplier
+	{
+		$multi = new Multiplier(function ($offerId) {
+      $form = new Form;
+      $form->addInteger('offerInput' . $offerId)
+           ->setHtmlAttribute('class', 'uk-input darknet-offer-input')
+           ->setHtmlId('offerInput' . $offerId)
+           ->setHtmlAttribute('placeholder', 'Enter amount')
+					 ->setRequired();
+
+			$form->addSubmit('offerBuy' . $offerId, 'Buy')
+					 ->setHtmlId('offerBuy' . $offerId)
+					 ->setHtmlAttribute('class', 'uk-button uk-button-small uk-button-primary')
+					 ->setHtmlAttribute('data-offer-button', 'buy');
+
+			$form->addSubmit('offerSell' . $offerId, 'Sell')
+					 ->setHtmlId('offerSell' . $offerId)
+					 ->setHtmlAttribute('class', 'uk-button uk-button-small uk-button-danger')
+					 ->setHtmlAttribute('data-offer-button', 'sell');
+
+			return $form;
+
+      // $form->onSuccess[] = [$this, 'processForm'];
+    });
+    return $multi;
+	}
+
+	public function actionOfferBuy(string $hash = null, int $quantity = null)
+	{
+		if ($hash == null || $quantity == null) {
+			$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+			$this->redirect('City:alphabay');
+		} else {
+			$sessionOffers = $this->session->getSection('darknetOffers');
+			$oldOfferId = $sessionOffers[$hash];
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$offer = $this->drugsRepository->findOffer($oldOfferId)->fetch();
+			if (is_object($offer)) {
+				if ($offer->active) {
+					if ($offer->quantity >= $quantity) {
+						$totalPrice = (int) round(($quantity * $offer->drug->price) * 1.05, 0);
+						if ($player->money >= $totalPrice) {
+							$this->drugsRepository->offerBuy($offer->id, $player->id, $quantity);
+							$this->userRepository->addMoney($player->id, -$totalPrice);
+							$this->flashMessage($this->translator->translate('general.messages.success.purchaseSuccessful'), 'success');
+							$this->redirect('City:alphabay');
+						} else {
+							$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
+							$this->redirect('City:alphabay');
+						}
+					} else {
+						$this->flashMessage($this->translator->translate('general.messages.danger.orderBuyTooMany'), 'danger');
+						$this->redirect('City:alphabay');
+					}
+				} else {
+					$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+					$this->redirect('City:alphabay');
+				}
+			} else {
+				$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+				$this->redirect('City:alphabay');
+			}
+		}
 	}
 
 	public function renderDarknet()

@@ -15,6 +15,10 @@ class DrugsRepository
 		$this->database = $database;
 	}
 
+	// ---------------------------------------
+	// -------- DRUGS & PLAYER STASH ---------
+	// ---------------------------------------
+
 	public function findAll()
 	{
 		return $this->database->table('drugs');
@@ -80,5 +84,55 @@ class DrugsRepository
 	public function findDrug(?int $drugId = null)
 	{
 		return $this->database->table('drugs')->where('id', $drugId);
+	}
+
+	// ---------------------------------------
+	// ----------- DARKNET VENDORS -----------
+	// ---------------------------------------
+
+	public function findAllVendors()
+	{
+		return $this->database->table('vendors');
+	}
+
+	public function findVendor(int $vendorId, ?int $offerId = null)
+	{
+		if ($offerId == null) {
+			return $this->database->table('vendors')->where('id', $vendorId);
+		} else {
+			$offer = $this->findOffer($offerId)->fetch();
+			return $this->database->table('vendors')->where('id', $offer->vendor_id);
+		}
+	}
+
+	public function findAllOffers()
+	{
+		return $this->database->table('vendor_offers');
+	}
+
+	public function findAvailableOffers(int $playerLevel)
+	{
+		$vendorLevel = (int) min(floor($playerLevel / 10), 15);
+		return $this->database->table('vendor_offers')->where('vendor.level', $vendorLevel);
+	}
+
+	public function findOffer(int $offerId)
+	{
+		return $this->database->table('vendor_offers')->where('id', $offerId);
+	}
+
+	public function offerBuy(int $offerId, int $userId, int $quantity)
+	{
+		$offer = $this->findOffer($offerId)->fetch();
+		if ($offer->quantity >= $quantity) {
+			$price = (int) round(($quantity * $offer->drug->price) * 1.05, 0);
+			$this->findOffer($offerId)->update([
+				'quantity-=' => $quantity
+			]);
+			$this->findVendor(0, $offerId)->update([
+				'money+=' => $price
+			]);
+			$this->buyDrugs($userId, $offer->drug_id, $quantity);
+		}
 	}
 }
