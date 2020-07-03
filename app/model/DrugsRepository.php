@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use Nette;
-use Nette\Utils\ArrayHash;
 
 class DrugsRepository
 {
@@ -136,7 +135,7 @@ class DrugsRepository
 	{
 		$offer = $this->findOffer($offerId)->fetch();
 		if ($offer->quantity >= $quantity) {
-			$price = (int) round(($quantity * $offer->drug->price) * 1.05, 0);
+			$price = $this->getOfferBuyPrice($offer, $quantity);
 			$this->findOffer($offerId)->update([
 				'quantity-=' => $quantity
 			]);
@@ -145,5 +144,11 @@ class DrugsRepository
 			]);
 			$this->buyDrugs($userId, $offer->drug_id, $quantity);
 		}
+	}
+
+	public function getOfferBuyPrice($offer, int $quantity = 0): int
+	{
+		$vendorFee = 1 + $offer->vendor_id->charge;
+		return (int) round(($quantity * $offer->drug->price) * $vendorFee, 0);
 	}
 }

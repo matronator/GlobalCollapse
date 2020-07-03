@@ -28,7 +28,7 @@ if (offers.length > 0) {
     const offerInput = offer.querySelector(`input.darknet-offer-input`)
     if (offerInput) {
       const offerButtons = offer.querySelectorAll(`[data-offer-button]`)
-      offerInput.addEventListener(`change`, el => {
+      offerInput.addEventListener(`input`, el => {
         offerButtons.forEach(btn => {
           if (btn.dataset.offerButton === `buy`) {
             btn.value = `$${new Intl.NumberFormat().format(

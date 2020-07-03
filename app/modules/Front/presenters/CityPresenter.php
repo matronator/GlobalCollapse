@@ -95,27 +95,6 @@ final class CityPresenter extends GamePresenter
     return $multi;
 	}
 
-	public function actionGenerateOffers()
-	{
-		// $drugs = $this->drugsRepository->findAll()->fetchAll();
-		// $vendors = $this->drugsRepository->findAllVendors()->fetchAll();
-		// $drugDeck = [];
-		// foreach ($drugs as $drug) {
-		// 	array_push($drugDeck, $drug);
-		// 	array_push($drugDeck, $drug);
-		// }
-		// foreach ($vendors as $vendor) {
-		// 	shuffle($drugDeck);
-		// 	$chosenDrugKey = array_rand($drugDeck);
-		// 	$chosenDrug = $drugDeck[$chosenDrugKey];
-		// 	$quantity = rand(200, 1000) * $vendor->level;
-		// 	$limit = (int) round($quantity / 10, 0);
-		// 	$this->drugsRepository->createOffer($vendor->id, $chosenDrug->id, $quantity, $limit);
-		// 	unset($drugDeck[$chosenDrugKey]);
-		// }
-		$this->redirect('City:alphabay');
-	}
-
 	public function actionOfferBuy(string $hash = null, int $quantity = null)
 	{
 		if ($hash == null || $quantity == null) {
@@ -129,7 +108,7 @@ final class CityPresenter extends GamePresenter
 			if (is_object($offer)) {
 				if ($offer->active) {
 					if ($offer->quantity >= $quantity) {
-						$totalPrice = (int) round(($quantity * $offer->drug->price) * 1.05, 0);
+						$totalPrice = $this->drugsRepository->getOfferBuyPrice($offer, $quantity);
 						if ($player->money >= $totalPrice) {
 							$this->drugsRepository->offerBuy($offer->id, $player->id, $quantity);
 							$this->userRepository->addMoney($player->id, -$totalPrice);
