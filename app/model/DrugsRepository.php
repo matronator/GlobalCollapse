@@ -143,12 +143,59 @@ class DrugsRepository
 				'money+=' => $price
 			]);
 			$this->buyDrugs($userId, $offer->drug_id, $quantity);
+			$this->changeOffer($offerId);
+		}
+	}
+
+	public function offerSell(int $offerId, $user, int $quantity)
+	{
+		$offer = $this->findOffer($offerId)->fetch();
+		if ($offer->vendor->level >= (int) max(min(round($user->player_stats->level / 10), 10), 1)) {
+			$price = $this->getOfferSellPrice($offer, $quantity);
+			$this->findOffer($offerId)->update([
+				'quantity+=' => $quantity
+			]);
+			$this->findVendor(0, $offerId)->update([
+				'money-=' => $price
+			]);
+			$this->sellDrug($user->id, $offer->drug_id, $quantity);
+			$this->changeOffer($offerId);
+		}
+	}
+
+	private function changeOffer(int $offerId)
+	{
+		$offer = $this->findOffer($offerId)->fetch();
+		if ($offer->quantity <= 0 || $offer->vendor->money <= 0) {
+			$baseMoney = $offer->vendor->base_money;
+			$drug = $offer->drug_id;
+			$drugArray = [];
+			for ($i = 1; $i <= 5; $i++) {
+				if ($i != $drug) {
+					array_push($drugArray, $i);
+				}
+			}
+			shuffle($drugArray);
+			$this->findVendor($offer->vendor_id)->update([
+				'base_money' => $baseMoney
+			]);
+			$newQuantity = rand(200, 1000) * $offer->vendor->level;
+			$this->findOffer($offerId)->update([
+				'drug_id' => array_pop($drugArray),
+				'quantity' => $newQuantity
+			]);
 		}
 	}
 
 	public function getOfferBuyPrice($offer, int $quantity = 0): int
 	{
-		$vendorFee = 1 + $offer->vendor_id->charge;
+		$vendorFee = 1 + $offer->vendor->charge;
+		return (int) round(($quantity * $offer->drug->price) * $vendorFee, 0);
+	}
+
+	public function getOfferSellPrice($offer, int $quantity = 0): int
+	{
+		$vendorFee = 1;
 		return (int) round(($quantity * $offer->drug->price) * $vendorFee, 0);
 	}
 }

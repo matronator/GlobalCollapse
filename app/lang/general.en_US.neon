@@ -46,6 +46,8 @@ messages:
 		invalidStats: "Invalid stats, try again"
 		somethingFishy: "Something fishy going on..."
 		orderBuyTooMany: "You're trying to buy more than the vendor has in stock."
+		orderSellTooMany: "You're trying to sell more than you have."
+		orderSellVendorLow: "You're trying to sell more than the vendor can buy."
 
 ui:
 	navbar:
