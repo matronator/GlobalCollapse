@@ -85,6 +85,10 @@ class BuildingsRepository
 			$upgradeEndTS += $this->getLandUpgradeTime($landData->level);
 			$now->setTimestamp($upgradeEndTS);
 			$upgradeEnd = $now->format('Y-m-d H:i:s');
+			$this->findAllPlayerBuildings($userId)->update([
+				'is_upgrading' => 1,
+				'upgrade_end' => $upgradeEnd
+			]);
 			$land->update([
 				'is_upgrading' => 1,
 				'upgrade_end' => $upgradeEnd
@@ -102,6 +106,9 @@ class BuildingsRepository
 			$slotsAdd = $this->getLandSlotGain($landData->level);
 			$land = $this->findPlayerLand($userId);
 			$this->pauseProduction($userId, true);
+			$this->findAllPlayerBuildings($userId)->update([
+				'is_upgrading' => 0
+			]);
 			$land->update([
 				'is_upgrading' => 0,
 				'level+=' => 1,
@@ -306,6 +313,6 @@ class BuildingsRepository
 
 	public function getBuildingCapacity(int $capacity = 0, int $level = 1)
 	{
-		return $capacity + round($capacity * pow(($level - 1) / 2, 1.02));
+		return $capacity + round($capacity * pow(($level - 1) / 2, 1.02) * 1.25);
 	}
 }
