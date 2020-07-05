@@ -8,20 +8,24 @@ use App\Model;
 use DateTime;
 use App\Model\UserRepository;
 use App\Model\BuildingsRepository;
+use App\Model\DrugsRepository;
 use Timezones;
 
 final class BuildingsPresenter extends GamePresenter
 {
 	private $userRepository;
   public $buildingsRepository;
+	private $drugsRepository;
 
 	public function __construct(
 		UserRepository $userRepository,
-		BuildingsRepository $buildingsRepository
+		BuildingsRepository $buildingsRepository,
+		DrugsRepository $drugsRepository
 	)
 	{
 		$this->userRepository = $userRepository;
 		$this->buildingsRepository = $buildingsRepository;
+		$this->drugsRepository = $drugsRepository;
 	}
 
 	protected function startup()
@@ -151,6 +155,27 @@ final class BuildingsPresenter extends GamePresenter
 				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 				$this->redirect('Buildings:default');
 			}
+		}
+	}
+
+	public function actionCollect(int $b) {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$building = $this->buildingsRepository->getBuilding($b)->fetch();
+		if ($building->user_id === $player->id) {
+			if ($building->storage > 0) {
+				$drugId = $building->buildings->drugs_id;
+				$this->drugsRepository->buyDrugs($player->id, $drugId, $building->storage);
+				$this->buildingsRepository->getBuilding($building->id)->update([
+					'storage' => 0
+				]);
+				$this->flashMessage($this->translate('general.messages.success.buildingCollected'), 'success');
+				$this->redirect('Buildings:default');
+			} else {
+				$this->redirect('Buildings:default');
+			}
+		} else {
+			$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
+			$this->redirect('Buildings:default');
 		}
 	}
 

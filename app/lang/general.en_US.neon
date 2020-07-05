@@ -37,6 +37,7 @@ messages:
 		landBought: "Land successfully bought!"
 		buildingBought: "Building bought"
 		landUpgradeStart: "Land upgrade started"
+		buildingCollected: "Building collected!"
 	info:
 	warning:
 	danger:
@@ -272,6 +273,7 @@ buildings:
 	showLess: 'Show less'
 	demolish: 'Demolish'
 	upgrade: 'Upgrade'
+	collect: 'Collect'
 	buildings:
 		weedhouse:
 			name: 'Weedhouse'
@@ -302,10 +304,12 @@ buildings:
 		upgradeCost: 'Upgrade cost:'
 		toggleDetails: 'Hide details'
 	type: 'Type'
+	capacity: 'Capacity'
+	storage: 'Storage'
 	productType: 'Produces'
 	productIncome: 'Amount'
 	incomeDescription: 'Your income per 5 hours'
-	lastCollection: 'last collection:'
+	lastCollection: 'Last resource collection:'
 	noCollections: 'No collections yet'
 	types:
 		drugs:

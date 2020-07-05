@@ -177,18 +177,22 @@ class BuildingsRepository
 						}
 					}
 				}
+				$originalBuilding = $this->findAllBuildings()->where('id', $bId)->fetch();
 				$this->findPlayerLand($userId)->update([
 					'free_slots-=' => 1
 				]);
 				$this->getBuilding($buildingsId)->update([
 					'level' => 1,
-					'income' => $this->findAllBuildings()->where('id', $bId)->fetch()->base_income
+					'income' => $originalBuilding->base_income,
+					'capacity' => $originalBuilding->base_capacity
 				]);
 				$this->findPlayerBuildings($userId)->insert([
 					'buildings_id' => $bId,
 					'user_id' => $userId,
 					'player_land_id' => $checkFreeLand->id,
-					'level' => 0
+					'level' => 0,
+					'capacity' => $originalBuilding->base_capacity,
+					'storage' => 0
 				]);
 				return true;
 			} else {
@@ -205,13 +209,15 @@ class BuildingsRepository
 			$newLevel = $building->level + 1;
 			if (!$building->income || $building->income <= 0) {
 				$this->getBuilding($bId)->update([
-					'level' => $newLevel
+					'level' => $newLevel,
+					'capacity' => $this->getBuildingIncome($building->buildings->base_capacity, $newLevel)
 				]);
 			} else {
 				$newIncome = $this->getBuildingIncome($building->buildings->base_income, $newLevel);
 				$this->getBuilding($bId)->update([
 					'income' => $newIncome,
-					'level' => $newLevel
+					'level' => $newLevel,
+					'capacity' => $this->getBuildingIncome($building->buildings->base_capacity, $newLevel)
 				]);
 				$incomeType = $this->getIncomeType($building->buildings->name);
 				if ($incomeType != '') {
@@ -262,7 +268,7 @@ class BuildingsRepository
 		return (int)round($this->baseUpgradeTime * pow(($level), 1.05), 0);
 	}
 
-	private function getIncomeType(string $buildingName)
+	public function getIncomeType(string $buildingName)
 	{
 		$incomeType = '';
 			switch ($buildingName) {
@@ -296,5 +302,10 @@ class BuildingsRepository
 	public function getBuildingIncome(int $baseIncome = 0, int $level = 1)
 	{
 		return $baseIncome + round($baseIncome * pow(($level - 1) / 2, 1.02));
+	}
+
+	public function getBuildingCapacity(int $capacity = 0, int $level = 1)
+	{
+		return $capacity + round($capacity * pow(($level - 1) / 2, 1.02));
 	}
 }

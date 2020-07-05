@@ -6,6 +6,8 @@
 {var $buildingType = $building->buildings->type}
 {var $baseIncome = $building->buildings->base_income}
 {var $level = $building->level}
+{var $capacity = $building->capacity ? $building->capacity : 0}
+{var $storage = $building->storage ? $building->storage : 0}
 {var $maxLevel = $building->buildings->max_level}
 {var $canUpgrade = (!$maxLevel || $level < $maxLevel) ? true : false}
 {var $upgradeCost = round(($building->buildings->price * pow($level, 1.05)) / 2, -1)}
@@ -16,6 +18,10 @@
     <div class="uk-width-1-1">
       <div class="building-image" style="background-image:url({='dist/front/images/illustrations/buildings/'.$buildingName.'.jpg'|asset});"></div>
     </div>
+    <span class="uk-text-small">{$storage}g / {$capacity}g</span>
+    <p class="uk-margin-remove" n:if="$storage > 0">
+      <a n:href="Buildings:collect, $building->id" class="uk-button uk-button-primary uk-button-small">{_general.buildings.collect}</a>
+    </p>
     <h4 class="uk-margin-remove-bottom">{_general.buildings.buildings.$buildingName.name}</h4>
     <span class="uk-text-small">{_general.stats.level} {$level}</span>
     <p class="uk-margin-small">
