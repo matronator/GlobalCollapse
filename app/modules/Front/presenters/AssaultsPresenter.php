@@ -115,6 +115,10 @@ final class AssaultsPresenter extends GamePresenter
 		}
 	}
 
+	public function renderReplay() {
+
+	}
+
 	public function actionAttack() {
 		$sessionSection = $this->session->getSection('assault');
 		$id = $sessionSection['victim'];

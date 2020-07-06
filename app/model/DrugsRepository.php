@@ -143,7 +143,7 @@ class DrugsRepository
 				'money+=' => $price
 			]);
 			$this->buyDrugs($userId, $offer->drug_id, $quantity);
-			$this->changeOffer($offerId);
+			// $this->changeOffer($offerId);
 		}
 	}
 
@@ -159,7 +159,7 @@ class DrugsRepository
 				'money-=' => $price
 			]);
 			$this->sellDrug($user->id, $offer->drug_id, $quantity);
-			$this->changeOffer($offerId);
+			// $this->changeOffer($offerId);
 		}
 	}
 
