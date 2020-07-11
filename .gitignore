@@ -3,7 +3,7 @@ app/config/config.server.neon
 .idea
 bower_components
 node_modules
-vendor
+/vendor
 www/upload/*/*
 www/dist
 .env

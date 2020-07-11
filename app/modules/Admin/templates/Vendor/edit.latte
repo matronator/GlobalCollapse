@@ -1,0 +1,86 @@
+{layout '../@layoutSginedIn.latte'}
+
+{block content}
+  <h1 n:block="title"><strong>{ifset $vendor}Edit{else}Create{/ifset}</strong> vendor</h1>
+  <h3 n:ifset="$vendor->name">Editing vendor <strong>{$vendor->name}</strong></h3>
+  <div n:ifset="$vendor" class="uk-flex-center uk-margin-bottom uk-grid-divider" uk-grid>
+    <div>Level {$vendor->level}</div>
+    <div>${$vendor->money|number} <small class="uk-text-italic">(of ${$vendor->base_money|number})</small></div>
+    <div>{$vendor->charge * 100}% fee</div>
+    <div>{$vendor->active ? 'active' : 'not active'}</div>
+  </div>
+  <hr>
+  {form vendorForm}
+    <div class="uk-flex uk-margin-bottom">
+      <div class="uk-width-expand">
+        {label name /}
+        {input name}
+      </div>
+      <div class="uk-width-1-5">
+        {label level /}
+        {input level}
+      </div>
+      <div class="uk-width-expand">
+        {label charge /}
+        {input charge}
+      </div>
+      <div class="uk-width-1-5 uk-align-middle uk-margin-left">
+        {input active}
+      </div>
+    </div>
+    <div class="uk-flex uk-margin-bottom">
+      <div class="uk-width-1-2">
+        {label money /}
+        {input money}
+      </div>
+      <div class="uk-width-1-2">
+        {label base_money /}
+        {input base_money}
+      </div>
+    </div>
+
+    <div class="uk-flex">
+      <div class="input storno">
+        <a n:href="default" class="uk-button uk-button-secondary">
+          <span class="label transition">Cancel</span>
+        </a>
+      </div>
+      <div class="input submit uk-margin-left">
+        <button class="uk-button uk-button-primary" n:name="save">
+          <span class="label bg-c-1 bg-c-2-hover transition">Save</span>
+        </button>
+      </div>
+    </div>
+  {/form}
+  <hr>
+  <h2>Vendor's offers</h2>
+  {if count($offers) <= 0}
+    <p class="uk-text-italic">
+      This vendor doesn't have any offers yet
+    </p>
+  {else}
+    <ul n:inner-foreach="$offers as $offer" class="uk-list uk-list-striped">
+      <li class="uk-flex uk-flex-between uk-child-width-1-4">
+        <div class="uk-width-small">
+          #{$offer->id}
+        </div>
+        <a class="uk-text-bold" n:href="Offers:edit, $offer->id">
+          {$offer->drug->name}
+        </a>
+        <div>
+          {var $supplyChange = $offer->quantity - $offer->base_quantity}
+          <strong>{$offer->quantity|number}</strong> (of {$offer->base_quantity|number})
+          <span n:if="$supplyChange < 0" class="uk-text-danger">- {abs($supplyChange)|number}</span>
+          <span n:if="$supplyChange > 0" class="uk-text-success">+ {abs($supplyChange)|number}</span>
+          <span n:if="$supplyChange == 0" class="uk-text-muted">&PlusMinus; 0</span>
+        </div>
+        <div uk-tooltip="title:{$offer->active ? 'Offer active' : 'Offer not active'}" class="uk-text-center">
+          <span uk-icon="{$offer->active ? 'check' : 'close'}"></span>
+        </div>
+      </li>
+    </ul>
+  {/if}
+  <a class="uk-button uk-button-primary" n:href="Offers:edit, null, $id" n:if="$presenter->isAllowed('create')">
+      Add offer
+  </a>
+{/block}
