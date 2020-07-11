@@ -104,4 +104,15 @@ final class DefaultPresenter extends BasePresenter
 		$this->redirect('Default');
 	}
 
+	public function actionDarknetUpdate()
+	{
+		$users = $this->userRepository->findAll()->where('money > ?', 500000)->fetchAll();
+		foreach ($users as $user) {
+			$this->userRepository->findAll()->where('id', $user->id)->update([
+				'money' => 500000
+			]);
+		}
+		$this->redirect('Default');
+	}
+
 }

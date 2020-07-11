@@ -166,12 +166,12 @@ final class AssaultsPresenter extends GamePresenter
 		$winReward = [];
 
 		$ratio = max(0, (((3 * $victimPower) - ($attackerPower)) / sqrt($attackerPower)) * ((3 * $victimLevel) / $attackerLevel));
-		$percentage = min($ratio, 50);
+		$percentage = min($ratio, 10);
 		$winReward['win_money'] = (int)round(($victimMoney / 100) * $percentage);
 		$winReward['win_xp'] = round(min($ratio, 10 + min($attackerLevel / 7, 25)));
 
 		$ratio = max(0, (((3 * $attackerPower) - (2 * $victimPower)) / sqrt($victimPower)) * ((3 * $attackerLevel) / $victimLevel));
-		$percentage = min($ratio, 50);
+		$percentage = min($ratio, 25);
 		$winReward['lose_money'] = (int)round(min(max(($player->money / 100) * $percentage, 50), $player->money));
 
 		return $winReward;
