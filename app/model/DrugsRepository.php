@@ -104,6 +104,10 @@ class DrugsRepository
 		}
 	}
 
+	public function findVendorOffers(int $vendorId) {
+		return $this->findAllOffers()->where('vendor_id', $vendorId);
+	}
+
 	public function findAllOffers()
 	{
 		return $this->database->table('vendor_offers');
@@ -135,6 +139,7 @@ class DrugsRepository
 	{
 		$offer = $this->findOffer($offerId)->fetch();
 		if ($offer->quantity >= $quantity) {
+			$newOfferQuantity = $offer->quantity - $quantity;
 			$price = $this->getOfferBuyPrice($offer, $quantity);
 			$this->findOffer($offerId)->update([
 				'quantity-=' => $quantity
@@ -143,7 +148,9 @@ class DrugsRepository
 				'money+=' => $price
 			]);
 			$this->buyDrugs($userId, $offer->drug_id, $quantity);
-			// $this->changeOffer($offerId);
+			if ($newOfferQuantity <= 0) {
+				$this->changeOffer($offerId);
+			}
 		}
 	}
 
@@ -166,7 +173,7 @@ class DrugsRepository
 	private function changeOffer(int $offerId)
 	{
 		$offer = $this->findOffer($offerId)->fetch();
-		if ($offer->quantity <= 0 || $offer->vendor->money <= 0) {
+		if ($offer->quantity <= 0) {
 			$baseMoney = $offer->vendor->base_money;
 			$drug = $offer->drug_id;
 			$drugArray = [];
@@ -179,7 +186,7 @@ class DrugsRepository
 			$this->findVendor($offer->vendor_id)->update([
 				'base_money' => $baseMoney
 			]);
-			$newQuantity = rand(200, 1000) * $offer->vendor->level;
+			$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
 			$this->findOffer($offerId)->update([
 				'drug_id' => array_pop($drugArray),
 				'quantity' => $newQuantity

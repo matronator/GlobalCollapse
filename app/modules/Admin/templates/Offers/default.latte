@@ -1,0 +1,67 @@
+{layout '../@layoutSginedIn.latte'}
+
+{block content}
+    <h1 n:block="title" class="uk-heading-divider">Offers</h1>
+
+    <a class="uk-button uk-button-primary" n:href="edit" n:if="$presenter->isAllowed('create')">
+        Create new offer
+    </a>
+
+    {if count($data) < 1}
+        <div class="uk-placeholder">Nothing here</div>
+    {else}
+        <table class="uk-table uk-table-hover uk-table-striped uk-table-divider uk-table-middle uk-table-responsive">
+            <thead>
+            <tr>
+                <th>Vendor</th>
+                <th>Drug</th>
+                <th>Quantity</th>
+                <th>Active</th>
+                <th class="uk-width-small">Tools</th>
+            </tr>
+            </thead>
+            <tbody n:inner-foreach="$data as $id => $row">
+            <tr>
+                <td>
+                    {$row->vendor->name} <small class="uk-text-light uk-text-muted">Level {$row->vendor->level}</small>
+                </td>
+                <td class="uk-table-link uk-link-reset uk-text-bold">
+                    <a n:href="edit $id">{$row->drug->name}</a>
+                </td>
+                <td>
+                    {var $supplyChange = $row->quantity - $row->base_quantity}
+                    <strong>{$row->quantity|number}</strong> (of {$row->base_quantity|number})
+                    <span n:if="$supplyChange < 0" class="uk-text-danger">- {abs($supplyChange)|number}</span>
+                    <span n:if="$supplyChange > 0" class="uk-text-success">+ {abs($supplyChange)|number}</span>
+                    <span n:if="$supplyChange == 0" class="uk-text-muted">&PlusMinus; 0</span>
+                </td>
+                <td>
+                    <span uk-icon="{$row->active == 1 ? 'check' : 'cross'}"></span>
+                </td>
+                <td>
+                    <span class="uk-text-muted uk-text-uppercase uk-margin-right uk-hidden@m">Tools</span>
+                    <a
+                            n:if="$presenter->isAllowed('update')"
+                            n:href="edit $id"
+                            class="uk-icon-link uk-margin-small-right"
+                            uk-icon="file-edit">
+                    </a>
+                    <a
+                            n:if="$presenter->isAllowed('delete')"
+                            href="#"
+                            uk-toggle="target: #delete-{$id}"
+                            class="uk-icon-link"
+                            uk-icon="trash">
+                    </a>
+                    {include '../../components/Modals/deleteConfirm.latte'
+                        id => "delete-" . $id,
+                        action => $presenter->link('delete', $id),
+                        text => 'Do you really want to delete offer ' . $row->id . ' (' . $row->drug->name . ')?',
+                    }
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    {/if}
+
+{/block}

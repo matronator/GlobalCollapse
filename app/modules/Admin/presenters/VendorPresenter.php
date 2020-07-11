@@ -12,7 +12,7 @@ use Nette,
 final class VendorPresenter extends BasePresenter
 {
 	/** @var Model\DrugsRepository */
-	private $darknet;
+	public $darknet;
 
 	public function __construct(Model\DrugsRepository $darknet)
 	{
@@ -41,20 +41,21 @@ final class VendorPresenter extends BasePresenter
 				$this->error('Entry not found!');
 			}
 			$this->template->vendor = $vendor;
+			$this->template->offers = $this->darknet->findVendorOffers($id)->fetchAll();
 			$form->setDefaults($vendor);
 		}
 	}
 
 	public function actionDelete(int $id)
 	{
-		// $user = $this->userModel->findAll()->get($id);
-		// if (!$user) {
-		// 	$this->flashMessage('Entry not found!');
-		// }else{
-		// 	$this->flashMessage('Entry deleted!');
-		// 	$this->userModel->findAll()->get($id)->delete();
-		// }
-		// $this->redirect('default');
+		$vendor = $this->darknet->findAllVendors()->get($id);
+		if (!$vendor) {
+			$this->flashMessage('Entry not found!');
+		} else {
+			$this->flashMessage('Entry deleted!');
+			$this->darknet->findAllVendors()->get($id)->delete();
+		}
+		$this->redirect('default');
 	}
 
 	protected function createComponentVendorForm()
@@ -74,13 +75,16 @@ final class VendorPresenter extends BasePresenter
 				->setHtmlAttribute('min', 1000)
 				->setHtmlAttribute('max', 2000000000);
 
+		$form->addInteger('money', 'Current money')
+				->setHtmlAttribute('class', 'uk-input')
+				->setHtmlAttribute('min', 1000)
+				->setHtmlAttribute('max', 2000000000);
+
 		$form->addText('charge', 'Vendor\'s fee')
 				->setHtmlAttribute('class', 'uk-input');
 
-		$form->addInteger('active', 'Active')
-				->setHtmlAttribute('class', 'uk-input')
-				->setHtmlAttribute('min', 0)
-				->setHtmlAttribute('max', 1);
+		$form->addCheckbox('active', ' is active?')
+				->setHtmlAttribute('class', 'uk-checkbox');
 
 		$form->addSubmit('save', 'Save');
 		$form->onSuccess[] = [$this, 'vendorFormSucceeded'];
@@ -92,15 +96,15 @@ final class VendorPresenter extends BasePresenter
 		$id = (int) $this->getParameter('id');
 		$primaryData = [];
 		$primaryData['name'] = $values->name;
-		$primaryData['base_money'] = $values->base_money;
 		$primaryData['level'] = $values->level;
+		$primaryData['base_money'] = $values->base_money;
+		$primaryData['money'] = $values->money;
 		$primaryData['charge'] = (float) $values->charge;
 		$primaryData['active'] = $values->active;
 		if ($id > 0) {
 			$this->darknet->findVendor($id)->update($primaryData);
 			$this->flashMessage('Vendor successfully edited');
 		} else {
-			$primaryData['money'] = $values->base_money;
 			$primaryData['active_since'] = new DateTime();
 			$this->darknet->findAllVendors()->insert($primaryData);
 			$this->flashMessage('Vendor added');

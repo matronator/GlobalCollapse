@@ -64,6 +64,11 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
                 'presenter' => 'Vendor',
                 'title' => 'Vendors',
                 'icon' => 'cart'
+            ],
+            (object) [
+                'presenter' => 'Offers',
+                'title' => 'Offers',
+                'icon' => 'cart'
             ]
         ];
     }

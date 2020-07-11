@@ -1,0 +1,55 @@
+{layout '../@layoutSginedIn.latte'}
+
+{block content}
+  <h1 n:block="title"><strong>{ifset $offer}Edit{else}Create{/ifset}</strong> offer</h1>
+  {if isset($offer->vendor_id)}
+    <h3>Editing offer for vendor <strong>{$offer->vendor->name}</strong></h3>
+  {elseif isset($vendor->name)}
+    <h3>Creating offer for vendor <strong>{$vendor->name}</strong></h3>
+  {else}
+    <h3>Creating new offer</h3>
+  {/if}
+  <hr>
+  {form offerForm}
+    <div class="uk-flex uk-margin-bottom">
+      <div class="uk-width-expand">
+        {label vendor_id /}
+        {input vendor_id}
+      </div>
+      <div class="uk-width-1-3">
+        {label drug_id /}
+        {input drug_id}
+      </div>
+      <div class="uk-width-1-3 uk-align-middle uk-margin-left">
+        {input active}
+      </div>
+    </div>
+    <div class="uk-flex uk-margin-bottom">
+      <div class="uk-width-expand">
+        {label base_quantity /}
+        {input base_quantity}
+      </div>
+      <div class="uk-width-expand">
+        {label quantity /}
+        {input quantity}
+      </div>
+      <div class="uk-width-1-3">
+        {label limit /}
+        {input limit}
+      </div>
+    </div>
+
+    <div class="uk-flex">
+      <div class="input storno">
+        <a n:href="default" class="uk-button uk-button-secondary">
+          <span class="label transition">Cancel</span>
+        </a>
+      </div>
+      <div class="input submit uk-margin-left">
+        <button class="uk-button uk-button-primary" n:name="save">
+          <span class="label bg-c-1 bg-c-2-hover transition">Save</span>
+        </button>
+      </div>
+    </div>
+  {/form}
+{/block}

@@ -365,21 +365,6 @@ CREATE TABLE `assaults` (
   CONSTRAINT `assaults_ibfk_2` FOREIGN KEY (`defender`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-DROP TABLE IF EXISTS `vendor_offers`;
-CREATE TABLE `vendor_offers` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `vendor_id` int NOT NULL,
-  `drug_id` int NOT NULL,
-  `quantity` int NOT NULL DEFAULT '1000',
-  `limit` int NOT NULL DEFAULT '0',
-  `active` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `drug_id` (`drug_id`),
-  KEY `vendor_id` (`vendor_id`),
-  CONSTRAINT `vendor_offers_ibfk_1` FOREIGN KEY (`drug_id`) REFERENCES `drugs` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `vendor_offers_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 DROP TABLE IF EXISTS `vendors`;
 CREATE TABLE `vendors` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -392,6 +377,22 @@ CREATE TABLE `vendors` (
   `active_since` datetime DEFAULT NULL,
   `active_until` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `vendor_offers`;
+CREATE TABLE `vendor_offers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int NOT NULL,
+  `drug_id` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1000',
+  `base_quantity` int NOT NULL DEFAULT '1000',
+  `limit` int NOT NULL DEFAULT '0',
+  `active` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `drug_id` (`drug_id`),
+  KEY `vendor_id` (`vendor_id`),
+  CONSTRAINT `vendor_offers_ibfk_1` FOREIGN KEY (`drug_id`) REFERENCES `drugs` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `vendor_offers_ibfk_2` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Darknet starting data

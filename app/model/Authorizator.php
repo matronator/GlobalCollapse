@@ -24,6 +24,7 @@ class Authorizator
         $acl->addResource('Article');
         $acl->addResource('User');
         $acl->addResource('Vendor');
+        $acl->addResource('Offers');
         $acl->addResource('Front:Default');
         $acl->addResource('Front:City');
 
