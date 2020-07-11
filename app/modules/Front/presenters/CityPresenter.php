@@ -52,7 +52,7 @@ final class CityPresenter extends GamePresenter
 		// Vendors
 		$vendors = $this->drugsRepository->findAllVendors()->where('active', 1);
 		$this->template->vendors = $vendors;
-		$offers = $this->drugsRepository->findAvailableOffers($player->player_stats->level)->where('vendor_offers.active', 1);
+		$offers = $this->drugsRepository->findAvailableOffers($player->player_stats->level)->where('vendor_offers.active', 1)->order('vendor_offers.drug_id');
 		$vendorOffers = [];
 		$sessionOffers = $this->session->getSection('darknetOffers');
 		foreach($offers as $offer) {
