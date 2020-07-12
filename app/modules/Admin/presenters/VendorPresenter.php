@@ -147,7 +147,9 @@ final class VendorPresenter extends BasePresenter
 					$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
 					$this->darknet->findOffer($offer->id)->update([
 						'drug_id' => $newDrugId,
-						'quantity' => $newQuantity
+						'quantity' => $newQuantity,
+						'buys' => 0,
+						'sells' => 0
 					]);
 				}
 				$this->flashMessage('Changed');

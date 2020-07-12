@@ -142,10 +142,12 @@ class DrugsRepository
 			$newOfferQuantity = $offer->quantity - $quantity;
 			$price = $this->getOfferBuyPrice($offer, $quantity);
 			$this->findOffer($offerId)->update([
-				'quantity-=' => $quantity
+				'quantity-=' => $quantity,
+				'buys+=' => 1
 			]);
 			$this->findVendor(0, $offerId)->update([
-				'money+=' => $price
+				'money+=' => $price,
+				'sells+=' => 1
 			]);
 			$this->buyDrugs($userId, $offer->drug_id, $quantity);
 			if ($newOfferQuantity <= 0) {
@@ -160,10 +162,12 @@ class DrugsRepository
 		if ($offer->vendor->level >= (int) max(min(round($user->player_stats->level / 10), 10), 1)) {
 			$price = $this->getOfferSellPrice($offer, $quantity);
 			$this->findOffer($offerId)->update([
-				'quantity+=' => $quantity
+				'quantity+=' => $quantity,
+				'sells+=' => 1
 			]);
 			$this->findVendor(0, $offerId)->update([
-				'money-=' => $price
+				'money-=' => $price,
+				'buys+=' => 1
 			]);
 			$this->sellDrug($user->id, $offer->drug_id, $quantity);
 			// $this->changeOffer($offerId);
