@@ -270,7 +270,7 @@ darknet:
 
 buildings:
 	title: 'Buildings'
-	description: 'Buy a land to build production buildings that will earn you resources over time. Currently the collections for all resources happen every 5 hours.'
+	description: "Buy a land to build production buildings that will earn you resources over time. All production buildings generate resources to its storage every 5 hours. Buildings have limited storage capacity and needs to be collected periodically - buildings with full capacity won't generate additional resources until collected or upgraded to increase storage capacity."
 	showMore: 'Show more'
 	showLess: 'Show less'
 	demolish: 'Demolish'
