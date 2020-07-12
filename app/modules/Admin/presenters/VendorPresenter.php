@@ -14,8 +14,14 @@ final class VendorPresenter extends BasePresenter
 	/** @var Model\DrugsRepository */
 	public $darknet;
 
-	public function __construct(Model\DrugsRepository $darknet)
+	/**
+	 * @var array
+	 */
+	private $darknetUpdate;
+
+	public function __construct(array $darknetUpdate, Model\DrugsRepository $darknet)
 	{
+		$this->darknetUpdate = $darknetUpdate;
 		$this->darknet = $darknet;
 	}
 
@@ -108,6 +114,49 @@ final class VendorPresenter extends BasePresenter
 			$primaryData['active_since'] = new DateTime();
 			$this->darknet->findAllVendors()->insert($primaryData);
 			$this->flashMessage('Vendor added');
+		}
+	}
+
+	public function actionUpdateOffers(?string $hash = null, ?string $confirm = null)
+	{
+		if ($hash != null && $confirm != null) {
+			if ($hash === $this->darknetUpdate['hash'] && $confirm === $this->darknetUpdate['confirm']) {
+				$offers = $this->darknet->findAllOffers()->fetchAll();
+				$drugs = $this->darknet->findAll()->fetchAll();
+				$drugDeck = [];
+				foreach ($drugs as $drug) {
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+					array_push($drugDeck, $drug->id);
+				}
+				shuffle($drugDeck);
+				array_push($drugDeck, 1);
+				array_push($drugDeck, 2);
+				shuffle($drugDeck);
+				foreach ($offers as $offer) {
+					shuffle($drugDeck);
+					$newDrugId = array_pop($drugDeck);
+					shuffle($drugDeck);
+					$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
+					$this->darknet->findOffer($offer->id)->update([
+						'drug_id' => $newDrugId,
+						'quantity' => $newQuantity
+					]);
+				}
+				$this->flashMessage('Changed');
+				$this->redirect('Default:default');
+			} else {
+				$this->redirect('Default:default');
+			}
+		} else {
+			$this->redirect('Default:default');
 		}
 	}
 }
