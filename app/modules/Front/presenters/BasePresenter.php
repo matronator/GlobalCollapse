@@ -73,6 +73,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			}
 			$this->userPrefs = $userPreferences;
 		}
+		if ($this->user->isLoggedIn() && $this->user->getIdentity()->tutorial === 0 && !$this->presenter->isLinkCurrent('Intro:')) {
+			$this->redirect('Intro:default');
+		}
 	}
 
 	public function handleChangeLocale(string $locale) {

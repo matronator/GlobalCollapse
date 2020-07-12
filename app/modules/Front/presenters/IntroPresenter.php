@@ -26,8 +26,7 @@ final class IntroPresenter extends GamePresenter
 	protected function startup()
 	{
 			parent::startup();
-			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-			if ($this->userRepository->getUser($player->id)->tutorial > 0) {
+			if ($this->user->getIdentity()->tutorial !== 0) {
 				$this->redirect('Default:');
 			}
 	}
@@ -85,6 +84,7 @@ final class IntroPresenter extends GamePresenter
 						'tutorial' => 1
 					]);
 					$this->userRepository->updateStats($player->id, $strength, $stamina, $speed);
+					$this->user->getIdentity()->tutorial = 1;
 					$this->flashMessage('Intro completed!', 'success');
 					$this->redirect('Default:default');
 				}

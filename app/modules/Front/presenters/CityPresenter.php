@@ -47,6 +47,10 @@ final class CityPresenter extends GamePresenter
 				$playerDrugs[$drug->drugs->name] = $drug->quantity;
 			}
 			// $this->template->drugsInventory = $drugsInventory;
+		} else {
+			foreach ($drugs as $drug) {
+				$playerDrugs[$drug->name] = 0;
+			}
 		}
 		$this->template->playerDrugs = $playerDrugs;
 		// Vendors
