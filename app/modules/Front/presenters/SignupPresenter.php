@@ -90,6 +90,7 @@ final class SignupPresenter extends BasePresenter
         } catch (BadRequestException $e) {
             $this->flashMessage($e->getMessage(), 'warning');
             $form->addError($e->getMessage());
+            $this->redirect('this');
         }
 	}
 }

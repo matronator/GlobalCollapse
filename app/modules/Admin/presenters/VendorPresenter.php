@@ -145,6 +145,10 @@ final class VendorPresenter extends BasePresenter
 					$newDrugId = array_pop($drugDeck);
 					shuffle($drugDeck);
 					$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
+					$baseMoney = $offer->vendor->base_money;
+					$this->darknet->findVendor($offer->vendor_id)->update([
+						'base_money' => $baseMoney
+					]);
 					$this->darknet->findOffer($offer->id)->update([
 						'drug_id' => $newDrugId,
 						'quantity' => $newQuantity,

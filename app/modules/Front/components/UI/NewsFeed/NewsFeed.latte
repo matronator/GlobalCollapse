@@ -12,19 +12,11 @@
 
 {ifset $compact}<div class="newsfeed newsfeed-compact">{/ifset}
   {foreach $data as $article}
-    {last}
-      {ifset $card}
-        {include 'ArticleCard.latte', article => $article, card => $card, last => true}
-      {else}
-        {include 'ArticleCard.latte', article => $article, last => true}
-      {/ifset}
+    {ifset $card}
+      {include 'ArticleCard.latte', article => $article, card => $card, last => $iterator->last ? true : false}
     {else}
-      {ifset $card}
-        {include 'ArticleCard.latte', article => $article, card => $card}
-      {else}
-        {include 'ArticleCard.latte', article => $article}
-      {/ifset}
-    {/last}
+      {include 'ArticleCard.latte', article => $article, last => $iterator->last ? true : false}
+    {/ifset}
   {/foreach}
 
   {ifset $pagination}

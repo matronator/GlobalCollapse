@@ -119,7 +119,7 @@ final class UserPresenter extends BasePresenter
 		if ($id) {
 			// edit user
             if($values->password!=$values->passwordVerify){
-                $form->addError('Passwords do not match.', 'error');
+                $form->addError('Passwords do not match.');
             }
             else if($values->password=='' && $values->passwordVerify==''){
                 unset($values->password);
@@ -139,7 +139,7 @@ final class UserPresenter extends BasePresenter
 		} else {
 			//add user
 			if($values->password!=$values->passwordVerify){
-				$form->addError('Passwords do not match.', 'error');
+				$form->addError('Passwords do not match.');
 			}else{
 				$values->password = Security\Passwords::hash($values->password);
 				unset($values->passwordVerify);

@@ -32,7 +32,7 @@ final class LoginPresenter extends BasePresenter
 		parent::startup();
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-			if ($player->tutorial == 0) {
+			if ($player->tutorial === 0) {
 				$this->redirect('Intro:default');
 			} else {
 				$this->redirect('Default:default');
@@ -46,38 +46,39 @@ final class LoginPresenter extends BasePresenter
 
 	public function createComponentLoginForm(): Form
 	{
-			$form = new Form();
-			$form->setHtmlAttribute('class', 'uk-form-horizontal');
-			$form->addText('username', 'Username')
-					->setHtmlAttribute('class', 'uk-input')
-					->setHtmlId('username')
-					->setHtmlAttribute('placeholder', 'Username')
-					->setRequired();
-			$form->addPassword('password', 'Password')
-					->setHtmlAttribute('placeholder', 'Password')
-					->setHtmlAttribute('class', 'uk-input')
-					->setHtmlId('password')
-					->setRequired();
-			$form->addHidden('backlink', $this->getParameter('backlink'));
-			$form->addSubmit('submit', 'Login');
-			$form->onSuccess[] = [$this, 'loginFormSucceeded'];
-			return $form;
+		$form = new Form();
+		$form->setHtmlAttribute('class', 'uk-form-horizontal');
+		$form->addText('username', 'Username')
+				->setHtmlAttribute('class', 'uk-input')
+				->setHtmlId('username')
+				->setHtmlAttribute('placeholder', 'Username')
+				->setRequired();
+		$form->addPassword('password', 'Password')
+				->setHtmlAttribute('placeholder', 'Password')
+				->setHtmlAttribute('class', 'uk-input')
+				->setHtmlId('password')
+				->setRequired();
+		$form->addHidden('backlink', $this->getParameter('backlink'));
+		$form->addSubmit('submit', 'Login');
+		$form->onSuccess[] = [$this, 'loginFormSucceeded'];
+		return $form;
 	}
 
 	public function loginFormSucceeded(Form $form, ArrayHash $values): void
 	{
-			try {
-					$this->getUser()->login($values->username, $values->password);
-					$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-					if ($player) {
-						if ($player->tutorial === 0) {
-							$this->redirect('Intro:default');
-						} else {
-							$this->redirect('Default:default');
-						}
-					}
-			} catch (AuthenticationException $e) {
-					$form->addError($e->getMessage());
+		try {
+			$this->getUser()->login($values->username, $values->password);
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			if ($player) {
+				if ($player->tutorial === 0) {
+					$this->redirect('Intro:default');
+				} else {
+					$this->redirect('Default:default');
+				}
 			}
+		} catch (AuthenticationException $e) {
+			$form->addError($e->getMessage());
+			$this->redirect('this');
+		}
 	}
 }

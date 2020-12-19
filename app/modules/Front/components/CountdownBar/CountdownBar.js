@@ -50,7 +50,7 @@ function updateTime() {
 }
 
 function jobDone() {
-  window.location.reload(true)
+  window.location.reload()
 }
 
 let myworker

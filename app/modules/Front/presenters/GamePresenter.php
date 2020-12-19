@@ -13,7 +13,7 @@ abstract class GamePresenter extends BasePresenter
 {
   protected function startup() {
     parent::startup();
-    if (!$this->user->isLoggedIn() && (!$this->presenter->isLinkCurrent('Login:') || !$this->presenter->isLinkCurrent('Signup:'))) {
+    if (!$this->user->isLoggedIn() && (!$this->presenter->isLinkCurrent('Login:*') || !$this->presenter->isLinkCurrent('Signup:*'))) {
       $this->redirect('Login:default');
     }
   }

@@ -57,5 +57,6 @@ class DatetimeForm extends Control {
         } else {
             $this->onError($form);
         }
+        $this->redirect('this');
     }
 }

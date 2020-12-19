@@ -27,7 +27,7 @@ final class IntroPresenter extends GamePresenter
 	{
 			parent::startup();
 			if ($this->user->getIdentity()->tutorial !== 0) {
-				$this->redirect('Default:');
+				$this->redirect('Default:default');
 			}
 	}
 
@@ -94,5 +94,6 @@ final class IntroPresenter extends GamePresenter
 		} else {
 			$this->flashMessage('Invalid stats, try again.', 'danger');
 		}
+		$this->redirect('this');
 	}
 }

@@ -233,6 +233,7 @@ final class DefaultPresenter extends BasePresenter
 				}
 			}
 		}
+		$this->redirect('this');
 	}
 
 	private function endTraining($trainingStat) {
@@ -314,6 +315,7 @@ final class DefaultPresenter extends BasePresenter
 				$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
 			}
 		}
+		$this->redirect('this');
 	}
 
 	public function createComponentSkillpointsForm(): Form {
@@ -363,6 +365,7 @@ final class DefaultPresenter extends BasePresenter
 				$this->flashMessage($this->translator->translate('general.messages.danger.invalidStats'), 'danger');
 			}
 		}
+		$this->redirect('this');
 	}
 
 	public function createComponentAvatarForm(): Form
@@ -390,5 +393,6 @@ final class DefaultPresenter extends BasePresenter
 				$this->flashMessage($this->translator->translate('general.messages.success.avatarChanged'), 'success');
 			}
 		}
+		$this->redirect('this');
 	}
 }

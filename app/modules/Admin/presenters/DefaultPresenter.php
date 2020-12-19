@@ -94,9 +94,9 @@ final class DefaultPresenter extends BasePresenter
 				shuffle($drugDeck);
 				$this->drugsRepository->createOffer($vendor->id, $chosenDrug->id, $quantity, $limit);
 			}
-			$this->redirect('Default');
+			$this->redirect('Default:');
 		} else {
-			$this->redirect('Default');
+			$this->redirect('Default:');
 		}
 	}
 
@@ -109,9 +109,9 @@ final class DefaultPresenter extends BasePresenter
 					'money' => 500000
 				]);
 			}
-			$this->redirect('Default');
+			$this->redirect('Default:');
 		} else {
-			$this->redirect('Default');
+			$this->redirect('Default:');
 		}
 	}
 

@@ -9,7 +9,7 @@
 
 {var $img = $article['common']->image}
 {ifset $card}<div class="uk-card uk-card-body uk-card-default uk-width-1-1">{/ifset}
-  <div class="newsfeed-article uk-width-expand {ifset $last}newsfeed-last{/ifset}">
+  <div class="newsfeed-article uk-width-expand {if $last}newsfeed-last{/if}">
     <article class="uk-article uk-width-1-1">
       <h2 class="uk-article-title"><a n:href="Info:post, $article['common']->id">{$article['translation']->title}</a></h2>
       <p class="uk-article-meta newsfeed-date">{$article['common']->created_at|date:'d M Y - H:i:s'}</p>

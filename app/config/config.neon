@@ -1,48 +1,50 @@
 parameters:
-	version: 0.1.8
+    version: 0.1.8
 
 application:
-	errorPresenter: Error
-	catchExceptions: true
-	mapping:
-		*: App\*Module\Presenters\*Presenter
+    errorPresenter: Error
+    catchExceptions: true
+    mapping:
+        *: App\*Module\Presenters\*Presenter
 
 session:
-	expiration: 14 days
+    expiration: 14 days
 
 tracy:
-	email: error@matronator.com
-	showLocation: true
+    email: error@matronator.com
+    showLocation: true
 
 services:
-	- App\Model\Authorizator::create
-	- App\Model\Authenticator
-	- App\Model\ArticlesRepository
-	- App\Model\ContactFormRepository
-	- App\Model\PagesRepository
-	- App\Model\UserRepository
-	- App\Model\DrugsRepository
-	- App\Model\EventsRepository
-	- App\Model\BuildingsRepository
-	- App\Model\UnlockablesRepository
-	- App\Model\AssaultsRepository
-	- App\Filter\ImageFilter
-	- App\AdminModule\Presenters\VendorPresenter(%darknetUpdate%)
-	- App\FrontModule\Presenters\BasePresenter(%version%)
-	- App\FrontModule\Presenters\BarPresenter(%jobs%)
-	- App\FrontModule\Presenters\ApiPresenter(%jobs%)
-	imagePipe: \ImageGenerator(%wwwDir%)
-	imageStorage: \ImageStorage(%wwwDir%)
-	timezones: \Timezones
-	router: App\Router\RouterFactory::createRouter
-	nette.latteFactory:
-	    setup:
-	        - addFilter(NULL, 'App\Filter\StaticFilters::common')
-	        - addFilter('imageGenerator', '@App\Filter\ImageFilter')
+    - App\Model\Authorizator::create
+    - App\Model\Authenticator
+    - App\Model\ArticlesRepository
+    - App\Model\ContactFormRepository
+    - App\Model\PagesRepository
+    - App\Model\UserRepository
+    - App\Model\DrugsRepository
+    - App\Model\EventsRepository
+    - App\Model\BuildingsRepository
+    - App\Model\UnlockablesRepository
+    - App\Model\AssaultsRepository
+    - App\Filter\ImageFilter
+    - App\AdminModule\Presenters\VendorPresenter(%darknetUpdate%)
+    - App\FrontModule\Presenters\BasePresenter(%version%)
+    - App\FrontModule\Presenters\BarPresenter(%jobs%)
+    - App\FrontModule\Presenters\ApiPresenter(%jobs%)
+    imagePipe: \ImageGenerator(%wwwDir%)
+    imageStorage: \ImageStorage(%wwwDir%)
+    timezones: \Timezones
+    router: App\Router\RouterFactory::createRouter
+    nette.latteFactory:
+        setup:
+            - addFilter(NULL, 'App\Filter\StaticFilters::common')
+            - addFilter('imageGenerator', '@App\Filter\ImageFilter')
 
 http:
     headers:
         X-Powered-By: StarterPack CMS # for security sake
+        X-Content-Type-Options: nosniff
+        X-XSS-Protection: '1; mode=block'
 
 latte:
     macros:
@@ -50,17 +52,17 @@ latte:
 
 # extensions
 extensions:
-	translation: Contributte\Translation\DI\TranslationExtension
-	assetsExtension: h4kuna\Assets\DI\AssetsExtension
+    translation: Contributte\Translation\DI\TranslationExtension
+    assetsExtension: h4kuna\Assets\DI\AssetsExtension
 
 translation:
-	locales:
-		default: en
-		whitelist: ['en', 'ru', 'cs']
-	dirs:
-		- %appDir%/lang
+    locales:
+        default: en
+        whitelist: ['en', 'ru', 'cs']
+    dirs:
+        - %appDir%/lang
 
 assetsExtension:
-	wwwDir: %wwwDir%
-	debugMode: %debugMode%
-	tempDir: %tempDir%
+    wwwDir: %wwwDir%
+    debugMode: %debugMode%
+    tempDir: %tempDir%

@@ -40,7 +40,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->defaultLocale = $this->defaultLocale;
 		$allPlayers = 0;
 		$session = $this->session;
-		$section = $session->getSection('general');
+		$section = $session->getSection('general-info');
 		if (!$section['all_players']) {
 			$allPlayers = $this->userRepository->getTotalPlayers();
 			$section['all_players'] = $allPlayers;
@@ -53,7 +53,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->onlinePlayers = $onlinePlayers;
 		if ($this->user->isLoggedIn()) {
 			$this->template->user = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$sectionPrefs = $this->session->getSection('preferences');
+			$sectionPrefs = $this->session->getSection('user-prefs');
 			$userPreferences = new stdClass();
 			if (isset($sectionPrefs->timezone)) {
 				$userPreferences->timezone = $sectionPrefs->timezone;
@@ -73,7 +73,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			}
 			$this->userPrefs = $userPreferences;
 		}
-		if ($this->user->isLoggedIn() && $this->user->getIdentity()->tutorial === 0 && !$this->presenter->isLinkCurrent('Intro:')) {
+		if ($this->user->isLoggedIn() && $this->user->getIdentity()->tutorial === 0 && !$this->presenter->isLinkCurrent('Intro:*')) {
 			$this->redirect('Intro:default');
 		}
 	}
