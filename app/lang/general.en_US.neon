@@ -36,6 +36,7 @@ messages:
 		drugsSold: "Drugs successfully sold"
 		landBought: "Land successfully bought!"
 		buildingBought: "Building bought"
+		buildingUpgraded: "Building upgraded!"
 		landUpgradeStart: "Land upgrade started"
 		buildingCollected: "Building collected!"
 	info:

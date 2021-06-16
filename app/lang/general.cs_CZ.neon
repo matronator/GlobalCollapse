@@ -23,6 +23,33 @@ intro:
 			title: 'Jsi připraven?'
 			subtitle: "Klikni na tlačítko a zační své dobrodružství."
 
+messages:
+	success:
+		registration: "Registrace dokončena! Nyní se můžeš přihlásit"
+		restStart: "Šel jsi odpočívat"
+		restEnd: "Získal jsi %reward% energie"
+		trainingStart: "Trénink začal"
+		skillpointsAssigned: "Skillpointy úspěšně rozděleny"
+		avatarChanged: "Avatar změněn"
+		purchaseSuccessful: "Nákup úspěšný"
+		scavengingStart: "Šel jsi na průzkum do pustin"
+		drugsSold: "Drogy úspěšně prodány"
+		landBought: "Pozemek úspěšně zakoupen!"
+		buildingBought: "Budova zakoupena"
+		buildingUpgraded: "Budova vylepšena!"
+		landUpgradeStart: "Rozšiřování pozemku započato"
+		buildingCollected: "Budova sesbírána!"
+	info:
+	warning:
+	danger:
+		notEnoughMoney: "Nedostatek peněz"
+		notEnoughEnergy: "Nedostatek energie"
+		invalidStats: "Neplatné atributy, zkus to znovu"
+		somethingFishy: "Čuchám čuchám lotrovinu..."
+		orderBuyTooMany: "You're trying to buy more than the vendor has in stock."
+		orderSellTooMany: "You're trying to sell more than you have."
+		orderSellVendorLow: "You're trying to sell more than the vendor can buy."
+
 ui:
 	navbar:
 		covidTracker:
