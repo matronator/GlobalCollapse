@@ -35,6 +35,10 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
 	protected function beforeRender()
 	{
+		if ($this->isAjax()) {
+			$this->redrawControl('body');
+			$this->redrawControl('flashes');
+		}
 		$this->template->urlAbsolutePath = $this->getURL()->hostUrl;
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;

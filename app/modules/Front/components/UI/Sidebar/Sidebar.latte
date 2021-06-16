@@ -1,5 +1,5 @@
 {define sidebarGame}
-  <div class="status-bar uk-flex uk-text-small uk-text-light">
+  <div class="status-bar uk-flex uk-text-small uk-text-light" n:snippet="sidebar-stats">
     <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$user->money|number}</span>
     <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$user->player_stats->energy_max}</span>
   </div>

@@ -10,17 +10,17 @@
 {var $storage = $building->storage ? $building->storage : 0}
 {var $maxLevel = $building->buildings->max_level}
 {var $canUpgrade = (!$maxLevel || $level < $maxLevel) ? true : false}
-{var $upgradeCost = round(($building->buildings->price * pow($level, 1.05)) / 2, -1)}
+{var $upgradeCost = $presenter->getUpgradeCost($building->buildings->price, $building->level)}
 {* Building income = baseIncome + round(baseIncome * ((level-1)/2)^1.05) *}
 {* {var $income = $presenter->buildingsRepository->getBuildingIncome($baseIncome, $level)} *}
-<div class="uk-card uk-card-default uk-card-body uk-padding-small building-card">
+<div class="uk-card uk-card-default uk-card-body uk-padding-small building-card" n:snippet="building-{$building->id}">
   <div class="building-card-main">
     <div class="uk-width-1-1">
       <div class="building-image" style="background-image:url({='dist/front/images/illustrations/buildings/'.$buildingName.'.jpg'|asset});"></div>
     </div>
     <span class="uk-text-small">{$storage}g / {$capacity}g</span>
     <p class="uk-margin-remove" n:if="$storage > 0">
-      <a n:href="Buildings:collect, $building->id" class="uk-button uk-button-primary uk-button-small">{_general.buildings.collect}</a>
+      <a n:href="collect! $building->id" class="uk-button uk-button-primary uk-button-small ajax">{_general.buildings.collect}</a>
     </p>
     <h4 class="uk-margin-remove-bottom">{_general.buildings.buildings.$buildingName.name}</h4>
     <span class="uk-text-small">{_general.stats.level} {$level}</span>
@@ -31,7 +31,7 @@
   <div class="building-info block-hidden" data-building-info="{$building->id}" uk-height-match=".building-card-main">
     <p class="uk-text-italic">{_general.buildings.buildings.$buildingName.description}</p>
     <p class="uk-text-center uk-margin-remove" n:if="$canUpgrade">
-      <a n:href="Buildings:upgrade, $building->id" class="uk-button uk-button-primary uk-button-small">{_general.buildings.upgrade} - ${$upgradeCost|number}</a>
+      <a n:href="upgrade! $building->id" class="uk-button uk-button-primary uk-button-small ajax">{_general.buildings.upgrade} - ${$upgradeCost|number}</a>
     </p>
     <div class="info-block">
       <div class="uk-text-bold order--1 order--1-xs border--b uk-padding-tiny uk-padding-remove-horizontal">{_general.buildings.type}</div>
@@ -42,7 +42,7 @@
       <div class="order--6 order--6-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{$building->income}g / 5h</div>
     </div>
     <p class="uk-text-right uk-margin-remove">
-      <a n:href="Buildings:demolish, $building->id" class="uk-button uk-button-danger uk-button-small">{_general.buildings.demolish}</a>
+      <a n:href="demolish! $building->id" class="uk-button uk-button-danger uk-button-small ajax">{_general.buildings.demolish}</a>
     </p>
   </div>
 </div>

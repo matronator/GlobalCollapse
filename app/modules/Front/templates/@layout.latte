@@ -73,12 +73,14 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> *}
     <!-- End Google Tag Manager (noscript) -->
 
-    <div n:foreach="$flashes as $flash" class="flash uk-alert-{$flash->type} uk-margin-remove" uk-alert>
-        <a class="uk-alert-close" uk-close></a>
-        <p class="uk-margin-remove">{$flash->message}</p>
-    </div>
+    {snippet flashes}
+        <div n:foreach="$flashes as $flash" class="flash uk-alert-{$flash->type} uk-margin-remove" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p class="uk-margin-remove">{$flash->message}</p>
+        </div>
+    {/snippet}
 
-    <div>
+    <div n:snippet="body">
         {include '../components/UI/Navbar/Navbar.latte'}
 
         {if $presenter->user->isLoggedIn()}

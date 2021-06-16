@@ -67,7 +67,10 @@ final class BuildingsPresenter extends GamePresenter
 					$this->buildingsRepository->upgradeLand($player->id);
 					$isUpgrading = 0;
 					$this->flashMessage('Land upgraded!', 'success');
-					$this->redirect('Buildings:default');
+					$this->redrawControl('playerIncome');
+					$this->redrawControl('buildings');
+					$this->redrawControl('land-card');
+					$this->redrawControl('sidebar-stats');
 				}
 			}
 			if (isset($playerIncome->last_collection)) {
@@ -105,7 +108,7 @@ final class BuildingsPresenter extends GamePresenter
 		$this->template->land = $playerLand;
 	}
 
-	public function actionUpgradeLand() {
+	public function handleUpgradeLand() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
 		if (isset($playerLand->level) && $playerLand->level >= 1 && !$playerLand->is_upgrading) {
@@ -115,10 +118,13 @@ final class BuildingsPresenter extends GamePresenter
 				$this->buildingsRepository->startLandUpgrade($player->id);
 				$this->userRepository->addMoney($player->id, -$cost);
 				$this->flashMessage($this->translate('general.messages.success.landUpgradeStart'), 'success');
-				$this->redirect('Buildings:default');
+				$this->redrawControl('playerIncome');
+				$this->redrawControl('buildings');
+				$this->redrawControl('land-card');
+				$this->redrawControl('sidebar-stats');
 			} else {
 				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
-				$this->redirect('Buildings:default');
+				$this->redrawControl('land-card');
 			}
 		} else {
 			$this->redirect('Buildings:default');
@@ -140,7 +146,7 @@ final class BuildingsPresenter extends GamePresenter
 		}
 	}
 
-	public function actionBuyBuilding(int $b) {
+	public function handleBuyBuilding(int $b) {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
 		if (isset($building->user_id) && $building->user_id === $player->id && $building->level === 0) {
@@ -150,15 +156,17 @@ final class BuildingsPresenter extends GamePresenter
 				$this->buildingsRepository->buyBuilding($player->id, $building->buildings_id, $b);
 				$this->userRepository->addMoney($player->id, -$cost);
 				$this->flashMessage($this->translate('general.messages.success.buildingBought'), 'success');
-				$this->redirect('Buildings:default');
+				$this->redrawControl('playerIncome');
+				$this->redrawControl('buildings');
+				$this->redrawControl('sidebar-stats');
 			} else {
 				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
-				$this->redirect('Buildings:default');
+				$this->redrawControl('buildings');
 			}
 		}
 	}
 
-	public function actionCollect(int $b) {
+	public function handleCollect(int $b) {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
 		if ($building->user_id === $player->id) {
@@ -169,8 +177,12 @@ final class BuildingsPresenter extends GamePresenter
 					'storage' => 0
 				]);
 				$this->flashMessage($this->translate('general.messages.success.buildingCollected'), 'success');
-				$this->redirect('Buildings:default');
+				// $this->redirect('Buildings:default');
+				$this->redrawControl('playerIncome');
+				$this->redrawControl('buildings');
+				$this->redrawControl('sidebar-stats');
 			} else {
+				// $this->redrawControl('buildings');
 				$this->redirect('Buildings:default');
 			}
 		} else {
@@ -179,7 +191,7 @@ final class BuildingsPresenter extends GamePresenter
 		}
 	}
 
-	public function actionUpgrade(int $b) {
+	public function handleUpgrade(int $b) {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
 		if (isset($building->user_id) && $building->user_id === $player->id) {
@@ -189,31 +201,33 @@ final class BuildingsPresenter extends GamePresenter
 				if ($playerMoney >= $cost) {
 					if ($this->buildingsRepository->upgradeBuilding($b, $player->id)) {
 						$this->userRepository->addMoney($player->id, -$cost);
-						$this->flashMessage($this->translate('general.messages.success.buildingBought'), 'success');
-						$this->redirect('Buildings:default');
+						$this->flashMessage($this->translate('general.messages.success.buildingUpgraded'), 'success');
+						$this->redrawControl('buildings');
+						$this->redrawControl('sidebar-stats');
 					} else {
 						$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 						$this->redirect('Buildings:default');
 					}
 				} else {
 					$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
-					$this->redirect('Buildings:default');
+					$this->redrawControl('buildings');
 				}
 			} else {
 				$this->flashMessage('This building is at maximum level or is not upgradable!', 'danger');
-				$this->redirect('Buildings:default');
+				$this->redrawControl('buildings');
 			}
 		} else {
 			$this->redirect('Buildings:default');
 		}
 	}
 
-	public function actionDemolish(int $b) {
+	public function handleDemolish(int $b) {
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
 		if ($building->user_id === $this->user->getIdentity()->id) {
 			if ($this->buildingsRepository->demolishBuilding($b, $this->user->getIdentity()->id)) {
 				$this->flashMessage('Building demolished!', 'success');
-				$this->redirect('Buildings:default');
+				$this->redrawControl('buildings');
+				$this->redrawControl('sidebar-stats');
 			} else {
 				$this->flashMessage('Building not found!', 'danger');
 				$this->redirect('Buildings:default');
@@ -223,8 +237,8 @@ final class BuildingsPresenter extends GamePresenter
 		}
 	}
 
-	private function getUpgradeCost(int $basePrice = 0, int $level = 1): int
+	public function getUpgradeCost(int $basePrice = 0, int $level = 1): int
 	{
-		return (int)round(($basePrice * $level) / 3, -1);
+		return (int) round(($basePrice * pow($level, 1.05)) / 2, -1);
 	}
 }
