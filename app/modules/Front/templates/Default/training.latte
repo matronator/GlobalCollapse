@@ -3,7 +3,7 @@
 {define metaDescription}Training{/define}
 
 {block pageContent}
-<div class="uk-container-expand uk-margin-auto" uk-height-viewport="expand: true">
+<div class="uk-container-expand uk-margin-auto" uk-height-viewport="expand: true" n:snippet="training">
   <div class="dashboard uk-flex uk-padding-small uk-padding-remove-vertical" uk-margin>
     <div class="uk-card uk-width-auto uk-card-default uk-card-body" style="flex:1 0 auto;">
       <div class="split uk-flex-bottom">
@@ -62,7 +62,7 @@
         }
       </div>
     </div>
-    <div class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+    <div class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top" n:snippet="training-form">
         {include '../../components/Training/Training.latte',
           strength => $user->player_stats->strength,
           stamina => $user->player_stats->stamina,
@@ -72,10 +72,12 @@
     </div>
   </div>
 </div>
-{if ($isTraining > 0)}
-  <script defer src="{asset training.js front}"></script>
-{/if}
-{if ($skillpoints > 0)}
-  <script defer src="{asset spTrain.js front}"></script>
-{/if}
+{snippet training-scripts}
+  {if ($isTraining > 0)}
+    <script defer src="{asset training.js front}"></script>
+  {/if}
+  {if ($skillpoints > 0)}
+    <script defer src="{asset spTrain.js front}"></script>
+  {/if}
+{/snippet}
 {/block}

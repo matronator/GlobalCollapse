@@ -315,7 +315,9 @@ final class DefaultPresenter extends BasePresenter
 				$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
 			}
 		}
-		$this->redirect('this');
+		// $this->redirect('this');
+		$this->redrawControl('training-form');
+		$this->redrawControl('training-scripts');
 	}
 
 	public function createComponentSkillpointsForm(): Form {

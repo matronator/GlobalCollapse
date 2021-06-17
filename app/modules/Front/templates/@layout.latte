@@ -63,6 +63,20 @@
     })(window,document,'script','dataLayer','GTM-XXXX');</script> *}
     <!-- End Google Tag Manager -->
 
+    {if count($flashes) > 0}
+        <script n:syntax="off">
+            l = window.location.toString();
+            uri = l.indexOf('_fid=');
+            if(uri !== -1) {
+                uri = l.substr(0, uri) + l.substr(uri + 10);
+                if((uri.substr(uri.length - 1) === '?') || (uri.substr(uri.length - 1) === '&')) {
+                    uri = uri.substr(0, uri.length - 1);
+                }
+                window.history.replaceState('', document.title, uri);
+            }
+        </script>
+    {/if}
+
     {*<script src='https://www.google.com/recaptcha/api.js?render=PUBLIC_KEY_HERE'></script>*}
 </head>
 

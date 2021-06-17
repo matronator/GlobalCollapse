@@ -1,44 +1,52 @@
 import Push from "push.js"
 import Timer from "easytimer.js"
+import ajaxette from "ajaxette"
 
-/* eslint-disable no-var */
-window.addEventListener(`DOMContentLoaded`, () => {
-  // countdown
-  const hourSpan = document.querySelector(`.countdown-hours`)
-  const minuteSpan = document.querySelector(`.countdown-minutes`)
-  const secondSpan = document.querySelector(`.countdown-seconds`)
-  var hours = Number(hourSpan.innerHTML)
-  var minutes = Number(minuteSpan.innerHTML)
-  var seconds = Number(secondSpan.innerHTML)
+ajaxette.init()
 
-  const countdown = new Timer()
+ajaxette.onAjaxHook(training)
 
-  countdown.start()
-  countdown.addEventListener(`secondsUpdated`, e => {
-    tick()
-  })
+function training() {
+  document.addEventListener(`DOMContentLoaded`, () => {
+    // countdown
+    const hourSpan = document.querySelector(`.countdown-hours`)
+    const minuteSpan = document.querySelector(`.countdown-minutes`)
+    const secondSpan = document.querySelector(`.countdown-seconds`)
+    var hours = Number(hourSpan.innerHTML)
+    var minutes = Number(minuteSpan.innerHTML)
+    var seconds = Number(secondSpan.innerHTML)
 
-  function tick() {
-    if (seconds > 0) {
-      seconds -= 1
-    } else {
-      seconds = 59
-      if (minutes > 0) {
-        minutes -= 1
+    const countdown = new Timer()
+
+    countdown.start()
+    countdown.addEventListener(`secondsUpdated`, e => {
+      tick()
+    })
+
+    function tick() {
+      if (seconds > 0) {
+        seconds -= 1
       } else {
-        minutes = 59
-        hours -= 1
+        seconds = 59
+        if (minutes > 0) {
+          minutes -= 1
+        } else {
+          minutes = 59
+          hours -= 1
+        }
       }
+      if (hours <= 0 && minutes <= 0 && seconds <= 0) {
+        Push.create("Training done!")
+        setTimeout(reloadWindow, 2000)
+      }
+      hourSpan.innerHTML = hours > 9 ? hours : `0${hours}`
+      minuteSpan.innerHTML = minutes > 9 ? minutes : `0${minutes}`
+      secondSpan.innerHTML = seconds > 9 ? seconds : `0${seconds}`
     }
-    if (hours <= 0 && minutes <= 0 && seconds <= 0) {
-      Push.create("Training done!")
-      setTimeout(reloadWindow, 2000)
+    function reloadWindow() {
+      window.location.replace(false)
     }
-    hourSpan.innerHTML = hours > 9 ? hours : `0${hours}`
-    minuteSpan.innerHTML = minutes > 9 ? minutes : `0${minutes}`
-    secondSpan.innerHTML = seconds > 9 ? seconds : `0${seconds}`
-  }
-  function reloadWindow() {
-    window.location.reload(false)
-  }
-})
+  })
+}
+
+training()

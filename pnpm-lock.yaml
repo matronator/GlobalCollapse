@@ -7,7 +7,7 @@ specifiers:
   '@babel/register': ^7.10.4
   '@ckeditor/ckeditor5-build-classic': ^16.0.0
   '@ckeditor/ckeditor5-ckfinder': ^16.0.0
-  ajaxette: ^1.2.1
+  ajaxette: ^1.2.2
   apidoc: ^0.19.1
   autoprefixer: ^9.8.4
   babelify: ^10.0.0
@@ -55,7 +55,7 @@ dependencies:
   '@babel/polyfill': 7.12.1
   '@ckeditor/ckeditor5-build-classic': 16.0.0
   '@ckeditor/ckeditor5-ckfinder': 16.0.0
-  ajaxette: 1.2.1
+  ajaxette: 1.2.2
   choices.js: 9.0.1
   core-js: 3.14.0
   easytimer.js: 4.3.4
@@ -1528,8 +1528,8 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /ajaxette/1.2.1:
-    resolution: {integrity: sha512-WjVbI3pD6XBOq4Q67cfmtk2l9v+3uYH3Z9hvlRVLQ55hxrj80pMzJ/e+P9vIHY0G66D8HlD71jyzqlf1K7fpOw==}
+  /ajaxette/1.2.2:
+    resolution: {integrity: sha512-t4vEpcb6mGBS5A9khVPrIXisNovEHUf3vz37zZU9VmeqcbKeVRwW/AhdQLL5W6FMHNudgoMXQ3q/cIUrwuUR2Q==}
     dev: false
 
   /ajv/6.12.6:
