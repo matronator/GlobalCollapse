@@ -1,6 +1,3 @@
-application:
-	catchExceptions: false # For debugging
-
 # If you're not working on localhost or have different hostname set-up, change the host value (in dns parameter) to
 # either your hostname (ie. mac.local, local, ...) or the IP address you're running MySQL from.
 # If your MySQL is running on a non-standard port, also include the port number (ie: localhost:8889)
@@ -13,6 +10,9 @@ database:
 
 # For testing purposes, this will override the duration of all jobs to 1 minute
 parameters:
+  darknetUpdate:
+    hash: '2Rc9XqqWXa3ur4iiL5IKox782'
+    confirm: 'aRXPKmm1Fgzyy6m4z2LZgii1q'
   jobs!: [
     [
         locale: distributeMasks
@@ -63,3 +63,6 @@ parameters:
         droprate: 5
     ]
   ]
+
+application:
+	catchExceptions: false
