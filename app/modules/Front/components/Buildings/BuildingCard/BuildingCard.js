@@ -1,8 +1,8 @@
-import ajaxette from "ajaxette"
+import axette from "axette"
 
-ajaxette.init()
+axette.init()
 
-ajaxette.onAjaxHook(registerEventHandlers)
+axette.onAjax(registerEventHandlers)
 
 registerEventHandlers()
 function registerEventHandlers() {

@@ -14,14 +14,14 @@ class ArticlesRepository
     /** @var string */
     private $defaultLocale;
 
-	/** @var Nette\Database\Context */
+	/** @var Nette\Database\Explorer */
 	private $database;
 
 	public $uploadDir = '/upload/articles/';
 
 	public function __construct(
         Translator $translator,
-        Nette\Database\Context $database
+        Nette\Database\Explorer $database
     )
 	{
         $this->translator = $translator;

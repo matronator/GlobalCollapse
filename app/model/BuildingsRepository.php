@@ -8,14 +8,14 @@ use Nette\Utils\ArrayHash;
 
 class BuildingsRepository
 {
-	/** @var Nette\Database\Context */
+	/** @var Nette\Database\Explorer */
 	private $database;
 
 	private $newLandPrice = 1000;
 	public $baseUpgradeCost = 50000;
 	public $baseUpgradeTime = 3600; // 1 hour
 
-	public function __construct(Nette\Database\Context $database)
+	public function __construct(Nette\Database\Explorer $database)
 	{
 		$this->database = $database;
 	}

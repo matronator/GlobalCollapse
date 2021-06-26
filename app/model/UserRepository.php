@@ -6,7 +6,7 @@ use DateTime;
 use Nette;
 use Nette\Database\Table\ActiveRow;
 use Nette\Application\BadRequestException;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Utils\ArrayHash;
 use Nette\Security\Passwords;
 
@@ -15,7 +15,7 @@ const USER_ROLE_USER = 'u';
 
 class UserRepository
 {
-    /** @var Nette\Database\Context */
+    /** @var Nette\Database\Explorer */
     private $database;
 
     private $expGain = 1;
@@ -29,7 +29,7 @@ class UserRepository
         USER_ROLE_USER => 'User',
     ];
 
-    public function __construct(Nette\Database\Context $database)
+    public function __construct(Nette\Database\Explorer $database)
     {
         $this->database = $database;
     }

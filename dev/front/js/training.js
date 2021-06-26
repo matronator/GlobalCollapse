@@ -1,10 +1,10 @@
 import Push from "push.js"
 import Timer from "easytimer.js"
-import ajaxette from "ajaxette"
+import axette from "axette"
 
-ajaxette.init()
+axette.init()
 
-ajaxette.onAjaxHook(training)
+axette.onAjax(training)
 
 function training() {
   document.addEventListener(`DOMContentLoaded`, () => {

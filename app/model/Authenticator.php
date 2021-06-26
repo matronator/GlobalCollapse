@@ -10,10 +10,10 @@ use Nette\Utils\DateTime;
 
 class Authenticator implements Security\IAuthenticator
 {
-    /** @var Nette\Database\Context */
+    /** @var Nette\Database\Explorer */
     private $database;
 
-    public function __construct(Nette\Database\Context $database)
+    public function __construct(Nette\Database\Explorer $database)
     {
         $this->database = $database;
     }

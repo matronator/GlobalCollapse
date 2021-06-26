@@ -7,12 +7,12 @@ use Nette;
 
 class ContactFormRepository
 {
-	/** @var Nette\Database\Context */
+	/** @var Nette\Database\Explorer */
 	private $database;
 
 	public $uploadDir = '/upload/contact_form/';
 
-	public function __construct(Nette\Database\Context $database)
+	public function __construct(Nette\Database\Explorer $database)
 	{
 		$this->database = $database;
 	}

@@ -7,10 +7,10 @@ use Nette\Utils\ArrayHash;
 
 class EventsRepository
 {
-	/** @var Nette\Database\Context */
+	/** @var Nette\Database\Explorer */
 	private $database;
 
-	public function __construct(Nette\Database\Context $database)
+	public function __construct(Nette\Database\Explorer $database)
 	{
 		$this->database = $database;
 	}
