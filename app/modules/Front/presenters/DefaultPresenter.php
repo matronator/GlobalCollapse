@@ -8,9 +8,9 @@ use App\Model;
 use App\Model\UserRepository;
 use App\Model\DrugsRepository;
 use Nette\Application\UI\Form;
-use Nette\Utils\ArrayHash;
 use DateTime;
 use ActionLocker;
+use App\Model\UnlockablesRepository;
 use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
@@ -19,6 +19,7 @@ final class DefaultPresenter extends BasePresenter
 {
 	private $userRepository;
 	private $drugsRepository;
+	private $unlockablesRepository;
 
 	/** @var Model\ArticlesRepository */
   private $articleModel;
@@ -26,12 +27,14 @@ final class DefaultPresenter extends BasePresenter
 	public function __construct(
 		UserRepository $userRepository,
 		DrugsRepository $drugsRepository,
-		Model\ArticlesRepository $articleModel
+		Model\ArticlesRepository $articleModel,
+		UnlockablesRepository $unlockablesRepository
 	)
 	{
 		$this->userRepository = $userRepository;
 		$this->drugsRepository = $drugsRepository;
 		$this->articleModel = $articleModel;
+		$this->unlockablesRepository = $unlockablesRepository;
 	}
 
 	protected function startup()
@@ -156,7 +159,8 @@ final class DefaultPresenter extends BasePresenter
 		}
 	}
 
-	public function renderRest() {
+	public function renderRest()
+	{
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$actionLocker = new ActionLocker();
@@ -187,6 +191,15 @@ final class DefaultPresenter extends BasePresenter
 		} else {
 			$this->redirect('Login:default');
 		}
+	}
+
+	public function renderUnlockables()
+	{
+		if (!$this->user->isLoggedIn()) {
+			$this->redirect('Login:default');
+		}
+		$this->template->unlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId());
+		$this->template->lockedw = $this->unlockablesRepository->findAll();
 	}
 
 	public function createComponentRestForm(): Form {

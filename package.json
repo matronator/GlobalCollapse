@@ -348,6 +348,7 @@
     "core-js": "^3.6.5",
     "easytimer.js": "^4.3.0",
     "flatpickr": "^4.6.3",
+    "howler": "^2.2.3",
     "nouislider": "^14.6.0",
     "push.js": "^1.0.12",
     "uikit": "^3.5.4"

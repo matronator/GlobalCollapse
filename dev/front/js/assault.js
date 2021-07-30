@@ -1,3 +1,31 @@
+import { Howl, Howler } from "howler"
+/**
+ * @typedef sfx
+ * @property {Howl[]} hit
+ * @property {Howl[]} miss
+ * @property {string} baseURL
+ */
+
+/**
+ * @type {sfx}
+ */
+const sfx = {
+  hit: [],
+  miss: [],
+  baseURL: `http://${location.host}/dist/front/etc/audio/assaults/`
+}
+
+for (let i = 1; i <= 3; i++) {
+  sfx.hit[i] = new Howl({
+    src: [`${sfx.baseURL}hit-${i}.webm`, `${sfx.baseURL}hit-${i}.mp3`]
+  })
+  if (i < 3) {
+    sfx.miss[i] = new Howl({
+      src: [`${sfx.baseURL}miss-${i}.webm`, `${sfx.baseURL}miss-${i}.mp3`]
+    })
+  }
+}
+
 const totalRounds = document.querySelector(`[data-assault-rounds]`).dataset
   .assaultRounds
 
@@ -167,6 +195,12 @@ function attackerHit(
     attackerDmgSpan.classList.remove(`hidden`)
     attackerDmgSpan.classList.add(`dmg-hit-attacker`)
     victimDmgSpan.classList.add(`hidden`)
+
+    if (attackerDmg > 0) {
+      sfx.hit[Math.ceil(Math.random() * 3)].play()
+    } else {
+      sfx.miss[Math.ceil(Math.random() * 2)].play()
+    }
   }
 }
 
@@ -189,6 +223,12 @@ function victimHit(aHpBar, aHpBarSpan, aHpBarFill, attackerHp, victimDmg) {
     victimDmgSpan.classList.remove(`hidden`)
     victimDmgSpan.classList.add(`dmg-hit-victim`)
     attackerDmgSpan.classList.add(`hidden`)
+
+    if (victimDmg > 0) {
+      sfx.hit[Math.ceil(Math.random() * 3)].play()
+    } else {
+      sfx.miss[Math.ceil(Math.random() * 2)].play()
+    }
   }
 }
 

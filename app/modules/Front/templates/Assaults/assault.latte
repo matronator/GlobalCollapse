@@ -35,7 +35,10 @@
               {/if}
             {/if}
           </div>
-          <a n:href="Assaults:default" id="assaultDone" class="uk-button uk-button-secondary uk-hidden"><span uk-icon="arrow-left"></span>{_general.ui.done}</a>
+          <div id="assaultDone" class="uk-hidden">
+            <a n:href="Assaults:default" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.done}</a>
+            <a n:href="Assaults:detail, $victim" class="uk-button uk-button-danger"><span uk-icon="refresh"></span> {_general.pvp.assault.attackAgain}</a>
+          </div>
         </div>
       </div>
     </div>

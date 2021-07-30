@@ -23,4 +23,9 @@ class UnlockablesRepository
 	{
 		return $this->database->table('player_unlocked')->where('id', $userId);
 	}
+
+    public function getPossibleToUnlock(int $level)
+    {
+        return $this->findAll()->where('unlock_at <= ?', $level);
+    }
 }

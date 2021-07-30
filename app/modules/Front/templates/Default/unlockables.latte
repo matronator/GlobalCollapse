@@ -1,0 +1,27 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Buildings{/define}
+{define metaDescription}Buildings{/define}
+
+{block pageContent}
+<div class="uk-container" uk-height-viewport="expand: true">
+  <div>
+    <div class="uk-card uk-width-auto uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
+      <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/lands.jpg');">
+        <h2 class="uk-heading-large">{_general.ui.sidebar.player.unlockables}</h2>
+      </div>
+    </div>
+    <div class="uk-text-center">
+      <h3>{$user->username}'s unlocked items</h3>
+      <hr class="uk-divider-icon uk-margin-remove-top">
+      <div class="uk-flex-around uk-grid-match uk-flex-middle uk-child-width-auto" uk-grid>
+      </div>
+    </div>
+    <div class="uk-text-center">
+      <h3>Locked items</h3>
+      <hr class="uk-divider-icon uk-margin-remove-top">
+      <div class="uk-flex-around uk-grid-match uk-flex-middle uk-child-width-auto" uk-grid>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}

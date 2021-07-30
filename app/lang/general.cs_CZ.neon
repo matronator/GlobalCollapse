@@ -66,6 +66,7 @@ ui:
 			rest: 'Odpočinek'
 			home: 'Domov'
 			buildings: 'Stavby'
+			unlockables: 'K odemknutí'
 		city:
 			title: 'Město'
 			bar: 'Bar'

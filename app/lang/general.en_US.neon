@@ -68,6 +68,7 @@ ui:
 			buildings: 'Buildings'
 			lands: 'Lands'
 			assaults: 'Assaults'
+			unlockables: 'Unlockables'
 		city:
 			title: 'City'
 			bar: 'Bar'
@@ -118,6 +119,8 @@ ui:
 	last: 'Last'
 	done: 'Done'
 	date: 'Date'
+	both: 'Both'
+	all: 'All'
 	locationStatus:
 		closed: 'Closed'
 
@@ -155,6 +158,11 @@ pvp:
 		type: 'Type'
 		opponent: 'Opponent'
 		result: 'Result'
+		victory: 'Victory'
+		defeat: 'Defeat'
+		attacks: 'Attacks'
+		defenses: 'Defenses'
+		attackAgain: 'Assault again'
 
 resting:
 	title: 'Rest'
