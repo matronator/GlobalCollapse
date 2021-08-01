@@ -17,6 +17,7 @@ class Authorizator
         // roles
         $acl->addRole('a'); // admin
         $acl->addRole('u'); // user
+        $acl->addRole('vip', 'u'); // user
 
         // resources
         $acl->addResource('Default');
