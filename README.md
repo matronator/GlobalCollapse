@@ -6,6 +6,8 @@
 
 <a href="https://www.best-mmorpgs.com/" target="_blank">Vote on Best MMORPGs<img src="https://www.best-mmorpgs.com/button.php?u=matronator" alt="Vote on Best MMORPGs" style="display: none;" width="1px" height="1px" /></a>
 
+#### Notice: If you like this project, please consider donating. The battery on my macbook died and I need to get it replaced to be able to work, but a battery replacement for macbook is kinda expensive and money's little tight right now. Any help would be much appretiated! Thank you :)
+
 
 # Global Collapse: Pandemic (Now PWA compatible!)
 
