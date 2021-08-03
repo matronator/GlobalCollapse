@@ -1,13 +1,12 @@
 ![Global Collapse: Pandemic](dev/front/images/logo-black.png)
 
+#### Notice: If you like this project, please consider [donating](#support-the-project). The battery on my macbook died and I need to get it replaced to be able to work, but a battery replacement for macbook is kinda expensive and money's little tight right now. Any help would be much appretiated! Thank you :)
+
 <div style="display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;height:36px;"><a href="https://ko-fi.com/U7U2MDBC" target="_blank" style="margin-right:16px;"><img height="36" style="border:0px;height:36px;" src="https://az743702.vo.msecnd.net/cdn/kofi2.png?v=2" alt="Buy Me a Coffee at ko-fi.com"></a>
 <a href="https://www.paypal.me/matronator" target="_blank" style="margin-right:16px;"><img src=".github/paypal.png" height="36"></a>
-<a href="https://www.blockchain.com/btc/payment_request?address=35VRpVQaqFWjUCnVRpGineShz76QyYgSVg" target="_blank"><img src=".github/RibbonDonateBitcoin.png" height="36"></a></div>
+<a href="https://www.blockchain.com/btc/address/35VRpVQaqFWjUCnVRpGineShz76QyYgSVg" target="_blank"><img src=".github/RibbonDonateBitcoin.png" height="36"></a></div>
 
 <a href="https://www.best-mmorpgs.com/" target="_blank">Vote on Best MMORPGs<img src="https://www.best-mmorpgs.com/button.php?u=matronator" alt="Vote on Best MMORPGs" style="display: none;" width="1px" height="1px" /></a>
-
-#### Notice: If you like this project, please consider donating. The battery on my macbook died and I need to get it replaced to be able to work, but a battery replacement for macbook is kinda expensive and money's little tight right now. Any help would be much appretiated! Thank you :)
-
 
 # Global Collapse: Pandemic (Now PWA compatible!)
 
