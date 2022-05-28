@@ -4,36 +4,37 @@
  *      array          $assaults           Array with assaults
 **}
 <h3>Latest assaults</h3>
-<ul class="uk-list uk-list-striped uk-width-expand">
-  <li class="uk-flex-around uk-child-width-1-4@s" uk-grid>
-    <div>
-      <span class="uk-nav-header">{_general.pvp.assault.type}</span>
-    </div>
-    <div>
-      <span class="uk-nav-header">{_general.pvp.assault.opponent}</span>
-    </div>
-    <div>
-      <span class="uk-nav-header">{_general.pvp.assault.result}</span>
-    </div>
-    <div>
-      <span class="uk-nav-header">{_general.ui.date}</span>
-    </div>
-  </li>
+{foreach $assaults as $assault}
+  {var $assaultType = $assault->attacker == $user->id ? 'Attack' : 'Defense'}
+  {var $opponent = $assaultType == 'Attack' ? $assault->victim_name : $assault->attacker_name}
 
-  <li class="uk-flex-around uk-child-width-1-4@s assault-record uk-grid-small uk-grid-divider" uk-grid n:foreach="$assaults as $assault">
-    {var $assaultType = $assault->attacker == $user->id ? 'Attack' : 'Defense'}
-    {var $opponent = $assaultType == 'Attack' ? $assault->victim_name : $assault->attacker_name}
-    <div>
-      <span>{$assaultType}</span>
-    </div>
-    <div>
-      <span><a n:href="Player:detail, $opponent">{$opponent}</a></span>
-    </div>
-    <div>
-      <span>{$assault->result|capitalize}</span>
-    </div>
-    <div>
-      <span>{$presenter->toUserDate($assault->date)|date:'%d.%m.%Y - %T'}</span>
-    </div>
-  </li>
-</ul>
+  {include '../../components/Assault/PlayerPopover.latte', victim => $presenter->getPlayerInfo($opponent)}
+{/foreach}
+<div class="uk-overflow-auto">
+  <table class="uk-table uk-table-small uk-table-hover uk-table-divider uk-padding-remove uk-margin-remove uk-width-expand">
+    <thead>
+      <tr>
+        <th class="uk-text-nowrap uk-text-center">{_general.pvp.assault.type}</th>
+        <th class="uk-text-nowrap uk-text-center">{_general.pvp.assault.opponent}</th>
+        <th class="uk-text-nowrap uk-text-center">{_general.pvp.assault.result}</th>
+        <th class="uk-text-nowrap uk-text-center">{_general.ui.date}</th>
+      </tr>
+    </thead>
+
+    <tbody class="assault-record" n:inner-foreach="$assaults as $assault">
+      {var $assaultType = [
+        'default' => $assault->attacker == $user->id ? 'Attack' : 'Defense',
+        'mobile' => $assault->attacker == $user->id ? 'ATK' : 'DEF',
+      ]}
+      {var $opponent = $assaultType['default'] == 'Attack' ? $assault->victim_name : $assault->attacker_name}
+      {var $assaultDate = $presenter->toUserDate($assault->date)}
+      <tr data-popover-trigger="{$opponent}" class="">
+        <td><span class="uk-visible@s">{$assaultType['default']}</span><span class="uk-hidden@s">{$assaultType['mobile']}</span></td>
+        <td class="uk-text-nowrap"><a n:href="Player:detail, $opponent">{$opponent}</a></td>
+        <td class="{$assault->result === 'win' ? 'uk-text-success' : 'uk-text-danger'}">{$assault->result|capitalize}</td>
+        {* <td><span class="uk-text-nowrap">{$assaultDate|date:'%x'}</span> - <span class="uk-text-nowrap">{$assaultDate|date:'%k:%M'}</span></td> *}
+        <td uk-tooltip="title: {$assaultDate|date:'%F %T'}"><time class="relative-time" datetime="{$assaultDate|date:'%FT%T'}">{$assaultDate|date:'%FT%T'}</time></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

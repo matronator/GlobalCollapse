@@ -6,6 +6,8 @@
 
 @import "../../../node_modules/flatpickr/dist/flatpickr.css";
 
+/* @import "../../../node_modules/tippy.js/dist/tippy.css"; */
+
 @import "sanitize.css";
 
 /* Common styles */

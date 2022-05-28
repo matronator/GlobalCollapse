@@ -79,7 +79,7 @@ final class IntroPresenter extends GamePresenter
 			if ($selected >= 1 && $selected <= 21) {
 				if ($player) {
 					$this->userRepository->getUser($player->id)->update([
-						'avatar' => $selected,
+						'avatar' => $selected . ".jpg",
 						'skillpoints' => 0,
 						'tutorial' => 1
 					]);

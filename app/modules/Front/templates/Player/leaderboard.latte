@@ -6,6 +6,9 @@
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
     <div class="dashboard uk-flex" uk-margin>
       <div class="uk-card uk-width-expand uk-card-default uk-card-body">
+        {foreach $data as $otherUser}
+          {include '../../components/Assault/PlayerPopover.latte', victim => $otherUser}
+        {/foreach}
         <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
           <thead>
             <tr>
@@ -16,12 +19,16 @@
           </thead>
           <tbody>
             {foreach $data as $otherUser}
-              <tr>
+              <tr data-popover-trigger="{$otherUser->username}">
                 <td class="uk-text-nowrap uk-text-middle">{$iterator->counter + (($page - 1) * $itemsPerPage)}</td>
                 <td class="uk-text-nowrap">
-                  <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}.jpg" class="uk-comment-avatar uk-hidden@s" width="24" height="24">
-                  <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}.jpg" class="uk-comment-avatar uk-visible@s" width="48" height="48">
-                  &nbsp;{if $otherUser->username != $user->username}<a n:href="Assaults:detail, $otherUser->username">{$otherUser->username}</a>{else}{$user->username}{/if}
+                  <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar uk-hidden@s" width="24" height="24">
+                  <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar uk-visible@s" width="48" height="48">
+                  {if $otherUser->username != $user->username}
+                    <a n:href="Assaults:detail, $otherUser->username">{$otherUser->username}</a>
+                  {else}
+                    <span>{$user->username}</span>
+                  {/if}
                 </td>
                 <td class="uk-text-nowrap uk-text-middle">{$otherUser->player_stats->power}</td>
               </tr>

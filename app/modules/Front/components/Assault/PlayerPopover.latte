@@ -1,0 +1,37 @@
+{varType object $victim}
+
+{var $attacker = $user}
+
+{var $strDiff = $victim->player_stats->strength - $attacker->player_stats->strength}
+{var $staDiff = $victim->player_stats->stamina - $attacker->player_stats->stamina}
+{var $speDiff = $victim->player_stats->speed - $attacker->player_stats->speed}
+{var $powDiff = $victim->player_stats->power - $attacker->player_stats->power}
+
+<div class="uk-card uk-card-default uk-text-center uk-card-body uk-padding-remove uk-margin-remove zoom-75" data-player-popover="{$victim->username}">
+    <h4>{$victim->username}</h4>
+    <table class="uk-table uk-table-small table-tight-rows uk-table-hover">
+        <tr>
+            <td class="uk-text-nowrap uk-text-right">{_general.stats.strength.title}</td>
+            <td class="uk-text-nowrap">{$victim->player_stats->strength}:</td>
+            <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $strDiff < 0}uk-text-success{elseif $strDiff > 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.strength.pvp}: {$attacker->player_stats->strength}"><span n:if="$strDiff > 0">+</span>{$strDiff}</td>
+        </tr>
+        <tr>
+            <td class="uk-text-nowrap uk-text-right">{_general.stats.stamina.title}</td>
+            <td class="uk-text-nowrap">{$victim->player_stats->stamina}:</td>
+            <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $staDiff < 0}uk-text-success{elseif $staDiff > 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.stamina.pvp}: {$attacker->player_stats->stamina}"><span n:if="$staDiff > 0">+</span>{$staDiff}</td>
+        </tr>
+        <tr>
+            <td class="uk-text-nowrap uk-text-right">{_general.stats.speed.title}</td>
+            <td class="uk-text-nowrap">{$victim->player_stats->speed}:</td>
+            <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $speDiff < 0}uk-text-success{elseif $speDiff > 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.speed.pvp}: {$attacker->player_stats->speed}"><span n:if="$speDiff > 0">+</span>{$speDiff}</td>
+        </tr>
+        <tr>
+            <td class="uk-text-nowrap uk-text-right"><strong>{_general.stats.power.title}:</strong></td>
+            <td class="uk-text-nowrap"><strong>{$victim->player_stats->power}</strong></td>
+            <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $powDiff < 0}uk-text-success{elseif $powDiff > 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.power.description}: {$attacker->player_stats->power}"><span n:if="$powDiff > 0">+</span>{$powDiff}</td>
+        </tr>
+    </table>
+    {if $user->id != $victim->id}
+        <a n:href="Assaults:detail, $victim->username" class="uk-button uk-button-primary uk-margin-bottom">Attack!</a>
+    {/if}
+</div>

@@ -119,6 +119,11 @@ final class AssaultsPresenter extends GamePresenter
 
 	}
 
+	public function getPlayerInfo(string $username)
+	{
+		return $this->userRepository->getUserByName($username);
+	}
+
 	public function actionAttack() {
 		$sessionSection = $this->session->getSection('assault');
 		$id = $sessionSection['victim'];

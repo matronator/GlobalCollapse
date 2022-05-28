@@ -403,7 +403,7 @@ final class DefaultPresenter extends BasePresenter
 			if ($player) {
 				$player->avatar = $selected;
 				$this->userRepository->getUser($player->id)->update([
-					'avatar' => $selected
+					'avatar' => $selected . ".jpg"
 				]);
 				$this->flashMessage($this->translator->translate('general.messages.success.avatarChanged'), 'success');
 			}

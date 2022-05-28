@@ -286,6 +286,11 @@ td.input-row {
   &\--t { border-top: 1px solid var(--c-light-2); }
 }
 
+.zoom {
+  &\-50 { zoom: 50%; }
+  &\-75 { zoom: 75%; }
+}
+
 .uk-select, option.selected {
   overflow: hidden;
   white-space: nowrap;
@@ -308,7 +313,7 @@ td.input-row {
   &\-outline {
     background: transparent;
     border: 1px solid var(--black);
-    color: var(--black);
+    color: var(--black) !important;
 
     &:hover {
       color: var(--black);
@@ -369,4 +374,11 @@ td.input-row {
   padding: 6px;
   margin-bottom: 0;
   font-size: 0.875rem;
+}
+
+.table-tight-rows {
+  & td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
 }

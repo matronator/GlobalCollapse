@@ -20,7 +20,7 @@
       <tr>
         <td class="uk-text-nowrap">{$iterator->counter + (($page - 1) * $itemsPerPage)}</td>
         <td class="uk-text-nowrap">
-          <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}.jpg" class="uk-comment-avatar" width="24" height="24">
+          <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar" width="24" height="24">
           &nbsp;{if $otherUser->username != $user->username}<a n:href="Player:detail, $otherUser->username">{$otherUser->username}</a>{else}{$user->username}{/if}
         </td>
         <td class="uk-text-nowrap">{$otherUser->player_stats->power}</td>

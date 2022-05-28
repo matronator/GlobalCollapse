@@ -10,7 +10,7 @@
     "postpost": "npm run report-js && npm run report-css && npm run report-lh",
     "start-admin": "gulp --mod admin",
     "build-admin": "gulp --production --mod admin",
-    "serve": "php -S 127.0.0.1:8000 -t www/",
+    "serve": "source .env && php -S 127.0.0.1:8000 -t www/",
     "p-serve": "pnpm run serve",
     "dev": "npm-run-all -p -l p-serve p-start",
     "lint-js": "eslint dev/**/*.js --fix",
@@ -28,24 +28,24 @@
   "author": "Matronator",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.10.4",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/register": "^7.10.4",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/register": "^7.17.7",
     "apidoc": "^0.19.1",
-    "autoprefixer": "^9.8.4",
+    "autoprefixer": "^9.8.8",
     "babelify": "^10.0.0",
-    "browser-sync": "^2.26.7",
-    "browserify": "^16.5.1",
-    "cssnano": "^4.1.10",
+    "browser-sync": "^2.27.10",
+    "browserify": "^16.5.2",
+    "cssnano": "^4.1.11",
     "del": "^5.1.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "glob": "^7.1.6",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.4.1",
+    "glob": "^7.2.3",
     "gulp": "^4.0.2",
     "gulp-imagemin": "^7.1.0",
-    "gulp-noop": "^1.0.0",
+    "gulp-noop": "^1.0.1",
     "gulp-postcss": "^8.0.0",
     "gulp-rev": "^9.0.0",
     "gulp-sourcemaps": "^2.6.5",
@@ -54,18 +54,18 @@
     "gulp-uglify-es": "^2.0.0",
     "lighthouse": "^5.6.0",
     "loose-envify": "^1.4.0",
-    "postcss-calc": "^7.0.2",
+    "postcss-calc": "^7.0.5",
     "postcss-custom-media": "^7.0.8",
-    "postcss-custom-properties": "^9.1.1",
+    "postcss-custom-properties": "^9.2.0",
     "postcss-import": "^12.0.1",
     "postcss-mixins": "^6.2.3",
     "postcss-nesting": "^7.0.1",
     "prettier": "^1.19.1",
-    "stylelint": "^13.6.1",
+    "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-prettier": "^1.1.2",
+    "stylelint-prettier": "^1.2.0",
     "vinyl-buffer": "^1.0.1",
-    "yargs": "^15.4.0"
+    "yargs": "^15.4.1"
   },
   "browserslist": [
     "last 2 versions",
@@ -256,6 +256,10 @@
       ],
       "no-unused-vars": [
         "warn"
+      ],
+      "indent": [
+        "error",
+        "4"
       ]
     }
   },
@@ -340,17 +344,18 @@
     }
   },
   "dependencies": {
-    "@babel/polyfill": "^7.10.4",
+    "@babel/polyfill": "^7.12.1",
     "@ckeditor/ckeditor5-build-classic": "^16.0.0",
     "@ckeditor/ckeditor5-ckfinder": "^16.0.0",
-    "axette": "^1.1.7",
-    "choices.js": "^9.0.1",
-    "core-js": "^3.6.5",
-    "easytimer.js": "^4.3.0",
-    "flatpickr": "^4.6.3",
+    "axette": "^1.1.14",
+    "choices.js": "^9.1.0",
+    "core-js": "^3.22.7",
+    "easytimer.js": "^4.5.3",
+    "flatpickr": "^4.6.13",
     "howler": "^2.2.3",
-    "nouislider": "^14.6.0",
+    "nouislider": "^14.7.0",
     "push.js": "^1.0.12",
-    "uikit": "^3.5.4"
+    "tippy.js": "^6.3.7",
+    "uikit": "^3.14.3"
   }
 }

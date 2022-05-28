@@ -8,12 +8,17 @@ import {
   choicesOptions
 } from "./imports/settings"
 import { toggle } from "./imports/helpers"
+import "./../../../app/modules/Front/components/Assault/PlayerPopover.js"
+import { timesToRelative } from "./imports/dates"
 
 // UIKit
 UIkit.use(Icons)
 
 // nette forms
 NetteForms.initOnLoad()
+
+// relative times
+timesToRelative()
 
 window.addEventListener(`DOMContentLoaded`, () => {
   // Check if standalone

@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Model;
-use App\Model\UserRepository;
-use DateTime;
 use stdClass;
-use Timezones;
 
 /////////////////////// FRONT: BASE PRESENTER ///////////////////////
 // Base presenter for all frontend presenters
