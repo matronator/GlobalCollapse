@@ -169,7 +169,13 @@ class DrugsRepository
 				'money-=' => $price,
 				'buys+=' => 1
 			]);
+
 			$this->sellDrug($user->id, $offer->drug_id, $quantity);
+
+			$vendor = $this->findVendor($offer->vendor_id)->fetch();
+			if ($vendor->money <= $offer->drug->price * 2) {
+				$this->updateOfferAndMoney($offerId);
+			}
 			// $this->changeOffer($offerId);
 		}
 	}
@@ -201,25 +207,27 @@ class DrugsRepository
 	public function updateOfferAndMoney(int $offerId)
 	{
 		$offer = $this->findOffer($offerId)->fetch();
-		if ($offer->quantity <= 0) {
+
+		$vendor = $this->findVendor($offer->vendor_id);
+		if ($vendor->fetch()->money <= $offer->drug->price * 2) {
 			$baseMoney = $offer->vendor->base_money;
-			$drug = $offer->drug_id;
-			$drugArray = [];
-			for ($i = 1; $i <= 5; $i++) {
-				if ($i != $drug) {
-					array_push($drugArray, $i);
-				}
-			}
-			shuffle($drugArray);
-			$this->findVendor($offer->vendor_id)->update([
-				'base_money' => $baseMoney
-			]);
-			$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
-			$this->findOffer($offerId)->update([
-				'drug_id' => array_pop($drugArray),
-				'quantity' => $newQuantity
+			$vendor->update([
+				'money' => $baseMoney
 			]);
 		}
+		$drug = $offer->drug_id;
+		$drugArray = [];
+		for ($i = 1; $i <= 5; $i++) {
+			if ($i != $drug) {
+				array_push($drugArray, $i);
+			}
+		}
+		shuffle($drugArray);
+		$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
+		$this->findOffer($offerId)->update([
+			'drug_id' => array_pop($drugArray),
+			'quantity' => $newQuantity
+		]);
 	}
 
 	public function getOfferBuyPrice($offer, int $quantity = 0): int
