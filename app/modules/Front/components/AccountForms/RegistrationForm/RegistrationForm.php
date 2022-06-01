@@ -42,18 +42,18 @@ class RegistrationForm extends Control {
 
         $form = new Form;
 
-        $form->addEmail('email', $this->translator->translate('m.account.email'))
-            ->setRequired($this->translator->translate('m.password.required'));
+        $form->addEmail('email', $this->translate('m.account.email'))
+            ->setRequired($this->translate('m.password.required'));
 
-        $form->addPassword('new_password', $this->translator->translate('m.account.newPassword'))
-        ->setRequired($this->translator->translate('m.formField.required'))
-        ->addRule(Form::MIN_LENGTH, $this->translator->translate('m.account.newPasswordMinLenght', ['passwordMinLenght' => 5]), 5);
+        $form->addPassword('new_password', $this->translate('m.account.newPassword'))
+        ->setRequired($this->translate('m.formField.required'))
+        ->addRule(Form::MIN_LENGTH, $this->translate('m.account.newPasswordMinLenght', ['passwordMinLenght' => 5]), 5);
 
-        $form->addPassword('new_password_verify', $this->translator->translate('m.account.newPasswordVerify'))
-        ->setRequired($this->translator->translate('m.formField.required'))
-        ->addRule(Form::EQUAL, $this->translator->translate('m.account.newPasswordMismatch'), $form['new_password']);
+        $form->addPassword('new_password_verify', $this->translate('m.account.newPasswordVerify'))
+        ->setRequired($this->translate('m.formField.required'))
+        ->addRule(Form::EQUAL, $this->translate('m.account.newPasswordMismatch'), $form['new_password']);
 
-        $form->addSubmit('submit', $this->translator->translate('m.account.registerNewUser'));
+        $form->addSubmit('submit', $this->translate('m.account.registerNewUser'));
 
         $form->onSuccess[] = [$this, 'processForm'];
         return $form;

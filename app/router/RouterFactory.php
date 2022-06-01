@@ -31,6 +31,7 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru|cs>/]copyright-notice', 'Info:copyright')
 			->addRoute('[<locale=en en|ru|cs>/]terms-of-use', 'Info:tos')
 			->addRoute('[<locale=en en|ru|cs>/]privacy-policy', 'Info:privacy')
+			->addRoute('[<locale=en en|ru|cs>/]reset-password/<hash>', 'Recover:default')
 			->addRoute('[<locale=en en|ru|cs>/]rest', 'Default:rest')
 			->addRoute('[<locale=en en|ru|cs>/]training', 'Default:training')
 			->addRoute('[<locale=en en|ru|cs>/]darknet', 'City:darknet')
@@ -41,6 +42,7 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru|cs>/]assaults', 'Assaults:default')
 			->addRoute('[<locale=en en|ru|cs>/]assaults/detail/<user>', 'Assaults:detail')
 			->addRoute('[<locale=en en|ru|cs>/]assaults/assault/<match>', 'Assaults:assault')
+			->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default') //most general route
 
 		// APIs
 		->addRoute('api/job', 'Api:job')

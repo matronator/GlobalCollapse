@@ -42,6 +42,7 @@ messages:
 	info:
 	warning:
 	danger:
+		wrongCredentials: "Špatné heslo nebo uživatelské jméno"
 		notEnoughMoney: "Nedostatek peněz"
 		notEnoughEnergy: "Nedostatek energie"
 		invalidStats: "Neplatné atributy, zkus to znovu"
@@ -49,6 +50,7 @@ messages:
 		orderBuyTooMany: "You're trying to buy more than the vendor has in stock."
 		orderSellTooMany: "You're trying to sell more than you have."
 		orderSellVendorLow: "You're trying to sell more than the vendor can buy."
+		forgotPasswordNoUser: "Žádný hráč s tímto e-mailem nebyl nalezen."
 
 ui:
 	navbar:
@@ -120,6 +122,7 @@ ui:
 account:
 	accountSettings: 'Nastavení účtu'
 	changePassword: 'Změnit heslo'
+	resetPassword: 'Resetovat heslo'
 
 faq:
 	title: 'Věděl jsi že... ?'

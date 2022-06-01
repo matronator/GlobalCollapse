@@ -221,7 +221,7 @@ final class DefaultPresenter extends BasePresenter
 					'resting' => 1,
 					'resting_start' => $playerRestStart
 				]);
-				$this->flashMessage($this->translator->translate('general.messages.success.restStart'), 'success');
+				$this->flashMessage($this->translate('general.messages.success.restStart'), 'success');
 			}
 		} else if ($control->name === 'wakeup') {
 			if ($isResting) {
@@ -242,7 +242,7 @@ final class DefaultPresenter extends BasePresenter
 							'energy+=' => $reward
 						]);
 					}
-					$this->flashMessage($this->translator->translate('general.messages.success.restEnd', ['reward' => $reward]), 'success');
+					$this->flashMessage($this->translate('general.messages.success.restEnd', ['reward' => $reward]), 'success');
 				}
 			}
 		}
@@ -320,12 +320,12 @@ final class DefaultPresenter extends BasePresenter
 						'training_end' => $trainingEnd
 					]);
 					// $this->logger->addInfo($player->username . ' started ' . $trainSkill . ' training.');
-					$this->flashMessage($this->translator->translate('general.messages.success.trainingStart'), 'success');
+					$this->flashMessage($this->translate('general.messages.success.trainingStart'), 'success');
 				} else {
-					$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughEnergy'), 'danger');
+					$this->flashMessage($this->translate('general.messages.danger.notEnoughEnergy'), 'danger');
 				}
 			} else {
-				$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
+				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 			}
 		}
 		// $this->redirect('this');
@@ -375,9 +375,9 @@ final class DefaultPresenter extends BasePresenter
 					'skillpoints-=' => $usedSp
 				]);
 				$this->userRepository->updateStatsAdd($player->id, $strength, $stamina, $speed);
-				$this->flashMessage($this->translator->translate('general.messages.success.skillpointsAssigned'), 'success');
+				$this->flashMessage($this->translate('general.messages.success.skillpointsAssigned'), 'success');
 			} else {
-				$this->flashMessage($this->translator->translate('general.messages.danger.invalidStats'), 'danger');
+				$this->flashMessage($this->translate('general.messages.danger.invalidStats'), 'danger');
 			}
 		}
 		$this->redirect('this');
@@ -405,7 +405,7 @@ final class DefaultPresenter extends BasePresenter
 				$this->userRepository->getUser($player->id)->update([
 					'avatar' => $selected . ".jpg"
 				]);
-				$this->flashMessage($this->translator->translate('general.messages.success.avatarChanged'), 'success');
+				$this->flashMessage($this->translate('general.messages.success.avatarChanged'), 'success');
 			}
 		}
 		$this->redirect('this');

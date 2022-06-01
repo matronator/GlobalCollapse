@@ -25,7 +25,13 @@
           &nbsp;or&nbsp;<a n:href="Signup:default">Create new account</a>
         </div>
       </div>
+      <div n:foreach="$form->errors as $error" class="uk-alert uk-alert-danger">
+        {$error}
+      </div>
     {/form}
+    <div class="uk-margin uk-text-center uk-flex uk-flex-middle">
+      <a n:href="Login:restore" class="uk-text-small">Forgot password or username?</a>
+    </div>
   </div>
 </div>
 {/block}

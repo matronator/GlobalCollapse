@@ -60,7 +60,7 @@
 		"nette/finder": "^2.5.1",
 		"nette/forms": "^3.0.7",
 		"nette/http": "^3.0.5",
-		"nette/mail": "^3.1.5",
+		"nette/mail": "^3.1.8",
 		"nette/neon": "^3.2.1",
 		"nette/robot-loader": "^3.3.1",
 		"nette/routing": "^3.0.1",
@@ -69,10 +69,11 @@
 		"nette/schema": "^1.0.4",
 		"nette/utils": "^3.2.0",
 		"tracy/tracy": "^2.8.0",
-		"latte/latte": "^2.9.2",
+		"latte/latte": "^2.11.4",
 		"ext-json": "*",
 		"h4kuna/assets": "^1.0",
-		"contributte/translation": "^0.6.1"
+		"contributte/translation": "^0.6.1",
+		"ramsey/uuid": "^4.2"
 	},
 	"require-dev": {
 		"nette/tester": "^2.3.4"

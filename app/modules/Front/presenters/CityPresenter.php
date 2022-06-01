@@ -148,7 +148,7 @@ final class CityPresenter extends GamePresenter
 	private function offerBuy(string $hash = null, int $quantity = null)
 	{
 		if ($hash == null || $quantity == null) {
-			$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+			$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 			$this->redirect('City:darknet');
 		} else {
 			$sessionOffers = $this->session->getSection('darknetOffers');
@@ -162,18 +162,18 @@ final class CityPresenter extends GamePresenter
 						if ($player->money >= $totalPrice) {
 							$this->drugsRepository->offerBuy($offer->id, $player->id, $quantity);
 							$this->userRepository->addMoney($player->id, -$totalPrice);
-							$this->flashMessage($this->translator->translate('general.messages.success.purchaseSuccessful'), 'success');
+							$this->flashMessage($this->translate('general.messages.success.purchaseSuccessful'), 'success');
 						} else {
-							$this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
+							$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 						}
 					} else {
-						$this->flashMessage($this->translator->translate('general.messages.danger.orderBuyTooMany'), 'danger');
+						$this->flashMessage($this->translate('general.messages.danger.orderBuyTooMany'), 'danger');
 					}
 				} else {
-					$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+					$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 				}
 			} else {
-				$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+				$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 			}
 		}
 	}
@@ -181,7 +181,7 @@ final class CityPresenter extends GamePresenter
 	private function offerSell(string $hash = null, int $quantity = null)
 	{
 		if ($hash == null || $quantity == null) {
-			$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+			$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 			$this->redirect('City:darknet');
 		} else {
 			$sessionOffers = $this->session->getSection('darknetOffers');
@@ -196,18 +196,18 @@ final class CityPresenter extends GamePresenter
 						if ($playerDrug->quantity >= $quantity) {
 							$this->drugsRepository->offerSell($offer->id, $player, $quantity);
 							$this->userRepository->addMoney($player->id, $totalPrice);
-							$this->flashMessage($this->translator->translate('general.messages.success.drugsSold'), 'success');
+							$this->flashMessage($this->translate('general.messages.success.drugsSold'), 'success');
 						} else {
-							$this->flashMessage($this->translator->translate('general.messages.danger.orderSellTooMany'), 'danger');
+							$this->flashMessage($this->translate('general.messages.danger.orderSellTooMany'), 'danger');
 						}
 					} else {
-						$this->flashMessage($this->translator->translate('general.messages.danger.orderSellVendorLow'), 'danger');
+						$this->flashMessage($this->translate('general.messages.danger.orderSellVendorLow'), 'danger');
 					}
 				} else {
-					$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+					$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 				}
 			} else {
-				$this->flashMessage($this->translator->translate('general.messages.danger.somethingFishy'), 'danger');
+				$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 			}
 		}
 	}

@@ -37,7 +37,7 @@ services:
     router: App\Router\RouterFactory::createRouter
     nette.latteFactory:
         setup:
-            - addFilter(NULL, 'App\Filter\StaticFilters::common')
+            # - addFilter(NULL, 'App\Filter\StaticFilters::common')
             - addFilter('imageGenerator', '@App\Filter\ImageFilter')
 
 http:
@@ -56,9 +56,12 @@ extensions:
     assetsExtension: h4kuna\Assets\DI\AssetsExtension
 
 translation:
+    localeResolvers:
+        - Contributte\Translation\LocalesResolvers\Router
     locales:
         default: en
         whitelist: ['en', 'ru', 'cs']
+        fallback: ['en']
     dirs:
         - %appDir%/lang
 

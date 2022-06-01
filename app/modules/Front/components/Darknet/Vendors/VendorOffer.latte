@@ -8,7 +8,7 @@
   <div class="uk-card uk-card-default uk-card-body uk-padding-small darknet-offer"
        data-offer-id="{$id}" data-offer-price="{$offer->drug->price}" data-vendor-charge="{$offer->vendor->charge}"
        data-vendor-money="{$offer->vendor->money}" data-offer-stock="{$offer->quantity}">
-    {form vendorOfferForm-$id}
+    {form vendorOfferForm-{$id}}
       <h3 class="uk-margin-remove-bottom uk-text-bold">{_general.drugs.$drugName.alt.1}</h3>
       <small>{_general.darknet.postedBy} {$offer->vendor->name}</small>
       <p class="uk-margin-remove-bottom">{_general.darknet.vendorMoney}: ${$offer->vendor->money|number}</p>

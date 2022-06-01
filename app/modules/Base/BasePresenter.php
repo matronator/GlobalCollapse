@@ -38,6 +38,7 @@ class BasePresenter extends Presenter
             'ru' => 'Russian',
             'cs' => 'Čeština'
         ];
+        $this->locale = $this->getParameter('locale');
     }
 
     /**

@@ -39,34 +39,34 @@ class ContactForm extends Control {
 
         $form = new Form;
 
-        $form->addText('fullname', $this->translator->translate('form.contact.fullname'))
-            ->setAttribute('placeholder', $this->translator->translate('form.contact.fullname'))
-            ->setRequired($this->translator->translate('form.general.required', ['requiredItem' => '"%label"']));
+        $form->addText('fullname', $this->translate('form.contact.fullname'))
+            ->setAttribute('placeholder', $this->translate('form.contact.fullname'))
+            ->setRequired($this->translate('form.general.required', ['requiredItem' => '"%label"']));
 
-        $form->addText('phone', $this->translator->translate('form.contact.phone'))
+        $form->addText('phone', $this->translate('form.contact.phone'))
             ->setAttribute('type', 'tel')
-            ->setAttribute('placeholder', $this->translator->translate('form.contact.phone'));
+            ->setAttribute('placeholder', $this->translate('form.contact.phone'));
 
-        $form->addEmail('email', $this->translator->translate('form.contact.email'))
-            ->setAttribute('placeholder', $this->translator->translate('form.contact.email'))
-            ->addRule(Form::EMAIL, $this->translator->translate('form.contact.invalidMail'))
-            ->setRequired($this->translator->translate('form.general.required', ['requiredItem' => '"%label"']));
+        $form->addEmail('email', $this->translate('form.contact.email'))
+            ->setAttribute('placeholder', $this->translate('form.contact.email'))
+            ->addRule(Form::EMAIL, $this->translate('form.contact.invalidMail'))
+            ->setRequired($this->translate('form.general.required', ['requiredItem' => '"%label"']));
 
-        $form->addTextarea('text', $this->translator->translate('form.contact.text'))
-            ->setAttribute('placeholder', $this->translator->translate('form.contact.text'))
-            ->setRequired($this->translator->translate('form.general.required', ['requiredItem' => '"%label"']));
+        $form->addTextarea('text', $this->translate('form.contact.text'))
+            ->setAttribute('placeholder', $this->translate('form.contact.text'))
+            ->setRequired($this->translate('form.general.required', ['requiredItem' => '"%label"']));
 
-        $form->addCheckbox('consent', $this->translator->translate('form.contact.consent', ['link' => $gdprConsent]))
+        $form->addCheckbox('consent', $this->translate('form.contact.consent', ['link' => $gdprConsent]))
             ->setAttribute('class', 'checkbox')
-            ->setRequired($this->translator->translate('form.general.requiredConsent'));
+            ->setRequired($this->translate('form.general.requiredConsent'));
 
-        $form->addCheckbox('consentNewsletter', $this->translator->translate('form.contact.consentNewsletter', ['link' => $gdprConsent]))
+        $form->addCheckbox('consentNewsletter', $this->translate('form.contact.consentNewsletter', ['link' => $gdprConsent]))
             ->setAttribute('class', 'checkbox')
-            ->setRequired($this->translator->translate('form.general.requiredConsent'));
+            ->setRequired($this->translate('form.general.requiredConsent'));
 
         $form->addHidden('recaptcha_token');
 
-        $form->addSubmit('send', $this->translator->translate('form.contact.send'));
+        $form->addSubmit('send', $this->translate('form.contact.send'));
 
         $form->onSuccess[] = [$this, 'processForm'];
         return $form;
@@ -95,14 +95,14 @@ class ContactForm extends Control {
                     'ip'=>$_SERVER["REMOTE_ADDR"]
                 ]);
                 $mailer->send($mail);
-                $this->presenter->flashMessage($this->translator->translate('form.contact.success'), 'success');
+                $this->presenter->flashMessage($this->translate('form.contact.success'), 'success');
             } catch (\Exception $e) {
-                $this->presenter->flashMessage($this->translator->translate('form.contact.failed'), 'error');
+                $this->presenter->flashMessage($this->translate('form.contact.failed'), 'error');
                 Debugger::log(new \Exception($e->getMessage()));
             }
             $this->onSuccess($form);
         }else{
-            $this->presenter->flashMessage($this->translator->translate('form.contact.errorYouAreRobot'), 'error');
+            $this->presenter->flashMessage($this->translate('form.contact.errorYouAreRobot'), 'error');
             $this->onError($form);
         }
     }

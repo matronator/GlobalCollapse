@@ -42,6 +42,7 @@ messages:
 	info:
 	warning:
 	danger:
+		wrongCredentials: "Wrong password or username"
 		notEnoughMoney: "Not enough money"
 		notEnoughEnergy: "Not enough energy"
 		invalidStats: "Invalid stats, try again"
@@ -49,6 +50,7 @@ messages:
 		orderBuyTooMany: "You're trying to buy more than the vendor has in stock."
 		orderSellTooMany: "You're trying to sell more than you have."
 		orderSellVendorLow: "You're trying to sell more than the vendor can buy."
+		forgotPasswordNoUser: "No user account with this e-mail address was found."
 
 ui:
 	navbar:
@@ -123,10 +125,14 @@ ui:
 	all: 'All'
 	locationStatus:
 		closed: 'Closed'
+	restore:
+		username: 'Forgot username'
+		password: 'Forgot password'
 
 account:
 	accountSettings: 'Account settings'
 	changePassword: 'Change password'
+	resetPassword: 'Reset password'
 	changeEmail: 'Change e-mail'
 	currentEmail: 'Your current e-mail is'
 	datetimePrefs:

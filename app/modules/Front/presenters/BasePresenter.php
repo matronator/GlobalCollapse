@@ -32,6 +32,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
 	protected function beforeRender()
 	{
+		$this->translator->setLocale($this->locale);
 		if ($this->isAjax()) {
 			$this->redrawControl('body');
 			$this->redrawControl('flashes');
@@ -87,6 +88,12 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	{
 			$resource = $resource ? $resource : $this->name;
 			return $this->user->isAllowed($resource, $privilege);
+	}
+
+	public function translate($key, $args = []): string
+	{
+		$this->translator->setLocale($this->locale);
+		return $this->translator->translate($key, $args);
 	}
 
 }

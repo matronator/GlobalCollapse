@@ -7,8 +7,12 @@ use Nette;
 use Nette\Database\Table\ActiveRow;
 use Nette\Application\BadRequestException;
 use Nette\Database\Explorer;
+use Nette\Database\Table\Selection;
 use Nette\Utils\ArrayHash;
 use Nette\Security\Passwords;
+use Ramsey\Uuid\Guid\Guid;
+use Ramsey\Uuid\Rfc4122\UuidV4;
+use Ramsey\Uuid\Uuid;
 
 const USER_ROLE_ADMIN = 'a';
 const USER_ROLE_USER = 'u';
@@ -108,7 +112,7 @@ class UserRepository
         if (!$email)
             return null;
         return $this->findAll()
-            ->where('username', $email);
+            ->where('email', $email)->fetch();
     }
 
     public function deleteUser(?int $id = null): ?ActiveRow
@@ -150,6 +154,40 @@ class UserRepository
         return $this->updateUser($userId, [
             'email' => $email
         ]);
+    }
+
+    public function findAllUserPasswordReset(): Selection
+    {
+        return $this->database->table('user_password_reset');
+    }
+
+    public function generateResetPasswordHash(int $userId): string
+    {
+        $uuid = Uuid::uuid4();
+        $guid = $uuid->toString();
+        $recoveries = $this->findAllUserPasswordReset()->where('user_id', $userId)->where('reset', 0);
+        if ($recoveries->count() > 0) {
+            return $recoveries->fetch()->hash;
+        }
+        $this->findAllUserPasswordReset()->insert([
+            'user_id' => $userId,
+            'hash' => $guid,
+        ]);
+        return $guid;
+    }
+
+    public function resetPassword(int $userId)
+    {
+        $this->findAllUserPasswordReset()->where('user_id', $userId)->update([
+            'date_reset' => new DateTime,
+            'reset' => 1,
+        ]);
+    }
+
+    public function getUserByRecoveryHash(string $hash): ?ActiveRow
+    {
+        $passwordReset = $this->findAllUserPasswordReset()->where('hash', $hash)->where('reset', 0)->fetch();
+        return $this->getUser($passwordReset->user_id);
     }
 
     public function cypherPassword(string $password): string

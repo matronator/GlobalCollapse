@@ -1,0 +1,39 @@
+{define bodyClass}page--login{/define}
+{define pageTitle}Restore{/define}
+{define metaDescription}Restore{/define}
+
+{block pageContent}
+<div class="uk-container-expand" uk-height-viewport="expand: true">
+  <div class="uk-flex uk-flex-middle uk-flex-column">
+    <h1 class="uk-heading-divider uk-text-center">Restore account</h1>
+    {form restoreForm}
+      <div class="uk-margin">
+        <label class="uk-form-label" for="email">{_general.ui.email}</label>
+        <div class="uk-form-controls">
+            {input email}
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="username">{_general.ui.restore.username}</label>
+        <div class="uk-form-controls">
+            {input username}
+        </div>
+      </div>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="password">{_general.ui.restore.password}</label>
+        <div class="uk-form-controls">
+            {input password}
+        </div>
+      </div>
+      <div class="uk-margin uk-flex uk-flex-middle">
+        <div class="uk-form-controls">
+          <button type="submit" class="uk-button uk-button-primary" n:name="submit">Restore account</button>
+        </div>
+      </div>
+    {/form}
+    <div class="uk-margin uk-text-center uk-flex uk-flex-middle">
+      <a n:href="Login:default" class="uk-text-small">Back to login</a>
+    </div>
+  </div>
+</div>
+{/block}

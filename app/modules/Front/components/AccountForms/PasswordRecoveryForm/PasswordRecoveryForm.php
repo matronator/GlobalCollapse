@@ -38,10 +38,10 @@ class PasswordRecoveryForm extends Control {
     {
         $form = new Form;
 
-        $form->addEmail('email', $this->translator->translate('m.account.email'))
-        ->setRequired($this->translator->translate('m.formField.required'));
+        $form->addEmail('email', $this->translate('m.account.email'))
+        ->setRequired($this->translate('m.formField.required'));
 
-        $form->addSubmit('submitReset', $this->translator->translate('m.account.changePassword'));
+        $form->addSubmit('submitReset', $this->translate('m.account.changePassword'));
         $form->onSuccess[] = [$this, 'processForm'];
         return $form;
     }
