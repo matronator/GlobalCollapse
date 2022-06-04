@@ -2,6 +2,8 @@
 
 namespace App\Filter;
 
+use Nette\Utils\Strings;
+
 class StaticFilters
 {
     public static function common($filter, $value)
@@ -28,6 +30,11 @@ class StaticFilters
     public static function nbsp($text)
     {
         return preg_replace('/(\s)([a-zA-z])\s/i', '$1$2&nbsp;', $text);
+    }
+
+    public static function fromSnake(string $text): string
+    {
+        return Strings::trim(Strings::capitalize(preg_replace('/([a-z]+)_?([a-z])*?/', '$1 $2', $text)));
     }
 
 }

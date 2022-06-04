@@ -39,6 +39,7 @@ services:
         setup:
             # - addFilter(NULL, 'App\Filter\StaticFilters::common')
             - addFilter('imageGenerator', '@App\Filter\ImageFilter')
+            - addFilter('fromSnake', 'App\Filter\StaticFilters::fromSnake')
 
 http:
     headers:
@@ -59,9 +60,9 @@ translation:
     localeResolvers:
         - Contributte\Translation\LocalesResolvers\Router
     locales:
-        default: en
-        whitelist: ['en', 'ru', 'cs']
-        fallback: ['en']
+        default: 'en_US'
+        whitelist: ['en_US', 'ru_RU', 'cs_CZ']
+        fallback: ['en_US', 'cs_CZ']
     dirs:
         - %appDir%/lang
 

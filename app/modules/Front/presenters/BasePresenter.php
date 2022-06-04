@@ -81,19 +81,19 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	}
 
 	public function handleChangeLocale(string $locale) {
+		$this->translator->setLocale($this->locale);
 		$this->redirect('this', ['locale' => $locale]);
 	}
 
 	public function isAllowed($privilege, $resource = null)
 	{
-			$resource = $resource ? $resource : $this->name;
-			return $this->user->isAllowed($resource, $privilege);
+		$resource = $resource ? $resource : $this->name;
+		return $this->user->isAllowed($resource, $privilege);
 	}
 
 	public function translate($key, $args = []): string
 	{
-		$this->translator->setLocale($this->locale);
+		// $this->translator->setLocale($this->locale);
 		return $this->translator->translate($key, $args);
 	}
-
 }
