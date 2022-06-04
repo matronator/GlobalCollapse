@@ -10,6 +10,7 @@ use App\Model\DrugsRepository;
 use Nette\Application\UI\Form;
 use DateTime;
 use ActionLocker;
+use App\Model\BuildingsRepository;
 use App\Model\UnlockablesRepository;
 use Timezones;
 
@@ -17,9 +18,12 @@ use Timezones;
 
 final class DefaultPresenter extends BasePresenter
 {
+	private const AVATAR_COUNT = 30;
+
 	private $userRepository;
 	private $drugsRepository;
 	private $unlockablesRepository;
+	private $buildingsRepository;
 
 	/** @var Model\ArticlesRepository */
   private $articleModel;
@@ -28,13 +32,15 @@ final class DefaultPresenter extends BasePresenter
 		UserRepository $userRepository,
 		DrugsRepository $drugsRepository,
 		Model\ArticlesRepository $articleModel,
-		UnlockablesRepository $unlockablesRepository
+		UnlockablesRepository $unlockablesRepository,
+		BuildingsRepository $buildingsRepository
 	)
 	{
 		$this->userRepository = $userRepository;
 		$this->drugsRepository = $drugsRepository;
 		$this->articleModel = $articleModel;
 		$this->unlockablesRepository = $unlockablesRepository;
+		$this->buildingsRepository = $buildingsRepository;
 	}
 
 	protected function startup()
@@ -198,8 +204,17 @@ final class DefaultPresenter extends BasePresenter
 		if (!$this->user->isLoggedIn()) {
 			$this->redirect('Login:default');
 		}
-		$this->template->unlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId());
-		$this->template->lockedw = $this->unlockablesRepository->findAll();
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$land = $this->buildingsRepository->findPlayerLand($this->user->id)->fetch();
+		$this->unlockablesRepository->checkUnlockables($player, $land);
+
+		$unlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId())->fetchAll();
+		$unlockedIds = array_column($unlocked, 'unlockables_id');
+		$locked = $this->unlockablesRepository->findAll()->where('id NOT IN ?', $unlockedIds)->fetchAll();
+
+		$this->template->unlocked = $unlocked;
+		$this->template->locked = $locked;
+		$this->template->landLevel = isset($land->level) ? $land->level : 0;
 	}
 
 	public function createComponentRestForm(): Form {
@@ -386,7 +401,7 @@ final class DefaultPresenter extends BasePresenter
 	public function createComponentAvatarForm(): Form
 	{
 		$avatars = [];
-		for ($i = 1; $i <= 21; $i++) {
+		for ($i = 1; $i <= self::AVATAR_COUNT; $i++) {
 			$avatars[$i] = $i;
 		}
 		$form = new Form();
@@ -398,7 +413,7 @@ final class DefaultPresenter extends BasePresenter
 
 	public function avatarFormSucceeded(Form $form, $values): void {
 		$selected = $values->avatar;
-		if ($selected >= 1 && $selected <= 21) {
+		if ($selected >= 1 && $selected <= self::AVATAR_COUNT) {
 			$player = $this->user->getIdentity();
 			if ($player) {
 				$player->avatar = $selected;
