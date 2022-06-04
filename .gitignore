@@ -7,7 +7,7 @@ node_modules
 www/upload/*/*
 www/dist
 .env
-init-db.sql
+/init-db.sql
 UGNUtSB5tb35HGFpYSWTJw.php
 RFuEmK02jXUKK5mVXTlIHQ.php
 pnpm-debug.log

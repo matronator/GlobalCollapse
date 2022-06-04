@@ -369,7 +369,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `user` (`id`, `username`, `email`, `ip`, `password`, `date_log`, `registration`, `role`, `avatar`, `money`, `skillpoints`, `tutorial`, `player_stats_id`, `actions_id`, `last_active`) VALUES
-(1,	'admin',	'info@matronator.com',	'127.0.0.1',	'$2y$10$Vabm8gWuaRdOhkTPK6tzeuKfogaBANd4FNr5ou5iXuVLunLdZIIau',	'2021-08-04 19:46:00',	'2020-03-27 12:31:51',	'a',	'6',	2893017,	0,	1,	1,	1,	'2021-08-04 19:46:00');
+(1,	'admin',	'info@matronator.com',	'127.0.0.1',	'$2y$10$4i/emyIRg37oYhETK4tC8OCJglEEJ5Nv1V8O7pvX0cgzXfjGXzzb6',	'2021-08-04 19:46:00',	'2020-03-27 12:31:51',	'a',	'6',	2893017,	0,	1,	1,	1,	'2021-08-04 19:46:00');
 
 CREATE TABLE `user_settings` (
   `id` int NOT NULL AUTO_INCREMENT,
