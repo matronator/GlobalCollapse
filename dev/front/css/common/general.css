@@ -321,6 +321,10 @@ td.input-row {
   }
 }
 
+.uk-grid-match > * > .uk-card-badge {
+  width: unset;
+}
+
 /* PWA prompt */
 .pwa_prompt-wrapper {
   position: fixed;

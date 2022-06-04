@@ -12,14 +12,24 @@
     </div>
     <div class="uk-text-center">
       <h3>{$user->username}'s unlocked items</h3>
-      <hr class="uk-divider-icon uk-margin-remove-top">
-      <div class="uk-flex-around uk-grid-match uk-flex-middle uk-child-width-auto" uk-grid>
+      <div class="uk-flex-around player-land uk-child-width-auto" uk-grid>
+        <div n:foreach="$unlocked as $item">
+          {include '../../components/Unlockables/UnlockedItem.latte',
+            item => $item
+          }
+        </div>
       </div>
     </div>
+    <hr class="uk-divider-icon uk-margin-top">
     <div class="uk-text-center">
       <h3>Locked items</h3>
-      <hr class="uk-divider-icon uk-margin-remove-top">
-      <div class="uk-flex-around uk-grid-match uk-flex-middle uk-child-width-auto" uk-grid>
+      <div class="uk-flex-around uk-grid-match player-land uk-child-width-auto" uk-grid>
+        <div n:foreach="$locked as $item">
+          {include '../../components/Unlockables/LockedItem.latte',
+            item => $item,
+            landLevel => $landLevel
+          }
+        </div>
       </div>
     </div>
   </div>

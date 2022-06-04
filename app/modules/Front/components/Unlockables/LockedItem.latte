@@ -1,0 +1,22 @@
+{**
+*   Locked Item
+*   $item          object     Locked item object
+*   $landLevel     int        Land level
+*}
+{capture $unlocksAt}
+    {switch $item->type}
+        {case 'land_level'}Land level
+        {case 'level'}Level
+    {/switch}
+{/capture}
+
+{var $progress = $item->type === 'land_level' ? $landLevel : $user->player_stats->level}
+
+<div class="uk-card uk-card-default uk-card-body uk-card-hover uk-padding-small uk-text-center">
+    <div class="uk-text-center uk-margin-small-bottom">
+        <span uk-icon="icon: question; ratio: 3"></span>
+    </div>
+    <h4 class="uk-margin-remove uk-padding-remove">Unlocks At</h4>
+    <p class="uk-padding-remove">{$unlocksAt}: {$item->unlock_at}</p>
+    <progress class="uk-progress" value="{$progress}" max="{$item->unlock_at}" uk-tooltip="{$progress} / {$item->unlock_at}"></progress>
+</div>

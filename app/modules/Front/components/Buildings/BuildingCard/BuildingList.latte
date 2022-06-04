@@ -5,7 +5,7 @@
 <div class="uk-flex uk-flex-column">
   <div n:foreach="$buildings as $building" class="uk-flex uk-flex-between">
     {var $buildingName = $building->buildings->name}
-    <div>{"_general.buildings.buildings.$buildingName.name"}&nbsp;</div>
+    <div>{_general.buildings.buildings.{$buildingName}.name}&nbsp;</div>
     <div>
       <a n:href="buyBuilding! $building->id" class="ajax">BUY (${$building->buildings->price|number})</a>
     </div>

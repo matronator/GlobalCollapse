@@ -55,7 +55,7 @@ final class BuildingsPresenter extends GamePresenter
 				$upgradeUntil = $playerLand->upgrade_end;
 				$now = new DateTime();
 				$diff = $upgradeUntil->getTimestamp() - $now->getTimestamp();
-				if ($diff >= 0) {
+				if ($diff > 0) {
 					$s = $diff % 60;
 					$m = $diff / 60 % 60;
 					$h = $diff / 3600 % 60;
@@ -71,6 +71,7 @@ final class BuildingsPresenter extends GamePresenter
 					$this->redrawControl('buildings');
 					$this->redrawControl('land-card');
 					$this->redrawControl('sidebar-stats');
+					$this->redrawControl('landUpgradeProgress');
 				}
 			}
 			if (isset($playerIncome->last_collection)) {

@@ -262,6 +262,15 @@ class UserRepository
         ]);
     }
 
+    public function increaseMaxEnergy(int $userId, int $newEnergy) {
+        $user = $this->getUser($userId);
+        if ($user->player_stats->energy_max < $newEnergy) {
+            $user->player_stats->update([
+                'energy_max' => $newEnergy
+            ]);
+        }
+    }
+
     /** Job rewards */
     public function getRewardMoney($jobmoney, $level) {
 		return $jobmoney + (int)round($jobmoney * ($level - 1) * 0.05);

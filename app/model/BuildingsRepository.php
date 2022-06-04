@@ -210,6 +210,19 @@ class BuildingsRepository
 		}
 	}
 
+	public function unlockBuilding(int $buildingId, int $userId) {
+		$building = $this->findAllBuildings()->get($buildingId);
+		$land = $this->findPlayerLand($userId)->fetch();
+		$this->findAllPlayerBuildings($userId)->insert([
+			'user_id' => $userId,
+			'buildings_id' => $buildingId,
+			'player_land_id' => $land->id,
+			'level' => 0,
+			'capacity' => $building->base_capacity,
+			'storage' => 0,
+		]);
+	}
+
 	public function upgradeBuilding(int $bId, ?int $userId = null) {
 		$building = $this->getBuilding($bId)->fetch();
 		if ($building) {
@@ -304,9 +317,9 @@ class BuildingsRepository
 	 *
 	 * @param integer $baseIncome
 	 * @param integer $level
-	 * @return void
+	 * @return float
 	 */
-	public function getBuildingIncome(int $baseIncome = 0, int $level = 1)
+	public function getBuildingIncome(int $baseIncome = 0, int $level = 1): float
 	{
 		return $baseIncome + round($baseIncome * pow(($level - 1) / 2, 1.02));
 	}

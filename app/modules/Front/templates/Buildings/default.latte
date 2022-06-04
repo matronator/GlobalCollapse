@@ -27,12 +27,12 @@
       </div>
       <div n:ifset="$playerIncome">
         <div class="uk-flex-around uk-text-small uk-grid-small" uk-grid n:snippet="playerIncome">
-          <div >{_general.stats.money}: {$playerIncome->money ? $playerIncome->money : 0|number}</div>
-          <div>{_general.drugs.Weed.name}: {$playerIncome->weed ? $playerIncome->weed : 0|number}g</div>
-          <div>{_general.drugs.Ecstasy.name}: {$playerIncome->ecstasy ? $playerIncome->ecstasy : 0|number}g</div>
-          <div>{_general.drugs.Meth.name}: {$playerIncome->meth ? $playerIncome->meth : 0|number}g</div>
-          <div>{_general.drugs.Heroin.name}: {$playerIncome->heroin ? $playerIncome->heroin : 0|number}g</div>
-          <div>{_general.drugs.Coke.name}: {$playerIncome->coke ? $playerIncome->coke : 0|number}g</div>
+          <div>{_general.stats.money}: {$playerIncome->money ? $playerIncome->money : 0|number} / 5h</div>
+          <div>{_general.drugs.Weed.name}: {$playerIncome->weed ? $playerIncome->weed : 0|number}g / 5h</div>
+          <div>{_general.drugs.Ecstasy.name}: {$playerIncome->ecstasy ? $playerIncome->ecstasy : 0|number}g / 5h</div>
+          <div>{_general.drugs.Meth.name}: {$playerIncome->meth ? $playerIncome->meth : 0|number}g / 5h</div>
+          <div>{_general.drugs.Heroin.name}: {$playerIncome->heroin ? $playerIncome->heroin : 0|number}g / 5h</div>
+          <div>{_general.drugs.Coke.name}: {$playerIncome->coke ? $playerIncome->coke : 0|number}g / 5h</div>
         </div>
       </div>
       <hr class="uk-divider-icon uk-margin-remove-top">
@@ -58,15 +58,17 @@
         {/for}
       </div>
     </div>
-    <div class="uk-text-center" n:if="$land && isset($isUpgrading) && $isUpgrading > 0">
-      <div class="uk-card uk-width-expand uk-card-default uk-card-body">
-        <h3>
-          Land expansion in progress...
-        </h3>
-        <p>Upgrading until <strong>{$upgradeUntil|date:'%B %d - %T'}</strong></p>
-        <p>During land upgrade, you can't access your buildings and you won't collect any resources from production.</p>
+    {snippet landUpgradeProgress}
+      <div class="uk-text-center" n:if="$land && isset($isUpgrading) && $isUpgrading > 0">
+        <div class="uk-card uk-width-expand uk-card-default uk-card-body">
+          <h3>
+            Land expansion in progress...
+          </h3>
+          <p>Upgrading until <strong>{$upgradeUntil|date:'%B %d - %T'}</strong></p>
+          <p>During land upgrade, you can't access your buildings and you won't collect any resources from production.</p>
+        </div>
       </div>
-    </div>
+    {/snippet}
   </div>
 </div>
 <script defer src="{asset buildings.js front}" n:if="$land"></script>
