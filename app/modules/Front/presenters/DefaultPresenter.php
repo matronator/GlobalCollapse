@@ -18,7 +18,7 @@ use Timezones;
 
 final class DefaultPresenter extends BasePresenter
 {
-	private const AVATAR_COUNT = 30;
+	public const AVATAR_COUNT = 30;
 
 	private $userRepository;
 	private $drugsRepository;

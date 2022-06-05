@@ -76,7 +76,7 @@ final class IntroPresenter extends GamePresenter
 		$speed = intval($values->speed);
 		$statsTotal = $strength + $stamina + $speed;
 		if ($statsTotal == 16) {
-			if ($selected >= 1 && $selected <= 21) {
+			if ($selected >= 1 && $selected <= DefaultPresenter::AVATAR_COUNT) {
 				if ($player) {
 					$this->userRepository->getUser($player->id)->update([
 						'avatar' => $selected . ".jpg",
