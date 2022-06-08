@@ -1,5 +1,5 @@
 parameters:
-    version: 0.1.8
+    version: 0.2.1
 
 application:
     errorPresenter: Error
@@ -51,18 +51,18 @@ latte:
     macros:
         - App\Macros\CustomMacros
 
-# extensions
 extensions:
     translation: Contributte\Translation\DI\TranslationExtension
     assetsExtension: h4kuna\Assets\DI\AssetsExtension
 
 translation:
     localeResolvers:
+        - Contributte\Translation\LocalesResolvers\Parameter
         - Contributte\Translation\LocalesResolvers\Router
     locales:
-        default: 'en_US'
         whitelist: ['en_US', 'ru_RU', 'cs_CZ']
-        fallback: ['en_US', 'cs_CZ']
+        default: 'en_US'
+        fallback: ['en_US']
     dirs:
         - %appDir%/lang
 

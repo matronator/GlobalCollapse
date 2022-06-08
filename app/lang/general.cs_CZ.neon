@@ -39,6 +39,7 @@ messages:
 		buildingUpgraded: "Budova vylepšena!"
 		landUpgradeStart: "Rozšiřování pozemku započato"
 		buildingCollected: "Budova sesbírána!"
+		allBuildingCollected: "Všechny budovy sesbírány!"
 	info:
 	warning:
 	danger:
@@ -47,16 +48,16 @@ messages:
 		notEnoughEnergy: "Nedostatek energie"
 		invalidStats: "Neplatné atributy, zkus to znovu"
 		somethingFishy: "Čuchám čuchám lotrovinu..."
-		orderBuyTooMany: "You're trying to buy more than the vendor has in stock."
-		orderSellTooMany: "You're trying to sell more than you have."
-		orderSellVendorLow: "You're trying to sell more than the vendor can buy."
+		orderBuyTooMany: "Tvá objednávka je větší než má vendor na skladě."
+		orderSellTooMany: "Nemůžeš prodat víc než máš."
+		orderSellVendorLow: "Tvá objednávka je za víc peněz než má vendor k dispozici."
 		forgotPasswordNoUser: "Žádný hráč s tímto e-mailem nebyl nalezen."
 
 ui:
 	navbar:
 		covidTracker:
 			disclaimer: 'Skutečné statistiky vynásobeny hodnotou:<br>Nakažených: 1500<br>Úmrtí: 15000'
-			disclaimerPlayers: '%users% Registered accounts<br>%online% Players online'
+			disclaimerPlayers: '%users% Registrovaných účtů<br>%online% Hráčů online'
 			infected: 'Nakažených'
 			dead: 'Úmrtí'
 	sidebar:
@@ -67,8 +68,9 @@ ui:
 			training: 'Trénink'
 			rest: 'Odpočinek'
 			home: 'Domov'
-			buildings: 'Stavby'
-			unlockables: 'K odemknutí'
+			buildings: 'Budovy'
+			assaults: 'Přepadení'
+			unlockables: 'Odměny'
 		city:
 			title: 'Město'
 			bar: 'Bar'
@@ -96,6 +98,7 @@ ui:
 	signup: 'Vytvořit účet'
 	email: 'E-mail'
 	newEmail: 'Nový e-mail'
+	emailV: 'E-mail znovu'
 	password: 'Heslo'
 	passwordV: 'Heslo znovu'
 	newPassword: 'Nové heslo'
@@ -116,8 +119,15 @@ ui:
 	more: 'Více'
 	first: 'První'
 	last: 'Poslední'
+	done: 'Hotovo'
+	date: 'Datum'
+	both: 'Obojí'
+	all: 'Vše'
 	locationStatus:
 		closed: 'Zavřeno'
+	restore:
+		username: 'Zapomenutá přezdívka'
+		password: 'Zapomenuté heslo'
 
 account:
 	accountSettings: 'Nastavení účtu'
@@ -141,8 +151,17 @@ pvp:
 	allPlayers: 'Všichni hráči'
 	assault:
 		winReward: 'Peníze za výhru:'
+		winRewardXp: 'Zkušenosti za výhru:'
 		loseReward: "Ztráta za prohru:"
 		attack: 'Zaútoč'
+		type: 'Typ'
+		opponent: 'Protivník'
+		result: 'Výsledek'
+		victory: 'Výhra'
+		defeat: 'Porážka'
+		attacks: 'Útoky'
+		defenses: 'Obrany'
+		attackAgain: 'Zaútoč znovu'
 
 resting:
 	title: 'Odpočinek'
@@ -248,40 +267,64 @@ drugs:
 	Heroin:
 		name: 'Heroin'
 
+darknet:
+	postedBy: 'Přidal'
+	inStock: 'Na skladě'
+	vendorMoney: "Peníze vendora"
+	vendorFee: "Poplatek vendora"
+	vendorFeeTooltip: "Poplatek navíc pro nákupy"
+
 buildings:
-	title: 'Stavby'
+	title: 'Budovy'
 	description: 'Kup si pozemek, kde budeš moci stavět budovy, které ti budou produkovat komodity na prodej.'
 	showMore: 'Více'
-	showLess: 'Show less'
+	showLess: 'Skrýt'
 	demolish: 'Zbourat'
-	upgrade: 'Upgradovat'
+	upgrade: 'Vylepšit'
+	collect: 'Vybrat'
+	collectAll: 'Vybrat vše najednou'
 	buildings:
 		weedhouse:
 			name: 'Pěstírna'
-			description: 'Pěstuje trávu'
+			description: 'Pěstuje hulení'
 			product: 'Tráva'
 		meth_lab:
-			name: 'Varna'
-			description: 'Vaří pervitin'
+			name: 'Varna pika'
+			description: 'Vaří peří, perníček'
 			product: 'Pervitin'
 		ecstasy_lab:
 			name: 'Tlačírna éčka'
-			description: 'Vyrábí pilule extáze'
+			description: 'Pressuje extáze z krystalů emka'
 			product: 'Extáze'
 		poppy_field:
 			name: 'Makové pole'
-			description: 'Pěstuje opium'
+			description: 'Sklízí opium na výrobu heráku'
 			product: 'Heroin'
 		coca_plantage:
 			name: 'Plantáž koky'
-			description: 'Pěstuje koku'
+			description: 'Z listů koky na kokain'
 			product: 'Kokain'
-	type: 'Typ'
-	productType: 'Vyrábí'
-	productIncome: 'Množství'
+	lands:
+		title: 'Pozemky'
+		slots: 'Volná místa:'
+		nextLevel: 'Další úroveň:'
+		slotIncreaseTooltip: 'Místa navíc po vylepšení'
+		upgradeTime: 'Čas vylepšení:'
+		upgradeCost: 'Cena vylepšení:'
+		toggleDetails: 'Skrýt detaily'
+	type: 'Druh'
+	capacity: 'Kapacita'
+	storage: 'Uskladněno'
+	productType: 'Produkt'
+	productIncome: 'Výnos'
 	incomeDescription: 'Tvé příjmy každých 5 hodin'
 	lastCollection: 'Naposledy vybráno:'
+	noCollections: 'Zatím ještě nevybráno'
 	types:
 		drugs:
 			name: 'Výroba drog'
 			description: 'Produkuje drogy'
+
+unlockables:
+	title: 'Odměny'
+	description: "Odemkni si odměny úspěšným splněním požadavků a dokončením cílů uvedených na zamčených položkách. Dosáhnutím cíle si danou položku odemkneš a získáš tak její odměnu. Odemykáním odměn můžeš získat nová vylepšení a zesílení atributů pro svoji postavu, nebo si také například můžeš odemknout nové typy budov, které si pak budeš moct postavit na svém pozemku a další odměny."

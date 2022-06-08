@@ -39,6 +39,7 @@ messages:
 		buildingUpgraded: "Building upgraded!"
 		landUpgradeStart: "Land upgrade started"
 		buildingCollected: "Building collected!"
+		allBuildingCollected: "All buildings collected!"
 	info:
 	warning:
 	danger:
@@ -291,6 +292,7 @@ buildings:
 	demolish: 'Demolish'
 	upgrade: 'Upgrade'
 	collect: 'Collect'
+	collectAll: 'Collect All Buildings'
 	buildings:
 		weedhouse:
 			name: 'Weedhouse'
@@ -302,15 +304,15 @@ buildings:
 			product: 'Meth'
 		ecstasy_lab:
 			name: 'Ecstasy factory'
-			description: 'Press ecstasy pills'
+			description: 'Pressing ecstasy pills from MDMA'
 			product: 'Ecstasy'
 		poppy_field:
 			name: 'Poppy field'
-			description: 'Grows opium'
+			description: 'Harvests opium to make heroin'
 			product: 'Heroin'
 		coca_plantage:
 			name: 'Coca plantage'
-			description: 'Grows coca plants'
+			description: 'Processing coca leaves into cocaine'
 			product: 'Cocaine'
 	lands:
 		title: 'Lands'
@@ -324,7 +326,7 @@ buildings:
 	capacity: 'Capacity'
 	storage: 'Storage'
 	productType: 'Produces'
-	productIncome: 'Amount'
+	productIncome: 'Yield'
 	incomeDescription: 'Your income per 5 hours'
 	lastCollection: 'Last resource collection:'
 	noCollections: 'No collections yet'
@@ -332,3 +334,7 @@ buildings:
 		drugs:
 			name: 'Drug production'
 			description: 'Produces drugs'
+
+unlockables:
+	title: 'Unlockables'
+	description: "Complete objectives and achieve goals specified on the locked items to unlock them. Each item has a reward you will earn once you reach the goal and unlock it. By unlocking the items you get more power-ups and buffs for your character as well as unlocking new types of buildings you'll be able to build on your land and much more."
