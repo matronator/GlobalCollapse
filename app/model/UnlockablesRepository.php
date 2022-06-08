@@ -11,9 +11,11 @@ class UnlockablesRepository
 {
 	public const TYPE_LAND_LEVEL = 'land_level';
 	public const TYPE_LEVEL = 'level';
+	public const TYPE_BUILDINGS = 'building_count';
 
 	public const UNLOCKS_BUILDING = 'building';
 	public const UNLOCKS_MAX_ENERGY = 'max_energy';
+	public const UNLOCKS_COLLECT_ALL_BUILDINGS = 'collect_all_buildings';
 
 	/** @var Nette\Database\Explorer */
 	private $database;
@@ -44,11 +46,14 @@ class UnlockablesRepository
 
 	public function checkUnlockables($user, $land)
 	{
+		$hasLand = isset($land->level);
 		$toUnlock = [];
-		$landLevel = isset($land->level) ? $land->level : 0;
+		$landLevel = $hasLand ? $land->level : 0;
+		$buildings = $hasLand ? $this->buildingsRepository->findPlayerBuildings($user->id)->count() : 0;
 		$types = [
 			self::TYPE_LEVEL => $user->player_stats->level,
 			self::TYPE_LAND_LEVEL => $landLevel,
+			self::TYPE_BUILDINGS => $buildings,
 		];
 		foreach ($types as $type => $level) {
 			array_push($toUnlock, ...$this->getUnlockablesByType($level, $user->id, $type));
@@ -88,6 +93,9 @@ class UnlockablesRepository
 					break;
 				case self::UNLOCKS_MAX_ENERGY:
 					$this->userRepository->increaseMaxEnergy($userId, $item->amount);
+					break;
+				case self::UNLOCKS_COLLECT_ALL_BUILDINGS:
+				default:
 					break;
 			}
 		}

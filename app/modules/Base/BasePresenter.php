@@ -7,7 +7,7 @@ namespace App\BaseModule\Presenters;
 use Nette\Http\Request;
 use Nette\Http\Url;
 use Nette\Application\UI\Presenter;
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
 
 class BasePresenter extends Presenter
 {
@@ -24,7 +24,7 @@ class BasePresenter extends Presenter
 	/** @var string */
 	public $defaultLocale;
 
-	/** @var ITranslator @inject */
+	/** @var Translator @inject */
 	public $translator;
 
 
@@ -35,7 +35,7 @@ class BasePresenter extends Presenter
         $this->localeList = ['en', 'ru', 'cs'];
         $this->localeArrayMap = [
             'en' => 'English',
-            'ru' => 'Russian',
+            'ru' => 'Русский',
             'cs' => 'Čeština'
         ];
         $this->locale = $this->getParameter('locale');
@@ -43,13 +43,13 @@ class BasePresenter extends Presenter
 
     /**
      * Shortcut translation method
-     * @param string $key
-     * @param array $args
      * @return string
-     */
-    public function translate($key, $args = [])
+	 * @param mixed $message
+	 * @param mixed ...$parameters
+	 */
+	public function translate($message, ...$parameters): string
     {
-        return $this->translator->translate($key, $args);
+        return $this->translator->translate($message, $parameters);
     }
 
 	// protected function verifyRecaptcha($recaptcha_token)

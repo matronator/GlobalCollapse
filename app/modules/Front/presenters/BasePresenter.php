@@ -91,9 +91,15 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		return $this->user->isAllowed($resource, $privilege);
 	}
 
-	public function translate($key, $args = []): string
-	{
-		// $this->translator->setLocale($this->locale);
-		return $this->translator->translate($key, $args);
-	}
+	/**
+     * Shortcut translation method
+     * @return string
+	 * @param mixed $message
+	 * @param mixed ...$parameters
+	 */
+	public function translate($message, ...$parameters): string
+    {
+		$this->translator->setLocale($this->locale);
+        return $this->translator->translate($message, $parameters);
+    }
 }

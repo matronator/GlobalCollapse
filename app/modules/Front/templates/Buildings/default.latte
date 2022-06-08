@@ -4,72 +4,102 @@
 
 {block pageContent}
 <div class="uk-container" uk-height-viewport="expand: true">
-  <div>
-    <div class="uk-card uk-width-auto uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
-      <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/buildings.jpg');background-position:center;">
-        <h2 class="uk-heading-large">{_general.buildings.title}</h2>
-      </div>
-      <p>{_general.buildings.description}</p>
-    </div>
-    <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle" n:if="!$land">
-      <h3>Empty land for sale!</h3>
-      <p>Do you want to buy it for ${$emptyLand|number}?</p>
-      <a n:href="Buildings:buyLand" class="uk-button uk-button-primary">Buy (-${$emptyLand|number})</a>
-    </div>
-    <div class="uk-text-center" n:if="$land && !$isUpgrading">
-      <div class="uk-card uk-card-secondary uk-dark uk-card-body uk-margin-bottom" n:snippet="land-card">
-        {include '../../components/Buildings/LandCard/LandCard.latte',
-          land => $land,
-          upCost => $landUpgradeCost,
-          upTime => $landUpgradeTime,
-          upSlots => $landSlotsNext
-        }
-      </div>
-      <div n:ifset="$playerIncome">
-        <div class="uk-flex-around uk-text-small uk-grid-small" uk-grid n:snippet="playerIncome">
-          <div>{_general.stats.money}: {$playerIncome->money ? $playerIncome->money : 0|number} / 5h</div>
-          <div>{_general.drugs.Weed.name}: {$playerIncome->weed ? $playerIncome->weed : 0|number}g / 5h</div>
-          <div>{_general.drugs.Ecstasy.name}: {$playerIncome->ecstasy ? $playerIncome->ecstasy : 0|number}g / 5h</div>
-          <div>{_general.drugs.Meth.name}: {$playerIncome->meth ? $playerIncome->meth : 0|number}g / 5h</div>
-          <div>{_general.drugs.Heroin.name}: {$playerIncome->heroin ? $playerIncome->heroin : 0|number}g / 5h</div>
-          <div>{_general.drugs.Coke.name}: {$playerIncome->coke ? $playerIncome->coke : 0|number}g / 5h</div>
-        </div>
-      </div>
-      <hr class="uk-divider-icon uk-margin-remove-top">
-      <p n:if="!isset($noLastCollection) && isset($lastCollection)"><small class="uk-text-italic">{_general.buildings.lastCollection|capitalize} {$lastCollection|date:'%T'} (<strong>{$timeAgo}</strong> ago)</small></p>
-      <p n:ifset="$noLastCollection"><small class="uk-text-italic">({_general.buildings.lastCollection} {_general.buildings.noCollections}):</small></p>
-      <div class="uk-flex-around uk-grid-match player-land uk-flex-middle uk-child-width-auto" uk-grid n:snippet="buildings">
-        <div n:foreach="$playerBuildings as $playerBulding" n:if="$playerBuildings">
-          {include '../../components/Buildings/BuildingCard/BuildingCard.latte',
-            building => $playerBulding
-          }
-        </div>
-        {for $i = 0; $i < $land->free_slots; $i++}
-          <div>
-            <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-middle uk-flex-center uk-flex-column">
-              <button type="button" data-build-button="{$i}" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Build</button>
-              <div class="buildings-list uk-width-expand block-hidden" data-build-list="{$i}">
-                {include '../../components/Buildings/BuildingCard/BuildingList.latte',
-                  buildings => $unlockedBuildings
-                }
-              </div>
+    <div>
+        <div class="uk-card uk-width-auto uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
+            <div class="uk-card-media illustration-card lands-land_card" style="background-image:url('{$basePath}/dist/front/images/illustrations/buildings.jpg');background-position:center;">
+                <h2 class="uk-heading-large">{_general.buildings.title}</h2>
             </div>
-          </div>
-        {/for}
-      </div>
-    </div>
-    {snippet landUpgradeProgress}
-      <div class="uk-text-center" n:if="$land && isset($isUpgrading) && $isUpgrading > 0">
-        <div class="uk-card uk-width-expand uk-card-default uk-card-body">
-          <h3>
-            Land expansion in progress...
-          </h3>
-          <p>Upgrading until <strong>{$upgradeUntil|date:'%B %d - %T'}</strong></p>
-          <p>During land upgrade, you can't access your buildings and you won't collect any resources from production.</p>
+            <p>{_general.buildings.description}</p>
         </div>
-      </div>
-    {/snippet}
-  </div>
+        <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle" n:if="!$land">
+            <h3>Empty land for sale!</h3>
+            <p>Do you want to buy it for ${$emptyLand|number}?</p>
+            <a n:href="Buildings:buyLand" class="uk-button uk-button-primary">Buy (-${$emptyLand|number})</a>
+        </div>
+        <div class="uk-text-center" n:if="$land && !$isUpgrading">
+            <div class="uk-card uk-card-secondary uk-dark uk-card-body uk-margin-bottom" n:snippet="land-card">
+                {include '../../components/Buildings/LandCard/LandCard.latte',
+                    land => $land,
+                    upCost => $landUpgradeCost,
+                    upTime => $landUpgradeTime,
+                    upSlots => $landSlotsNext
+                }
+            </div>
+
+            <div class="uk-grid-small uk-grid-divider uk-child-width-expand@s uk-flex-around" uk-grid n:snippet="playerStash">
+                <div>
+                    <div class="uk-flex flex-responsive-flip uk-text-small uk-child-width-expand@s">
+                        <div class="uk-text-center@s uk-text-left">
+                            {_general.stats.money}:
+                        </div>
+                        <div class="uk-text-center@s uk-text-right">
+                            <span class="uk-text-bold">${$user->money|number}</span>
+                        </div>
+                    </div>
+                </div>
+                <div n:foreach="$drugs as $drug">
+                    <div class="uk-flex flex-responsive-flip uk-text-small uk-child-width-expand@s">
+                        <div class="uk-text-center@s uk-text-left">
+                            {$drug->name}:
+                        </div>
+                        <div class="uk-text-center@s uk-text-right">
+                            <span class="uk-text-bold">{$playerDrugs[$drug->name] ? $playerDrugs[$drug->name] : 0|number}</span>
+                            <span class="uk-text-light">g</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="uk-divider-icon uk-margin-remove-top">
+            <div n:ifset="$playerIncome">
+                <p class="uk-text-small uk-margin-small-bottom">{_general.buildings.incomeDescription}:</p>
+                <div class="uk-flex-around uk-text-small uk-grid-small" uk-grid n:snippet="playerIncome">
+                    <div>{_general.stats.money}: {$playerIncome->money ? $playerIncome->money : 0|number} / 5h</div>
+                    <div>{_general.drugs.Weed.name}: {$playerIncome->weed ? $playerIncome->weed : 0|number}g / 5h</div>
+                    <div>{_general.drugs.Ecstasy.name}: {$playerIncome->ecstasy ? $playerIncome->ecstasy : 0|number}g / 5h</div>
+                    <div>{_general.drugs.Meth.name}: {$playerIncome->meth ? $playerIncome->meth : 0|number}g / 5h</div>
+                    <div>{_general.drugs.Heroin.name}: {$playerIncome->heroin ? $playerIncome->heroin : 0|number}g / 5h</div>
+                    <div>{_general.drugs.Coke.name}: {$playerIncome->coke ? $playerIncome->coke : 0|number}g / 5h</div>
+                </div>
+            </div>
+            <p n:if="!isset($noLastCollection) && isset($lastCollection)" class="uk-margin-top"><small class="uk-text-italic">{_general.buildings.lastCollection|capitalize} {$lastCollection|date:'%T'} (<strong>{$timeAgo}</strong> ago)</small></p>
+            <p n:ifset="$noLastCollection" class="uk-margin-top"><small class="uk-text-italic">{_general.buildings.lastCollection|capitalize} <strong>{_general.buildings.noCollections}</strong></small></p>
+            <hr class="uk-divider-icon uk-margin-remove-top">
+            <div class="uk-text-center uk-margin-bottom" n:ifset="$collectAll">
+                <a n:href="collectAll!" class="uk-button uk-button-primary uk-button ajax">{_general.buildings.collectAll}</a>
+            </div>
+            <div class="uk-flex-around uk-grid-match player-land uk-flex-middle uk-child-width-auto" uk-grid n:snippet="buildings">
+                <div n:foreach="$playerBuildings as $playerBulding" n:if="$playerBuildings" class="building-wrapper">
+                    {include '../../components/Buildings/BuildingCard/BuildingCard.latte',
+                        building => $playerBulding
+                    }
+                </div>
+                {for $i = 0; $i < $land->free_slots; $i++}
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body uk-flex uk-flex-middle uk-flex-center uk-flex-column">
+                            <button type="button" data-build-button="{$i}" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Build</button>
+                            <div class="buildings-list uk-width-expand block-hidden" data-build-list="{$i}">
+                                {include '../../components/Buildings/BuildingCard/BuildingList.latte',
+                                    buildings => $unlockedBuildings
+                                }
+                            </div>
+                        </div>
+                    </div>
+                {/for}
+            </div>
+        </div>
+        {snippet landUpgradeProgress}
+            <div class="uk-text-center" n:if="$land && isset($isUpgrading) && $isUpgrading > 0">
+                <div class="uk-card uk-width-expand uk-card-default uk-card-body">
+                    <h3>
+                        Land expansion in progress...
+                    </h3>
+                    <p>Upgrading until <strong>{$upgradeUntil|date:'%B %d - %T'}</strong></p>
+                    <p>During land upgrade, you can't access your buildings and you won't collect any resources from production.</p>
+                </div>
+            </div>
+        {/snippet}
+    </div>
 </div>
 <script defer src="{asset buildings.js front}" n:if="$land"></script>
 {/block}

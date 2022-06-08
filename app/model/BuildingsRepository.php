@@ -138,13 +138,13 @@ class BuildingsRepository
 	{
 		$slotsAdd = 1;
 		switch (true) {
-			case in_array($level, range(1, 25)):
+			case in_array($level, range(1, 10)):
 				$slotsAdd = 1;
 			break;
-			case in_array($level, range(26, 50)):
+			case in_array($level, range(11, 25)):
 				$slotsAdd = 2;
 			break;
-			case ($level > 50):
+			case ($level > 25):
 				$slotsAdd = 3;
 			break;
 		}
@@ -213,14 +213,17 @@ class BuildingsRepository
 	public function unlockBuilding(int $buildingId, int $userId) {
 		$building = $this->findAllBuildings()->get($buildingId);
 		$land = $this->findPlayerLand($userId)->fetch();
-		$this->findAllPlayerBuildings($userId)->insert([
-			'user_id' => $userId,
-			'buildings_id' => $buildingId,
-			'player_land_id' => $land->id,
-			'level' => 0,
-			'capacity' => $building->base_capacity,
-			'storage' => 0,
-		]);
+		$buildingExist = $this->findAllPlayerBuildings($userId)->where('buildings_id', $buildingId)->fetch();
+		if (!$buildingExist) {
+			$this->findAllPlayerBuildings($userId)->insert([
+				'user_id' => $userId,
+				'buildings_id' => $buildingId,
+				'player_land_id' => $land->id,
+				'level' => 0,
+				'capacity' => $building->base_capacity,
+				'storage' => 0,
+			]);
+		}
 	}
 
 	public function upgradeBuilding(int $bId, ?int $userId = null) {

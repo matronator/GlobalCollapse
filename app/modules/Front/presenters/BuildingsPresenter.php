@@ -30,10 +30,10 @@ final class BuildingsPresenter extends GamePresenter
 
 	protected function startup()
 	{
-			parent::startup();
+		parent::startup();
 	}
 
-  public function renderDefault() {
+  	public function renderDefault() {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
 		$this->template->land = $playerLand;
@@ -42,10 +42,33 @@ final class BuildingsPresenter extends GamePresenter
 		} else {
 			$playerBuildings = $this->buildingsRepository->findPlayerBuildings($player->id);
 			$this->template->playerBuildings = $playerBuildings;
+			if ($playerBuildings->count() >= 5) {
+				$fullBuildings = $this->buildingsRepository->findPlayerBuildings($player->id)->where('storage > 0');
+				if ($fullBuildings->count() > 0) {
+					$this->template->collectAll = true;
+				}
+			}
+
 			$unlockedBuildings = $this->buildingsRepository->findAllUnlocked($player->id)->order('buildings.price DESC');
 			$this->template->unlockedBuildings = $unlockedBuildings;
 			$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
 			$this->template->playerIncome = $playerIncome;
+
+			$drugs = $this->drugsRepository->findAll()->fetchAll();
+			$this->template->drugs = $drugs;
+			$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->order('drugs_id', 'ASC')->fetchAll();
+			$playerDrugs = [];
+			if (count($drugsInventory) > 0) {
+				foreach ($drugsInventory as $drug) {
+					$playerDrugs[$drug->drugs->name] = $drug->quantity;
+				}
+			} else {
+				foreach ($drugs as $drug) {
+					$playerDrugs[$drug->name] = 0;
+				}
+			}
+			$this->template->playerDrugs = $playerDrugs;
+
 			$this->template->landUpgradeCost = $this->buildingsRepository->getLandUpgradeCost($playerLand->level);
 			$this->template->landSlotsNext = $this->buildingsRepository->getLandSlotGain($playerLand->level);
 			$this->template->landUpgradeTime = round($this->buildingsRepository->getLandUpgradeTime($playerLand->level) / 3600, 0);
@@ -68,6 +91,7 @@ final class BuildingsPresenter extends GamePresenter
 					$isUpgrading = 0;
 					$this->flashMessage('Land upgraded!', 'success');
 					$this->redrawControl('playerIncome');
+					$this->redrawControl('playerStash');
 					$this->redrawControl('buildings');
 					$this->redrawControl('land-card');
 					$this->redrawControl('sidebar-stats');
@@ -120,6 +144,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->userRepository->addMoney($player->id, -$cost);
 				$this->flashMessage($this->translate('general.messages.success.landUpgradeStart'), 'success');
 				$this->redrawControl('playerIncome');
+				$this->redrawControl('playerStash');
 				$this->redrawControl('buildings');
 				$this->redrawControl('land-card');
 				$this->redrawControl('sidebar-stats');
@@ -158,6 +183,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->userRepository->addMoney($player->id, -$cost);
 				$this->flashMessage($this->translate('general.messages.success.buildingBought'), 'success');
 				$this->redrawControl('playerIncome');
+				$this->redrawControl('playerStash');
 				$this->redrawControl('buildings');
 				$this->redrawControl('sidebar-stats');
 			} else {
@@ -179,7 +205,7 @@ final class BuildingsPresenter extends GamePresenter
 				]);
 				$this->flashMessage($this->translate('general.messages.success.buildingCollected'), 'success');
 				// $this->redirect('Buildings:default');
-				$this->redrawControl('playerIncome');
+				$this->redrawControl('playerStash');
 				$this->redrawControl('buildings');
 				$this->redrawControl('sidebar-stats');
 			} else {
@@ -189,6 +215,24 @@ final class BuildingsPresenter extends GamePresenter
 		} else {
 			$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 			$this->redirect('Buildings:default');
+		}
+	}
+
+	public function handleCollectAll() {
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$buildings = $this->buildingsRepository->findPlayerBuildings($player->id)->where('storage > 0')->where('user_id', $player->id);
+		$count = 0;
+		foreach ($buildings as $building) {
+			$drugId = $building->buildings->drugs_id;
+			$this->drugsRepository->buyDrugs($player->id, $drugId, $building->storage);
+			$building->update(['storage' => 0]);
+			$count++;
+		}
+		if ($count > 0) {
+			$this->flashMessage($this->translate('general.messages.success.allBuildingCollected'), 'success');
+			$this->redrawControl('playerStash');
+			$this->redrawControl('buildings');
+			$this->redrawControl('sidebar-stats');
 		}
 	}
 
@@ -203,20 +247,18 @@ final class BuildingsPresenter extends GamePresenter
 					if ($this->buildingsRepository->upgradeBuilding($b, $player->id)) {
 						$this->userRepository->addMoney($player->id, -$cost);
 						$this->flashMessage($this->translate('general.messages.success.buildingUpgraded'), 'success');
-						$this->redrawControl('buildings');
-						$this->redrawControl('sidebar-stats');
 					} else {
 						$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
-						$this->redirect('Buildings:default');
 					}
 				} else {
 					$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
-					$this->redrawControl('buildings');
 				}
 			} else {
 				$this->flashMessage('This building is at maximum level or is not upgradable!', 'danger');
-				$this->redrawControl('buildings');
 			}
+			$this->redrawControl('playerIncome');
+			$this->redrawControl('buildings');
+			$this->redrawControl('sidebar-stats');
 		} else {
 			$this->redirect('Buildings:default');
 		}
@@ -227,12 +269,12 @@ final class BuildingsPresenter extends GamePresenter
 		if ($building->user_id === $this->user->getIdentity()->id) {
 			if ($this->buildingsRepository->demolishBuilding($b, $this->user->getIdentity()->id)) {
 				$this->flashMessage('Building demolished!', 'success');
-				$this->redrawControl('buildings');
-				$this->redrawControl('sidebar-stats');
 			} else {
 				$this->flashMessage('Building not found!', 'danger');
-				$this->redirect('Buildings:default');
 			}
+			$this->redrawControl('playerIncome');
+			$this->redrawControl('buildings');
+			$this->redrawControl('sidebar-stats');
 		} else {
 			$this->redirect('Buildings:default');
 		}

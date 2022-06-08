@@ -259,6 +259,11 @@ td.input-row {
   transform: rotateZ(-45deg);
 }
 
+.column {
+  &\-1 { columns: 1; }
+  &\-2 { columns: 2; }
+}
+
 .order {
   &\--1 { order: 1; }
   &\--2 { order: 2; }

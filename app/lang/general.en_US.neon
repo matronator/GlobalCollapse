@@ -332,7 +332,7 @@ buildings:
 	noCollections: 'No collections yet'
 	types:
 		drugs:
-			name: 'Drug production'
+			name: 'Drug factory'
 			description: 'Produces drugs'
 
 unlockables:

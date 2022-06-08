@@ -49,9 +49,13 @@
 
     <main class="l-main">
 
-        <aside class="l-aside uk-background-secondary uk-padding-small uk-visible@l">
+        <aside class="l-aside uk-background-secondary uk-padding-small uk-visible@l uk-light">
 
             {include '../components/Navigation/Navigation.latte', list => $navItems}
+
+            <div class="uk-text-center uk-margin-top">
+                <a n:href=":Front:Default:default" class="uk-button uk-button-default uk-width-1-1">Show website</a>
+            </div>
 
             <div class="uk-text-center uk-text-small uk-margin-auto-top">
                 Matronator © {date('Y')}

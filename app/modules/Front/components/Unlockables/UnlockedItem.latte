@@ -3,18 +3,27 @@
 *   $item          object     Unlocked item object
 *}
 
-{var $isBuilding = $item->unlockables->unlocks === 'building'}
+{var $unlockType = $item->unlockables->unlocks}
+{var $expand = $item->unlockables->expand_card}
 
 <div class="uk-card uk-card-secondary uk-card-body uk-padding-remove unlocked-card">
     <div class="uk-width-1-1">
-      <div class="unlocked-image" style="background-image:url({='dist/front/images/unlockables/'.$item->unlockables->image|asset});">
+      <div n:if="$item->unlockables->image" class="unlocked-image" style="background-image:url({='dist/front/images/unlockables/'.$item->unlockables->image|asset});">
         <div n:if="$item->unlockables->amount" class="icon-overlay">{$item->unlockables->unlock_at}</div>
+      </div>
+      <div n:if="!$item->unlockables->image" class="unlocked-image">
+        <div class="uk-margin-small-bottom"><span uk-icon="icon: unlock; ratio: 3"></span></div>
+        <div n:if="$item->unlockables->amount" class="icon-overlay">{$item->unlockables->unlock_at}</div>
+        <p n:if="!$expand" class="uk-margin-remove">{$item->unlockables->unlocks|fromSnake}</p>
       </div>
     </div>
     <div n:if="$item->opened < 1" class="uk-card-badge uk-label uk-label-danger">NEW {php $item->update(['opened' => 1])}</div>
-    <div class="unlocked-item-info uk-padding-small-bottom">
-      <h4 class="uk-card-title uk-margin-remove-bottom">{$isBuilding ? $item->unlockables->buildings->name : $item->unlockables->unlocks|fromSnake}</h4>
-      <p n:if="$isBuilding" class="uk-margin-small-top uk-text-lighter">{$item->unlockables->unlocks|fromSnake|upper}</p>
-      <p n:if="!$isBuilding" class="uk-margin-small-top uk-text-lighter"><span uk-icon="bolt"></span>{$item->unlockables->amount}</p>
+    <div n:if="$expand" class="unlocked-item-info uk-padding-small-bottom uk-padding-small-left uk-padding-small-right">
+      <h4 class="uk-margin-small-top {if $unlockType !== 'collect_all_buildings'}uk-margin-remove-bottom{/if}">{$unlockType === 'building' ? $item->unlockables->buildings->name : $item->unlockables->unlocks|fromSnake}</h4>
+      {switch $unlockType}
+       {case 'building'}<p class="uk-margin-small-top uk-text-lighter">{$item->unlockables->unlocks|fromSnake|upper}</p>
+       {case 'max_energy'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="bolt"></span>{$item->unlockables->amount}</p>
+       {case 'collect_all_buildings', default}
+      {/switch}
     </div>
 </div>

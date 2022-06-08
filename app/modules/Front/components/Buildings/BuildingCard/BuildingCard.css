@@ -3,33 +3,77 @@
   grid-row-gap: 10px;
 }
 
-.building-card {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: 1fr;
-  grid-auto-flow: column;
-  /* flex-direction: row;
-  align-items: center;
-  justify-content: center; */
-  @media (--xs) {
-    /* flex-direction: column; */
+.building-wrapper {
+  width: min-content;
+  & .building-card {
+    /* max-width: min-content; */
+    width: 100%;
+    columns: 2;
+    display: flex;
+    flex-direction: row;
+    /* display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-auto-flow: column; */
+    /* flex-direction: row;
+    align-items: center;
+    justify-content: center; */
   }
-}
 
-.building-card-main {
-  grid-column-end: 6;
-  @media (--s) {
+  & .building-card-main {
+    flex: 1;
+    align-self: flex-start;
+    grid-column-end: 6;
+    @media (--s) {
+      grid-column-end: 12;
+    }
+  }
+
+  & .building-info {
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-around; */
+    padding-left: 15px;
+    align-self: flex-end;
+    flex: 1;
+    /* margin: auto; */
+    transition: all 100ms ease;
     grid-column-end: 12;
+    @media (--m) {
+      padding-left: 0;
+    }
+  }
+
+  &.building-expanded {
+    width: 40%;
+    & .building-card {
+      columns: 2;
+      @media (--m) {
+        columns: 1;
+        flex-direction: column;
+        max-width: max-content;
+      }
+    }
+    & .building-card-main {
+      @media (--m) {
+        margin: 0 auto;
+        width: 100%;
+      }
+    }
+    & .building-image {
+      @media (--mw1366) {
+        min-width: 50%;
+      }
+    }
+    @media (--m) {
+      width: max-content;
+    }
   }
 }
 
-.building-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-left: 0;
-  transition: all 100ms ease;
-  grid-column-end: 12;
+.building-title {
+  margin-bottom: 0;
+  margin-top: 25px;
 }
 
 .building-image {
@@ -50,13 +94,22 @@
 }
 
 .info-block {
+  margin-top: 10px;
+  margin-bottom: 10px;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
+  & .info-block-header {
+    text-align: left;
+  }
   @media (--xs) {
     grid-auto-flow: row;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr;
+    text-align: center;
+    & .info-block-header {
+      text-align: center;
+    }
   }
 }
