@@ -141,6 +141,8 @@ faq:
 		2: "... můžeš trénovat i když zrovna pracuješ?"
 		3: "... můžeš jít na průzkum i když právě odpočíváš? Abys nejlépe využil svůj čas, nejprve jdi odpočívat a potom jdi na průzkum. Když půjdeš nejdřív na průzkum, už nebudeš moct jít odpočívat, dokud se zase nevrátíš zpět."
 		4: '... že se můžeš o hře naučit více na naší Wiki? Jdi na <a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">Wiki (na novém panelu)</a>'
+		5: "... že si můžeš odemknout budovu na výrobu extáze upgradováním tvého pozemku na level 3?"
+		6: "... že si levelováním své postavy můžeš navýšit tvojí maximální energii?"
 
 training:
 	train: 'Trénovat'
@@ -177,8 +179,8 @@ city:
 			title: 'Práce'
 			description: "Vyber si jakou práci chceš vzít a pusť se do ní. Až ji uděláš, dostaneš odměnu."
 			duration: 'Délka'
-			energyBarTip: 'Your remaining energy'
-			descriptionDefault: 'Select a job from the list'
+			energyBarTip: 'Tvá zbývající energie'
+			descriptionDefault: 'Vyber si práci se seznamu'
 			working: 'Pracuješ'
 			workingUntil: "Pracuješ do "
 			jobDone: "Dokončil jsi práci a získal jsi tyto odměny:"
@@ -208,11 +210,11 @@ city:
 	wastelands:
 		wastelandsTitle: 'Pustina'
 		scavengingTitle: 'Průzkum'
-		scavengingText: 'You can go scavenging for loot into the wastelands outside of the city. You can return from scavenging any time after one hour have passed, but the longer you scavenge, the better reward you get.'
-		scavenging: 'You cannot do anything else, because you are currently scavenging outside of the city. Do you want to return back?'
+		scavengingText: 'Můžeš jít na průzkum do pustiny za městem hledat kořisti. Z průzkumu se můžeš vrátit kdykoliv po uplynutí jedné hodiny, ale čím déle budeš na průzkumu, tím větší bude tvůj úlovek.'
+		scavenging: 'Nemůžeš dělat nic jiného, protože jsi právě na průzkumu v pustině. Chceš se vrátit zpátky do města?'
 		scavengingSince: 'Jsi na průzkumu od:'
 		scavengingReturn: 'Vrátit se z průzkumu'
-		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
+		scavengeDone: '<p>Vrátil jsi se do města po <strong>%hours% hodinách</strong> na průzkumu.</p></p>Za peníze jsi prodal všechny úlovky co jsi našel a ještě jsi k tomu získal nějaké zkušenosti navíc.</p>'
 
 stats:
 	stat: 'Atributy'
@@ -246,31 +248,31 @@ drugs:
 	Weed:
 		name: 'Tráva'
 		alt:
-			1: 'Cannabis'
+			1: 'Konopí'
 			2: 'THC'
-			3: 'Marijuana'
+			3: 'Marihuana'
 	Ecstasy:
 		name: 'Extáze'
 		alt:
 			1: 'MDMA'
-			2: 'XTC'
-			3: 'Molly'
+			2: 'Éčko'
+			3: 'Emko'
 	Meth:
 		name: 'Pervitin'
 		alt:
-			1: 'Crystal meth'
-			2: 'Methamphetamine'
+			1: 'Perník'
+			2: 'Piko'
 	Coke:
 		name: 'Kokain'
 		alt:
-			1: 'Cocaine'
+			1: 'Koks'
 	Heroin:
 		name: 'Heroin'
 
 darknet:
 	postedBy: 'Přidal'
 	inStock: 'Na skladě'
-	vendorMoney: "Peníze vendora"
+	vendorMoney: "Vendor má peněz"
 	vendorFee: "Poplatek vendora"
 	vendorFeeTooltip: "Poplatek navíc pro nákupy"
 

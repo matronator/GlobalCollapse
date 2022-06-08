@@ -1,18 +1,23 @@
 <div class="uk-overlay uk-position-center uk-text-center faq-overlay uk-light uk-visible@s" uk-slider>
   <div class="uk-slider-container uk-width-expand">
     <h3 class="uk-margin-remove-horizontal">{_general.faq.title}</h3>
-    <ul class="uk-slider-items uk-child-width-1-1">
-      {for $i = 1; $i <= 4; $i++}
-      <li>
+    {var $faq = []}
+    {for $i = 1; $i <= 4; $i++}
+      {capture $faq[$i]}
         <div class="uk-text-center uk-padding uk-padding-remove-vertical">
           {if $i == 4}
-            <p class="uk-margin-remove">{_general.faq.items.$i|noescape}</p>
+            <p class="uk-margin-remove">{_general.faq.items.{$i}|noescape}</p>
           {else}
-            <p class="uk-margin-remove">{_general.faq.items.$i}</p>
+            <p class="uk-margin-remove">{_general.faq.items.{$i}}</p>
           {/if}
         </div>
+      {/capture}
+    {/for}
+    {php shuffle($faq)}
+    <ul class="uk-slider-items uk-child-width-1-1">
+      <li n:foreach="$faq as $item">
+        {$item}
       </li>
-      {/for}
     </ul>
     <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
     <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
