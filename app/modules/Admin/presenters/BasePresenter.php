@@ -21,12 +21,14 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	{
 		parent::startup();
 
-        if (!$this->user->isLoggedIn())
-            $this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
+        if (!$this->isLinkCurrent('Vendor:updateOffers')) {
+            if (!$this->user->isLoggedIn())
+                $this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
 
-        if (!$this->isAllowed('read')) {
-            $this->redirect('Sign:in');
-            // throw new ForbiddenRequestException();
+            if (!$this->isAllowed('read')) {
+                $this->redirect('Sign:in');
+                // throw new ForbiddenRequestException();
+            }
         }
 	}
 

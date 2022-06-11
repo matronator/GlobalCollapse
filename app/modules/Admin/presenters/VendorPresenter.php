@@ -124,21 +124,15 @@ final class VendorPresenter extends BasePresenter
 				$offers = $this->darknet->findAllOffers()->fetchAll();
 				$drugs = $this->darknet->findAll()->fetchAll();
 				$drugDeck = [];
-				foreach ($drugs as $drug) {
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
-					array_push($drugDeck, $drug->id);
+				while (count($offers) > count($drugDeck)) {
+					foreach ($drugs as $drug) {
+						array_push($drugDeck, $drug->id);
+						array_push($drugDeck, $drug->id);
+						array_push($drugDeck, $drug->id);
+						array_push($drugDeck, $drug->id);
+						array_push($drugDeck, $drug->id);
+					}
 				}
-				shuffle($drugDeck);
-				array_push($drugDeck, 1);
-				array_push($drugDeck, 2);
 				shuffle($drugDeck);
 				foreach ($offers as $offer) {
 					shuffle($drugDeck);
