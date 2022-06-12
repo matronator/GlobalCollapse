@@ -32,7 +32,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
 	protected function beforeRender()
 	{
-		$this->translator->setLocale($this->locale);
+		if ($this->locale) {
+			$this->translator->setLocale($this->locale);
+		}
 		if ($this->isAjax()) {
 			$this->redrawControl('body');
 			$this->redrawControl('flashes');
@@ -81,7 +83,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	}
 
 	public function handleChangeLocale(string $locale) {
-		$this->translator->setLocale($this->locale);
+		if ($this->locale) {
+			$this->translator->setLocale($this->locale);
+		}
 		$this->redirect('this', ['locale' => $locale]);
 	}
 
@@ -99,7 +103,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	 */
 	public function translate($message, ...$parameters): string
     {
-		$this->translator->setLocale($this->locale);
+		if ($this->locale) {
+			$this->translator->setLocale($this->locale);
+		}
         return $this->translator->translate($message, $parameters);
     }
 }
