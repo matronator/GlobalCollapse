@@ -125,8 +125,8 @@ final class DefaultPresenter extends BasePresenter
 	{
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$actionLocker = new ActionLocker();
-			$actionLocker->checkActions($player, $this);
+			// $actionLocker = new ActionLocker();
+			// $actionLocker->checkActions($player, $this);
 			$this->template->user = $player;
 			$xp = $player->player_stats->xp;
 			$xpMax = $player->player_stats->xp_max;
@@ -134,9 +134,9 @@ final class DefaultPresenter extends BasePresenter
 			$this->template->skillpoints = $player->skillpoints;
 			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
 
-			$strengthCost = round($player->player_stats->strength * 0.75);
-			$staminaCost = round($player->player_stats->stamina * 0.75);
-			$speedCost = round($player->player_stats->speed * 0.75);
+			$strengthCost = round($player->player_stats->strength * pow(max(1, $player->player_stats->strength), 0.4));
+			$staminaCost = round($player->player_stats->stamina * pow(max(1, $player->player_stats->stamina), 0.4));
+			$speedCost = round($player->player_stats->speed * pow(max(1, $player->player_stats->speed), 0.4));
 			$this->template->strengthCost = $strengthCost;
 			$this->template->staminaCost = $staminaCost;
 			$this->template->speedCost = $speedCost;
