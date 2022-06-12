@@ -1,27 +1,3 @@
-/* eslint-disable no-var */
-function sumAll(dName, tInput, tPrice) {
-  const inputValue = tInput.value
-  const totalPrice = document.getElementById(`priceTotal`)
-  const priceOut = document.querySelector(`[data-drug-price="${dName}"]`)
-  priceOut.innerHTML = `&dollar;${new Intl.NumberFormat().format(
-    inputValue * tPrice
-  )}`
-  var drugArray = []
-  const drugInputs = document.querySelectorAll(`input[data-drug-input]`)
-  drugInputs.forEach(current => {
-    const currentPrice = Number(current.dataset.price)
-    const intValue = Number(current.value * currentPrice)
-    drugArray.push(intValue)
-  })
-  const reducer = (accumulator, currentValue) => accumulator + currentValue
-  const total = drugArray.reduce(reducer)
-  totalPrice.innerHTML = `&dollar;${new Intl.NumberFormat().format(total)}`
-}
-
-function calculatePrice(offer, price, quantity) {
-  return price * quantity
-}
-
 const offers = document.querySelectorAll(`.darknet-offer[data-offer-id]`)
 if (offers.length > 0) {
   offers.forEach(offer => {

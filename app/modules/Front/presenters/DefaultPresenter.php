@@ -10,7 +10,9 @@ use App\Model\DrugsRepository;
 use Nette\Application\UI\Form;
 use DateTime;
 use ActionLocker;
+use App\Model\AssaultsRepository;
 use App\Model\BuildingsRepository;
+use App\Model\MiscRepository;
 use App\Model\UnlockablesRepository;
 use Timezones;
 
@@ -19,11 +21,14 @@ use Timezones;
 final class DefaultPresenter extends BasePresenter
 {
 	public const AVATAR_COUNT = 30;
+	private const TRAINING_TIME = 5 * 60;
 
 	private $userRepository;
 	private $drugsRepository;
 	private $unlockablesRepository;
 	private $buildingsRepository;
+	private AssaultsRepository $assaultsRepository;
+	private MiscRepository $miscRepository;
 
 	/** @var Model\ArticlesRepository */
   private $articleModel;
@@ -33,7 +38,9 @@ final class DefaultPresenter extends BasePresenter
 		DrugsRepository $drugsRepository,
 		Model\ArticlesRepository $articleModel,
 		UnlockablesRepository $unlockablesRepository,
-		BuildingsRepository $buildingsRepository
+		BuildingsRepository $buildingsRepository,
+		AssaultsRepository $assaultsRepository,
+		MiscRepository $miscRepository
 	)
 	{
 		$this->userRepository = $userRepository;
@@ -41,6 +48,8 @@ final class DefaultPresenter extends BasePresenter
 		$this->articleModel = $articleModel;
 		$this->unlockablesRepository = $unlockablesRepository;
 		$this->buildingsRepository = $buildingsRepository;
+		$this->assaultsRepository = $assaultsRepository;
+		$this->miscRepository = $miscRepository;
 	}
 
 	protected function startup()
@@ -48,8 +57,23 @@ final class DefaultPresenter extends BasePresenter
 			parent::startup();
 	}
 
-	public function renderDefault()
+	public function renderDefault(?string $utm_source = null)
 	{
+		if ($utm_source) {
+			$source = $this->miscRepository->findAllExternalVisits()->where('source', $utm_source)->fetch();
+			if ($source) {
+				$source->update([
+					'visits+=' => 1,
+					'last_visit' => new DateTime(),
+				]);
+			} else {
+				$this->miscRepository->findAllExternalVisits()->insert([
+					'source' => substr($utm_source, 0, 89),
+					'visits' => 1,
+					'last_visit' => new DateTime(),
+				]);
+			}
+		}
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$this->template->user = $player;
@@ -210,11 +234,22 @@ final class DefaultPresenter extends BasePresenter
 
 		$unlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId())->fetchAll();
 		$unlockedIds = array_column($unlocked, 'unlockables_id');
-		$locked = $this->unlockablesRepository->findAll()->where('id NOT IN ?', $unlockedIds)->fetchAll();
+		$locked = $this->unlockablesRepository->findAll()->where('id NOT IN ?', !$unlockedIds ? [0] : $unlockedIds)->fetchAll();
+		$assaults = $this->assaultsRepository->findPlayerAssaultStats($player->id)->fetch();
 
 		$this->template->unlocked = $unlocked;
 		$this->template->locked = $locked;
 		$this->template->landLevel = isset($land->level) ? $land->level : 0;
+		$this->template->buildingCount = $this->buildingsRepository->findPlayerBuildings($player->id)->count();
+		$this->template->assaults = isset($assaults->total) ? $assaults : (object) [
+			'attacks_won' => 0,
+			'defenses_won' => 0,
+			'attacks_lost' => 0,
+			'defenses_lost' => 0,
+			'total_attacks' => 0,
+			'total_defenses' => 0,
+			'total' => 0,
+		];
 	}
 
 	public function createComponentRestForm(): Form {
@@ -318,12 +353,15 @@ final class DefaultPresenter extends BasePresenter
 			$currentEnergy = $player->player_stats->energy;
 			if ($currentMoney >= $trainingCost) {
 				if ($currentEnergy >= 10) {
+					$unlocked = $this->unlockablesRepository->findPlayerUnlocked($player->id)->where('unlockables.unlocks', 'faster_training')->order('amount DESC')->limit(1)->fetch();
+					$trainBoost = $this->unlockablesRepository->findAll()->where('id', $unlocked->unlockables_id)->fetch();
+					$trainMultiplier = isset($trainBoost->amount) ? $trainBoost->amount : 100;
 					$currentMoney -= $trainingCost;
 					$currentEnergy -= 10;
 					$now = new DateTime();
 					$trainingEndTS = $now->getTimestamp();
 					// Training time = 5 minutes = 300s
-					$trainingEndTS += 300;
+					$trainingEndTS += (int) round(self::TRAINING_TIME * (100 / $trainMultiplier), 0);
 					$now->setTimestamp($trainingEndTS);
 					$trainingEnd = $now->format('Y-m-d H:i:s');
 					$this->userRepository->addMoney($player->id, -$trainingCost);

@@ -270,14 +270,14 @@ drugs:
 		alt:
 			1: 'Crystal meth'
 			2: 'Methamphetamine'
-	Coke:
-		name: 'Coke'
-		alt:
-			1: 'Cocaine'
 	Heroin:
 		name: 'Heroin'
 		alt:
 			1: 'Heroin'
+	Coke:
+		name: 'Coke'
+		alt:
+			1: 'Cocaine'
 
 darknet:
 	postedBy: 'Posted by'

@@ -12,21 +12,29 @@ class UnlockablesRepository
 	public const TYPE_LAND_LEVEL = 'land_level';
 	public const TYPE_LEVEL = 'level';
 	public const TYPE_BUILDINGS = 'building_count';
+	public const TYPE_ATTACKS_COUNT = 'attacks_count';
 
 	public const UNLOCKS_BUILDING = 'building';
 	public const UNLOCKS_MAX_ENERGY = 'max_energy';
 	public const UNLOCKS_COLLECT_ALL_BUILDINGS = 'collect_all_buildings';
+	public const UNLOCKS_FASTER_TRAINING = 'faster_training';
 
 	/** @var Nette\Database\Explorer */
 	private $database;
 	private BuildingsRepository $buildingsRepository;
 	private UserRepository $userRepository;
+	private AssaultsRepository $assaultsRepository;
 
-	public function __construct(Nette\Database\Explorer $database, BuildingsRepository $buildingsRepository, UserRepository $userRepository)
+	public function __construct(
+		Nette\Database\Explorer $database,
+		BuildingsRepository $buildingsRepository,
+		UserRepository $userRepository,
+		AssaultsRepository $assaultsRepository)
 	{
 		$this->database = $database;
 		$this->buildingsRepository = $buildingsRepository;
 		$this->userRepository = $userRepository;
+		$this->assaultsRepository = $assaultsRepository;
 	}
 
 	public function findAll()
@@ -50,10 +58,12 @@ class UnlockablesRepository
 		$toUnlock = [];
 		$landLevel = $hasLand ? $land->level : 0;
 		$buildings = $hasLand ? $this->buildingsRepository->findPlayerBuildings($user->id)->count() : 0;
+		$assaults = $this->assaultsRepository->findPlayerAssaultStats($user->id)->fetch();
 		$types = [
 			self::TYPE_LEVEL => $user->player_stats->level,
 			self::TYPE_LAND_LEVEL => $landLevel,
 			self::TYPE_BUILDINGS => $buildings,
+			self::TYPE_ATTACKS_COUNT => $assaults->total_attacks ?? 0,
 		];
 		foreach ($types as $type => $level) {
 			array_push($toUnlock, ...$this->getUnlockablesByType($level, $user->id, $type));
@@ -95,6 +105,7 @@ class UnlockablesRepository
 					$this->userRepository->increaseMaxEnergy($userId, $item->amount);
 					break;
 				case self::UNLOCKS_COLLECT_ALL_BUILDINGS:
+				case self::UNLOCKS_FASTER_TRAINING:
 				default:
 					break;
 			}

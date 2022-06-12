@@ -39,7 +39,7 @@ final class IntroPresenter extends GamePresenter
 			$this->template->disableSidebar = true;
 		}
 		$avatars = [];
-		for ($i = 1; $i <= 21; $i++) {
+		for ($i = 1; $i <= DefaultPresenter::AVATAR_COUNT; $i++) {
 			$avatars[$i] = $i;
 		}
 		$this->template->avatars = $avatars;
@@ -48,7 +48,7 @@ final class IntroPresenter extends GamePresenter
 	public function createComponentIntroForm(): Form
 	{
 		$avatars = [];
-		for ($i = 1; $i <= 21; $i++) {
+		for ($i = 1; $i <= DefaultPresenter::AVATAR_COUNT; $i++) {
 			$avatars[$i] = $i;
 		}
 		$form = new Form();

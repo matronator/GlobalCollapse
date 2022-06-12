@@ -7,14 +7,23 @@
 *     $type         string?       Fill color
 *     $added        number?       Added change
 *     $small        bool?         Small style
+*     $square       bool?         No border radius
+*     $tooltip      string?       Tooltip text
+*     $class        string?       Additional classes
 *
 *}
 
 {var $fill = round((($value - $min) / ($max - $min)) * (100))}
-<div {ifset $name}id="bar-{$name}"{/ifset} class="progress-bar{ifset $type} {$type}{/ifset}{ifset $small} progress-bar-small{/ifset}"
-      {if isset($type) && $type == 'yellow'} uk-tooltip="{_general.city.bar.jobs.energyBarTip}"
-      {elseif isset($type) && $type=="xp"} uk-tooltip="{_general.stats.xpTooltip}"
-      {else} uk-tooltip="{_general.stats.health}"{/if}
+<div {ifset $name}id="bar-{$name}"{/ifset} class="progress-bar{ifset $type} {$type}{/ifset}{ifset $small} progress-bar-small{/ifset}{ifset $square} progress-bar-square{/ifset} {ifset $class}{$class}{/ifset}"
+      {if isset($type) && $type == 'yellow' && !isset($tooltip)} uk-tooltip="{_general.city.bar.jobs.energyBarTip}"
+      {elseif isset($type) && $type=="xp" && !isset($tooltip)} uk-tooltip="{_general.stats.xpTooltip}"
+      {else}
+        {ifset $tooltip}
+          uk-tooltip="{$tooltip}"
+        {else}
+          uk-tooltip="{_general.stats.health}"
+        {/ifset}
+      {/if}
     data-bar-min="{$min}"
     data-bar-max="{$max}"
     data-bar-value="{$value}"

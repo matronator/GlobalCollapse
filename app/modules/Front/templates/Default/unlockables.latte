@@ -28,7 +28,8 @@
         <div n:foreach="$locked as $item">
           {include '../../components/Unlockables/LockedItem.latte',
             item => $item,
-            landLevel => $landLevel
+            landLevel => $landLevel,
+            assaults => $assaults
           }
         </div>
       </div>

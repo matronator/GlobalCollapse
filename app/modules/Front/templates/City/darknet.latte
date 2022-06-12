@@ -13,10 +13,10 @@
                 <div n:foreach="$drugs as $drug">
                     <div class="uk-flex flex-responsive-flip uk-text-small uk-child-width-expand@s">
                         <div class="uk-text-center@s uk-text-left">
-                            {$drug->name}:
+                            {_general.drugs.{$drug->name}.name}:
                         </div>
                         <div class="uk-text-center@s uk-text-right">
-                            <span class="uk-text-bold">{$playerDrugs[$drug->name] ? $playerDrugs[$drug->name] : 0|number}</span>
+                            <span class="uk-text-bold">{isset($playerDrugs[$drug->name]) ? $playerDrugs[$drug->name] : 0|number}</span>
                             <span class="uk-text-light">g</span>
                         </div>
                     </div>

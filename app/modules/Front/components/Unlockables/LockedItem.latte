@@ -1,22 +1,61 @@
 {**
 *   Locked Item
-*   $item          object     Locked item object
-*   $landLevel     int        Land level
+*   $item            object     Locked item object
+*   $landLevel       int        Land level
+*   $buildingCount   int        Buildings count
+*   $assaults        object     Assault stats
 *}
 {capture $unlocksAt}
     {switch $item->type}
-        {case 'land_level'}Land level
-        {case 'level'}Level
+        {case 'land_level'}Land level {var $progress = $landLevel}
+        {case 'level'}Level {var $progress = $user->player_stats->level}
+        {case 'building_count'}Buildings {var $progress = $buildingCount}
+        {case 'attacks_count'}Total Attacks {var $progress = $assaults->total_attacks}
     {/switch}
 {/capture}
 
-{var $progress = $item->type === 'land_level' ? $landLevel : $user->player_stats->level}
-
+{var $unlockType = $item->unlocks}
+{var $expand = $item->expand_card}
+{var $secret = $item->is_secret}
+{*
 <div class="uk-card uk-card-default uk-card-body uk-card-hover uk-padding-small uk-text-center">
     <div class="uk-text-center uk-margin-small-bottom">
         <span uk-icon="icon: question; ratio: 3"></span>
     </div>
     <h4 class="uk-margin-remove uk-padding-remove">Unlocks At</h4>
     <p class="uk-padding-remove">{$unlocksAt}: {$item->unlock_at}</p>
-    <progress class="uk-progress" value="{$progress}" max="{$item->unlock_at}" uk-tooltip="{$progress} / {$item->unlock_at}"></progress>
+    {include '../../components/UI/ProgressBar/ProgressBar.latte',
+        min => 0,
+        max => $item->unlock_at,
+        value => $progress,
+        small => true
+    }
+</div> *}
+
+<div class="uk-card uk-card-secondary uk-card-body uk-padding-remove unlocked-card">
+    <div class="uk-width-1-1">
+      <div class="unlocked-image">
+        <div class="uk-margin-small-bottom uk-margin-small-top"><span uk-icon="icon: {$secret ? 'question' : 'lock'}; ratio: 3"></span></div>
+        <h5 class="uk-margin-remove uk-padding-remove">{$unlocksAt|trim}:</h5>
+        {include '../../components/UI/ProgressBar/ProgressBar.latte',
+            min => 0,
+            max => $item->unlock_at,
+            value => $progress,
+            small => true,
+            tooltip => '',
+            square => true,
+            type => 'yellow',
+            class => 'uk-margin-remove-bottom uk-margin-auto-top'
+        }
+      </div>
+    </div>
+    <div n:if="!$secret" class="unlocked-item-info uk-padding-small-bottom uk-padding-small-left uk-padding-small-right">
+      <h4 class="uk-margin-small-top">{$item->unlocks|fromSnake}</h4>
+      {switch $unlockType}
+       {case 'building'}<p class="uk-margin-small-top uk-text-lighter">{$item->buildings->name|fromSnake|upper}</p>
+       {case 'max_energy'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="bolt"></span> {$item->amount}</p>
+       {case 'faster_training'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="future"></span> x{$item->amount}%</p>
+       {case 'collect_all_buildings', default}
+      {/switch}
+    </div>
 </div>

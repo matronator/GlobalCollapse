@@ -21,7 +21,7 @@
           <h3>Buy</h3>
           {if $offer->quantity > 0}
             <div class="uk-flex uk-flex-column">
-              <input type="submit" name="offerBuy" class="uk-button uk-button-small uk-button-primary" id="offerBuy-{$id}" data-offer-button="buy" value="${$offer->drug->price * 1.05|number}">
+              <input type="submit" name="offerBuy" class="uk-button uk-button-small uk-button-primary" id="offerBuy-{$id}" data-offer-button="buy" value="${$offer->drug->price * (1 + $offer->vendor->charge)|number}">
             </div>
           {/if}
         </div>

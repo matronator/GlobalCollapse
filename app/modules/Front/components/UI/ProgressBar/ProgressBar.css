@@ -12,6 +12,9 @@
     height: 20px;
     border-radius: 10px;
   }
+  &\-square {
+    border-radius: 0;
+  }
   &.yellow {
     background: var(--c-light-3);
   }

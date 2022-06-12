@@ -262,12 +262,12 @@ drugs:
 		alt:
 			1: 'Perník'
 			2: 'Piko'
+	Heroin:
+		name: 'Heroin'
 	Coke:
 		name: 'Kokain'
 		alt:
 			1: 'Koks'
-	Heroin:
-		name: 'Heroin'
 
 darknet:
 	postedBy: 'Přidal'

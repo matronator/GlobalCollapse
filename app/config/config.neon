@@ -26,6 +26,7 @@ services:
     - App\Model\BuildingsRepository
     - App\Model\UnlockablesRepository
     - App\Model\AssaultsRepository
+    - App\Model\MiscRepository
     - App\Filter\ImageFilter
     - App\AdminModule\Presenters\VendorPresenter(%darknetUpdate%)
     - App\FrontModule\Presenters\BasePresenter(%version%)

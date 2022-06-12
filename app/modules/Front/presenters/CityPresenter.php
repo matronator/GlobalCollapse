@@ -75,30 +75,30 @@ final class CityPresenter extends GamePresenter
 	protected function createComponentVendorOfferForm(): Multiplier
 	{
 		$multi = new Multiplier(function ($offerId) {
-      $form = new Form;
-      $form->addInteger('offerInput')
-           ->setHtmlAttribute('class', 'uk-input darknet-offer-input')
-           ->setHtmlId('offerInput' . $offerId)
-           ->setHtmlAttribute('placeholder', 'Enter amount')
-					 ->setRequired();
+			$form = new Form;
+			$form->addInteger('offerInput')
+				->setHtmlAttribute('class', 'uk-input darknet-offer-input')
+				->setHtmlId('offerInput' . $offerId)
+				->setHtmlAttribute('placeholder', 'Enter amount')
+				->setRequired();
 
 			$form->addSubmit('offerBuy', 'Buy')
-					 ->setHtmlId('offerBuy-' . $offerId)
-					 ->setHtmlAttribute('class', 'uk-button uk-button-small uk-button-primary')
-					 ->setHtmlAttribute('data-offer-button', 'buy');
+				->setHtmlId('offerBuy-' . $offerId)
+				->setHtmlAttribute('class', 'uk-button uk-button-small uk-button-primary')
+				->setHtmlAttribute('data-offer-button', 'buy');
 
 			$form->addSubmit('offerSell', 'Sell')
-					 ->setHtmlId('offerSell-' . $offerId)
-					 ->setHtmlAttribute('class', 'uk-button uk-button-small uk-button-danger')
-					 ->setHtmlAttribute('data-offer-button', 'sell');
+				->setHtmlId('offerSell-' . $offerId)
+				->setHtmlAttribute('class', 'uk-button uk-button-small uk-button-danger')
+				->setHtmlAttribute('data-offer-button', 'sell');
 
 			$form->addHidden('offerId', $offerId);
 
 			$form->onSuccess[] = [$this, 'processOfferForm'];
 
 			return $form;
-    });
-    return $multi;
+		});
+		return $multi;
 	}
 
 	public function processOfferForm(Form $form, $values)

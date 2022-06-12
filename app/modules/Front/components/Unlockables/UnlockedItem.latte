@@ -12,9 +12,10 @@
         <div n:if="$item->unlockables->amount" class="icon-overlay">{$item->unlockables->unlock_at}</div>
       </div>
       <div n:if="!$item->unlockables->image" class="unlocked-image">
-        <div class="uk-margin-small-bottom"><span uk-icon="icon: unlock; ratio: 3"></span></div>
-        <div n:if="$item->unlockables->amount" class="icon-overlay">{$item->unlockables->unlock_at}</div>
+        <div n:if="!$item->unlockables->amount || $unlockType === 'faster_training'" class="uk-margin-small-bottom"><span uk-icon="icon: unlock; ratio: 3"></span></div>
+        <div n:if="$item->unlockables->amount && $unlockType !== 'faster_training'" class="icon-overlay">{$item->unlockables->unlock_at}</div>
         <p n:if="!$expand" class="uk-margin-remove">{$item->unlockables->unlocks|fromSnake}</p>
+        <p n:if="$unlockType === 'faster_training'" class="uk-margin-remove">{$item->unlockables->unlocks|fromSnake}</p>
       </div>
     </div>
     <div n:if="$item->opened < 1" class="uk-card-badge uk-label uk-label-danger">NEW {php $item->update(['opened' => 1])}</div>
@@ -23,6 +24,7 @@
       {switch $unlockType}
        {case 'building'}<p class="uk-margin-small-top uk-text-lighter">{$item->unlockables->unlocks|fromSnake|upper}</p>
        {case 'max_energy'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="bolt"></span>{$item->unlockables->amount}</p>
+       {case 'faster_training'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="future"></span> x{$item->unlockables->amount}%</p>
        {case 'collect_all_buildings', default}
       {/switch}
     </div>
