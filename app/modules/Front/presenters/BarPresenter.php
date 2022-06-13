@@ -37,7 +37,7 @@ final class BarPresenter extends GamePresenter
 
 	protected function startup()
 	{
-			parent::startup();
+		parent::startup();
 	}
 
 	public function renderDefault() {
