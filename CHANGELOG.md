@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2022-06-13
+
+- Added: Account recovery
+- Added: Unlockables
+- Added: 9 unlockable items
+- Added: 9 new avatars
+- Added: New building (Ecstasy Lab)
+- Added: Collecting all buildings at once (unlockable)
+- Added: Unlock faster training by attacking in Assaults
+- Changed: Training costs more
+- Changed: Increase money rewards for missions
+- Changed: Darknet offers now change to a new one when vendor runs out of money
+- Minor fixes and modifications
+
 ## [0.2.0] - 2020-06-24
 
 - Mobile pop-up informing that the site is PWA compatible and instructions how to install

@@ -273,7 +273,7 @@ class UserRepository
 
     /** Job rewards */
     public function getRewardMoney($jobmoney, $level) {
-		return $jobmoney + (int)round($jobmoney * ($level - 1) * 0.05);
+		return $jobmoney + (int)round($jobmoney * ($level - 1) * 0.08);
 	}
 
 	public function getRewardXp($jobxp, $level) {

@@ -66,6 +66,20 @@ Monero: **84yS17W3dLvV6Lj2XaATgYX4Ef7tPpGtmdBoanyL68GofxM2VQD8ZUNWaKpdyerJdZ7mce
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.2.1] - 2022-06-13
+
+- Added: Account recovery
+- Added: Unlockables
+- Added: 9 unlockable items
+- Added: 9 new avatars
+- Added: New building (Ecstasy Lab)
+- Added: Collecting all buildings at once (unlockable)
+- Added: Unlock faster training by attacking in Assaults
+- Changed: Training costs more
+- Changed: Increase money rewards for missions
+- Changed: Darknet offers now change to a new one when vendor runs out of money
+- Minor fixes and modifications
+
 ## [0.2.0] - 2020-06-24
 
 - Mobile pop-up informing that the site is PWA compatible and instructions how to install
@@ -94,13 +108,6 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Added: Building upgrades
 - Fixed: Money overflowing 32bit integer range ([#2][i2])
 - UI Adjustments
-
-## [0.1.2] - 2020-05-15
-
-- Added: Buildings
-- Added: Player incomes (collected from buildings every 5 hours)
-- Adjusted mission and scavenging rewards (now based on level)
-- Database optimization
 
 More in [CHANGELOG.md](CHANGELOG.md)
 
