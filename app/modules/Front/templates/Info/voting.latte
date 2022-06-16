@@ -1,0 +1,16 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Earn Reward{/define}
+{define metaDescription}Earn Reward{/define}
+
+{block pageContent}
+<div class="uk-container uk-margin-auto" uk-height-viewport="expand: true">
+  <div class="uk-card uk-width-auto uk-card-default uk-card-body">
+    <h2 class="uk-card-title">Earn Free Reward Every Week!</h2>
+    <p>Do you want to earn <strong>$250,000</strong> of in-game money <strong>every week</strong>? All you have to do is click the link below to go to our entry on the Top Web Games website and give us a vote. It's totally free and it will only take you less than a minute.</p>
+    <p>Vote here: <a href="https://topwebgames.com/game/global-collapse-pandemic/vote?uid={$user->username|query}" target="_blank" rel="noopener">https://topwebgames.com/game/global-collapse-pandemic/vote?uid={$user->username|query}{include '../../components/UI/Icon/Icon.latte', icon => 'external-link'}</a></p>
+    <p>You will get your reward automatically after voting. <strong>You can only vote once a week</strong> - multiple votes after your first one are not counted and will not be rewarded.</p>
+    <h4>{if $voted}{_general.account.alreadyVoted}{else}{_general.account.notVotedYet}{/if}</h4>
+    <p n:ifset="$timeLeft">{_general.account.voteAgainTime, [days => $timeLeft->days, hours => $timeLeft->hours]}</p>
+  </div>
+</div>
+{/block}

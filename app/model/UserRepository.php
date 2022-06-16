@@ -68,6 +68,33 @@ class UserRepository
         return $this->database->table('player_stats');
     }
 
+    public function findAllVoteRewards()
+    {
+        return $this->database->table('vote_rewards');
+    }
+
+    public function canVoteAgain(int $userId)
+    {
+        $vote = $this->findAllVoteRewards()->where('user_id', $userId)->fetch();
+        if ($vote) {
+            $votedDate = strtotime($vote->voted_at);
+            $weekAgo = strtotime('-1 week');
+            if ($weekAgo <= $votedDate) {
+                $timeLeft = $votedDate - $weekAgo;
+                $daysLeft = floor($timeLeft / 86400); // 86400 = seconds per day
+                $hoursLeft = floor(($timeLeft - $daysLeft * 86400) / 3600); // 3600 = seconds per hour
+                return (object) [
+                    'days' => $daysLeft,
+                    'hours' => $hoursLeft,
+                ];
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
     public function getSettings(int $userId)
     {
         $settings = $this->database->table('user_settings')->where('user_id', $userId);

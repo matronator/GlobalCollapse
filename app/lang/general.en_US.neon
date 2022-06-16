@@ -72,6 +72,7 @@ ui:
 			lands: 'Lands'
 			assaults: 'Assaults'
 			unlockables: 'Unlockables'
+			reward: 'Free Reward'
 		city:
 			title: 'City'
 			bar: 'Bar'
@@ -83,6 +84,8 @@ ui:
 			about: 'About'
 			news: "News"
 			donations: 'Donations'
+			changelog: 'Changelog'
+			source: 'Source Code'
 			contact: 'Contact'
 			help: 'Help'
 			tos: 'Terms of Use'
@@ -136,6 +139,9 @@ account:
 	resetPassword: 'Reset password'
 	changeEmail: 'Change e-mail'
 	currentEmail: 'Your current e-mail is'
+	notVotedYet: 'You have NOT voted yet this week.'
+	alreadyVoted: 'You have already voted this week and received $250,000 reward.'
+	voteAgainTime: 'You can vote again in %days% days and %hours% hours.'
 	datetimePrefs:
 		title: 'Date and time preferences'
 		timezone: 'Timezone'

@@ -9,13 +9,17 @@
         {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->player_stats->level}</small>
       </a>
       <ul class="uk-nav-sub">
+        {* NEW badge VVV *}
+        {* <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Account:voting">{_general.ui.sidebar.player.reward}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li> *}
+        <li n:class="$presenter->isLinkCurrent('Account:voting') ? uk-active"><a n:href="Account:voting">{_general.ui.sidebar.player.reward}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
+        <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.home}</a></li>
-        <li n:class="$presenter->isLinkCurrent('Default:unlockables') ? uk-active"><a n:href="Default:unlockables">{_general.ui.sidebar.player.unlockables}</a></li>
         <li n:class="$presenter->isLinkCurrent('Account:settings') ? uk-active"><a n:href="Account:settings">{_general.ui.sidebar.player.account}</a></li>
         <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a n:href="Default:training">{_general.ui.sidebar.player.training}</a></li>
         <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">{_general.ui.sidebar.player.rest}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Buildings:default') ? uk-active"><a n:href="Buildings:default">{_general.ui.sidebar.player.buildings}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Default:unlockables') ? uk-active"><a n:href="Default:unlockables">{_general.ui.sidebar.player.unlockables}</a></li>
         {* <li n:class="$presenter->isLinkCurrent('Buildings:lands') ? uk-active"><a n:href="Buildings:lands">{_general.ui.sidebar.player.lands}</a></li> *}
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Assaults:*') ? uk-active"><a n:href="Assaults:default">{_general.ui.sidebar.player.assaults}</a></li>
@@ -38,8 +42,9 @@
       <ul class="uk-nav-sub">
         <li n:class="$presenter->isLinkCurrent('Info:news') ? uk-active"><a n:href="Info:news">{_general.ui.sidebar.info.news}</a></li>
         <li><a href="https://github.com/matronator/GlobalCollapse#support-the-project" target="_blank" rel="noopener">{_general.ui.sidebar.info.donations}</a></li>
-        <li><a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">{_general.ui.sidebar.info.help}</a></li>
-        <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">Changelog</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse/wiki" target="_blank" rel="noopener">{_general.ui.sidebar.info.help}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" target="_blank" rel="noopener">{_general.ui.sidebar.info.changelog}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse/" target="_blank" rel="noopener">{_general.ui.sidebar.info.source}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Info:tos') ? uk-active"><a n:href="Info:tos">{_general.ui.sidebar.info.tos}</a></li>
         <li n:class="$presenter->isLinkCurrent('Info:copyright') ? uk-active"><a n:href="Info:copyright">{_general.ui.sidebar.info.copyright}</a></li>

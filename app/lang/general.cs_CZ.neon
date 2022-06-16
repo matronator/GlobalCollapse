@@ -71,6 +71,7 @@ ui:
 			buildings: 'Budovy'
 			assaults: 'Přepadení'
 			unlockables: 'Odměny'
+			reward: 'Dárek zdarma'
 		city:
 			title: 'Město'
 			bar: 'Bar'
@@ -82,6 +83,8 @@ ui:
 			about: 'O hře'
 			news: "Novinky"
 			donations: 'Podpořte nás'
+			changelog: 'Seznam změn'
+			source: 'Zdrojový kód'
 			contact: 'Kontakt'
 			help: 'Pomoc'
 			tos: 'Podmínky'
@@ -133,6 +136,9 @@ account:
 	accountSettings: 'Nastavení účtu'
 	changePassword: 'Změnit heslo'
 	resetPassword: 'Resetovat heslo'
+	notVotedYet: 'Tento týden jsi ještě nehlasoval.'
+	alreadyVoted: 'Tento týden jsi již hlasoval a obdržel jsi $250,000 jako odměnu.'
+	voteAgainTime: 'Znovu budeš moct hlasovat za %days% dny a %hours% hodiny.'
 
 faq:
 	title: 'Věděl jsi že... ?'

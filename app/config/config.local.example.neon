@@ -13,6 +13,9 @@ parameters:
   darknetUpdate:
     hash: '2Rc9XqqWXa3ur4iiL5IKox782'
     confirm: 'aRXPKmm1Fgzyy6m4z2LZgii1q'
+  voteCallback:
+    hash: 'anotherHash'
+    confirm: 'andOneMoreForGoodMeassures'
   jobs!: [
     [
         locale: distributeMasks
