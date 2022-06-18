@@ -159,4 +159,23 @@ final class VendorPresenter extends BasePresenter
 			$this->redirect('Default:default');
 		}
 	}
+
+	public function actionUpdatePrices(?string $hash = null, ?string $confirm = null)
+	{
+		if ($hash != null && $confirm != null) {
+			if ($hash === $this->darknetUpdate['hash'] && $confirm === $this->darknetUpdate['confirm']) {
+				$drugs = $this->darknet->findAll()->fetchAll();
+				foreach ($drugs as $drug) {
+					$drug->update([
+						'past_price' => $drug->price,
+						'price' => rand($drug->min, $drug->max),
+						'updated' => new DateTime(),
+					]);
+				}
+				$this->flashMessage('Changed');
+			}
+		}
+
+		$this->redirect('Default:default');
+	}
 }
