@@ -35,16 +35,16 @@ function training() {
           hours -= 1
         }
       }
-      if (hours <= 0 && minutes <= 0 && seconds <= 0) {
+      if (hours <= 0 && minutes <= 0 && seconds < 1) {
         Push.create("Training done!")
-        setTimeout(reloadWindow, 2000)
+        setTimeout(reloadWindow, 1000)
       }
       hourSpan.innerHTML = hours > 9 ? hours : `0${hours}`
       minuteSpan.innerHTML = minutes > 9 ? minutes : `0${minutes}`
       secondSpan.innerHTML = seconds > 9 ? seconds : `0${seconds}`
     }
     function reloadWindow() {
-      window.location.replace(false)
+      window.location.replace(location.href)
     }
   })
 }

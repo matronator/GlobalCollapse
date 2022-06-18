@@ -4,8 +4,74 @@
 
 {block pageContent}
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
-    <div class="uk-card uk-width-expand uk-card-default uk-card-body">
-      <h2 class="uk-card-title">Support the Project</h2>
+    <h1 class="uk-card-title">{_general.support.title}</h1>
+    <hr>
+    <p>{_general.support.text}</p>
+    <div class="uk-flex-between uk-flex-start uk-child-width-auto uk-grid-small" uk-grid>
+      <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
+          <h2 class="uk-card-title uk-text-center"><a href="https://www.paypal.com/paypalme/matronator" {external}>PayPal</a></h2>
+          <a href="https://www.paypal.com/paypalme/matronator" {external}>
+            <img src="{$basePath}/dist/front/images/support/paypal.png" alt="Donate via PayPal" width="143">
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
+          <h2 class="uk-card-title uk-text-center"><a href="https://ko-fi.com/matronator" {external}>Ko-fi</a></h2>
+          <div class="uk-text-center">
+            <a uk-toggle="#kofi-widget">
+              <img height="36" style="border:0px;height:36px;" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" border="0" alt="Buy Me a Coffee at ko-fi.com">
+            </a>
+          </div>
+          <div id="kofi-widget" hidden>
+            <iframe id="kofiframe" src="https://ko-fi.com/matronator/?hidefeed=true&widget=true&embed=true&preview=true" style="border:none;width:100%;padding:4px;background:#f9f9f9;" height="712" title="matronator"></iframe>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
+          <h2 class="uk-card-title uk-text-center"><a href="https://www.patreon.com/bePatron?u=34136375" {external}>Patreon</a></h2>
+          <a href="https://www.patreon.com/bePatron?u=34136375" {external}>
+            <img src="{$basePath}/dist/front/images/support/patreon.png" alt="Support on Patreon" width="143">
+          </a>
+        </div>
+      </div>
+    </div>
+    <p class="uk-text-lead uk-text-center">{_general.support.crypto}:</p>
+    <div class="uk-flex-between uk-flex-start uk-child-width-auto uk-grid-small" uk-grid>
+      <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
+          <h2 class="uk-card-title uk-text-center">Bitcoin</h2>
+          <img src="{$basePath}/dist/front/images/support/35VRpVQaqFWjUCnVRpGineShz76QyYgSVg.png" alt="Donate Bitcoin" width="156">
+          <p class="crypto-address" uk-tooltip="Click to copy address">35VRpVQaqFWjUCnVRpGineShz76QyYgSVg</p>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
+          <h2 class="uk-card-title uk-text-center">Ethereum</h2>
+          <img src="{$basePath}/dist/front/images/support/0x9981F23fA0374D5A194c2eC1F32093C473c818b9.png" alt="Donate Ethereum" width="156">
+          <p class="crypto-address" uk-tooltip="Click to copy address">0x9981F23fA0374D5A194c2eC1F32093C473c818b9</p>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
+          <h2 class="uk-card-title uk-text-center">Litecoin</h2>
+          <img src="{$basePath}/dist/front/images/support/ltc1q9nzu3a4gg240le0e7tch02d5j48arf2zgdz88q.png" alt="Donate Litecoin" width="156">
+          <p class="crypto-address" uk-tooltip="Click to copy address">ltc1q9nzu3a4gg240le0e7tch02d5j48arf2zgdz88q</p>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
+          <h2 class="uk-card-title uk-text-center">Monero</h2>
+          <img src="{$basePath}/dist/front/images/support/84yS17W3dLvV6Lj2XaATgYX4Ef7tPpGtmdBoanyL68GofxM2VQD8ZUNWaKpdyerJdZ7mceQ6r7e8G2om6q6k8zEZ4ndy2xG.png" alt="Donate Monero" width="156">
+          <p class="crypto-address" uk-tooltip="Click to copy address">84yS17W3dLvV6Lj2XaATgYX4Ef7tPpGtmdBoanyL68GofxM2VQD8ZUNWaKpdyerJdZ7mceQ6r7e8G2om6q6k8zEZ4ndy2xG</p>
+        </div>
+      </div>
     </div>
   </div>
+{/block}
+
+{block scripts}
+  <script src="{asset support.js front}"></script>
 {/block}

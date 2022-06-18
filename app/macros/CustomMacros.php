@@ -21,5 +21,12 @@ abstract class CustomMacros extends MacroSet {
                 return "echo '$path';";
             }
         );
+
+        $set->addMacro(
+            'external',
+            function ($node) {
+                return "echo 'target=\"_blank\" rel=\"noopener\"'";
+            }
+        );
     }
 }

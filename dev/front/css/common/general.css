@@ -391,3 +391,13 @@ td.input-row {
     padding-bottom: 2px;
   }
 }
+
+.crypto-address {
+  width: 156px;
+  overflow: scroll;
+  white-space: nowrap;
+  font-family: monospace;
+  font-size: 0.875rem;
+  padding-bottom: 0.5rem;
+  user-select: all;
+}

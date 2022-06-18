@@ -163,6 +163,11 @@ training:
 	timeLeft: 'Time left:'
 	spLeft: 'Skillpoints left: <strong id="pointsLeft">%sp%</strong>'
 
+support:
+	title: 'Support the project'
+	text: 'You can support this project by donating. Any donation would be a huge help and is much appreciated.'
+	crypto: 'You can also donate using these cryptocurrencies'
+
 pvp:
 	allPlayers: 'All players'
 	assault:

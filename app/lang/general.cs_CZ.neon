@@ -155,6 +155,11 @@ training:
 	timeLeft: 'Zbývá:'
 	spLeft: 'Dostupné skillpointy: <strong id="pointsLeft">%sp%</strong>'
 
+support:
+	title: 'Podpoř projekt'
+	text: 'Projekt můžeš podpořit peněžitým příspěvkem. Jakákoliv částka je velká pomoc a velmi vítána a moc si toho ceníme.'
+	crypto: 'Také můžeš darovat tyto kryptoměny'
+
 pvp:
 	allPlayers: 'Všichni hráči'
 	assault:

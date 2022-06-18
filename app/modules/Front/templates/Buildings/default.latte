@@ -43,7 +43,7 @@
                             {$drug->name}:
                         </div>
                         <div class="uk-text-center@s uk-text-right">
-                            <span class="uk-text-bold">{$playerDrugs[$drug->name] ? $playerDrugs[$drug->name] : 0|number}</span>
+                            <span class="uk-text-bold">{isset($playerDrugs[$drug->name]) ? $playerDrugs[$drug->name] : 0|number}</span>
                             <span class="uk-text-light">g</span>
                         </div>
                     </div>

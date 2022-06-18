@@ -15,6 +15,7 @@ use App\Model\BuildingsRepository;
 use App\Model\MiscRepository;
 use App\Model\UnlockablesRepository;
 use Timezones;
+use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -232,7 +233,7 @@ final class DefaultPresenter extends BasePresenter
 		$land = $this->buildingsRepository->findPlayerLand($this->user->id)->fetch();
 		$this->unlockablesRepository->checkUnlockables($player, $land);
 
-		$unlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId())->fetchAll();
+		$unlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId())->order('unlocked_at')->fetchAll();
 		$unlockedIds = array_column($unlocked, 'unlockables_id');
 		$locked = $this->unlockablesRepository->findAll()->where('id NOT IN ?', !$unlockedIds ? [0] : $unlockedIds)->fetchAll();
 		$assaults = $this->assaultsRepository->findPlayerAssaultStats($player->id)->fetch();
@@ -353,7 +354,7 @@ final class DefaultPresenter extends BasePresenter
 			$currentEnergy = $player->player_stats->energy;
 			if ($currentMoney >= $trainingCost) {
 				if ($currentEnergy >= 10) {
-					$unlocked = $this->unlockablesRepository->findPlayerUnlocked($player->id)->where('unlockables.unlocks', 'faster_training')->order('amount DESC')->limit(1)->fetch();
+					$unlocked = $this->unlockablesRepository->findPlayerUnlocked($player->id)->where('unlockables.unlocks', 'faster_training')->order('unlockables.amount DESC')->limit(1)->fetch();
 					$trainBoost = $this->unlockablesRepository->findAll()->where('id', $unlocked->unlockables_id)->fetch();
 					$trainMultiplier = isset($trainBoost->amount) ? $trainBoost->amount : 100;
 					$currentMoney -= $trainingCost;

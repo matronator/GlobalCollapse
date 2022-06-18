@@ -44,7 +44,7 @@ class UnlockablesRepository
 
 	public function findPlayerUnlocked(int $userId): Selection
 	{
-		return $this->database->table('player_unlocked')->where('user_id', $userId)->order('unlocked_at');
+		return $this->database->table('player_unlocked')->where('user_id', $userId);
 	}
 
     public function getPossibleToUnlock(int $level): Selection
