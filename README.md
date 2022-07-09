@@ -6,7 +6,7 @@
 <a href="https://www.paypal.me/matronator" target="_blank" style="margin-right:16px;"><img src=".github/paypal.png" height="36"></a>
 <a href="https://www.blockchain.com/btc/address/35VRpVQaqFWjUCnVRpGineShz76QyYgSVg" target="_blank"><img src=".github/RibbonDonateBitcoin.png" height="36"></a></div>
 
-<a href="https://www.best-mmorpgs.com/" target="_blank">Vote on Best MMORPGs<img src="https://www.best-mmorpgs.com/button.php?u=matronator" alt="Vote on Best MMORPGs" style="display: none;" width="1px" height="1px" /></a>
+<a href="https://topwebgames.com/game/global-collapse-pandemic/vote" target="_blank">Vote on TopWebGames.com</a>
 
 # Global Collapse: Pandemic (Now PWA compatible!)
 
