@@ -175,6 +175,10 @@ final class BuildingsPresenter extends GamePresenter
 	public function handleBuyBuilding(int $b) {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
+		if (!$building) {
+			$this->flashMessage($this->translate('general.messages.danger.buildingNotFound'), 'danger');
+			$this->redirect('Buildings:default');
+		}
 		if (isset($building->user_id) && $building->user_id === $player->id && $building->level === 0) {
 			$playerMoney = $player->money;
 			$cost = $building->buildings->price;
@@ -196,6 +200,10 @@ final class BuildingsPresenter extends GamePresenter
 	public function handleCollect(int $b) {
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
+		if (!$building) {
+			$this->flashMessage($this->translate('general.messages.danger.buildingNotFound'), 'danger');
+			$this->redirect('Buildings:default');
+		}
 		if ($building->user_id === $player->id) {
 			if ($building->storage > 0) {
 				$drugId = $building->buildings->drugs_id;
@@ -266,6 +274,10 @@ final class BuildingsPresenter extends GamePresenter
 
 	public function handleDemolish(int $b) {
 		$building = $this->buildingsRepository->getBuilding($b)->fetch();
+		if (!$building) {
+			$this->flashMessage($this->translate('general.messages.danger.buildingNotFound'), 'danger');
+			$this->redirect('Buildings:default');
+		}
 		if ($building->user_id === $this->user->getIdentity()->id) {
 			if ($this->buildingsRepository->demolishBuilding($b, $this->user->getIdentity()->id)) {
 				$this->flashMessage('Building demolished!', 'success');

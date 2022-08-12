@@ -52,6 +52,7 @@ messages:
 		orderSellTooMany: "You're trying to sell more than you have."
 		orderSellVendorLow: "You're trying to sell more than the vendor can buy."
 		forgotPasswordNoUser: "No user account with this e-mail address was found."
+		buildingNotFound: "Building not found!"
 
 ui:
 	navbar:
@@ -114,6 +115,7 @@ ui:
 	reset: 'Reset'
 	confirm: 'Confirm'
 	continue: 'Continue'
+	cancel: 'Cancel'
 	add: 'Add'
 	remove: 'Remove'
 	extra: 'Extra'

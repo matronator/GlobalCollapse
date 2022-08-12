@@ -1,0 +1,32 @@
+{**
+ *  CONFIRMATION MODAL
+ *
+ *  $id      string      Modal ID
+ *  $ajax    bool        Is AJAX?
+ *  $text    string      Modal body
+ *  $title   ?string     (optional) Modal header title
+ *  $cancel  ?string     (optional) Cancel text
+ *  $action  string      Modal action button
+ *  $cta     ?string     (optional) Link to the action
+**}
+
+{default $ajax = false}
+{default $title = null}
+{default $cancel = null}
+{default $cta = null}
+
+<div id="{$id}" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">{$title ?? 'Are you sure?'}</h2>
+        </div>
+        <div class="uk-modal-body" n:if="isset($text)">
+            <p>{$text|noescape}</p>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close">{$cancel ?? 'No'}</button>
+            <a href="{$action}" class="uk-button uk-button-danger {if $ajax} ajax uk-modal-close{/if}">{$cta ?? 'Yes'}</a>
+        </div>
+    </div>
+</div>

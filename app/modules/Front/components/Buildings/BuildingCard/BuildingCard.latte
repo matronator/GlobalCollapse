@@ -45,7 +45,16 @@
       <div class="order--6 order--6-xs uk-padding-tiny uk-padding-remove-horizontal" n:if="$buildingType==drugs">{$building->income}g / 5h</div>
     </div>
     <p class="uk-text-right uk-margin-remove">
-      <a n:href="demolish! $building->id" class="uk-button uk-button-danger uk-button-small ajax">{_general.buildings.demolish}</a>
+      <a href="#" class="uk-button uk-button-danger uk-button-small" uk-toggle="target: #delete-building-{$building->id}">{_general.buildings.demolish}</a>
+      {include '../../UI/Modals/DeleteModal.latte'
+        id => 'delete-building-' . $building->id,
+        ajax => true,
+        action => $presenter->link('demolish!', $building->id),
+        title => 'Confirm building demolition',
+        text => '<p><strong>Do you really want to demolish this building ('.$presenter->translator->translate('general.buildings.buildings.'.$buildingName.'.name').' - level '.$level.')?</strong></p><p>This action is irreversible and you will not get back any resources you already put into this building including upgrades.</p>',
+        cancel => $presenter->translator->translate('general.ui.cancel'),
+        cta => $presenter->translator->translate('general.ui.confirm'),
+      }
     </p>
   </div>
 </div>

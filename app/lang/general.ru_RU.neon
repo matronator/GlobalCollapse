@@ -77,6 +77,7 @@ ui:
 	reset: 'Сброс'
 	confirm: 'Принять'
 	continue: 'Продолжить'
+	cancel: 'Нет'
 	add: 'Добавить'
 	remove: 'Убрать'
 	extra: 'Больше'

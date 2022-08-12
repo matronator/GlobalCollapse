@@ -52,6 +52,7 @@ messages:
 		orderSellTooMany: "Nemůžeš prodat víc než máš."
 		orderSellVendorLow: "Tvá objednávka je za víc peněz než má vendor k dispozici."
 		forgotPasswordNoUser: "Žádný hráč s tímto e-mailem nebyl nalezen."
+		buildingNotFound: "Budova nenalezena!"
 
 ui:
 	navbar:
@@ -113,6 +114,7 @@ ui:
 	reset: 'Reset'
 	confirm: 'Potvrdit'
 	continue: 'Pokračovat'
+	cancel: 'Zrušit'
 	add: 'Přidat'
 	remove: 'Odebrat'
 	extra: 'Extra'
