@@ -5,32 +5,7 @@
 {block pageContent}
   <div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
     <div class="dashboard dashboard-assaults uk-flex" uk-margin>
-      <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center">
-        <div class="split uk-flex-bottom">
-          <div>
-            <h3 class="uk-margin-remove-bottom">
-              {$otherPlayer->username}&nbsp;<small class="uk-text-muted">Level {$otherPlayer->player_stats->level}</small>
-            </h3>
-          </div>
-        </div>
-        <div class="split">
-          <div class="uk-width-auto">
-            <img src="{$basePath}/dist/front/images/default-avatars/{$otherPlayer->avatar}" class="uk-comment-avatar" width="128" height="128">
-          </div>
-          <div class="uk-width-expand">
-            {include '../../components/Assault/AssaultStats.latte', stats => $aStatsV}
-          </div>
-        </div>
-        {if $user->id != $otherPlayer->id}
-          <script>
-            document.write('<a class="uk-button uk-button-secondary" href="' + document.referrer + '"><span uk-icon="arrow-left"></span>{_general.ui.back|noescape}</a>');
-          </script>
-          {* <a n:href="Player:leaderboard" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a> *}
-          <a n:href="Assaults:detail, $otherPlayer->username" class="uk-button uk-button-primary">Assault</a>
-        {else}
-          <a n:href="Player:leaderboard" class="uk-button uk-button-primary">Leaderboard</a>
-        {/if}
-      </div>
+      {include '../../components/Assault/PlayerCard.latte', player => $otherPlayer, stats => $aStatsV}
     </div>
   </div>
 {/block}

@@ -1,0 +1,59 @@
+{**
+ * ASSAULT - Player Card
+ *
+ *   player         array         The player to show
+ *   stats          array         Player's assault stats
+ *}
+<div class="uk-card uk-width-auto uk-card-default uk-card-body" style="flex:1 0 auto;">
+    <div class="split uk-flex-bottom">
+        <div>
+            <h3 class="uk-margin-remove-bottom">
+            {$player->username}&nbsp;<small class="uk-text-muted">Level {$player->player_stats->level}</small>
+            </h3>
+        </div>
+    </div>
+    <div class="uk-width-expand uk-flex">
+        {include '../../components/UI/ProgressBar/ProgressBar.latte',
+            min => 0,
+            max => $player->player_stats->stamina * 2,
+            value => $player->player_stats->stamina * 2,
+            type => 'red',
+            small => true,
+            name => 'playerHP'
+        }
+    </div>
+    <div class="split">
+        <div class="uk-width-auto">
+            <img src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="128" height="128">
+        </div>
+        <div class="uk-width-expand">
+            <table class="uk-table uk-table-small uk-table-divider">
+                <tr>
+                    <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">{_general.stats.strength.title}</td>
+                    <td class="uk-text-nowrap">{$player->player_stats->strength}</td>
+                    <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">{_general.stats.stamina.title}</td>
+                    <td class="uk-text-nowrap">{$player->player_stats->stamina}</td>
+                </tr>
+                <tr>
+                    <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">{_general.stats.speed.title}</td>
+                    <td class="uk-text-nowrap">{$player->player_stats->speed}</td>
+                    <td class="uk-text-nowrap border-left" uk-tooltip="title:{$player->username}'s total power."><strong>Power</strong></td>
+                    <td class="uk-text-nowrap"><strong>{$player->player_stats->power}</strong></td>
+                </tr>
+            </table>
+            <h3 class="uk-text-center">Assault stats</h3>
+            {include '../../components/Assault/AssaultStats.latte', stats => $stats}
+        </div>
+    </div>
+    <div class="uk-margin-top uk-text-center">
+        {if $user->id != $player->id}
+            <script>
+                document.write('<a class="uk-button uk-button-secondary" href="' + document.referrer + '"><span uk-icon="arrow-left"></span>{_general.ui.back|noescape}</a>');
+            </script>
+            {* <a n:href="Player:leaderboard" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a> *}
+            <a n:href="Assaults:detail, $player->username" class="uk-button uk-button-primary">Assault</a>
+        {else}
+            <a n:href="Player:leaderboard" class="uk-button uk-button-primary">Leaderboard</a>
+        {/if}
+    </div>
+</div>
