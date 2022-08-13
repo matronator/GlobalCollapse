@@ -6,6 +6,14 @@ axette.onAjax(registerEventHandlers)
 
 registerEventHandlers()
 function registerEventHandlers() {
+    const ajaxButtons = document.querySelectorAll(`a.uk-button.ajax`)
+    ajaxButtons.forEach(el => {
+        el.addEventListener(`click`, e => {
+            el.classList.add(`uk-disabled`);
+            el.innerHTML = `<div uk-spinner></div>`
+        })
+    })
+
     const wrappers = document.querySelectorAll(`.building-wrapper`)
     wrappers?.forEach(wrapper => {
 
