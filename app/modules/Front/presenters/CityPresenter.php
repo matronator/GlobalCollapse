@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\FrontModule\Presenters;
 
-use App\Model;
 use App\Model\UserRepository;
 use App\Model\DrugsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
 use Nette\Application\UI\Multiplier;
-use VendorOfferForm;
 use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
@@ -70,6 +68,60 @@ final class CityPresenter extends GamePresenter
 		}
 		$this->template->vendorOffers = $vendorOffers;
 		$this->template->offers = $offers;
+		if ($player->actions->offer_refreshed) {
+			$offerRefreshed = self::checkDates($player->actions->offer_refreshed, new DateTime());
+			if ($offerRefreshed > 0) {
+				$this->template->offerRefresh = $offerRefreshed;
+			} else {
+				$this->template->offerRefresh = false;
+			}
+		} else {
+			$this->template->offerRefresh = false;
+		}
+	}
+
+	public function actionRefreshOffer(string $hash)
+	{
+		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+
+		if ($player->actions->offer_refreshed) {
+			$diff = self::checkDates($player->actions->offer_refreshed, new DateTime());
+			if ($diff > 0) {
+				$this->flashMessage($this->translator->translate('general.messages.warning.cantRefreshOffer', ['minutes' => $diff]), 'warning');
+				$this->redirect('City:darknet');
+			}
+		}
+		$sessionOffers = $this->session->getSection('darknetOffers');
+		$oldOfferId = $sessionOffers[$hash];
+		$offer = $this->drugsRepository->findOffer($oldOfferId)->fetch();
+		if (!$offer || !$offer->active) {
+			$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
+			$this->redirect('City:darknet');
+		}
+
+		$allDrugs = $this->drugsRepository->findAll()->fetchAll();
+		$drugs = [];
+		foreach ($allDrugs as $drug) {
+			if ($drug->id !== $offer->drug_id) {
+				$drugs[] = $drug->id;
+			}
+		}
+		shuffle($drugs);
+		$this->drugsRepository->findVendor($offer->vendor_id)->update([
+			'base_money' => $offer->vendor->base_money
+		]);
+		$this->drugsRepository->findOffer($offer->id)->update([
+			'drug_id' => array_pop($drugs),
+			'quantity' => rand(500, 2000) * pow($offer->vendor->level, 1.05),
+			'buys' => 0,
+			'sells' => 0
+		]);
+		$this->userRepository->getUser($player->id)->actions->update([
+			'offer_refreshed' => new DateTime()
+		]);
+
+		$this->flashMessage($this->translator->translate('general.messages.success.offerRefreshed'), 'success');
+		$this->redirect('City:darknet');
 	}
 
 	protected function createComponentVendorOfferForm(): Multiplier

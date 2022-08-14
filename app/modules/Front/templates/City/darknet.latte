@@ -27,7 +27,7 @@
     <div class="uk-child-width-auto@s" uk-margin uk-grid="masonry:true;">
         {foreach $offers as $offer}
             {var $offerId = $vendorOffers[$offer->id]}
-            {include '../../components/Darknet/Vendors/VendorOffer.latte', offer => $vendorOffers[$offerId], id => $offerId}
+            {include '../../components/Darknet/Vendors/VendorOffer.latte', offer => $vendorOffers[$offerId], id => $offerId, noRefresh => $offerRefresh}
         {/foreach}
     </div>
 </div>

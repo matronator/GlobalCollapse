@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Model;
+use DateTime;
 use stdClass;
 
 /////////////////////// FRONT: BASE PRESENTER ///////////////////////
@@ -108,4 +109,21 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		}
         return $this->translator->translate($message, $parameters);
     }
+
+	/**
+	 * Check if time between `$date` and `$currentDate` is larger than `$targetTime` (defaults to 3600 or 1 hour). Returns the remaining time to `$targetTime` or 0.
+	 * @return integer
+	 * @param DateTime $date
+	 * @param DateTime $currentDate
+	 * @param integer $targetTime
+	 */
+	public static function checkDates(DateTime $date, DateTime $currentDate, int $targetTime = 3600): int
+	{
+		$diff = abs($date->getTimestamp() - $currentDate->getTimestamp());
+		if ($diff >= $targetTime) {
+			return 0;
+		} else {
+			return $targetTime - $diff;
+		}
+	}
 }

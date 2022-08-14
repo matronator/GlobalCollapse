@@ -40,8 +40,10 @@ messages:
 		landUpgradeStart: "Land upgrade started"
 		buildingCollected: "Building collected!"
 		allBuildingCollected: "All buildings collected!"
+		offerRefreshed: "Generated new offer!"
 	info:
 	warning:
+		cantRefreshOffer: "Can't refresh offer yet. Try again in %minutes% minutes."
 	danger:
 		wrongCredentials: "Wrong password or username"
 		notEnoughMoney: "Not enough money"

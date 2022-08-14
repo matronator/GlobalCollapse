@@ -2,6 +2,7 @@
 *
 *     $offer        object         Offer object
 *     $id           number         Unique ID to link elements for JS
+*     $noRefresh    bool           If user can refresh
 *}
 {var $drugName = $offer->drug->name}
 <div>
@@ -10,6 +11,12 @@
        data-vendor-money="{$offer->vendor->money}" data-offer-stock="{$offer->quantity}">
     {form vendorOfferForm-{$id}}
       <h3 class="uk-margin-remove-bottom uk-text-bold">{_general.drugs.{$drugName}.alt.1}</h3>
+      <div class="refresh-offer" n:if="!$noRefresh" uk-tooltip="Generate new offer">
+        <a n:href="refreshOffer, $id" class="uk-icon-button uk-button-default" uk-icon="refresh"></a>
+      </div>
+      <div class="refresh-offer" n:if="$noRefresh" uk-tooltip="Refresh in {$noRefresh / 60|round} minutes">
+        <a href="#" class="uk-icon-button uk-disabled" disabled uk-icon="refresh"></a>
+      </div>
       <small>{_general.darknet.postedBy} {$offer->vendor->name}</small>
       <p class="uk-margin-remove-bottom">{_general.darknet.vendorMoney}: ${$offer->vendor->money|number}</p>
       <p class="uk-margin-remove-top">{_general.darknet.inStock}: {$offer->quantity|number}g</p>
