@@ -74,6 +74,7 @@ ui:
 			assaults: 'Assaults'
 			unlockables: 'Unlockables'
 			reward: 'Free Reward'
+			leaderboard: 'Leaderboard'
 		city:
 			title: 'City'
 			bar: 'Bar'

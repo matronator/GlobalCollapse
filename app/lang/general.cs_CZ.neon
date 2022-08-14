@@ -73,6 +73,7 @@ ui:
 			assaults: 'Přepadení'
 			unlockables: 'Odměny'
 			reward: 'Dárek zdarma'
+			leaderboard: 'Žebříček'
 		city:
 			title: 'Město'
 			bar: 'Bar'
