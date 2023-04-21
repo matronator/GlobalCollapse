@@ -14,16 +14,12 @@ use Timezones;
 
 final class AccountPresenter extends BasePresenter
 {
-    private $userRepository;
     private $userData = null;
 
-    public function __construct(
-	    UserRepository $userRepository
-	)
-	{
-    parent::__construct();
-    $this->userRepository = $userRepository;
-  }
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     protected function startup()
     {

@@ -14,16 +14,12 @@ use Nette\Security\Passwords;
 
 final class SignupPresenter extends BasePresenter
 {
-    private $userRepository;
-
     private $passwords;
 
     public function __construct(
-        UserRepository $userRepository,
         Passwords $passwords
     ) {
         parent::__construct();
-        $this->userRepository = $userRepository;
         $this->passwords = $passwords;
     }
 

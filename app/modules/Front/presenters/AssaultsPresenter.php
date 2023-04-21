@@ -14,17 +14,14 @@ use DateTime;
 final class AssaultsPresenter extends GamePresenter
 {
 
-	private $userRepository;
-
 	/** @var Model\AssaultsRepository */
   private $assaultsRepository;
 
 	public function __construct(
-		UserRepository $userRepository,
 		AssaultsRepository $assaultsRepository
 	)
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 		$this->assaultsRepository = $assaultsRepository;
 	}
 

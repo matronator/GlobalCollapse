@@ -68,6 +68,7 @@ ui:
 		new: 'NEW'
 		player:
 			account: 'Account'
+			inventory: 'Inventory'
 			training: 'Training'
 			rest: 'Rest'
 			home: 'Home'

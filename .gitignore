@@ -14,3 +14,4 @@ pnpm-debug.log
 TODO.md
 backups/**
 libs/VoteRewards.php
+.DS_Store

@@ -1,0 +1,54 @@
+{
+    "name": "repository",
+    "filename": "<% entity|ucfirst %>Repository",
+    "path": "app/model",
+    "file": {
+        "strict": true,
+        "namespace": {
+            "name": "App\\Model",
+            "use": [
+                "Nette"
+            ],
+            "class": {
+                "name": "<% entity|ucfirst %>Repository",
+                "props": [
+                    {
+                        "comments": [
+                            "@var Nette\\Database\\Explorer"
+                        ],
+                        "getter": false,
+                        "setter": false,
+                        "name": "database",
+                        "init": false,
+                        "type": "",
+                        "nullable": false,
+                        "static": false,
+                        "visibility": "private"
+                    }
+                ],
+                "methods": [
+                    {
+                        "name": "__construct",
+                        "visibility": "public",
+                        "body": [
+                            "$this->database = $database;"
+                        ],
+                        "params": [
+                            {
+                                "name": "database",
+                                "type": "Nette\\Database\\Explorer"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "findAll",
+                        "visibility": "public",
+                        "body": [
+                            "return $this->database->table('<% entity|lcfirst %>');"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

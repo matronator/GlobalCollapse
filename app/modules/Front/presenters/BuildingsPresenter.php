@@ -13,17 +13,15 @@ use Timezones;
 
 final class BuildingsPresenter extends GamePresenter
 {
-	private $userRepository;
-  public $buildingsRepository;
+  	public $buildingsRepository;
 	private $drugsRepository;
 
 	public function __construct(
-		UserRepository $userRepository,
 		BuildingsRepository $buildingsRepository,
 		DrugsRepository $drugsRepository
 	)
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 		$this->buildingsRepository = $buildingsRepository;
 		$this->drugsRepository = $drugsRepository;
 	}

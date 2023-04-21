@@ -1,5 +1,17 @@
 {
     "cSpell.words": [
-        "myworker"
-    ]
+        "myworker",
+        "Unlockables"
+    ],
+    "emmet.includeLanguages": {
+        "latte": "html"
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    }
 }

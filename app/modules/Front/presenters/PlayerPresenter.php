@@ -12,18 +12,14 @@ use App\Model\AssaultsRepository;
 
 final class PlayerPresenter extends BasePresenter
 {
-
-	private $userRepository;
-
 	/** @var Model\AssaultsRepository */
-  private $assaultsRepository;
+ 	private $assaultsRepository;
 
 	public function __construct(
-		UserRepository $userRepository,
 		AssaultsRepository $assaultsRepository
 	)
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 		$this->assaultsRepository = $assaultsRepository;
 	}
 

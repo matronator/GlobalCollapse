@@ -24,9 +24,7 @@ final class DefaultPresenter extends BasePresenter
 	public const AVATAR_COUNT = 30;
 	private const TRAINING_TIME = 5 * 60;
 
-	private $userRepository;
 	private $drugsRepository;
-	private $unlockablesRepository;
 	private $buildingsRepository;
 	private AssaultsRepository $assaultsRepository;
 	private MiscRepository $miscRepository;
@@ -35,19 +33,16 @@ final class DefaultPresenter extends BasePresenter
   private $articleModel;
 
 	public function __construct(
-		UserRepository $userRepository,
 		DrugsRepository $drugsRepository,
 		Model\ArticlesRepository $articleModel,
-		UnlockablesRepository $unlockablesRepository,
 		BuildingsRepository $buildingsRepository,
 		AssaultsRepository $assaultsRepository,
 		MiscRepository $miscRepository
 	)
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 		$this->drugsRepository = $drugsRepository;
 		$this->articleModel = $articleModel;
-		$this->unlockablesRepository = $unlockablesRepository;
 		$this->buildingsRepository = $buildingsRepository;
 		$this->assaultsRepository = $assaultsRepository;
 		$this->miscRepository = $miscRepository;

@@ -16,16 +16,13 @@ use Timezones;
 
 final class CityPresenter extends GamePresenter
 {
-
-	public $userRepository;
 	private $drugsRepository;
 
 	public function __construct(
-		UserRepository $userRepository,
 		DrugsRepository $drugsRepository
 	)
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 		$this->drugsRepository = $drugsRepository;
 	}
 

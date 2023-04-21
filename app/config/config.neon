@@ -15,7 +15,7 @@ tracy:
     showLocation: true
 
 services:
-    - App\Model\Authorizator::create
+    - App\Model\Authorizator
     - App\Model\Authenticator
     - App\Model\ArticlesRepository
     - App\Model\ContactFormRepository
@@ -27,6 +27,8 @@ services:
     - App\Model\UnlockablesRepository
     - App\Model\AssaultsRepository
     - App\Model\MiscRepository
+    - App\Model\ItemsRepository
+    - App\Model\InventoryRepository
     - App\Filter\ImageFilter
     - App\AdminModule\Presenters\VendorPresenter(%darknetUpdate%)
     - App\FrontModule\Presenters\BasePresenter(%version%)
@@ -40,7 +42,7 @@ services:
     nette.latteFactory:
         setup:
             # - addFilter(NULL, 'App\Filter\StaticFilters::common')
-            - addFilter('imageGenerator', '@App\Filter\ImageFilter')
+            # - addFilter('imageGenerator', '@App\Filter\ImageFilter')
             - addFilter('fromSnake', 'App\Filter\StaticFilters::fromSnake')
 
 http:

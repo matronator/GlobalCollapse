@@ -13,14 +13,9 @@ use Nette\Application\UI\Form;
 
 final class IntroPresenter extends GamePresenter
 {
-
-	private $userRepository;
-
-	public function __construct(
-		UserRepository $userRepository
-	)
+	public function __construct()
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 	}
 
 	protected function startup()

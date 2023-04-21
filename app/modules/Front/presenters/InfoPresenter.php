@@ -16,17 +16,14 @@ final class InfoPresenter extends BasePresenter
   /** @var Model\ArticlesRepository */
   private $articleModel;
 
-  private UserRepository $userRepository;
-
   private VoteRewards $voteRewards;
 
   public function __construct(
     Model\ArticlesRepository $articleModel,
-    UserRepository $userRepository,
     VoteRewards $voteRewards
 	){
+    parent::__construct();
     $this->articleModel = $articleModel;
-    $this->userRepository = $userRepository;
     $this->voteRewards = $voteRewards;
 	}
 

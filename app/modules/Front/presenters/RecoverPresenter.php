@@ -10,14 +10,9 @@ use ResetPasswordForm;
 
 final class RecoverPresenter extends BasePresenter
 {
-    /** @var Model\UserRepository */
-	private $userRepository;
-
-	public function __construct(
-		Model\UserRepository $userRepository
-	)
+	public function __construct()
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 	}
 
     protected function startup()

@@ -10,19 +10,16 @@ use Nette\Application\Response;
 
 final class ApiPresenter extends GamePresenter
 {
-    private $userRepository;
     /**
      * @var array
      */
     private $allJobs;
 
     public function __construct(
-        array $allJobs,
-        UserRepository $userRepository
+        array $allJobs
     ) {
         parent::__construct();
         $this->allJobs = $allJobs;
-        $this->userRepository = $userRepository;
     }
 
     protected function startup()

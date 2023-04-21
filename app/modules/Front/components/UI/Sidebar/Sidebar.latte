@@ -14,12 +14,13 @@
         <li n:class="$presenter->isLinkCurrent('Info:voting') ? uk-active"><a n:href="Info:voting">{_general.ui.sidebar.player.reward}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.home}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Inventory:default') ? uk-active"><a n:href="Inventory:default">{_general.ui.sidebar.player.inventory}</a></li>
         <li n:class="$presenter->isLinkCurrent('Account:settings') ? uk-active"><a n:href="Account:settings">{_general.ui.sidebar.player.account}</a></li>
         <li n:class="$presenter->isLinkCurrent('Default:training') ? uk-active"><a n:href="Default:training">{_general.ui.sidebar.player.training}</a></li>
         <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">{_general.ui.sidebar.player.rest}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Buildings:default') ? uk-active"><a n:href="Buildings:default">{_general.ui.sidebar.player.buildings}</a></li>
-        <li n:class="$presenter->isLinkCurrent('Default:unlockables') ? uk-active"><a n:href="Default:unlockables">{_general.ui.sidebar.player.unlockables}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Default:unlockables') ? uk-active"><a n:href="Default:unlockables">{_general.ui.sidebar.player.unlockables}{if isset($newUnlocked) && $newUnlocked > 0}&nbsp;<sup class="uk-text-danger uk-text-tiny">{$newUnlocked}</sup>{/if}</a></li>
         {* <li n:class="$presenter->isLinkCurrent('Buildings:lands') ? uk-active"><a n:href="Buildings:lands">{_general.ui.sidebar.player.lands}</a></li> *}
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Assaults:*') ? uk-active"><a n:href="Assaults:default">{_general.ui.sidebar.player.assaults}</a></li>

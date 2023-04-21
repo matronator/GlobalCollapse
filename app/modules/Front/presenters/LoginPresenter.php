@@ -16,14 +16,9 @@ use Nette\Mail\SendmailMailer;
 
 final class LoginPresenter extends BasePresenter
 {
-
-	private $userRepository;
-
-	public function __construct(
-		UserRepository $userRepository
-	)
+	public function __construct()
 	{
-		$this->userRepository = $userRepository;
+		parent::__construct();
 	}
 
 	protected function startup()

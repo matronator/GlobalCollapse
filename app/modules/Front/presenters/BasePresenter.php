@@ -22,13 +22,23 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	public $translator;
 
 	/** @var Model\UserRepository */
-	private $userRepository;
+	protected $userRepository;
+
+	/** @var Model\UnlockablesRepository */
+	protected $unlockablesRepository;
+
+	/** @var Model\BuildingsRepository */
+	private $buildingsRepository;
 
 	public function injectRepository(
-		Model\UserRepository $userRepository
+		Model\UserRepository $userRepository,
+		Model\UnlockablesRepository $unlockablesRepository,
+		Model\BuildingsRepository $buildingsRepository
 	)
 	{
 		$this->userRepository = $userRepository;
+		$this->unlockablesRepository = $unlockablesRepository;
+		$this->buildingsRepository = $buildingsRepository;
 	}
 
 	protected function beforeRender()
@@ -77,6 +87,12 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 				$userPreferences->timezone = $tz->timezone;
 			}
 			$this->userPrefs = $userPreferences;
+
+			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$land = $this->buildingsRepository->findPlayerLand($this->user->id)->fetch();
+			$this->unlockablesRepository->checkUnlockables($player, $land);
+			$newUnlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId())->where('opened', 0)->count();
+			$this->template->newUnlocked = $newUnlocked;
 		}
 		if ($this->user->isLoggedIn() && $this->user->getIdentity()->tutorial === 0 && !$this->presenter->isLinkCurrent('Intro:*')) {
 			$this->redirect('Intro:default');

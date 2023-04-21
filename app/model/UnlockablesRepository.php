@@ -5,7 +5,6 @@ namespace App\Model;
 use DateTime;
 use Nette;
 use Nette\Database\Table\Selection;
-use Nette\Utils\ArrayHash;
 
 class UnlockablesRepository
 {
