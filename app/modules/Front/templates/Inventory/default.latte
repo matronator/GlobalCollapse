@@ -1,0 +1,11 @@
+{define bodyClass}page--info{/define}
+{define pageTitle}Inventory{/define}
+{define metaDescription}Inventory{/define}
+
+{block pageContent}
+  <div class="uk-container-small uk-margin-auto">
+    <div class="dashboard uk-flex" uk-margin>
+      {include '../../components/Inventory/Inventory.latte', inventory => $inventory}
+    </div>
+  </div>
+{/block}

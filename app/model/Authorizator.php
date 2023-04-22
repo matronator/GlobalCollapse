@@ -23,6 +23,7 @@ class Authorizator
         $acl->addResource('Default');
         $acl->addResource('Page');
         $acl->addResource('Article');
+        $acl->addResource('Items');
         $acl->addResource('User');
         $acl->addResource('Vendor');
         $acl->addResource('Offers');

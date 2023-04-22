@@ -41,8 +41,8 @@ dependencies:
     specifier: ^6.3.7
     version: 6.3.7
   uikit:
-    specifier: ^3.14.3
-    version: 3.14.3
+    specifier: ^3.16.15
+    version: 3.16.15
 
 devDependencies:
   '@babel/core':
@@ -10816,8 +10816,8 @@ packages:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}
     dev: true
 
-  /uikit@3.14.3:
-    resolution: {integrity: sha512-bNuMwczwGxIV0jGlkB/PCGsFem0st+4o5TmyTFYQtmdve9yg8iL/ZrW59/FzeBoQoFeh0PXgcwYzKdsrONaP9Q==}
+  /uikit@3.16.15:
+    resolution: {integrity: sha512-uw0vn+h+isInT4Eq/CPxwQx5X0CDS2I9FQwgnxHyDDXOBEnnMEpCxiQWEvVgwkelJlMh/Qv+2ePyXVcb9Wx93A==}
     dev: false
 
   /ultron@1.1.1:

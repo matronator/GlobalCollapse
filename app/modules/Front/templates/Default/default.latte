@@ -3,7 +3,7 @@
 {define metaDescription}Homepage{/define}
 
 {block pageContent}
-<div class="uk-container-small uk-margin-auto" uk-height-viewport="expand: true">
+<div class="uk-container-small uk-margin-auto">
   <div class="uk-flex uk-flex-column uk-flex-middle uk-text-center" n:if="!$presenter->user->isLoggedIn()">
     <img src="{$basePath}/dist/front/images/logo-black.png">
     <p class="uk-text-lead">{_general.homepage.introLead}</p>

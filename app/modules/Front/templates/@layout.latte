@@ -94,7 +94,7 @@
         </div>
     {/snippet}
 
-    <div n:snippet="body">
+    <div n:snippet="body" uk-height-viewport="expand: true; offset-bottom: true;">
         {include '../components/UI/Navbar/Navbar.latte'}
 
         {if $presenter->user->isLoggedIn()}
@@ -103,8 +103,10 @@
             {include '../components/UI/Sidebar/Sidebar.latte', loggedin => false}
         {/if}
 
-        <main class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section">
-            {include pageContent}
+        <main class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section uk-flex uk-flex-column uk-flex-between uk-flex-stretch" data-fill-view>
+            <div class="uk-padding uk-padding-remove-horizontal uk-padding-remove-top" id="content">
+                {include pageContent}
+            </div>
             {include '../components/UI/Footer/Footer.latte'}
         </main>
 

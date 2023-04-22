@@ -81,39 +81,11 @@ window.addEventListener(`DOMContentLoaded`, () => {
   )
   toggle(togglers)
 
-  // Counter
-  // function covidCounter() {
-  //   const infected = document.getElementById("covidInfected")
-  //   const dead = document.getElementById("covidDead")
-  //   const multiplier = { infected: 1500, dead: 15000 }
-  //   const urls = [
-  //     "https://coronavirus-19-api.herokuapp.com/all",
-  //     "https://corona.lmao.ninja/all"
-  //   ]
-  //   const take = 0
-  //   const requestUrl = urls[take]
+  // Fill view
+  const fillViewEls = document.querySelectorAll(`[data-fill-view]`);
+  const footer = document.getElementById('main-footer');
 
-  //   const request = new XMLHttpRequest()
-  //   request.open("GET", requestUrl, true)
-
-  //   request.onload = function() {
-  //     if (this.status >= 200 && this.status < 400) {
-  //       // Success!
-  //       const data = JSON.parse(this.response)
-  //       infected.innerHTML = new Intl.NumberFormat().format(
-  //         data.cases * multiplier.infected
-  //       )
-  //       dead.innerHTML = new Intl.NumberFormat().format(
-  //         data.deaths * multiplier.dead
-  //       )
-  //     }
-  //   }
-
-  //   request.onerror = function() {
-  //     // There was a connection error of some sort
-  //   }
-
-  //   request.send()
-  // }
-  // covidCounter()
+  fillViewEls.forEach(fillViewEl => {
+    fillViewEl.style.height = `calc(100% - calc(${footer.getBoundingClientRect().height}px * 1.5))`;
+  });
 })

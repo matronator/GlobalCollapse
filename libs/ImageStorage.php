@@ -33,6 +33,18 @@ class ImageStorage
 		return $fileName;
 	}
 
+	public function saveWithName($file, string $name, string $subdir)
+	{
+		$ext = explode('.', $file->name);
+		$ext = '.'.$ext[count($ext)-1];
+		
+		$fileName = Strings::webalize($name).$ext;
+
+		$fileUrl = $this->dir . $subdir . $fileName;
+		$file->move($fileUrl);
+		return $fileName;
+	}
+
 	private function getRandomName(string $fileName)
 	{
 		$ext = explode('.', $fileName);

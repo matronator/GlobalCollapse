@@ -3,7 +3,7 @@
     <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$user->money|number}</span>
     <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$user->player_stats->energy_max}</span>
   </div>
-  <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
+  <ul class="uk-nav-default" uk-nav="multiple: true">
     <li class="uk-open uk-parent">
       <a href="#" class="uk-nav-header">
         {$user->username}<small class="uk-text-muted">&nbsp;Lvl. {$user->player_stats->level}</small>
@@ -20,7 +20,7 @@
         <li n:class="$presenter->isLinkCurrent('Default:rest') ? uk-active"><a n:href="Default:rest">{_general.ui.sidebar.player.rest}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Buildings:default') ? uk-active"><a n:href="Buildings:default">{_general.ui.sidebar.player.buildings}</a></li>
-        <li n:class="$presenter->isLinkCurrent('Default:unlockables') ? uk-active"><a n:href="Default:unlockables">{_general.ui.sidebar.player.unlockables}{if isset($newUnlocked) && $newUnlocked > 0}&nbsp;<sup class="uk-text-danger uk-text-tiny">{$newUnlocked}</sup>{/if}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Default:unlockables') ? uk-active"><a n:href="Default:unlockables">{_general.ui.sidebar.player.unlockables}{if isset($newUnlocked) && $newUnlocked > 0}&nbsp;<sup class="uk-badge uk-badge-danger uk-text-tiny">{$newUnlocked}</sup>{/if}</a></li>
         {* <li n:class="$presenter->isLinkCurrent('Buildings:lands') ? uk-active"><a n:href="Buildings:lands">{_general.ui.sidebar.player.lands}</a></li> *}
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Assaults:*') ? uk-active"><a n:href="Assaults:default">{_general.ui.sidebar.player.assaults}</a></li>

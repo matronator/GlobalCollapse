@@ -15,7 +15,7 @@ tracy:
     showLocation: true
 
 services:
-    - App\Model\Authorizator
+    - App\Model\Authorizator::create()
     - App\Model\Authenticator
     - App\Model\ArticlesRepository
     - App\Model\ContactFormRepository
@@ -29,6 +29,7 @@ services:
     - App\Model\MiscRepository
     - App\Model\ItemsRepository
     - App\Model\InventoryRepository
+    - App\Model\Entity\Item
     - App\Filter\ImageFilter
     - App\AdminModule\Presenters\VendorPresenter(%darknetUpdate%)
     - App\FrontModule\Presenters\BasePresenter(%version%)

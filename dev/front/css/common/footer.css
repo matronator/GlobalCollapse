@@ -2,8 +2,10 @@
 .footer-main {
   position: relative;
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 1rem;
   padding: 1rem 6px;
+  flex-shrink: 0;
+  max-height: min-content;
   @media (max-width: 640px) {
     & > div > *:not(*:first-child) {
       margin-top: 6px;

@@ -1,0 +1,81 @@
+{layout '../@layoutSginedIn.latte'}
+
+{block content}
+
+    <h1 n:block="title"><strong>{ifset $item}Edit{else}Create{/ifset}</strong> item</h1>
+
+    {form itemForm}
+        <div class="uk-flex uk-margin-bottom">
+            <div class="uk-width-expand uk-flex">
+                <div class="input upload uk-margin-bottom uk-width-1-2">
+                    <div class="text">
+                        <span class="n1">Image</span>
+                        <span class="n2">JPG or PNG 256x256.</span>
+                    </div>
+                    <div class="file uk-margin-bottom">
+                        {input image id=>'image'}
+                        <label class="button-icon" for="image">
+                            <span class="icon transition">
+                                <i></i>
+                            </span>
+                            <span class="label transition">Select file</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="uk-width-1-2">
+                    {ifset $item->image}
+                        {var $img = $basePath.$uploadDir.$item->image}
+                        <img src="{$img}" width="256" height="256" class="uk-responsive-width" alt="{$item->description}">
+                    {/ifset}
+                </div>
+            </div>
+        </div>
+        <div class="uk-flex uk-margin-bottom">
+            <div class="uk-width-expand">
+                {label name /}
+                {input name}
+            </div>
+        </div>
+        <div class="uk-flex uk-margin-bottom">
+            <div class="uk-width-expand">
+                {label description /}
+                {input description}
+            </div>
+        </div>
+        <div class="uk-flex uk-margin-bottom" uk-grid>
+            <div class="uk-width-1-2">
+                {label type /}
+                {input type}
+            </div>
+            <div class="uk-width-1-2">
+                {label subtype /}
+                {input subtype}
+            </div>
+        </div>
+        <div class="uk-flex uk-margin-bottom" uk-grid>
+            <div class="uk-width-1-3">
+                {label unlock_at /}
+                {input unlock_at}
+            </div>
+            <div class="uk-width-1-3">
+                {label cost /}
+                {input cost}
+            </div>
+            <div class="uk-width-1-3 uk-align-middle">
+                {input stackable}
+            </div>
+        </div>
+
+        <div class="uk-flex">
+            <div class="input storno">
+                <a n:href="default" class="uk-button uk-button-secondary">
+                    <span class="label transition">Cancel</span>
+                </a>
+            </div>
+            <div class="input submit uk-margin-left">
+                <button class="uk-button uk-button-primary" n:name="save">
+                    <span class="label bg-c-1 bg-c-2-hover transition">Save</span>
+                </button>
+            </div>
+        </div>
+    {/form}

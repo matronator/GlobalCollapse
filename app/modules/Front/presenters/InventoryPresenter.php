@@ -37,10 +37,21 @@ final class InventoryPresenter extends GamePresenter
 
 	public function renderDefault()
 	{
-		$inventory = $this->inventoryRepository->findByUser($this->user->getIdentity()->id);
-		$items = $this->itemsRepository->findAll();
+		$inventory = $this->inventoryRepository->findByUser($this->user->getIdentity()->id)->fetch();
+		if (!$inventory) {
+			$inventory = $this->inventoryRepository->createInventory($this->user->getIdentity()->id);
+		}
+		$inventorySlots = [];
+		for ($i = 0; $i < InventoryRepository::BASE_HEIGHT * InventoryRepository::BASE_WIDTH; $i++) {
+			$inventorySlots[$i] = null;
+		}
+
+		$inventoryItems = $this->inventoryRepository->findAllItems($inventory->id)->fetchAll();
+		foreach ($inventoryItems as $item) {
+			$inventorySlots[$item->slot] = $item;
+		}
+
 		$this->template->player = $this->_player;
-		$this->template->inventory = $inventory;
-		$this->template->items = $items;
+		$this->template->inventory = $inventorySlots;
 	}
 }

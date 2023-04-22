@@ -3,7 +3,10 @@
 {block content}
 	<h1 class="uk-heading-divider">Nástěnka administrace</h1>
 	<p>Po levé straně si zvolte obsah, který chcete upravovat.</p>
-	<a n:href="generateVendors" class="uk-button uk-button-secondary">Generate vendors</a>
-	<a n:href="generateOffers" class="uk-button uk-button-secondary">Generate offers</a>
-	<a n:href="darknetUpdate" class="uk-button uk-button-danger">Darknet update</a>
+	<button class="uk-button uk-button-primary" uk-toggle="target: #admin-actions; animation: uk-animation-slide-top" type="button">Show admin buttons</button>
+	<div id="admin-actions" class="uk-padding uk-padding-remove-horizontal" hidden>
+		<a n:href="generateVendors" class="uk-button uk-button-secondary">Generate vendors</a>
+		<a n:href="generateOffers" class="uk-button uk-button-secondary">Generate offers</a>
+		<a n:href="darknetUpdate" class="uk-button uk-button-danger">Darknet update</a>
+	</div>
 {/block}
