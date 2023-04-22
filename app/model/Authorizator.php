@@ -29,10 +29,12 @@ class Authorizator
         $acl->addResource('Offers');
         $acl->addResource('Front:Default');
         $acl->addResource('Front:City');
+        $acl->addResource('Front:Inventory');
+        $acl->addResource('Front:*');
 
         // rules
         $acl->allow('a', Permission::ALL, ['create', 'read', 'update', 'delete', 'use']);
-        $acl->allow('u', ['Front:Default', 'Front:City'], ['read']);
+        $acl->allow('u', ['Front:Default', 'Front:City', 'Front:*', 'Front:Inventory'], ['read']);
 
         return $acl;
     }

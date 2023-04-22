@@ -4,8 +4,13 @@
 
 {block pageContent}
   <div class="uk-container-small uk-margin-auto">
-    <div class="dashboard uk-flex" uk-margin>
-      {include '../../components/Inventory/Inventory.latte', inventory => $inventory}
+    <div class="dashboard" uk-grid n:snippet="inventory">
+      {include '../../components/Inventory/PlayerBody.latte', body => $playerBody}
+      {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory}
     </div>
   </div>
+{/block}
+
+{block scripts}
+  <script src="{asset inventory.js front}"></script>
 {/block}

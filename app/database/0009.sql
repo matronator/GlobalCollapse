@@ -64,3 +64,11 @@ ADD FOREIGN KEY (`shield`) REFERENCES `items` (`id`) ON DELETE CASCADE;
 
 ALTER TABLE `player_body`
 CHANGE `user_id` `user_id` int NOT NULL AFTER `id`;
+
+ALTER TABLE `items`
+ADD `strength` int NULL AFTER `cost`,
+ADD `stamina` int NULL AFTER `strength`,
+ADD `speed` int NULL AFTER `stamina`,
+ADD `attack` int NULL AFTER `speed`,
+ADD `armor` int NULL AFTER `attack`,
+ADD `special_ability` varchar(255) COLLATE 'utf8mb4_unicode_520_ci' NULL AFTER `armor`;

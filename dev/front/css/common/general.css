@@ -433,3 +433,7 @@ td.input-row {
   padding-bottom: 0.5rem;
   user-select: all;
 }
+
+.uk-width-max-content {
+  width: max-content;
+}

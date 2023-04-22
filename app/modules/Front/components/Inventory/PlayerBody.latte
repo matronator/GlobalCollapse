@@ -1,0 +1,57 @@
+<div class="uk-card uk-card-default uk-card-body player-body" data-equip-endpoint="{plink //equipItem!}">
+    <h3 class="uk-card-title">Body</h3>
+    <div class="body-grid uk-padding uk-padding-remove-horizontal">
+        <div class="body-item body-head" data-body-slot="head">
+            <div class="inventory-slot">
+                {if $body->head}
+                    {var $item = $presenter->getEquippedItem($body->head)}
+                    {var $img = $basePath.$uploadDir.$item->image}
+                    <div class="equipped-item" data-item-type="{$item->type}" data-item-subtype="{$item->subtype}">
+                        <img src="{$img}" alt="{$item->name}">
+                    </div>
+                    <div uk-dropdown="animation: slide-top; duration: 200; toggle: - *:not(.stay-closed); delay-hide: 100; animate-out: true;" class="uk-width-max-content equipped-dropdown">
+                        <div class="uk-flex">
+                            <div>
+                                <img src="{$img}" width="256" height="256" alt="{$item->name}">
+                            </div>
+                            <div class="uk-padding-small">
+                                <h3 class="uk-card-title">{$item->name}</h3>
+                                <p>{$item->description}</p>
+                            </div>
+                        </div>
+                    </div>
+                {/if}
+            </div>
+        </div>
+        <div class="body-item body-face" data-body-slot="face">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-shoulders" data-body-slot="shoulders">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-shoulders-2" data-body-slot="shoulders">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-chest" data-body-slot="body">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-melee" data-body-slot="melee">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-ranged" data-body-slot="ranged">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-shield" data-body-slot="shield">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-legs" data-body-slot="legs">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-feet" data-body-slot="feet">
+            <div class="inventory-slot"></div>
+        </div>
+        <div class="body-item body-feet-2" data-body-slot="feet">
+            <div class="inventory-slot"></div>
+        </div>
+    </div>
+</div>

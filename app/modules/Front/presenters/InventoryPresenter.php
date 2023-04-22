@@ -7,6 +7,7 @@ namespace App\FrontModule\Presenters;
 use App\Model;
 use App\Model\UserRepository;
 use App\Model\AssaultsRepository;
+use App\Model\Entity\PlayerBody;
 use App\Model\InventoryRepository;
 use App\Model\ItemsRepository;
 
@@ -19,6 +20,10 @@ final class InventoryPresenter extends GamePresenter
 
 	/** @var Model\ItemsRepository */
 	private $itemsRepository;
+
+	private $inventory;
+
+	private $playerBody;
 
 	public function __construct(
 		InventoryRepository $inventoryRepository,
@@ -33,25 +38,77 @@ final class InventoryPresenter extends GamePresenter
 	protected function startup()
 	{
 		parent::startup();
+
+		$this->inventory = $this->inventoryRepository->findByUser($this->_player->id)->fetch();
+		if (!$this->inventory) {
+			$this->inventory = $this->inventoryRepository->createInventory($this->_player->id);
+		}
+
+		$this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->_player->id);
+		if (!$this->playerBody) {
+			$this->playerBody = $this->inventoryRepository->createBody($this->_player->id);
+		}
 	}
 
 	public function renderDefault()
 	{
-		$inventory = $this->inventoryRepository->findByUser($this->user->getIdentity()->id)->fetch();
-		if (!$inventory) {
-			$inventory = $this->inventoryRepository->createInventory($this->user->getIdentity()->id);
-		}
 		$inventorySlots = [];
 		for ($i = 0; $i < InventoryRepository::BASE_HEIGHT * InventoryRepository::BASE_WIDTH; $i++) {
 			$inventorySlots[$i] = null;
 		}
 
-		$inventoryItems = $this->inventoryRepository->findAllItems($inventory->id)->fetchAll();
+		$inventoryItems = $this->inventoryRepository->findAllInventoryItems($this->inventory->id)->fetchAll();
 		foreach ($inventoryItems as $item) {
 			$inventorySlots[$item->slot] = $item;
 		}
-
+		
+		$this->template->playerBody = $this->playerBody;
 		$this->template->player = $this->_player;
-		$this->template->inventory = $inventorySlots;
+		$this->template->inventorySlots = $inventorySlots;
+		$this->template->inventory = $this->inventory;
+
+		$this->template->uploadDir = ItemsRepository::IMAGES_UPLOAD_DIR;
+		$this->template->imagesDir = ItemsRepository::IMAGES_DIR;
+	}
+
+	public function handleEquipItem(?int $itemId, ?string $bodySlot, ?int $slot)
+	{
+		if (!$itemId || !$bodySlot) {
+			$this->flashMessage('Item or slot not specified!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$inventoryItem = $this->inventoryRepository->findInventoryItem($this->inventory->id, $slot)->fetch();
+		if (!$inventoryItem) {
+			$this->flashMessage('Item not found in inventory!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$item = $inventoryItem->ref('item');
+
+		if (!in_array($item->type, PlayerBody::ALLOWED_ITEMS[$bodySlot])) {
+			$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		if (!in_array($item->subtype, PlayerBody::ALLOWED_ITEMS[$bodySlot][$item->type])) {
+			$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$this->inventoryRepository->equipItem($this->inventory->id, $item->id, $bodySlot, $slot, $this->_player->id);
+
+		$this->flashMessage('Item equipped!', 'success');
+		$this->redirect('default');
+	}
+
+	public function getEquippedItem(int $itemId)
+	{
+		$equippedItem = $this->itemsRepository->get($itemId);
+		if (!$equippedItem) {
+			$this->flashMessage('Item not found in inventory!', 'danger');
+		}
+
+		return $equippedItem;
 	}
 }

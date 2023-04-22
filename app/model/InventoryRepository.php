@@ -43,8 +43,57 @@ class InventoryRepository
         ]);
     }
 
-    public function findAllItems(int $id)
+    public function findAllInventoryItems(int $inventoryId)
     {
-        return $this->database->table('inventory_item')->where('player_inventory_id', $id);
+        return $this->database->table('inventory_item')->where('player_inventory_id', $inventoryId);
+    }
+
+    public function findInventoryItem(int $inventoryId, int $slot)
+    {
+        return $this->findAllInventoryItems($inventoryId)->where('slot', $slot);
+    }
+
+    public function findAllBody()
+    {
+        return $this->database->table('player_body');
+    }
+
+    public function findBodyByPlayerId(int $playerId)
+    {
+        return $this->findAllBody()->where('user_id', $playerId)->fetch();
+    }
+
+    public function createBody(int $userId)
+    {
+        if ($this->findBodyByPlayerId($userId)) {
+            return;
+        }
+
+        return $this->findAllBody()->insert([
+            'user_id' => $userId,
+            'head' => null,
+            'face' => null,
+            'body' => null,
+            'shoulders' => null,
+            'melee' => null,
+            'ranged' => null,
+            'shield' => null,
+            'legs' => null,
+            'feet' => null,
+        ]);
+    }
+
+    public function equipItem(int $inventoryId, int $itemId, string $bodySlot, int $slot, int $userId)
+    {
+        $inventoryItem = $this->findInventoryItem($inventoryId, $slot);
+        if (!$inventoryItem) {
+            return;
+        }
+
+        $inventoryItem->delete();
+
+        $this->findBodyByPlayerId($userId)->update([
+            $bodySlot => $itemId,
+        ]);
     }
 }
