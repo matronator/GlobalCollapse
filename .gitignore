@@ -15,3 +15,4 @@ TODO.md
 backups/**
 libs/VoteRewards.php
 .DS_Store
+libs/Env.php

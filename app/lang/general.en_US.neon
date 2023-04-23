@@ -152,6 +152,7 @@ account:
 	deleteAccount: 'Delete account'
 	dangerZone: 'Danger zone'
 	delete: 'Delete'
+	enableNotifications: 'Enable Notifications'
 	datetimePrefs:
 		title: 'Date and time preferences'
 		timezone: 'Timezone'

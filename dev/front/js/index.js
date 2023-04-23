@@ -19,6 +19,7 @@ axette.onAjax(() => {
   UIkit.update(document.body, 'update');
   registerEventHandlers();
   registerFillView();
+  // training();
 });
 
 // UIKit
@@ -104,4 +105,3 @@ function registerFillView() {
     fillViewEl.style.height = `calc(100% - calc(${footer.getBoundingClientRect().height}px * 1.5))`;
   });
 }
-

@@ -9,6 +9,7 @@ use App\Model\DrugsRepository;
 use Nette\Application\UI\Form;
 use DateTime;
 use ActionLocker;
+use App\Libs\Notifications;
 use App\Model\AssaultsRepository;
 use App\Model\BuildingsRepository;
 use App\Model\MiscRepository;
@@ -174,7 +175,10 @@ final class DefaultPresenter extends BasePresenter
 				} else {
 					$this->endTraining($isTraining);
 					$isTraining = 0;
-					$this->redirect('this');
+					$this->template->isTraining = $isTraining;
+					$this->redrawControl('training-form');
+					$this->redrawControl('training-scripts');
+					// $this->redirect('this');
 				}
 			}
 		} else {
@@ -327,6 +331,7 @@ final class DefaultPresenter extends BasePresenter
 					if ($unlocked) {
 						$trainBoost = $this->unlockablesRepository->findAll()->where('id', $unlocked->unlockables_id)->fetch();
 					}
+					$this->template->isTraining = $trainNumber;
 					$trainMultiplier = isset($trainBoost->amount) ? $trainBoost->amount : 100;
 					$currentMoney -= $trainingCost;
 					$currentEnergy -= 10;
@@ -352,9 +357,8 @@ final class DefaultPresenter extends BasePresenter
 			} else {
 				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 			}
-			$this->redrawControl('training-form');
-			$this->redrawControl('training-scripts');
 		}
+		$this->redirect('this');
 	}
 
 	public function createComponentSkillpointsForm(): Form {

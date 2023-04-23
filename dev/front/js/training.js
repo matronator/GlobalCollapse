@@ -1,17 +1,16 @@
 import Push from "push.js"
 import Timer from "easytimer.js"
-import axette from "axette"
 
-axette.init()
-
-axette.onAjax(training)
-
-function training() {
+export function training() {
   document.addEventListener(`DOMContentLoaded`, () => {
     // countdown
     const hourSpan = document.querySelector(`.countdown-hours`)
     const minuteSpan = document.querySelector(`.countdown-minutes`)
     const secondSpan = document.querySelector(`.countdown-seconds`)
+    if (!hourSpan || !minuteSpan || !secondSpan) {
+      setTimeout(training, 500);
+      return
+    }
     var hours = Number(hourSpan.innerHTML)
     var minutes = Number(minuteSpan.innerHTML)
     var seconds = Number(secondSpan.innerHTML)
@@ -35,9 +34,12 @@ function training() {
           hours -= 1
         }
       }
-      if (hours <= 0 && minutes <= 0 && seconds < 1) {
-        Push.create("Training done!")
-        setTimeout(reloadWindow, 1000)
+      if (hours <= 0 && minutes <= 0 && seconds <= 1) {
+        Push.create("Training done!", {
+          body: 'You have finished training',
+          onClick() { console.log("close") } 
+        }).catch(e => Push.Permission.request() );
+        setTimeout(reloadWindow, 3000);
       }
       hourSpan.innerHTML = hours > 9 ? hours : `0${hours}`
       minuteSpan.innerHTML = minutes > 9 ? minutes : `0${minutes}`
@@ -49,4 +51,4 @@ function training() {
   })
 }
 
-training()
+training();
