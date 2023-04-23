@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\FrontModule\Presenters;
 
-use App\Model\UserRepository;
 use ChangePasswordForm;
 use ChangeEmailForm;
 use DateTime;
 use DatetimeForm;
-use DateTimeZone;
 use Timezones;
 
 final class AccountPresenter extends BasePresenter

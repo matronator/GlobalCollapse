@@ -10,6 +10,7 @@ use App\Model\AssaultsRepository;
 use App\Model\Entity\PlayerBody;
 use App\Model\InventoryRepository;
 use App\Model\ItemsRepository;
+use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -38,6 +39,11 @@ final class InventoryPresenter extends GamePresenter
 	protected function startup()
 	{
 		parent::startup();
+
+		if (!Debugger::isEnabled() || Debugger::getStrategy() === Debugger::PRODUCTION) {
+			$this->flashMessage('Inventory is still under construction.', 'warning');
+			$this->redirect('Default:default');
+		}
 
 		$this->inventory = $this->inventoryRepository->findByUser($this->_player->id)->fetch();
 		if (!$this->inventory) {

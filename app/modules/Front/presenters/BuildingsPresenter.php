@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\FrontModule\Presenters;
 
-use App\Model;
 use DateTime;
-use App\Model\UserRepository;
 use App\Model\BuildingsRepository;
 use App\Model\DrugsRepository;
 use Timezones;

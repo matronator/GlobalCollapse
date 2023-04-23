@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Model;
-use App\Model\UserRepository;
 use App\Model\DrugsRepository;
 use Nette\Application\UI\Form;
 use DateTime;
@@ -13,9 +12,7 @@ use ActionLocker;
 use App\Model\AssaultsRepository;
 use App\Model\BuildingsRepository;
 use App\Model\MiscRepository;
-use App\Model\UnlockablesRepository;
 use Timezones;
-use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 

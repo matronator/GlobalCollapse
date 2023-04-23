@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\FrontModule\Presenters;
 
-use App\Model\UserRepository;
 use DateTime;
-use Nette\Application\Response;
 
 final class ApiPresenter extends GamePresenter
 {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Model;
-use App\Model\UserRepository;
 use App\Model\AssaultsRepository;
 use DateTime;
 
