@@ -17,7 +17,7 @@
     display: inline-block;
     touch-action: none;
     transform: translate(0px, 0px);
-    z-index: 9999;
+    z-index: 9;
     &.dragging {
         z-index: 99999;
     }

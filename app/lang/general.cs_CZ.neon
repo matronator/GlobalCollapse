@@ -43,7 +43,7 @@ messages:
 	info:
 	warning:
 	danger:
-		wrongCredentials: "Špatné heslo nebo uživatelské jméno"
+		wrongCredentials: "Špatné heslo, uživatelské jméno nebo e-mail"
 		notEnoughMoney: "Nedostatek peněz"
 		notEnoughEnergy: "Nedostatek energie"
 		invalidStats: "Neplatné atributy, zkus to znovu"
@@ -107,7 +107,8 @@ ui:
 	password: 'Heslo'
 	passwordV: 'Heslo znovu'
 	newPassword: 'Nové heslo'
-	username: 'Username'
+	username: 'Uživatelské jméno'
+	usernameOrEmail: 'Uživatelské jméno nebo e-mail'
 	lastUpdated: 'Naposledy aktualizováno'
 	ago: 'zpátky'
 	back: 'Zpět'

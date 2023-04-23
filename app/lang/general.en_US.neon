@@ -45,7 +45,7 @@ messages:
 	warning:
 		cantRefreshOffer: "Can't refresh offer yet. Try again in %minutes% minutes."
 	danger:
-		wrongCredentials: "Wrong password or username"
+		wrongCredentials: "Wrong password, username or e-mail"
 		notEnoughMoney: "Not enough money"
 		notEnoughEnergy: "Not enough energy"
 		invalidStats: "Invalid stats, try again"
@@ -112,6 +112,7 @@ ui:
 	passwordV: 'Repeat password'
 	newPassword: 'New password'
 	username: 'Username'
+	usernameOrEmail: 'Username or e-mail'
 	lastUpdated: 'Last updated'
 	ago: 'ago'
 	back: 'Back'

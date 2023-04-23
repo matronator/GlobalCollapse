@@ -45,7 +45,7 @@ final class LoginPresenter extends BasePresenter
 		$form->addText('username', 'Username')
 				->setHtmlAttribute('class', 'uk-input')
 				->setHtmlId('username')
-				->setHtmlAttribute('placeholder', 'Username')
+				->setHtmlAttribute('placeholder', 'Username or e-mail')
 				->setRequired();
 		$form->addPassword('password', 'Password')
 				->setHtmlAttribute('placeholder', 'Password')
@@ -60,8 +60,13 @@ final class LoginPresenter extends BasePresenter
 
 	public function loginFormSucceeded(Form $form, ArrayHash $values): void
 	{
+		$username = $values->username;
+		if (stripos($username, '@') !== false) {
+			$username = $this->userRepository->getUserByEmail($values->username)->username;
+		}
+
 		try {
-			$this->getUser()->login($values->username, $values->password);
+			$this->getUser()->login($username, $values->password);
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			if ($player) {
 				if ($player->tutorial === 0) {
