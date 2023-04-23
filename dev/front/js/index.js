@@ -16,9 +16,11 @@ import { registerEventHandlers } from "../../../app/modules/Front/components/Bui
 axette.init()
 
 axette.onAjax(() => {
-  UIkit.update(document.body, 'update');
   registerEventHandlers();
   registerFillView();
+  timesToRelative();
+  NetteForms.initOnLoad();
+  UIkit.update(document.body, 'update');
   // training();
 });
 

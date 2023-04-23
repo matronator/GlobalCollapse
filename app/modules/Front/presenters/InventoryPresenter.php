@@ -108,6 +108,57 @@ final class InventoryPresenter extends GamePresenter
 		$this->redirect('default');
 	}
 
+	public function handleUnequipItem(?int $itemId, ?string $bodySlot, ?int $slot)
+	{
+		if ($itemId === null || $bodySlot === null || $slot === null) {
+			$this->flashMessage('Item or slot not specified!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$inventoryItem = $this->inventoryRepository->findInventoryItem($this->inventory->id, $slot)->fetch();
+		if (!$inventoryItem) {
+			$this->flashMessage('Item not found in inventory!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$item = $inventoryItem->ref('item');
+
+		if (!in_array($item->type, PlayerBody::ALLOWED_ITEMS[$bodySlot])) {
+			$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		if (!in_array($item->subtype, PlayerBody::ALLOWED_ITEMS[$bodySlot][$item->type])) {
+			$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$this->inventoryRepository->equipItem($this->inventory->id, $item->id, $bodySlot, $slot, $this->_player->id);
+
+		$this->flashMessage('Item equipped!', 'success');
+		$this->redirect('default');
+	}
+
+	public function handleMoveItem(?int $startSlot, ?int $endSlot)
+	{
+		if ($startSlot === null || $endSlot === null) {
+			$this->flashMessage('Item or slot not specified!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$inventoryItem = $this->inventoryRepository->findInventoryItem($this->inventory->id, $startSlot)->fetch();
+		if (!$inventoryItem) {
+			$this->flashMessage('Item not found in inventory!', 'danger');
+			$this->redrawControl('inventory');
+		}
+
+		$this->inventoryRepository->moveItem($this->inventory->id, $startSlot, $endSlot);
+
+		$this->flashMessage('Item moved!', 'success');
+		// $this->redirect('default');
+		$this->redrawControl('inventory');
+	}
+
 	public function getEquippedItem(int $itemId)
 	{
 		$equippedItem = $this->itemsRepository->get($itemId);

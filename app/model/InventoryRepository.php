@@ -96,4 +96,16 @@ class InventoryRepository
             $bodySlot => $itemId,
         ]);
     }
+
+    public function moveItem(int $inventoryId, int $oldSlot, int $newSlot)
+    {
+        $inventoryItem = $this->findInventoryItem($inventoryId, $oldSlot);
+        if (!$inventoryItem) {
+            return;
+        }
+
+        $inventoryItem->update([
+            'slot' => $newSlot,
+        ]);
+    }
 }

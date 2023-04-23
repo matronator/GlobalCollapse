@@ -1,8 +1,6 @@
 import interact from "interactjs";
 import UIkit from "uikit";
-import axette from "axette"
-
-axette.init();
+import axette from "axette";
 
 document.addEventListener("DOMContentLoaded", () => {
     interact('.inventory-item, .equipped-item').draggable({
@@ -37,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ondropdeactivate: handleDropDeactive,
         ondragenter: handleDragEnter,
         ondragleave: handleDragLeave,
+        ondrop: handleMoveItem,
     });
 
     UIkit.util.on('.item-dropdown', 'beforeshow', function(e) {
@@ -66,7 +65,6 @@ function handleDragLeave(event) {
 }
 
 function handleEquip(event) {
-    console.log('drop');
     const itemEl = event.relatedTarget;
     const itemId = itemEl.getAttribute('data-item-id');
     const itemSlot = itemEl.getAttribute('data-item-slot');
@@ -76,16 +74,19 @@ function handleEquip(event) {
     let url = document.querySelector('[data-equip-endpoint]').getAttribute('data-equip-endpoint');
     url = `${url}&itemId=${itemId}&bodySlot=${bodySlot}&slot=${itemSlot}`;
 
-    console.log(url);
+    createLinkAndClick(url);
+}
 
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.classList.add('ajax');
-    document.body.appendChild(link);
-    link.click();
-    console.log(link);
-    link.remove();
-    console.log(link);
+function handleMoveItem(event) {
+    const itemEl = event.relatedTarget;
+    const oldSlot = itemEl.getAttribute('data-item-slot');
+    const newSlot = event.target.getAttribute('data-inventory-slot');
+
+    let url = document.querySelector('[data-move-endpoint]').getAttribute('data-move-endpoint');
+    url = `${url}&startSlot=${oldSlot}&endSlot=${newSlot}`;
+
+    // createLinkAndClick(url);
+    axette.run(url);
 }
 
 function dragMoveListener(event) {
@@ -130,4 +131,15 @@ function dragEndedListener(event) {
     dropdowns.forEach(item => {
         item.classList.remove('uk-open');
     });
+}
+
+function createLinkAndClick(url) {
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.classList.add('ajax');
+    document.body.appendChild(link);
+    link.click();
+    console.log(link);
+    link.remove();
+    console.log(link);
 }
