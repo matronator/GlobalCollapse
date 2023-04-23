@@ -145,6 +145,8 @@ class UserRepository
     public function deleteUser(?int $id = null): ?ActiveRow
     {
         $user = $this->getUser($id);
+        $user->ref('player_stats')->delete();
+        $user->ref('actions')->delete();
         if (!$user)
             throw new BadRequestException('Uživatel nexistuje');
         $this->findAll()->wherePrimary($id)->delete();

@@ -31,7 +31,7 @@ final class AccountPresenter extends BasePresenter
 
     public function actionLogout()
     {
-        $this->user->logout();
+        $this->user->logout(true);
         $this->redirect('Default:default');
     }
 
@@ -110,5 +110,13 @@ final class AccountPresenter extends BasePresenter
             $this->flashMessage('Something went wrong', 'danger');
         };
         return $form;
+    }
+    
+    public function handleDeleteAccount()
+    {
+        $this->userRepository->deleteUser($this->user->getIdentity()->id);
+        $this->user->logout(true);
+        $this->flashMessage('Account deleted', 'success');
+        $this->redirect('Default:default');
     }
 }

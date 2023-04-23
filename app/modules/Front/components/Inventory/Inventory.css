@@ -1,9 +1,9 @@
 .inventory {
-    width: calc(var(--cols) * 64px + (var(--cols) * 2rem));
+    width: calc(var(--cols) * 64px + (var(--cols) * 1.5rem));
     height: min-content;
 }
 
-.inventory-slot {
+.inventory-slot, .player-body-slot {
     display: block;
     position: relative;
     width: 64px;
@@ -44,6 +44,17 @@
     }
 }
 
+.inventory-slot {
+    border: 3px dashed transparent;
+    &.drop-active {
+        border-color: var(--c-red);
+    }
+
+    &.drop-target {
+        border-color: var(--c-green);
+    }
+}
+
 .player-body {
     width: auto;
     & .body-grid {
@@ -54,7 +65,7 @@
             "melee     ranged chest .     shield"
             ".         .      legs  .     ."
             ".         feet   .     feet2 .";
-        grid-gap: 1rem;
+        grid-gap: 6px;
         width: 100%;
         height: 100%;
 

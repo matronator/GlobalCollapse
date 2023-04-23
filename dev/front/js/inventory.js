@@ -5,12 +5,11 @@ import axette from "axette"
 axette.init();
 
 document.addEventListener("DOMContentLoaded", () => {
-    interact('.inventory-item').draggable({
+    interact('.inventory-item, .equipped-item').draggable({
         inertia: false,
         autoScroll: true,
         modifiers: [
             interact.modifiers.restrictRect({
-                // restriction: 'parent',
                 endOnly: true
             })
         ],
@@ -28,7 +27,16 @@ document.addEventListener("DOMContentLoaded", () => {
         ondropdeactivate: handleDropDeactive,
         ondragenter: handleDragEnter,
         ondragleave: handleDragLeave,
-        ondrop: handleDrop,
+        ondrop: handleEquip,
+    });
+
+    interact('.inventory-slot:not([data-slot-filled])').dropzone({
+        accept: '.inventory-item, .equipped-item',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
     });
 
     UIkit.util.on('.item-dropdown', 'beforeshow', function(e) {
@@ -57,7 +65,7 @@ function handleDragLeave(event) {
     event.target.classList.remove('drop-target')
 }
 
-function handleDrop(event) {
+function handleEquip(event) {
     console.log('drop');
     const itemEl = event.relatedTarget;
     const itemId = itemEl.getAttribute('data-item-id');

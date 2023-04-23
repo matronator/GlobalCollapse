@@ -21,6 +21,21 @@
         {control changeEmailForm}
       </div>
     </div>
+    <div class="uk-width-1-1">
+      <div class="uk-card uk-card-body uk-card-default uk-text-center">
+        <h3>{_general.account.dangerZone}</h3>
+        <button class="uk-button uk-button-danger" uk-toggle="target: #delete-account">{_general.account.deleteAccount}</button>
+        {include '../../components/UI/Modals/DeleteModal.latte'
+          id => 'delete-account',
+          ajax => false,
+          action => $presenter->link('deleteAccount!'),
+          title => 'Are you sure?',
+          text => '<p>Are you sure you want to delete your account? <strong>This action is irreversible and once deleted your account is gone forever!</strong></p>',
+          cancel => $presenter->translator->translate('general.ui.cancel'),
+          cta => $presenter->translator->translate('general.account.delete'),
+        }
+      </div>
+    </div>
   </div>
 </div>
 <script defer src="{asset settings.js front}"></script>

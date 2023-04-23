@@ -350,7 +350,9 @@ final class DefaultPresenter extends BasePresenter
 			if ($currentMoney >= $trainingCost) {
 				if ($currentEnergy >= 10) {
 					$unlocked = $this->unlockablesRepository->findPlayerUnlocked($player->id)->where('unlockables.unlocks', 'faster_training')->order('unlockables.amount DESC')->limit(1)->fetch();
-					$trainBoost = $this->unlockablesRepository->findAll()->where('id', $unlocked->unlockables_id)->fetch();
+					if ($unlocked) {
+						$trainBoost = $this->unlockablesRepository->findAll()->where('id', $unlocked->unlockables_id)->fetch();
+					}
 					$trainMultiplier = isset($trainBoost->amount) ? $trainBoost->amount : 100;
 					$currentMoney -= $trainingCost;
 					$currentEnergy -= 10;

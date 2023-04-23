@@ -141,7 +141,6 @@ final class AssaultsPresenter extends GamePresenter
 					} else {
 						// assault
 						$assault = $this->assaultPlayer($otherPlayer->id);
-						$result = json_decode($assault);
 						$sessionSection['results'] = $assault;
 						$sessionSection['victim'] = $otherPlayer->id;
 						// hash

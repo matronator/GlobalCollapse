@@ -17,6 +17,9 @@ use Timezones;
 final class BarPresenter extends GamePresenter
 {
 	private $eventRepository;
+
+	public $userRepository;
+
 	/**
 	 * @var array
 	 */
@@ -24,11 +27,13 @@ final class BarPresenter extends GamePresenter
 
 	public function __construct(
 		array $allJobs,
-		EventsRepository $eventRepository
+		EventsRepository $eventRepository,
+		UserRepository $userRepository
 	)
 	{
 		parent::__construct();
 		$this->eventRepository = $eventRepository;
+		$this->userRepository = $userRepository;
 		$this->allJobs = $allJobs;
 	}
 

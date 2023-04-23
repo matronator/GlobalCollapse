@@ -8,7 +8,11 @@
   {var $assaultType = $assault->attacker == $user->id ? 'Attack' : 'Defense'}
   {var $opponent = $assaultType == 'Attack' ? $assault->victim_name : $assault->attacker_name}
 
-  {include '../../components/Assault/PlayerPopover.latte', victim => $presenter->getPlayerInfo($opponent)}
+  {var $victim = $presenter->getPlayerInfo($opponent)}
+  
+  {if isset($victim->player_stats) && $victim->player_stats}
+    {include '../../components/Assault/PlayerPopover.latte', victim => $presenter->getPlayerInfo($opponent)}
+  {/if}
 {/foreach}
 <div class="uk-overflow-auto">
   <table class="uk-table uk-table-small uk-table-hover uk-table-divider uk-padding-remove uk-margin-remove uk-width-expand">
@@ -27,11 +31,19 @@
         'mobile' => $assault->attacker == $user->id ? 'ATK' : 'DEF',
       ]}
       {var $opponent = $assaultType['default'] == 'Attack' ? $assault->victim_name : $assault->attacker_name}
+      {var $victim = $presenter->getPlayerInfo($opponent)}
+      {var $victimExists = isset($victim->player_stats) && $victim->player_stats}
       {var $assaultDate = $presenter->toUserDate($assault->date)}
-      <tr data-popover-trigger="{$opponent}" class="">
+      <tr {if $victimExists}data-popover-trigger="{$opponent}"{/if} class="">
         <td><span class="uk-visible@s">{$assaultType['default']}</span><span class="uk-hidden@s">{$assaultType['mobile']}</span></td>
-        <td class="uk-text-nowrap"><a n:href="Player:detail, $opponent">{$opponent}</a></td>
-        <td class="{$assault->result === 'win' ? 'uk-text-success' : 'uk-text-danger'}">{$assault->result|capitalize}</td>
+        <td class="uk-text-nowrap">
+          {if $victimExists}
+            <a n:href="Player:detail, $opponent">{$opponent}</a>
+          {else}
+            {$opponent}
+          {/if}
+        </td>
+        <td class="{$assaultType['mobile'] === 'ATK' ? ($assault->result === 'win' ? 'uk-text-success' : 'uk-text-danger') : ($assault->result === 'win' ? 'uk-text-danger' : 'uk-text-success')}">{$assaultType['mobile'] === 'ATK' ? $assault->result : ($assault->result === 'win' ? 'defeat' : 'win')|capitalize}</td>
         {* <td><span class="uk-text-nowrap">{$assaultDate|date:'%x'}</span> - <span class="uk-text-nowrap">{$assaultDate|date:'%k:%M'}</span></td> *}
         <td uk-tooltip="title: {$assaultDate|date:'%F %T'}"><time class="relative-time" datetime="{$assaultDate|date:'%FT%T'}">{$assaultDate|date:'%FT%T'}</time></td>
       </tr>
