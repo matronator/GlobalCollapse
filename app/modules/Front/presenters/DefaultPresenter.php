@@ -309,37 +309,14 @@ final class DefaultPresenter extends BasePresenter
 		]);
 	}
 
-	public function createComponentTrainingForm(): Form {
-		$form = new Form();
-		$form->setHtmlAttribute('id', 'trainingForm');
-		$form->addSubmit('strength', 'Train');
-		$form->addSubmit('stamina', 'Train');
-		$form->addSubmit('speed', 'Train');
-		$form->onSuccess[] = [$this, 'trainingFormSucceeded'];
-		return $form;
-	}
-
-	public function trainingFormSucceeded(Form $form, $values): void {
-		$control = $form->isSubmitted();
+	public function handleStartTraining($stat) {
 		$trainNumber = 0;
-		$trainSkill = '';
-		switch ($control->name) {
-			case 'strength':
-				$trainNumber = 1;
-				$trainSkill = 'strength';
-			break;
-			case 'stamina':
-				$trainNumber = 2;
-				$trainSkill = 'stamina';
-			break;
-			case 'speed':
-				$trainNumber = 3;
-				$trainSkill = 'speed';
-			break;
-		}
+		$trainNumber = $stat === 'strength' ? 1 : ($stat === 'stamina' ? 2 : ($stat === 'speed' ? 3 : 0));
+		$trainSkill = $stat;
+
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-		if ($player->actions->training == 0 && $trainNumber != 0) {
-			// Training cost = skill level * 0.75
+		if ($player->actions->training == 0 && $trainNumber !== 0) {
+		// Training cost = skill level * 0.75
 			$trainingCost = round($player->player_stats[$trainSkill] * 0.75);
 			$currentMoney = $player->money;
 			// Energy cost = 10
@@ -375,10 +352,9 @@ final class DefaultPresenter extends BasePresenter
 			} else {
 				$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 			}
+			$this->redrawControl('training-form');
+			$this->redrawControl('training-scripts');
 		}
-		// $this->redirect('this');
-		$this->redrawControl('training-form');
-		$this->redrawControl('training-scripts');
 	}
 
 	public function createComponentSkillpointsForm(): Form {

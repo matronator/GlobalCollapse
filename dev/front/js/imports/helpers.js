@@ -15,7 +15,7 @@ export function toggle(togglers) {
     if (togglers.some(toggler => toggler.checked)) {
       target
         ? target.classList.remove(`uk-hidden`)
-        : [...document.querySelectorAll(`[data-toggle]`)].forEach(toggle =>
+        : document.querySelectorAll(`[data-toggle]`).forEach(toggle =>
             toggle.classList.remove(`uk-hidden`)
           )
     } else {

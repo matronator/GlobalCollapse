@@ -3,7 +3,7 @@ parameters:
     [
         locale: distributeMasks
         duration: 25
-        energy: 5
+        energy: 10
         money: 30
         xp: 20
         droprate: 15
@@ -11,7 +11,7 @@ parameters:
     [
         locale: burnBodies
         duration: 5
-        energy: 25
+        energy: 35
         money: 35
         xp: 15
         droprate: 10
@@ -19,7 +19,7 @@ parameters:
     [
         locale: smuggleDrugs
         duration: 15
-        energy: 15
+        energy: 20
         money: 60
         xp: 10
         droprate: 15
@@ -35,7 +35,7 @@ parameters:
     [
         locale: constructionHelp
         duration: 15
-        energy: 20
+        energy: 35
         money: 40
         xp: 30
         droprate: 20

@@ -1,10 +1,3 @@
-import axette from "axette"
-
-axette.init()
-
-axette.onAjax(registerEventHandlers)
-
-registerEventHandlers()
 function registerEventHandlers() {
     const ajaxButtons = document.querySelectorAll(`a.uk-button.ajax`)
     ajaxButtons.forEach(el => {
@@ -16,7 +9,6 @@ function registerEventHandlers() {
 
     const wrappers = document.querySelectorAll(`.building-wrapper`)
     wrappers?.forEach(wrapper => {
-
         const infoToggle = wrapper.querySelector(`[data-toggle-info]`)
         if (infoToggle) {
             infoToggle.addEventListener(`click`, e => {
@@ -27,7 +19,6 @@ function registerEventHandlers() {
                 window.dispatchEvent(new Event(`resize`))
             })
         }
-
     })
 
     const buildButton = document.querySelector(`[data-build-button]`)
@@ -44,3 +35,5 @@ function registerEventHandlers() {
         })
     }
 }
+
+export { registerEventHandlers };

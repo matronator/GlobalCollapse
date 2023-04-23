@@ -1,34 +1,32 @@
-{form trainingForm, class => 'ajax'}
-  <div class="training-holder">
-    <table class="uk-table uk-table-striped uk-table-small uk-table-hover">
-      <tr>
-        <td class="uk-text-nowrap">{_general.stats.strength.title}</td>
-        <td class="uk-text-nowrap">{$strength}<span class="uk-text-muted" n:if="$isTraining == 1"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-secondary" n:name="strength">{_general.training.train} - ${$strengthCost}</button></td>
-      </tr>
-      <tr>
-        <td class="uk-text-nowrap">{_general.stats.stamina.title}</td>
-        <td class="uk-text-nowrap">{$stamina}<span class="uk-text-muted" n:if="$isTraining == 2"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-danger" n:name="stamina">{_general.training.train} - ${$staminaCost}</button></td>
-      </tr>
-      <tr>
-        <td class="uk-text-nowrap">{_general.stats.speed.title}</td>
-        <td class="uk-text-nowrap">{$speed}<span class="uk-text-muted" n:if="$isTraining == 3"> (+1)</span></td>
-        <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><button type="submit" class="uk-button uk-button-small uk-button-primary" n:name="speed">{_general.training.train} - ${$speedCost}</button></td>
-      </tr>
-      <tr>
-        <td class="uk-text-nowrap">{_general.stats.power.powerTotal}</td>
-        <td class="uk-text-nowrap">{$power}<span class="uk-text-muted" n:if="$isTraining != 0"> (+1)</span></td>
-        <td class="uk-text-nowrap" n:if="$isTraining == 0"></td>
-      </tr>
-    </table>
-    <p n:if="$isTraining > 0">{_general.training.timeLeft}</p>
-    <div n:if="$isTraining > 0" class="countdown">
-      <span class="countdown-hours" n:if="isset($hours)">{$hours}</span>
-      <span class="countdown-divider">:</span>
-      <span class="countdown-minutes" n:if="isset($minutes)">{$minutes}</span>
-      <span class="countdown-divider">:</span>
-      <span class="countdown-seconds" n:if="isset($seconds)">{$seconds}</span>
-    </div>
+<div class="training-holder">
+  <table class="uk-table uk-table-striped uk-table-small uk-table-hover">
+    <tr>
+      <td class="uk-text-nowrap">{_general.stats.strength.title}</td>
+      <td class="uk-text-nowrap">{$strength}<span class="uk-text-muted" n:if="$isTraining == 1"> (+1)</span></td>
+      <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><a n:href="startTraining!, 'strength'" class="uk-button uk-button-small uk-button-secondary ajax">{_general.training.train} - ${$strengthCost}</a></td>
+    </tr>
+    <tr>
+      <td class="uk-text-nowrap">{_general.stats.stamina.title}</td>
+      <td class="uk-text-nowrap">{$stamina}<span class="uk-text-muted" n:if="$isTraining == 2"> (+1)</span></td>
+      <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><a n:href="startTraining!, 'stamina'" class="uk-button uk-button-small uk-button-danger ajax">{_general.training.train} - ${$staminaCost}</a></td>
+    </tr>
+    <tr>
+      <td class="uk-text-nowrap">{_general.stats.speed.title}</td>
+      <td class="uk-text-nowrap">{$speed}<span class="uk-text-muted" n:if="$isTraining == 3"> (+1)</span></td>
+      <td class="uk-text-nowrap uk-text-center" n:if="$isTraining == 0"><a n:href="startTraining!, 'speed'" class="uk-button uk-button-small uk-button-primary ajax">{_general.training.train} - ${$speedCost}</a></td>
+    </tr>
+    <tr>
+      <td class="uk-text-nowrap">{_general.stats.power.powerTotal}</td>
+      <td class="uk-text-nowrap">{$power}<span class="uk-text-muted" n:if="$isTraining != 0"> (+1)</span></td>
+      <td class="uk-text-nowrap" n:if="$isTraining == 0"></td>
+    </tr>
+  </table>
+  <p n:if="$isTraining > 0">{_general.training.timeLeft}</p>
+  <div n:if="$isTraining > 0" class="countdown">
+    <span class="countdown-hours" n:if="isset($hours)">{$hours}</span>
+    <span class="countdown-divider">:</span>
+    <span class="countdown-minutes" n:if="isset($minutes)">{$minutes}</span>
+    <span class="countdown-divider">:</span>
+    <span class="countdown-seconds" n:if="isset($seconds)">{$seconds}</span>
   </div>
-{/form}
+</div>

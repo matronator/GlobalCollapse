@@ -10,12 +10,22 @@ import {
 import { toggle } from "./imports/helpers"
 import "./../../../app/modules/Front/components/Assault/PlayerPopover.js"
 import { timesToRelative } from "./imports/dates"
+import axette from "axette"
+import { registerEventHandlers } from "../../../app/modules/Front/components/Buildings/BuildingCard/BuildingCard.js"
+
+axette.init()
+
+axette.onAjax(() => {
+  UIkit.update(document.body, 'update');
+  registerEventHandlers();
+  registerFillView();
+});
 
 // UIKit
 UIkit.use(Icons)
 
 // nette forms
-NetteForms.initOnLoad()
+NetteForms.initOnLoad();
 
 // relative times
 timesToRelative()
@@ -75,17 +85,23 @@ window.addEventListener(`DOMContentLoaded`, () => {
   multies.forEach(multi => new Choices(multi, choicesOptions(multi)))
 
   // toggle logic
-  const togglers = document.querySelectorAll(`[data-toggler]`)
-  ;[...togglers].forEach(toggler =>
+  const togglers = document.querySelectorAll(`[data-toggler]`);
+  [...togglers].forEach(toggler =>
     toggler.addEventListener(`change`, () => toggle(togglers))
-  )
+  );
   toggle(togglers)
 
   // Fill view
+  registerFillView();
+  registerEventHandlers();
+});
+
+function registerFillView() {
   const fillViewEls = document.querySelectorAll(`[data-fill-view]`);
   const footer = document.getElementById('main-footer');
 
   fillViewEls.forEach(fillViewEl => {
     fillViewEl.style.height = `calc(100% - calc(${footer.getBoundingClientRect().height}px * 1.5))`;
   });
-})
+}
+
