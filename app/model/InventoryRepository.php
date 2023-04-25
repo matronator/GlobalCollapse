@@ -60,7 +60,17 @@ class InventoryRepository
 
     public function findBodyByPlayerId(int $playerId)
     {
-        return $this->findAllBody()->where('user_id', $playerId)->fetch();
+        return $this->findAllBody()->where('user_id', $playerId);
+    }
+
+    public function findEquippedItem(int $playerId, string $bodySlot)
+    {
+        $body = $this->findBodyByPlayerId($playerId)->fetch();
+        if (!$body) {
+            return;
+        }
+
+        return $this->database->table('items')->get($body->{$bodySlot});
     }
 
     public function createBody(int $userId)
@@ -94,6 +104,25 @@ class InventoryRepository
 
         $this->findBodyByPlayerId($userId)->update([
             $bodySlot => $itemId,
+        ]);
+    }
+
+    public function unequipItem(int $inventoryId, string $bodySlot, int $slot, int $userId)
+    {
+        $equippedItem = $this->findEquippedItem($userId, $bodySlot);
+        if (!$equippedItem) {
+            return;
+        }
+
+        $this->findAllInventoryItems($inventoryId)->insert([
+            'slot' => $slot,
+            'item_id' => $equippedItem->id,
+            'player_inventory_id' => $inventoryId,
+            'quantity' => 1,
+        ]);
+
+        $this->findBodyByPlayerId($userId)->update([
+            $bodySlot => null,
         ]);
     }
 

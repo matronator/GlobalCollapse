@@ -10,17 +10,16 @@ import {
 import { toggle } from "./imports/helpers"
 import "./../../../app/modules/Front/components/Assault/PlayerPopover.js"
 import { timesToRelative } from "./imports/dates"
-import axette from "axette"
+import { Axette } from "axette"
 import { registerEventHandlers } from "../../../app/modules/Front/components/Buildings/BuildingCard/BuildingCard.js"
 
-axette.init()
+const axette = new Axette();
 
-axette.onAjax(() => {
+axette.onAfterAjax(() => {
   registerEventHandlers();
   registerFillView();
   timesToRelative();
   NetteForms.initOnLoad();
-  UIkit.update(document.body, 'update');
   // training();
 });
 

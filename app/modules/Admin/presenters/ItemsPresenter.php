@@ -72,6 +72,8 @@ final class ItemsPresenter extends BasePresenter
 	{
 		$form = new Form;
 
+		$id = $this->getParameter('id');
+
 		$form->addText('name', 'Name')
 			->setHtmlAttribute('class', 'uk-input')
 			->setRequired('Please enter name.');
@@ -88,7 +90,10 @@ final class ItemsPresenter extends BasePresenter
 			->setHtmlAttribute('class', 'uk-select')
 			->setRequired('Please select a subtype.');
 
-		$form->addUpload('image', 'Image');
+		$image = $form->addUpload('image', 'Image');
+		if (!$id) {
+			$image->setRequired('Please select an image.');
+		}
 
 		$form->addInteger('unlock_at', 'Level to unlock')
 			->setHtmlAttribute('class', 'uk-input')
@@ -96,6 +101,26 @@ final class ItemsPresenter extends BasePresenter
 			->setRequired('Please enter level to unlock.');
 
 		$form->addInteger('cost', 'Cost')
+			->setHtmlAttribute('class', 'uk-input')
+			->setHtmlAttribute('min', 0);
+
+		$form->addInteger('strength', 'Strength')
+			->setHtmlAttribute('class', 'uk-input')
+			->setHtmlAttribute('min', 0);
+
+		$form->addInteger('stamina', 'Stamina')
+			->setHtmlAttribute('class', 'uk-input')
+			->setHtmlAttribute('min', 0);
+
+		$form->addInteger('speed', 'Speed')
+			->setHtmlAttribute('class', 'uk-input')
+			->setHtmlAttribute('min', 0);
+
+		$form->addInteger('attack', 'Attack')
+			->setHtmlAttribute('class', 'uk-input')
+			->setHtmlAttribute('min', 0);
+
+		$form->addInteger('armor', 'Armor')
 			->setHtmlAttribute('class', 'uk-input')
 			->setHtmlAttribute('min', 0);
 
@@ -118,6 +143,11 @@ final class ItemsPresenter extends BasePresenter
 		$primaryData['subtype'] = $values->subtype;
 		$primaryData['unlock_at'] = $values->unlock_at;
 		$primaryData['cost'] = $values->cost;
+		$primaryData['strength'] = $values->strength;
+		$primaryData['stamina'] = $values->stamina;
+		$primaryData['speed'] = $values->speed;
+		$primaryData['attack'] = $values->attack;
+		$primaryData['armor'] = $values->armor;
 		$primaryData['stackable'] = $values->stackable;
 		$primaryData['built_in'] = false;
 		$primaryData['created_at'] = new DateTime();

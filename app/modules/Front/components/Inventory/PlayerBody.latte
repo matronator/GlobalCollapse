@@ -1,21 +1,21 @@
 <div class="uk-card uk-card-default uk-card-body player-body" data-equip-endpoint="{plink //equipItem!}" data-move-endpoint="{plink //moveItem!}" data-unequip-endpoint="{plink //unequipItem!}">
     <div class="body-grid">
         <div class="body-item body-head" data-body-slot="head">
-            <div class="inventory-slot">
+            <div class="player-body-slot" data-body-slot="head">
                 {if $body->head}
                     {var $item = $presenter->getEquippedItem($body->head)}
                     {var $img = $basePath.$uploadDir.$item->image}
-                    <div class="equipped-item" data-item-type="{$item->type}" data-item-subtype="{$item->subtype}">
+                    <div class="equipped-item" data-item-type="{$item->type}" data-item-subtype="{$item->subtype}" data-item-id="{$item->id}">
                         <img src="{$img}" alt="{$item->name}">
                     </div>
-                    <div uk-dropdown="animation: slide-top; duration: 200; toggle: - *:not(.stay-closed); delay-hide: 100; animate-out: true;" class="uk-width-max-content equipped-dropdown">
-                        <div class="uk-flex">
-                            <div>
-                                <img src="{$img}" width="256" height="256" alt="{$item->name}">
+                    <div class="uk-width-max-content equipped-dropdown uk-hidden" data-dropdown>
+                        <div class="uk-width-1-1 uk-flex uk-background-default uk-padding-small" data-dropdown-content>
+                            <div class="uk-width-auto">
+                                <img src="{$img}" width="128" height="128" alt="{$item->name}">
                             </div>
-                            <div class="uk-padding-small">
-                                <h3 class="uk-card-title">{$item->name}</h3>
-                                <p>{$item->description}</p>
+                            <div class="uk-padding-small uk-width-expand">
+                                <h5 class="uk-text-bold inventory-item-title">{$item->name}</h5>
+                                <p class="uk-text-small uk-text-italic">{$item->description}</p>
                             </div>
                         </div>
                     </div>

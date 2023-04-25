@@ -1,6 +1,50 @@
 import interact from "interactjs";
-import UIkit from "uikit";
-import axette from "axette";
+import { Axette } from "axette";
+import tippy, { followCursor } from 'tippy.js';
+
+function initTippy() {
+    tippy('[data-item-id]', {
+        content: (reference) => {
+            const item = reference.nextElementSibling;
+            return item.innerHTML;
+        },
+        animation: 'perspective-extreme',
+        animateFill: true,
+        followCursor: true,
+        allowHTML: true,
+        interactive: false,
+        maxWidth: 400,
+        placement: 'bottom',
+        theme: 'light',
+        trigger: 'mouseenter',
+        popperOptions: {
+            modifiers: [
+                {
+                    name: 'flip',
+                    options: {
+                        fallbackPlacements: ['top', 'right', 'left'],
+                    },
+                },
+                {
+                    name: 'preventOverflow',
+                    options: {
+                        altAxis: true,
+                        tether: false,
+                    },
+                }
+            ],
+        },
+        plugins: [followCursor],
+        appendTo: () => document.body,
+    });
+}
+
+
+const axette = new Axette();
+
+axette.onAfterAjax(() => {
+    initTippy();
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     interact('.inventory-item, .equipped-item').draggable({
@@ -17,9 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
         onstart: dragStartedListener,
         onend: dragEndedListener,
     });
-
+    
     interact('.body-head').dropzone({
-        accept: '.inventory-item[data-item-subtype="helmet"]',
+        accept: '.inventory-item[data-item-subtype="helmet"]:not(.has-headgear)',
         overlap: 0.75,
         ondropactivate: handleDropActive,
         ondropdeactivate: handleDropDeactive,
@@ -27,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ondragleave: handleDragLeave,
         ondrop: handleEquip,
     });
-
+    
     interact('.inventory-slot:not([data-slot-filled])').dropzone({
         accept: '.inventory-item, .equipped-item',
         overlap: 0.75,
@@ -37,14 +81,15 @@ document.addEventListener("DOMContentLoaded", () => {
         ondragleave: handleDragLeave,
         ondrop: handleMoveItem,
     });
-
-    UIkit.util.on('.item-dropdown', 'beforeshow', function(e) {
-        const slot = e.target.getAttribute('data-item-slot');
-        const item = document.querySelector(`.inventory-item[data-item-slot="${slot}"]`);
-        if (item.classList.contains('stay-closed')) {
-            e.preventDefault();
-        }
-    });
+    
+    initTippy();
+    // UIkit.util.on('.item-dropdown', 'beforeshow', function(e) {
+    //     const slot = e.target.getAttribute('data-item-slot');
+    //     const item = document.querySelector(`.inventory-item[data-item-slot="${slot}"]`);
+    //     if (item.classList.contains('stay-closed')) {
+    //         e.preventDefault();
+    //     }
+    // });
 });
 
 function handleDropActive(event) {
@@ -72,21 +117,28 @@ function handleEquip(event) {
     const bodySlot = event.target.getAttribute('data-body-slot');
 
     let url = document.querySelector('[data-equip-endpoint]').getAttribute('data-equip-endpoint');
-    url = `${url}&itemId=${itemId}&bodySlot=${bodySlot}&slot=${itemSlot}`;
+    url = `${url}&itemId=${Number(itemId)}&bodySlot=${bodySlot}&slot=${Number(itemSlot)}`;
 
-    createLinkAndClick(url);
+    axette.sendRequest(url);
 }
 
 function handleMoveItem(event) {
     const itemEl = event.relatedTarget;
-    const oldSlot = itemEl.getAttribute('data-item-slot');
+    let oldSlot = itemEl.getAttribute('data-item-slot');
     const newSlot = event.target.getAttribute('data-inventory-slot');
-
+    
     let url = document.querySelector('[data-move-endpoint]').getAttribute('data-move-endpoint');
-    url = `${url}&startSlot=${oldSlot}&endSlot=${newSlot}`;
+    url = `${url}&startSlot=${Number(oldSlot)}&endSlot=${Number(newSlot)}`;
 
-    // createLinkAndClick(url);
-    axette.run(url);
+    if (itemEl.classList.contains('equipped-item')) {
+        if (!oldSlot) {
+            oldSlot = itemEl.parentElement.getAttribute('data-body-slot');
+        }
+        url = document.querySelector('[data-unequip-endpoint]').getAttribute('data-unequip-endpoint');
+        url = `${url}&bodySlot=${oldSlot}&slot=${Number(newSlot)}`;
+    }
+
+    axette.sendRequest(url);
 }
 
 function dragMoveListener(event) {
@@ -99,13 +151,11 @@ function dragMoveListener(event) {
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
 
-    const items = document.querySelectorAll('.inventory-dropdown');
+    const items = document.querySelectorAll('.item-dropdown');
     items.forEach(item => {
         item.classList.remove('uk-open');
     });
 }
-
-let startPos;
 
 function dragStartedListener(event) {
     const items = document.querySelectorAll('.inventory-item');
@@ -113,7 +163,9 @@ function dragStartedListener(event) {
         item.classList.add('stay-closed');
     });
     event.target.classList.add('dragging');
-    startPos = event.target.getBoundingClientRect();
+    document.querySelectorAll('.item-dropdown').forEach(item => {
+        item.classList.remove('uk-open');
+    });
 }
 
 function dragEndedListener(event) {

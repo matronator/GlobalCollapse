@@ -289,7 +289,7 @@ final class DefaultPresenter extends BasePresenter
 							'energy+=' => $reward
 						]);
 					}
-					$this->flashMessage($this->translate('general.messages.success.restEnd', ['reward' => $reward]), 'success');
+					$this->flashMessage($this->translate('general.messages.success.restEnd', $reward), 'success');
 				}
 			}
 		}

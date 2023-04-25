@@ -9,14 +9,14 @@
                         <div class="inventory-item" data-item-type="{$item->item->type}" data-item-subtype="{$item->item->subtype}" data-item-slot="{$item->slot}" data-item-id="{$item->id}">
                             <img src="{$img}" alt="{$item->item->name}">
                         </div>
-                        <div uk-dropdown="animation: slide-top; duration: 200; toggle: - *:not(.stay-closed); delay-hide: 100; animate-out: true;" class="uk-width-max-content item-dropdown" data-item-slot="{$item->slot}">
-                            <div class="uk-flex">
-                                <div>
-                                    <img src="{$img}" width="256" height="256" alt="{$item->item->name}">
+                        <div class="uk-width-max-content item-dropdown uk-hidden" data-item-slot="{$item->slot}" data-dropdown>
+                            <div class="uk-width-1-1 uk-flex uk-background-default uk-padding-small" data-dropdown-content>
+                                <div class="uk-width-auto">
+                                    <img src="{$img}" width="128" height="128" alt="{$item->item->name}">
                                 </div>
-                                <div class="uk-padding-small">
-                                    <h3 class="uk-card-title">{$item->item->name}</h3>
-                                    <p>{$item->item->description}</p>
+                                <div class="uk-padding-small uk-width-expand">
+                                    <h5 class="uk-text-bold inventory-item-title">{$item->item->name}</h5>
+                                    <p class="uk-text-small uk-text-italic">{$item->item->description}</p>
                                 </div>
                             </div>
                         </div>

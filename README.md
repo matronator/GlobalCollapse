@@ -28,9 +28,12 @@ Still very early access, so much of the features are still yet to come.
 - [ ] **RPG Character**
   - [x] Leveling
   - [x] Skill training
+  - [x] Inventory
+  - [ ] Equipping Items
 - [ ] **MMO elements**
   - [x] PvP
   - [x] Leaderboard
+  - [x] Items
 - [x] **Events**
   - [x] Social distancing event - bar is closed
 - [x] **Darknet** - black market
@@ -65,6 +68,17 @@ Monero: **84yS17W3dLvV6Lj2XaATgYX4Ef7tPpGtmdBoanyL68GofxM2VQD8ZUNWaKpdyerJdZ7mce
 ## Changelog
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
+
+## [0.2.2] - 2023-04-23
+
+- Added: Delete account option
+- Added: Items
+- Added: Inventory
+- Added: Login via email and username
+- Added: Notifications
+- Changed: Bar missions costs more energy
+- Changed: Increased the XP needed to level up
+- Minor fixes and modifications
 
 ## [0.2.1] - 2022-06-13
 
@@ -101,13 +115,6 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Added: New jobs
 - Added: "Did you know" cards during jobs
 - Adjusted: Experience gain from missions
-
-## [0.1.3] - 2020-05-23
-
-- Added: Player Assaults (PvP)!
-- Added: Building upgrades
-- Fixed: Money overflowing 32bit integer range ([#2][i2])
-- UI Adjustments
 
 More in [CHANGELOG.md](CHANGELOG.md)
 

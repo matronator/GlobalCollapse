@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] - 2023-04-23
+
+- Added: Delete account option
+- Added: Items
+- Added: Inventory
+- Added: Login via email and username
+- Added: Notifications
+- Changed: Bar missions costs more energy
+- Changed: Increased the XP needed to level up
+- Minor fixes and modifications
+
 ## [0.2.1] - 2022-06-13
 
 - Added: Account recovery

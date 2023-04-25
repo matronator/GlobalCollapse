@@ -44,7 +44,7 @@
     }
 }
 
-.inventory-slot {
+.inventory-slot, .player-body-slot {
     border: 3px dashed transparent;
     &.drop-active {
         border-color: var(--c-red);
@@ -52,6 +52,16 @@
 
     &.drop-target {
         border-color: var(--c-green);
+    }
+}
+
+.inventory-item-title {
+    margin-bottom: .5rem;
+    padding-bottom: 0;
+
+    & + p {
+        margin-top: 0;
+        padding-top: 0;
     }
 }
 
