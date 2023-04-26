@@ -67,7 +67,7 @@ final class InventoryPresenter extends GamePresenter
 		foreach ($inventoryItems as $item) {
 			$inventorySlots[$item->slot] = $item;
 		}
-		
+
 		$this->template->playerBody = $this->playerBody;
 		$this->template->player = $this->_player;
 		$this->template->inventorySlots = $inventorySlots;
@@ -83,6 +83,7 @@ final class InventoryPresenter extends GamePresenter
 			$this->flashMessage('Item or slot not specified!', 'danger');
 			$this->redrawControl('inventory');
 			$this->redrawControl('js');
+            return;
 		}
 
 		$inventoryItem = $this->inventoryRepository->findInventoryItem($this->inventory->id, $slot)->fetch();
@@ -90,20 +91,29 @@ final class InventoryPresenter extends GamePresenter
 			$this->flashMessage('Item not found in inventory!', 'danger');
 			$this->redrawControl('inventory');
 			$this->redrawControl('js');
+            return;
 		}
 
 		$item = $inventoryItem->ref('item');
+        if (!$item) {
+            $this->flashMessage('Item not found!', 'danger');
+            $this->redrawControl('inventory');
+            $this->redrawControl('js');
+            return;
+        }
 
-		if (!in_array($item->type, PlayerBody::ALLOWED_ITEMS[$bodySlot])) {
-			$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
-			$this->redrawControl('inventory');
-			$this->redrawControl('js');
-		}
+		// if (!in_array($item->type, PlayerBody::ALLOWED_ITEMS[$bodySlot])) {
+		// 	$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
+		// 	$this->redrawControl('inventory');
+		// 	$this->redrawControl('js');
+        //     return;
+		// }
 
 		if (!in_array($item->subtype, PlayerBody::ALLOWED_ITEMS[$bodySlot][$item->type])) {
 			$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
 			$this->redrawControl('inventory');
 			$this->redrawControl('js');
+            return;
 		}
 
 		$this->inventoryRepository->equipItem($this->inventory->id, $item->id, $bodySlot, $slot, $this->_player->id);

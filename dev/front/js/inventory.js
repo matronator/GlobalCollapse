@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         onstart: dragStartedListener,
         onend: dragEndedListener,
     });
-    
+
     interact('.body-head').dropzone({
         accept: '.inventory-item[data-item-subtype="helmet"]:not(.has-headgear)',
         overlap: 0.75,
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ondragleave: handleDragLeave,
         ondrop: handleEquip,
     });
-    
+
     interact('.body-face').dropzone({
         accept: '.inventory-item[data-item-subtype="mask"]:not(.has-headgear), .inventory-item[data-item-subtype="headgear"]:not(.has-headgear)',
         overlap: 0.75,
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ondragleave: handleDragLeave,
         ondrop: handleEquip,
     });
-    
+
     interact('.inventory-slot:not([data-slot-filled])').dropzone({
         accept: '.inventory-item, .equipped-item',
         overlap: 0.75,
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ondragleave: handleDragLeave,
         ondrop: handleMoveItem,
     });
-    
+
     initTippy();
 });
 
@@ -189,7 +189,7 @@ function handleMoveItem(event) {
     const itemEl = event.relatedTarget;
     let oldSlot = itemEl.getAttribute('data-item-slot');
     const newSlot = event.target.getAttribute('data-inventory-slot');
-    
+
     let url = document.querySelector('[data-move-endpoint]').getAttribute('data-move-endpoint');
     url = `${url}&startSlot=${Number(oldSlot)}&endSlot=${Number(newSlot)}`;
 
@@ -208,9 +208,9 @@ function dragMoveListener(event) {
     var target = event.target
     var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
     var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-  
+
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-  
+
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
 
@@ -246,15 +246,4 @@ function dragEndedListener(event) {
     dropdowns.forEach(item => {
         item.classList.remove('uk-open');
     });
-}
-
-function createLinkAndClick(url) {
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.classList.add('ajax');
-    document.body.appendChild(link);
-    link.click();
-    console.log(link);
-    link.remove();
-    console.log(link);
 }

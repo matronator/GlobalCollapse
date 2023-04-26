@@ -100,9 +100,18 @@ class InventoryRepository
             return;
         }
 
+        $body = $this->findBodyByPlayerId($userId)->fetch();
+        if (!$body) {
+            return;
+        }
+
         $inventoryItem->delete();
 
-        $this->findBodyByPlayerId($userId)->update([
+        if ($body->{$bodySlot}) {
+            $this->unequipItem($inventoryId, $bodySlot, $slot, $userId);
+        }
+
+        $body->update([
             $bodySlot => $itemId,
         ]);
     }
