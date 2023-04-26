@@ -1,56 +1,100 @@
+{define equippedItem, $body}
+    {var $item = $presenter->getEquippedItem($body->head)}
+    {var $img = $basePath.$uploadDir.$item->image}
+    <div class="equipped-item" data-item-type="{$item->type}" data-item-subtype="{$item->subtype}" data-item-id="{$item->id}">
+        <img src="{$img}" alt="{$item->name}">
+    </div>
+    <div class="uk-width-max-content equipped-dropdown uk-hidden" data-dropdown>
+        <div class="uk-width-1-1 uk-flex uk-background-default uk-padding-small" data-dropdown-content>
+            <div class="uk-width-auto">
+                <img src="{$img}" width="128" height="128" alt="{$item->name}">
+            </div>
+            <div class="uk-padding-small uk-width-expand">
+                <h5 class="uk-text-bold inventory-item-title">{$item->name}</h5>
+                <p class="uk-text-small uk-text-italic">{$item->description}</p>
+            </div>
+        </div>
+    </div>
+{/define}
+
 <div class="uk-card uk-card-default uk-card-body player-body" data-equip-endpoint="{plink //equipItem!}" data-move-endpoint="{plink //moveItem!}" data-unequip-endpoint="{plink //unequipItem!}">
     <div class="body-grid">
         <div class="body-item body-head" data-body-slot="head">
             <div class="player-body-slot" data-body-slot="head">
                 {if $body->head}
-                    {var $item = $presenter->getEquippedItem($body->head)}
-                    {var $img = $basePath.$uploadDir.$item->image}
-                    <div class="equipped-item" data-item-type="{$item->type}" data-item-subtype="{$item->subtype}" data-item-id="{$item->id}">
-                        <img src="{$img}" alt="{$item->name}">
-                    </div>
-                    <div class="uk-width-max-content equipped-dropdown uk-hidden" data-dropdown>
-                        <div class="uk-width-1-1 uk-flex uk-background-default uk-padding-small" data-dropdown-content>
-                            <div class="uk-width-auto">
-                                <img src="{$img}" width="128" height="128" alt="{$item->name}">
-                            </div>
-                            <div class="uk-padding-small uk-width-expand">
-                                <h5 class="uk-text-bold inventory-item-title">{$item->name}</h5>
-                                <p class="uk-text-small uk-text-italic">{$item->description}</p>
-                            </div>
-                        </div>
-                    </div>
+                    {include equippedItem, $body}
                 {/if}
             </div>
         </div>
         <div class="body-item body-face" data-body-slot="face">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="face">
+                {if $body->face}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-shoulders" data-body-slot="shoulders">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="shoulders">
+                {if $body->shoulders}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-shoulders-2" data-body-slot="shoulders">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="shoulders">
+                {if $body->shoulders}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-chest" data-body-slot="body">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="body">
+                {if $body->body}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-melee" data-body-slot="melee">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="melee">
+                {if $body->melee}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-ranged" data-body-slot="ranged">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="ranged">
+                {if $body->ranged}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-shield" data-body-slot="shield">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="shield">
+                {if $body->shield}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-legs" data-body-slot="legs">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="legs">
+                {if $body->legs}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-feet" data-body-slot="feet">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="feet">
+                {if $body->feet}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
         <div class="body-item body-feet-2" data-body-slot="feet">
-            <div class="player-body-slot"></div>
+            <div class="player-body-slot" data-body-slot="feet">
+                {if $body->feet}
+                    {include equippedItem, $body}
+                {/if}
+            </div>
         </div>
     </div>
 </div>

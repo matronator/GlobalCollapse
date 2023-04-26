@@ -72,6 +72,76 @@ document.addEventListener("DOMContentLoaded", () => {
         ondrop: handleEquip,
     });
     
+    interact('.body-face').dropzone({
+        accept: '.inventory-item[data-item-subtype="mask"]:not(.has-headgear), .inventory-item[data-item-subtype="headgear"]:not(.has-headgear)',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
+    interact('.body-shoulders').dropzone({
+        accept: '.inventory-item[data-item-subtype="shoulders"]',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
+    interact('.body-body').dropzone({
+        accept: '.inventory-item[data-item-subtype="body"]',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
+    interact('.body-melee').dropzone({
+        accept: '.inventory-item[data-item-subtype="melee"]',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
+    interact('.body-ranged').dropzone({
+        accept: '.inventory-item[data-item-subtype="ranged"]',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
+    interact('.body-legs').dropzone({
+        accept: '.inventory-item[data-item-subtype="legs"]',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
+    interact('.body-feet').dropzone({
+        accept: '.inventory-item[data-item-subtype="feet"]',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+    
     interact('.inventory-slot:not([data-slot-filled])').dropzone({
         accept: '.inventory-item, .equipped-item',
         overlap: 0.75,
@@ -83,13 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     initTippy();
-    // UIkit.util.on('.item-dropdown', 'beforeshow', function(e) {
-    //     const slot = e.target.getAttribute('data-item-slot');
-    //     const item = document.querySelector(`.inventory-item[data-item-slot="${slot}"]`);
-    //     if (item.classList.contains('stay-closed')) {
-    //         e.preventDefault();
-    //     }
-    // });
 });
 
 function handleDropActive(event) {

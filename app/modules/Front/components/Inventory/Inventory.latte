@@ -15,8 +15,15 @@
                                     <img src="{$img}" width="128" height="128" alt="{$item->item->name}">
                                 </div>
                                 <div class="uk-padding-small uk-width-expand">
-                                    <h5 class="uk-text-bold inventory-item-title">{$item->item->name}</h5>
+                                    <strong class="uk-text-bold inventory-item-title">{$item->item->name}</strong>
                                     <p class="uk-text-small uk-text-italic">{$item->item->description}</p>
+                                    <ul class="uk-list uk-list-collapse uk-list-divider uk-column-1-2">
+                                        <li n:if="$item->item->strength">+{$item->item->strength}</li>
+                                        <li n:if="$item->item->stamina">+{$item->item->stamina}</li>
+                                        <li n:if="$item->item->speed">+{$item->item->speed}</li>
+                                        <li n:if="$item->item->attack">+{$item->item->attack}</li>
+                                        <li n:if="$item->item->armor">+{$item->item->armor}</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

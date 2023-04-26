@@ -1,116 +1,121 @@
 .inventory {
-    width: calc(var(--cols) * 64px + (var(--cols) * 1.5rem));
-    height: min-content;
+  width: calc(var(--cols) * 64px + (var(--cols) * 1.5rem));
+  height: min-content;
 }
 
-.inventory-slot, .player-body-slot {
-    display: block;
-    position: relative;
-    width: 64px;
-    height: 64px;
-    background-color: var(--c-light-1);
-    box-shadow: inset 2px 2px 10px -3px rgba(0, 0, 0, 0.25);
+.inventory-slot,
+.player-body-slot {
+  display: block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+  background-color: var(--c-light-1);
+  box-shadow: inset 2px 2px 10px -3px rgba(0, 0, 0, 0.25);
 }
 
-.inventory-item, .equipped-item {
-    position: relative;
-    display: inline-block;
-    touch-action: none;
-    transform: translate(0px, 0px);
-    z-index: 9;
-    &.dragging {
-        z-index: 99999;
-    }
+.inventory-item,
+.equipped-item {
+  position: relative;
+  display: inline-block;
+  touch-action: none;
+  transform: translate(0, 0);
+  z-index: 9;
+  &.dragging {
+    z-index: 99999;
+  }
 }
 
-.item-dropdown, .equipped-dropdown {
-    z-index: 99;
+.item-dropdown,
+.equipped-dropdown {
+  z-index: 99;
 }
 
 /* -------- Player Body -------- */
 
 .body-item {
-    position: relative;
-    width: max-content;
-    height: max-content;
-    border: 3px dashed transparent;
+  position: relative;
+  width: max-content;
+  height: max-content;
+  border: 3px dashed transparent;
 
-    &.drop-active {
-        border-color: var(--c-red);
-    }
+  &.drop-active {
+    border-color: var(--c-red);
+  }
 
-    &.drop-target {
-        border-color: var(--c-green);
-    }
+  &.drop-target {
+    border-color: var(--c-green);
+  }
 }
 
-.inventory-slot, .player-body-slot {
-    border: 3px dashed transparent;
-    &.drop-active {
-        border-color: var(--c-red);
-    }
+.inventory-slot,
+.player-body-slot {
+  border: 3px dashed transparent;
+  &.drop-active {
+    border-color: var(--c-red);
+  }
 
-    &.drop-target {
-        border-color: var(--c-green);
-    }
+  &.drop-target {
+    border-color: var(--c-green);
+  }
 }
 
 .inventory-item-title {
-    margin-bottom: .5rem;
-    padding-bottom: 0;
+  display: block;
+  margin-bottom: 0.25rem;
+  padding-bottom: 0;
 
-    & + p {
-        margin-top: 0;
-        padding-top: 0;
-    }
+  & + p {
+    margin-top: 0;
+    padding-top: 0;
+  }
 }
 
 .player-body {
-    width: auto;
-    & .body-grid {
-        display: grid;
-        grid-template-areas:
-            ".         .      head  .     ."
-            "shoulders .      face  .     shoulders2"
-            "melee     ranged chest .     shield"
-            ".         .      legs  .     ."
-            ".         feet   .     feet2 .";
-        grid-gap: 6px;
-        width: 100%;
-        height: 100%;
+  width: auto;
+  & .body-grid {
+    display: grid;
+    grid-template-areas:
+      ".         .      head  .     ."
+      "shoulders .      face  .     shoulders2"
+      "melee     ranged chest .     shield"
+      ".         .      legs  .     ."
+      ".         feet   .     feet2 .";
+    grid-gap: 6px;
+    width: 100%;
+    height: 100%;
 
-        & .body-head {
-            grid-area: head;
-        }
-        & .body-face {
-            grid-area: face;
-        }
-        & .body-shoulders {
-            grid-area: shoulders;
-        }
-        & .body-shoulders-2 {
-            grid-area: shoulders2;
-        }
-        & .body-chest {
-            grid-area: chest;
-        }
-        & .body-melee {
-            grid-area: melee;
-        }
-        & .body-ranged {
-            grid-area: ranged;
-        }
-        & .body-shield {
-            grid-area: shield;
-        }
-        & .body-legs {
-            grid-area: legs;
-        }
-        & .body-feet {
-            grid-area: feet;
-        }
-        & .body-feet-2 {
-            grid-area: feet2;
-        }
+    & .body-head {
+      grid-area: head;
     }
+    & .body-face {
+      grid-area: face;
+    }
+    & .body-shoulders {
+      grid-area: shoulders;
+    }
+    & .body-shoulders-2 {
+      grid-area: shoulders2;
+    }
+    & .body-chest {
+      grid-area: chest;
+    }
+    & .body-melee {
+      grid-area: melee;
+    }
+    & .body-ranged {
+      grid-area: ranged;
+    }
+    & .body-shield {
+      grid-area: shield;
+    }
+    & .body-legs {
+      grid-area: legs;
+    }
+    & .body-feet {
+      grid-area: feet;
+    }
+    & .body-feet-2 {
+      grid-area: feet2;
+    }
+  }
 }
