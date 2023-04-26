@@ -10,19 +10,19 @@
                             <img src="{$img}" alt="{$item->item->name}">
                         </div>
                         <div class="uk-width-max-content item-dropdown uk-hidden" data-item-slot="{$item->slot}" data-dropdown>
-                            <div class="uk-width-1-1 uk-flex uk-background-default uk-padding-small" data-dropdown-content>
-                                <div class="uk-width-auto">
+                            <div class="uk-width-1-1 uk-flex uk-background-secondary uk-light uk-padding-small" data-dropdown-content>
+                                <div class="uk-width-auto item-image">
                                     <img src="{$img}" width="128" height="128" alt="{$item->item->name}">
                                 </div>
-                                <div class="uk-padding-small uk-width-expand">
+                                <div class="uk-padding-small uk-padding-remove-top uk-width-expand">
                                     <strong class="uk-text-bold inventory-item-title">{$item->item->name}</strong>
-                                    <p class="uk-text-small uk-text-italic">{$item->item->description}</p>
-                                    <ul class="uk-list uk-list-collapse uk-list-divider uk-column-1-2">
-                                        <li n:if="$item->item->strength">+{$item->item->strength}</li>
-                                        <li n:if="$item->item->stamina">+{$item->item->stamina}</li>
-                                        <li n:if="$item->item->speed">+{$item->item->speed}</li>
-                                        <li n:if="$item->item->attack">+{$item->item->attack}</li>
-                                        <li n:if="$item->item->armor">+{$item->item->armor}</li>
+                                    <p class="uk-text-small uk-text-italic"><small>{$item->item->description}</small></p>
+                                    <ul class="uk-list uk-list-collapse uk-list-divider item-stats-list">
+                                        <li n:if="$item->item->strength">+{$item->item->strength} {_general.stats.strength.title|firstLower}</li>
+                                        <li n:if="$item->item->stamina">+{$item->item->stamina} {_general.stats.stamina.title|firstLower}</li>
+                                        <li n:if="$item->item->speed">+{$item->item->speed} {_general.stats.speed.title|firstLower}</li>
+                                        <li n:if="$item->item->attack">+{$item->item->attack} {_general.stats.attack|firstLower}</li>
+                                        <li n:if="$item->item->armor">+{$item->item->armor} {_general.stats.armor|firstLower}</li>
                                     </ul>
                                 </div>
                             </div>

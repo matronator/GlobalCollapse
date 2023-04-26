@@ -37,4 +37,9 @@ class StaticFilters
         return Strings::trim(Strings::capitalize(preg_replace('/([a-z]+)_?([a-z])*?/', '$1 $2', $text)));
     }
 
+    public static function firstLower(string $text): string
+    {
+        return Strings::firstLower($text);
+    }
+
 }

@@ -368,13 +368,13 @@ class UserRepository
      * (round(level^baseGain)*(level^(level/baseXp))) * baseXp
      *
      * NEW FORMULA
-     * round(level^2 * log10(level), -2) + baseGain*level^1.5
+     * round(level^2 * log10(level), -2) + baseGain*level^1.125
      *
      * @param integer $lvl
      * @return int
      */
     private function getMaxExp(int $lvl): int {
-        return round((pow($lvl, 2) * log($lvl)), -1) + round($this->expMaxBase * pow($lvl, 1.5), -1);
+        return round((pow($lvl, 2) * log($lvl)), -1) + round($this->expMaxBase * pow($lvl, 1.125), -1);
     }
 
     /**

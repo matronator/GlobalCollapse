@@ -10,7 +10,7 @@ class Authorizator
     /**
      * @return Permission
      */
-    public static function create()
+    public static function create(): Permission
     {
         $acl = new Permission;
 

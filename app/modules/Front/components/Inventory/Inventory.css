@@ -70,6 +70,22 @@
   }
 }
 
+.item-stats-list > li {
+  padding: 4px 0;
+}
+
+[data-dropdown-content] {
+  border: 3px double var(--c-light-5);
+  box-shadow: inset 0 0 6px 2px rgba(0, 0, 0, 0.75);
+  background-image: repeating-linear-gradient(223deg, rgba(255,255,255, 0.125), rgba(255,255,255, 0.125) 1px, transparent 0px, transparent 2px);
+  background-size: 20px;
+
+  & .item-image > img {
+    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.75);
+    border: 1px solid var(--c-light-5);
+  }
+}
+
 .player-body {
   width: auto;
   & .body-grid {

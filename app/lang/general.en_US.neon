@@ -266,6 +266,8 @@ stats:
 		powerTotal: 'Power total'
 		description: "Your total power"
 	energy: 'Energy'
+	attack: 'Attack'
+	armor: 'Armor'
 	health: 'Health'
 	money: 'Money'
 	level: 'Level'

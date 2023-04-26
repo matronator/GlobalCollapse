@@ -39,7 +39,7 @@ function updateTime() {
   if (mins <= 0 && secs <= 0) {
     clearTimeout(timer)
     Push.create("Job finished!", {
-      body: "How's it hangin'?",
+      body: "You have returned from your mission.",
       icon: `${window.location.origin}/dist/front/images/favicon-32x32.png`,
       timeout: 3000
     })
