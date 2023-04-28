@@ -225,8 +225,7 @@ final class BarPresenter extends GamePresenter
 							'mission_end' => $jobEnd
 						]);
 						// unset sessions
-						unset($section);
-						unset($session);
+						unset($section, $session);
 						$this->flashMessage('Job accepted', 'success');
 					} else {
 						$this->flashMessage('Not enough energy', 'danger');

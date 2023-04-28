@@ -93,6 +93,40 @@ class InventoryRepository
         ]);
     }
 
+    public function findAllGearStats() {
+        return $this->database->table('player_gear_stats');
+    }
+
+    public function findPlayerGearStats(int $userId) {
+        return $this->findAllGearStats()->where('user_id', $userId);
+    }
+
+    public function addGearStats(int $userId, array $stats) {
+        $gearStats = $this->findPlayerGearStats($userId)->fetch();
+        if (!$gearStats) {
+            $this->findAllGearStats()->insert([
+                'user_id' => $userId,
+                'strength' => $stats['strength'] ?? 0,
+                'stamina' => $stats['stamina'] ?? 0,
+                'speed' => $stats['speed'] ?? 0,
+                'attack' => $stats['attack'] ?? 0,
+                'armor' => $stats['armor'] ?? 0,
+                'energy_max' => $stats['energy_max'] ?? 0,
+                'xp_boost' => $stats['xp_boost'] ?? 1,
+            ]);
+        } else {
+            $gearStats->update([
+                'strength+=' => $stats['strength'] ?? 0,
+                'stamina+=' => $stats['stamina'] ?? 0,
+                'speed+=' => $stats['speed'] ?? 0,
+                'attack+=' => $stats['attack'] ?? 0,
+                'armor+=' => $stats['armor'] ?? 0,
+                'energy_max+=' => $stats['energy_max'] ?? 0,
+                'xp_boost*=' => $stats['xp_boost'] ?? 1,
+            ]);
+        }
+    }
+
     public function equipItem(int $inventoryId, int $itemId, string $bodySlot, int $slot, int $userId)
     {
         $inventoryItem = $this->findInventoryItem($inventoryId, $slot);
@@ -114,6 +148,23 @@ class InventoryRepository
         $body->update([
             $bodySlot => $itemId,
         ]);
+
+        $this->addGearStats($userId, $this->getGearStats($itemId));
+    }
+
+    public function getGearStats(int $itemId, bool $equip = true): array
+    {
+        $multiplier = $equip ? 1 : -1;
+        $item = $this->database->table('items')->get($itemId);
+        return [
+            'strength' => ($item->strength ?? 0) * $multiplier,
+            'stamina' => ($item->stamina ?? 0) * $multiplier,
+            'speed' => ($item->speed ?? 0) * $multiplier,
+            'attack' => ($item->attack ?? 0) * $multiplier,
+            'armor' => ($item->armor ?? 0) * $multiplier,
+            'energy_max' => ($item->energy_max ?? 0) * $multiplier,
+            'xp_boost' => $multiplier === -1 ? 1 / ($item->xp_boost ?? 1) : ($item->xp_boost ?? 1),
+        ];
     }
 
     public function unequipItem(int $inventoryId, string $bodySlot, int $slot, int $userId)
@@ -129,6 +180,8 @@ class InventoryRepository
             'player_inventory_id' => $inventoryId,
             'quantity' => 1,
         ]);
+        
+        $this->addGearStats($userId, $this->getGearStats($equippedItem->id, false));
 
         $this->findBodyByPlayerId($userId)->update([
             $bodySlot => null,

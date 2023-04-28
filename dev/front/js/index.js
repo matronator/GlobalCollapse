@@ -1,5 +1,5 @@
-import UIkit from "uikit"
-import Icons from "uikit/dist/js/uikit-icons"
+import UIkit from "./uikit/uikit"
+import Icons from "./uikit/uikit-icons"
 import NetteForms from "../../../vendor/nette/forms/src/assets/netteForms.js"
 import Choices from "choices.js"
 import {
@@ -103,6 +103,10 @@ function registerFillView() {
   const footer = document.getElementById('main-footer');
 
   fillViewEls.forEach(fillViewEl => {
-    fillViewEl.style.height = `calc(100% - calc(${footer.getBoundingClientRect().height}px * 1.5))`;
+    if (innerWidth < 640) {
+      fillViewEl.style.height = `100%`;
+    } else {
+      fillViewEl.style.height = `calc(100% - calc(${footer.getBoundingClientRect().height}px * 1.5))`;
+    }
   });
 }

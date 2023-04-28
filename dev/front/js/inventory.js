@@ -9,7 +9,6 @@ function initTippy() {
             return item.innerHTML;
         },
         animation: 'perspective-extreme',
-        animateFill: true,
         followCursor: true,
         allowHTML: true,
         interactive: false,
@@ -44,9 +43,33 @@ const axette = new Axette();
 
 axette.onAfterAjax(() => {
     initTippy();
+    registerClickListeners();
 });
 
+function registerClickListeners() {
+    const equippedItems = document.querySelectorAll('.equipped-item > img');
+    equippedItems.forEach((item) => {
+        interact(item).off('tap', onEquippedItemClick);
+        interact(item).on('tap', onEquippedItemClick);
+        // item.removeEventListener('click', onEquippedItemClick);
+        // item.addEventListener('click', onEquippedItemClick);
+    });
+}
+
+function onEquippedItemClick(e) {
+    const item = e.target;
+    const oldSlot = item.parentElement.parentElement.getAttribute('data-body-slot');
+    const emptySlotEl = document.querySelector('.inventory-slot[data-slot-empty]');
+    const emptySlot = emptySlotEl.getAttribute('data-inventory-slot');
+
+    let url = document.querySelector('[data-unequip-endpoint]').getAttribute('data-unequip-endpoint');
+    url = `${url}&bodySlot=${oldSlot}&slot=${Number(emptySlot)}`;
+
+    axette.sendRequest(url);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    registerClickListeners();
     interact('.inventory-item, .equipped-item').draggable({
         inertia: false,
         autoScroll: true,

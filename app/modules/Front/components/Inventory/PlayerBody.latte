@@ -1,107 +1,46 @@
-{define equippedItem, $body, $bodyPart}
-    {var $item = $presenter->getEquippedItem($bodyPart)}
-    {var $img = $basePath.$uploadDir.$item->image}
-    <div class="equipped-item" data-item-type="{$item->type}" data-item-subtype="{$item->subtype}" data-item-id="{$item->id}">
-        <img src="{$img}" alt="{$item->name}">
-    </div>
-    <div class="uk-width-max-content equipped-dropdown uk-hidden" data-dropdown>
-        <div class="uk-width-1-1 uk-flex uk-background-secondary uk-light uk-padding-small" data-dropdown-content>
-            <div class="uk-width-auto item-image">
-                <img src="{$img}" width="128" height="128" alt="{$item->name}">
-            </div>
-            <div class="uk-padding-small uk-padding-remove-top uk-width-expand">
-                <strong class="uk-text-bold inventory-item-title">{$item->name}</strong>
-                <p class="uk-text-small uk-text-meta uk-text-italic"><small>{$item->description}</small></p>
-                <ul class="uk-list uk-list-collapse uk-list-divider item-stats-list">
-                    <li n:if="$item->strength">+{$item->strength} {_general.stats.strength.title|firstLower}</li>
-                    <li n:if="$item->stamina">+{$item->stamina} {_general.stats.stamina.title|firstLower}</li>
-                    <li n:if="$item->speed">+{$item->speed} {_general.stats.speed.title|firstLower}</li>
-                    <li n:if="$item->attack">+{$item->attack} {_general.stats.attack|firstLower}</li>
-                    <li n:if="$item->armor">+{$item->armor} {_general.stats.armor|firstLower}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-{/define}
-
-<div class="uk-card uk-card-default uk-card-body player-body" data-equip-endpoint="{plink //equipItem!}" data-move-endpoint="{plink //moveItem!}" data-unequip-endpoint="{plink //unequipItem!}">
+<div class="uk-card uk-card-default uk-card-body player-body" data-equip-endpoint="{plink //equipItem!}" data-move-endpoint="{plink //moveItem!}" data-unequip-endpoint="{plink //unequipItem!}" n:snippet="playerBody">
     <div class="body-grid">
-        <div class="body-item body-head" data-body-slot="head">
-            <div class="player-body-slot" data-body-slot="head">
-                {if $body->head}
-                    {include equippedItem, $body, $body->head}
-                {/if}
+        {var $bodyParts = ['head', 'face', 'shoulders', 'shoulders', 'body', 'melee', 'ranged', 'shield', 'legs', 'feet', 'feet']}
+        {var $wasFeet = false}
+        {var $wasShoulders = false}
+        {foreach $bodyParts as $bodyPart}
+            <div class="body-item body-{$bodyPart}{if ($bodyPart === 'feet' && $wasFeet) || ($bodyPart === 'shoulders' && $wasShoulders)}-2{/if}" data-body-slot="{$bodyPart}">
+                <div class="player-body-slot" data-body-slot="{$bodyPart}">
+                    {if $body->$bodyPart}
+                        {var $item = $presenter->getEquippedItem($body->$bodyPart)}
+                        {var $img = $basePath.$uploadDir.$item->image}
+                        <div class="equipped-item" data-item-type="{$item->type}" data-item-subtype="{$item->subtype}" data-item-id="{$item->id}">
+                            <img src="{$img}" alt="{$item->name}">
+                        </div>
+                        <div class="uk-width-max-content equipped-dropdown uk-hidden" data-dropdown>
+                            <div class="uk-width-1-1 uk-flex uk-background-secondary uk-light uk-padding-small" data-dropdown-content>
+                                <div class="uk-width-auto item-image">
+                                    <img src="{$img}" width="128" height="128" alt="{$item->name}">
+                                </div>
+                                <div class="uk-padding-small uk-padding-remove-horizontal uk-width-expand item-text">
+                                    <strong class="uk-text-bold inventory-item-title">{$item->name}</strong>
+                                    <p class="uk-text-small uk-text-meta uk-text-italic"><small>{$item->description}</small></p>
+                                </div>
+                                <ul class="uk-list uk-list-collapse item-stats-list">
+                                    <li n:if="$item->strength">+{$item->strength} {*_general.stats.strength.short*}<span uk-icon="strength"></span></li>
+                                    <li n:if="$item->stamina">+{$item->stamina} {*_general.stats.stamina.short*}<span uk-icon="heart"></span></li>
+                                    <li n:if="$item->speed">+{$item->speed} {*_general.stats.speed.short*}<span uk-icon="speed"></span></li>
+                                    <li n:if="$item->energy_max">+{$item->energy_max} <span uk-icon="bolt"></span></li>
+                                    <li n:if="$item->attack">+{$item->attack} {*_general.stats.attackShort*}<span uk-icon="sword"></span></li>
+                                    <li n:if="$item->armor">+{$item->armor} {*_general.stats.armorShort*}<span uk-icon="shield"></span></li>
+                                    <li n:if="$item->xp_boost">{$item->xp_boost}&times; {_general.stats.xp}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    {/if}
+                </div>
             </div>
-        </div>
-        <div class="body-item body-face" data-body-slot="face">
-            <div class="player-body-slot" data-body-slot="face">
-                {if $body->face}
-                    {include equippedItem, $body, $body->face}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-shoulders" data-body-slot="shoulders">
-            <div class="player-body-slot" data-body-slot="shoulders">
-                {if $body->shoulders}
-                    {include equippedItem, $body, $body->shoulders}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-shoulders-2" data-body-slot="shoulders">
-            <div class="player-body-slot" data-body-slot="shoulders">
-                {if $body->shoulders}
-                    {include equippedItem, $body, $body->shoulders}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-chest" data-body-slot="body">
-            <div class="player-body-slot" data-body-slot="body">
-                {if $body->body}
-                    {include equippedItem, $body, $body->body}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-melee" data-body-slot="melee">
-            <div class="player-body-slot" data-body-slot="melee">
-                {if $body->melee}
-                    {include equippedItem, $body, $body->melee}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-ranged" data-body-slot="ranged">
-            <div class="player-body-slot" data-body-slot="ranged">
-                {if $body->ranged}
-                    {include equippedItem, $body, $body->ranged}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-shield" data-body-slot="shield">
-            <div class="player-body-slot" data-body-slot="shield">
-                {if $body->shield}
-                    {include equippedItem, $body, $body->shield}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-legs" data-body-slot="legs">
-            <div class="player-body-slot" data-body-slot="legs">
-                {if $body->legs}
-                    {include equippedItem, $body, $body->legs}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-feet" data-body-slot="feet">
-            <div class="player-body-slot" data-body-slot="feet">
-                {if $body->feet}
-                    {include equippedItem, $body, $body->feet}
-                {/if}
-            </div>
-        </div>
-        <div class="body-item body-feet-2" data-body-slot="feet">
-            <div class="player-body-slot" data-body-slot="feet">
-                {if $body->feet}
-                    {include equippedItem, $body}
-                {/if}
-            </div>
-        </div>
+            {if $bodyPart === 'feet'}
+                {var $wasFeet = true}
+            {/if}
+            {if $bodyPart === 'shoulders'}
+                {var $wasShoulders = true}
+            {/if}
+        {/foreach}
     </div>
 </div>

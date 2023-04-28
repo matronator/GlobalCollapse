@@ -4,10 +4,12 @@
 
 {block pageContent}
   <div class="uk-container-small uk-margin-auto">
-    <div class="dashboard" uk-grid n:snippet="inventory">
-      {include '../../components/Inventory/PlayerBody.latte', body => $playerBody}
-      {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory}
-    </div>
+    {snippet inventoryWrapper}
+      <div class="dashboard" uk-grid>
+        {include '../../components/Inventory/PlayerBody.latte', body => $playerBody}
+        {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory}
+      </div>
+    {/snippet}
   </div>
 {/block}
 

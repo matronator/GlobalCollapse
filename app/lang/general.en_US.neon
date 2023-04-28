@@ -251,23 +251,31 @@ stats:
 	currentValue: 'Current value'
 	strength:
 		title: 'Strength'
+		short: 'STR'
 		description: "Strength is used for dealing damage in combats"
 		pvp: 'Your strength'
 	stamina:
 		title: 'Stamina'
+		short: 'STA'
 		description: "Stamina determines how much damage you can take"
 		pvp: 'Your stamina'
 	speed:
 		title: 'Speed'
+		short: 'SPD'
 		description: "Speed is used for dodging hits in combats"
 		pvp: 'Your speed'
 	power:
 		title: 'Power'
+		short: 'POW'
 		powerTotal: 'Power total'
 		description: "Your total power"
 	energy: 'Energy'
+	energyShort: 'ENG'
 	attack: 'Attack'
+	attackShort: 'ATK'
 	armor: 'Armor'
+	armorShort: 'ARM'
+	xpBoost: 'XP Boost'
 	health: 'Health'
 	money: 'Money'
 	level: 'Level'

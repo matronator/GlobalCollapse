@@ -300,6 +300,14 @@ class UserRepository
         }
     }
 
+    public function findAllGearStats() {
+        return $this->database->table('player_gear_stats');
+    }
+
+    public function findPlayerGearStats(int $userId) {
+        return $this->findAllGearStats()->where('user_id', $userId);
+    }
+
     /** Job rewards */
     public function getRewardMoney($jobmoney, $level) {
 		return $jobmoney + (int)round($jobmoney * ($level - 1) * 0.08);
@@ -317,6 +325,11 @@ class UserRepository
      * @return void
      */
     public function addXp(int $id, $xp) {
+        $gearStats = $this->findPlayerGearStats($id)->fetch();
+        if ($gearStats && $gearStats->xp_boost <> 1) {
+            $xp = $xp * $gearStats->xp_boost;
+        }
+
         $player = $this->getUser($id);
         $xpNow = $player->player_stats->xp;
         $xpMax = $player->player_stats->xp_max;
@@ -339,6 +352,7 @@ class UserRepository
      * @return void
      */
     public function levelUp(int $id, int $lvl) {
+        $gearStats = $this->findPlayerGearStats($id)->fetch();
         $player = $this->getUser($id);
         $newLevel = $lvl + 1;
         $energy = $player->player_stats->energy_max;
@@ -351,12 +365,15 @@ class UserRepository
         $this->getUser($id)->update([
             'skillpoints' => $sp
         ]);
+        if ($gearStats && $gearStats->energy_max <> 0) {
+            $energy += $gearStats->energy_max;
+        }
         $this->getUser($id)->player_stats->update([
             'xp_min' => $oldMax,
             'xp_max' => $newMax,
             'level' => $newLevel,
             'energy' => $energy,
-            'energy_max' => $energy
+            'energy_max' => $energy,
         ]);
         return $newMax;
     }
