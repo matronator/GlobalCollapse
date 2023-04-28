@@ -20,7 +20,7 @@ class RouterFactory
 
 		/////////////////////// ADMIN ROUTES ///////////////////////
 		$router->withModule('Admin')
-			->addRoute('admin/<presenter>/<action>[/<id>]', 'Default:default'); //most general route
+			->addRoute('[<locale=en en|ru|cs>/]admin/<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 
 		/////////////////////// FRONT ROUTES ///////////////////////
 		$router->withModule('Front')

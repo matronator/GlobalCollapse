@@ -3,9 +3,31 @@
 {define metaDescription}Inventory{/define}
 
 {block pageContent}
+  <div class="uk-card uk-card-secondary uk-card-body uk-width-1-1 uk-padding-remove inventory-legend">
+    <div class="uk-flex uk-flex-around uk-text-meta uk-flex-wrap">
+      <div class="uk-padding-tiny">
+        <span uk-icon="sword"></span> {_general.stats.attack}
+      </div>
+      <div class="uk-padding-tiny">
+        <span uk-icon="shield"></span> {_general.stats.armor}
+      </div>
+      <div class="uk-padding-tiny">
+        <span uk-icon="strength"></span> {_general.stats.strength.title}
+      </div>
+      <div class="uk-padding-tiny">
+        <span uk-icon="heart"></span> {_general.stats.stamina.title}
+      </div>
+      <div class="uk-padding-tiny">
+        <span uk-icon="speed"></span> {_general.stats.speed.title}
+      </div>
+      <div class="uk-padding-tiny">
+        <span uk-icon="bolt"></span> {_general.stats.energy}
+      </div>
+    </div>
+  </div>
   <div class="uk-container-small uk-margin-auto">
     {snippet inventoryWrapper}
-      <div class="dashboard" uk-grid>
+      <div class="dashboard uk-flex-center" uk-grid>
         {include '../../components/Inventory/PlayerBody.latte', body => $playerBody}
         {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory}
       </div>
