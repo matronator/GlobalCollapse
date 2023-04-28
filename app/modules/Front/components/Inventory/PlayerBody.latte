@@ -5,7 +5,7 @@
         {var $wasShoulders = false}
         {foreach $bodyParts as $bodyPart}
             <div class="body-item body-{$bodyPart}{if ($bodyPart === 'feet' && $wasFeet) || ($bodyPart === 'shoulders' && $wasShoulders)}-2{/if}" data-body-slot="{$bodyPart}">
-                <div class="player-body-slot" data-body-slot="{$bodyPart}">
+                <div class="player-body-slot" data-body-slot="{$bodyPart}" {if $body->$bodyPart}data-slot-filled{else}data-slot-empty{/if}>
                     {if $body->$bodyPart}
                         {var $item = $presenter->getEquippedItem($body->$bodyPart)}
                         {var $img = $basePath.$uploadDir.$item->image}

@@ -54,16 +54,49 @@ function registerClickListeners() {
         // item.removeEventListener('click', onEquippedItemClick);
         // item.addEventListener('click', onEquippedItemClick);
     });
+
+    const inventoryItems = document.querySelectorAll('.inventory-item > img');
+    inventoryItems.forEach((item) => {
+        interact(item).off('tap', onInventoryItemClick);
+        interact(item).on('tap', onInventoryItemClick);
+        // item.removeEventListener('click', onInventoryItemClick);
+        // item.addEventListener('click', onInventoryItemClick);
+    });
 }
 
 function onEquippedItemClick(e) {
-    const item = e.target;
-    const oldSlot = item.parentElement.parentElement.getAttribute('data-body-slot');
+    const item = e.target.parentElement;
+    const oldSlot = item.parentElement.getAttribute('data-body-slot');
     const emptySlotEl = document.querySelector('.inventory-slot[data-slot-empty]');
     const emptySlot = emptySlotEl.getAttribute('data-inventory-slot');
 
     let url = document.querySelector('[data-unequip-endpoint]').getAttribute('data-unequip-endpoint');
     url = `${url}&bodySlot=${oldSlot}&slot=${Number(emptySlot)}`;
+
+    axette.sendRequest(url);
+}
+
+function onInventoryItemClick(e) {
+    const item = e.target.parentElement;
+    console.log(item);
+    const oldSlot = item.getAttribute('data-item-slot');
+    const itemId = item.getAttribute('data-item-id');
+    const subtype = item.getAttribute('data-item-subtype');
+    let emptySlotEl;
+    if (subtype === 'headgear') {
+        const headEl = document.querySelector(`.player-body-slot[data-body-slot="head"]`);
+        const maskEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
+        if (headEl.hasAttribute('data-slot-filled') || maskEl.hasAttribute('data-slot-filled')) {
+            return;
+        }
+        emptySlotEl = document.querySelector(`.player-body-slot[data-slot-empty][data-body-slot="face"]`);
+    } else {
+        emptySlotEl = document.querySelector(`.player-body-slot[data-body-slot="${getBodyPartForGear(subtype)}"]`);
+    }
+    if (!emptySlotEl) return;
+
+    let url = document.querySelector('[data-equip-endpoint]').getAttribute('data-equip-endpoint');
+    url = `${url}&itemId=${Number(itemId)}&bodySlot=${emptySlotEl.getAttribute('data-body-slot')}&slot=${Number(oldSlot)}`;
 
     axette.sendRequest(url);
 }
@@ -269,4 +302,23 @@ function dragEndedListener(event) {
     dropdowns.forEach(item => {
         item.classList.remove('uk-open');
     });
+}
+
+const bodyPartMap = {
+    'head': 'helmet',
+    'face': 'mask',
+    'shoulders': 'shoulders',
+    'body': 'chest',
+    'melee': 'melee',
+    'ranged': 'ranged',
+    'legs': 'legs',
+    'feet': 'feet',
+};
+
+function matchBodyPartToGear(gear, bodyPart) {
+    return bodyPartMap[bodyPart] === gear;
+}
+
+function getBodyPartForGear(gear) {
+    return Object.keys(bodyPartMap).find(key => bodyPartMap[key] === gear);
 }

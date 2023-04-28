@@ -59,7 +59,7 @@ final class InventoryPresenter extends GamePresenter
 	public function renderDefault()
 	{
 		$inventorySlots = [];
-		for ($i = 0; $i < InventoryRepository::BASE_HEIGHT * InventoryRepository::BASE_WIDTH; $i++) {
+		for ($i = 0; $i < $this->inventory->height * $this->inventory->width; $i++) {
 			$inventorySlots[$i] = null;
 		}
 		
