@@ -1,0 +1,42 @@
+<table class="uk-table uk-table-hover uk-table-striped uk-table-divider uk-table-middle uk-table-responsive">
+    <thead>
+        <tr>
+            <th n:foreach="$columns as $column">
+                {if $column->isSortable()}
+                    <a n:href="sort! $column->name, $sort->order === 'ASC' ? 'DESC' : 'ASC'">{$column}</a>
+                {else}
+                    {$column}
+                {/if}
+            </th>
+            <th class="uk-width-small">Tools</th>
+        </tr>
+    </thead>
+    <tbody n:snippet="tbody">
+        <tr n:foreach="$data as $id => $row">
+            <td n:foreach="$columns as $key => $column">
+                {$row->$key}
+            </td>
+            <td>
+                <span class="uk-text-muted uk-text-uppercase uk-margin-right uk-hidden@m">Tools</span>
+                <a
+                    n:if="$presenter->isAllowed('update')"
+                    href="{$presenter->link('edit', $id)}"
+                    class="uk-icon-link uk-margin-small-right"
+                    uk-icon="file-edit">
+                </a>
+                <a
+                    n:if="$presenter->isAllowed('delete')"
+                    href="#"
+                    uk-toggle="target: #delete-{$id}"
+                    class="uk-icon-link"
+                    uk-icon="trash">
+                </a>
+                {include '../Modals/deleteConfirm.latte'
+                    id => "delete-" . $id,
+                    action => $presenter->link('delete', $id),
+                    text => 'Do you really want to delete item ' . $row->id . '?',
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>

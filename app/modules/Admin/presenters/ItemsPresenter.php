@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\AdminModule\Presenters;
 
+use App\Components\DataTable\DataTable;
+use App\Components\DataTable\DataTableFactory;
 use App\Model\Entity\Item;
 use App\Model\ItemsRepository;
 use DateTime;
@@ -19,10 +21,13 @@ final class ItemsPresenter extends BasePresenter
 	
 	private ImageStorage $imageStorage;
 
-	public function __construct(Model\ItemsRepository $itemsRepository, ImageStorage $imageStorage)
+	private DataTableFactory $dataTableFactory;
+
+	public function __construct(Model\ItemsRepository $itemsRepository, ImageStorage $imageStorage, DataTableFactory $dataTableFactory)
 	{
 		$this->itemsRepository = $itemsRepository;
 		$this->imageStorage = $imageStorage;
+		$this->dataTableFactory = $dataTableFactory;
 	}
 
 	protected function startup()
@@ -31,6 +36,16 @@ final class ItemsPresenter extends BasePresenter
 	}
 
 	/*********************** RENDER VIEWS ***********************/
+
+	public function createComponentDataTable(): DataTable
+	{
+		$dataTable = $this->dataTableFactory->create();
+		$dataTable->setDataSource($this->itemsRepository->findAll());
+		$dataTable->addColumn('name', 'Name')->setSortable();
+		$dataTable->addColumn('type', 'Type')->setSortable();
+		$dataTable->addColumn('subtype', 'Subtype')->setSortable();
+		return $dataTable;
+	}
 
 	public function renderDefault()
 	{
