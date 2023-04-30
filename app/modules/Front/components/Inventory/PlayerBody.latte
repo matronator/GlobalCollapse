@@ -5,7 +5,11 @@
         {var $wasShoulders = false}
         {foreach $bodyParts as $bodyPart}
             <div class="body-item body-{$bodyPart}{if ($bodyPart === 'feet' && $wasFeet) || ($bodyPart === 'shoulders' && $wasShoulders)}-2{/if}" data-body-slot="{$bodyPart}">
-                <div class="player-body-slot" data-body-slot="{$bodyPart}" {if $body->$bodyPart}data-slot-filled{else}data-slot-empty{/if}>
+                {var $hasHeadgear = false}
+                {if $bodyPart === 'head' && $body->face && $body->ref('items', 'face')->subtype === App\Model\Entity\Item::ARMOR_SUBTYPE_HEADGEAR}
+                    {var $hasHeadgear = true}
+                {/if}
+                <div class="player-body-slot {$hasHeadgear ? 'has-headgear'}" data-body-slot="{$bodyPart}" {if $body->$bodyPart || $hasHeadgear}data-slot-filled{else}data-slot-empty{/if} {if $hasHeadgear}style="--headgear-image: url('{$basePath.$uploadDir.$presenter->getEquippedItem($body->face)->image|noescape}');"{/if}>
                     {if $body->$bodyPart}
                         {var $item = $presenter->getEquippedItem($body->$bodyPart)}
                         {var $img = $basePath.$uploadDir.$item->image}

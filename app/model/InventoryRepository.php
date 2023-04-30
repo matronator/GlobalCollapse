@@ -129,13 +129,17 @@ class InventoryRepository
 
     public function equipItem(int $inventoryId, int $itemId, string $bodySlot, int $slot, int $userId)
     {
-        $inventoryItem = $this->findInventoryItem($inventoryId, $slot);
+        $inventoryItem = $this->findInventoryItem($inventoryId, $slot)->fetch();
         if (!$inventoryItem) {
             return;
         }
 
         $body = $this->findBodyByPlayerId($userId)->fetch();
         if (!$body) {
+            return;
+        }
+
+        if ($bodySlot === 'face' && $inventoryItem->item->subtype === 'headgear' && $body->head) {
             return;
         }
 

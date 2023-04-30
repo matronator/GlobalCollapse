@@ -100,6 +100,15 @@ final class InventoryPresenter extends GamePresenter
 			$this->flashMessage('Item cannot be equipped in this slot!', 'danger');
 			return;
 		}
+
+		if ($bodySlot === 'face' && $item->subtype === 'headgear' && $this->playerBody->head) {
+			$this->flashMessage('You can\'t equip headgear while wearing a helmet.', 'warning');
+			return;
+        }
+		if ($bodySlot === 'head' && $item->subtype === 'helmet' && $this->playerBody->face && $this->playerBody->ref('items', 'face')->subtype === 'headgear') {
+			$this->flashMessage('You can\'t equip a helmet while wearing a headgear.', 'warning');
+			return;
+		}
 		
 		$this->inventoryRepository->equipItem($this->inventory->id, $item->id, $bodySlot, $slot, $this->_player->id);
 

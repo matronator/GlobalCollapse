@@ -157,38 +157,107 @@
         "feet      legs      feet2";
     }
 
+    & .body-item {
+      & .player-body-slot[data-slot-empty],
+      & .player-body-slot.has-headgear {
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          background-size: cover;
+          background-repeat: no-repeat;
+          opacity: 0.25;
+          pointer-events: none;
+        }
+      }
+
+      & .player-body-slot.has-headgear {
+        background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), var(--headgear-image);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    }
+
     & .body-head {
       grid-area: head;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/helmet.png');
+      }
+      & .player-body-slot.has-headgear::before {
+        background-image: none;
+      }
+      & .player-body-slot.headgear-slot-indicator[data-slot-empty]::before {
+        background-image: url('images/items/slots/headgear.png');
+      }
     }
     & .body-face {
       grid-area: face;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/mask.png');
+      }
+      & .player-body-slot.headgear-slot-indicator[data-slot-empty]::before {
+        background-image: url('images/items/slots/headgear.png');
+      }
     }
     & .body-shoulders {
       grid-area: shoulders;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/shoulder.png');
+      }
     }
     & .body-shoulders-2 {
       grid-area: shoulders2;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/shoulder.png');
+        transform: scaleX(-1);
+      }
     }
     & .body-body {
       grid-area: chest;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/body2.png');
+      }
     }
     & .body-melee {
       grid-area: melee;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/melee.png');
+      }
     }
     & .body-ranged {
       grid-area: ranged;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/ranged.png');
+      }
     }
     & .body-shield {
       grid-area: shield;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/shield.png');
+      }
     }
     & .body-legs {
       grid-area: legs;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/legs.png');
+      }
     }
     & .body-feet {
       grid-area: feet;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/boot.png');
+        transform: scaleX(-1);
+      }
     }
     & .body-feet-2 {
       grid-area: feet2;
+      & .player-body-slot[data-slot-empty]::before {
+        background-image: url('images/items/slots/boot.png');
+      }
     }
   }
 }

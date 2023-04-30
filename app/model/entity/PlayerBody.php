@@ -32,12 +32,12 @@ class PlayerBody
         self::SLOT_HEAD => [
             Item::TYPE_ARMOR => [
                 Item::ARMOR_SUBTYPE_HELMET,
-                Item::ARMOR_SUBTYPE_HEADGEAR,
             ],
         ],
         self::SLOT_FACE => [
             Item::TYPE_ARMOR => [
                 Item::ARMOR_SUBTYPE_MASK,
+                Item::ARMOR_SUBTYPE_HEADGEAR,
             ],
         ],
         self::SLOT_BODY => [

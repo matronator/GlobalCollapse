@@ -37,11 +37,7 @@
       <tr {if $victimExists}data-popover-trigger="{$opponent}"{/if} class="">
         <td><span class="uk-visible@s">{$assaultType['default']}</span><span class="uk-hidden@s">{$assaultType['mobile']}</span></td>
         <td class="uk-text-nowrap">
-          {if $victimExists}
-            <a n:href="Player:detail, $opponent">{$opponent}</a>
-          {else}
-            {$opponent}
-          {/if}
+          <a n:href="Player:detail, $opponent" n:tag-if="$victimExists">{$opponent}</a>
         </td>
         <td class="{$assaultType['mobile'] === 'ATK' ? ($assault->result === 'win' ? 'uk-text-success' : 'uk-text-danger') : ($assault->result === 'win' ? 'uk-text-danger' : 'uk-text-success')}">{$assaultType['mobile'] === 'ATK' ? $assault->result : ($assault->result === 'win' ? 'defeat' : 'win')|capitalize}</td>
         {* <td><span class="uk-text-nowrap">{$assaultDate|date:'%x'}</span> - <span class="uk-text-nowrap">{$assaultDate|date:'%k:%M'}</span></td> *}

@@ -442,3 +442,7 @@ td.input-row {
 .uk-width-min-content {
   width: min-content;
 }
+
+.uk-letter-spacing-wider {
+  letter-spacing: .125rem;
+}

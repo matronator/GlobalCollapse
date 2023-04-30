@@ -271,16 +271,20 @@ stats:
 		description: "Your total power"
 	energy: 'Energy'
 	energyShort: 'ENG'
+	energyDesc: 'Items with this symbol increase your max energy.'
 	attack: 'Attack'
 	attackShort: 'ATK'
+	attackDesc: 'Attack increases the damage you deal in combats.'
 	armor: 'Armor'
 	armorShort: 'ARM'
+	armorDesc: 'Armor reduces the damage you take in combats.'
 	xpBoost: 'XP Boost'
 	health: 'Health'
 	money: 'Money'
 	level: 'Level'
 	xp: 'XP'
 	xpTooltip: 'Your XP'
+	symbolsDesc: 'Symbols description'
 
 drugs:
 	drugName: 'Drug'

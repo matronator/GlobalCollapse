@@ -6,7 +6,22 @@
                 <div class="inventory-slot" {if $item}data-slot-filled{else}data-slot-empty{/if} data-inventory-slot="{$iterator->getCounter0()}">
                     {if $item}
                         {var $img = $basePath.$uploadDir.$item->item->image}
-                        <div class="inventory-item" data-item-type="{$item->item->type}" data-item-subtype="{$item->item->subtype}" data-item-slot="{$item->slot}" data-item-id="{$item->id}">
+                        {var $equippedItem = null}
+                        {var $hasHeadgear = false}
+                        {var $hasHelmet = false}
+                        {if $item->item->subtype === App\Model\Entity\Item::ARMOR_SUBTYPE_HELMET}
+                            {if $equipped->face}
+                                {var $equippedItem = $equipped->ref('items', 'face')}
+                                {if $equippedItem->subtype === App\Model\Entity\Item::ARMOR_SUBTYPE_HEADGEAR}
+                                    {var $hasHeadgear = true}
+                                {/if}
+                            {/if}
+                        {elseif $item->item->subtype === App\Model\Entity\Item::ARMOR_SUBTYPE_HEADGEAR}
+                            {if $equipped->head}
+                                {var $hasHelmet = true}
+                            {/if}
+                        {/if}
+                        <div class="inventory-item {$hasHeadgear ? 'has-headgear'} {$hasHelmet ? 'has-helmet'}" data-item-type="{$item->item->type}" data-item-subtype="{$item->item->subtype}" data-item-slot="{$item->slot}" data-item-id="{$item->id}">
                             <img src="{$img}" alt="{$item->item->name}">
                         </div>
                         <div class="uk-width-max-content item-dropdown uk-hidden" data-item-slot="{$item->slot}" data-dropdown>

@@ -41,9 +41,14 @@ function initTippy() {
 
 const axette = new Axette();
 
+axette.onBeforeAjax(() => {
+    headgearChangerDetach();
+});
+
 axette.onAfterAjax(() => {
     initTippy();
     registerClickListeners();
+    headgearChangerAttach();
 });
 
 function registerClickListeners() {
@@ -84,11 +89,10 @@ function onInventoryItemClick(e) {
     let emptySlotEl;
     if (subtype === 'headgear') {
         const headEl = document.querySelector(`.player-body-slot[data-body-slot="head"]`);
-        const maskEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
-        if (headEl.hasAttribute('data-slot-filled') || maskEl.hasAttribute('data-slot-filled')) {
+        if (headEl.hasAttribute('data-slot-filled')) {
             return;
         }
-        emptySlotEl = document.querySelector(`.player-body-slot[data-slot-empty][data-body-slot="face"]`);
+        emptySlotEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
     } else {
         emptySlotEl = document.querySelector(`.player-body-slot[data-body-slot="${getBodyPartForGear(subtype)}"]`);
     }
@@ -102,6 +106,7 @@ function onInventoryItemClick(e) {
 
 document.addEventListener("DOMContentLoaded", () => {
     registerClickListeners();
+    headgearChangerAttach();
     interact('.inventory-item, .equipped-item').draggable({
         inertia: false,
         autoScroll: true,
@@ -128,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     interact('.body-face').dropzone({
-        accept: '.inventory-item[data-item-subtype="mask"]:not(.has-headgear), .inventory-item[data-item-subtype="headgear"]:not(.has-headgear)',
+        accept: '.inventory-item[data-item-subtype="mask"]:not(.has-headgear), .inventory-item[data-item-subtype="headgear"]:not(.has-helmet)',
         overlap: 0.75,
         ondropactivate: handleDropActive,
         ondropdeactivate: handleDropDeactive,
@@ -209,6 +214,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initTippy();
 });
+
+function headgearChangerAttach() {
+    const headgearEls = document.querySelectorAll('.inventory-item[data-item-subtype="headgear"]:not(.has-helmet)');
+    headgearEls.forEach(el => {
+        el.addEventListener('mouseover', addHeadgearIndicator);
+        el.addEventListener('mouseout', removeHeadgearIndicator);
+    });
+}
+
+function headgearChangerDetach() {
+    const headgearEls = document.querySelectorAll('.inventory-item[data-item-subtype="headgear"]:not(.has-helmet)');
+    headgearEls.forEach(el => {
+        el.removeEventListener('mouseover', addHeadgearIndicator);
+        el.removeEventListener('mouseout', removeHeadgearIndicator);
+    });
+}
+
+function addHeadgearIndicator() {
+    const headEl = document.querySelector(`.player-body-slot[data-body-slot="head"]`);
+    const faceEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
+
+    headEl.classList.add('headgear-slot-indicator');
+    faceEl.classList.add('headgear-slot-indicator');
+}
+
+function removeHeadgearIndicator() {
+    const headEl = document.querySelector(`.player-body-slot[data-body-slot="head"]`);
+    const faceEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
+
+    headEl.classList.remove('headgear-slot-indicator');
+    faceEl.classList.remove('headgear-slot-indicator');
+}
 
 function handleDropActive(event) {
     event.target.classList.add('drop-active');

@@ -28,3 +28,6 @@ CHANGE `max_energy` `energy_max` int NULL AFTER `armor`;
 
 ALTER TABLE `player_gear_stats`
 CHANGE `max_energy` `energy_max` int NOT NULL DEFAULT '0' AFTER `armor`;
+
+ALTER TABLE `items`
+ADD `rarity` varchar(64) COLLATE 'utf8mb4_unicode_ci' NOT NULL DEFAULT 'common' AFTER `subtype`;

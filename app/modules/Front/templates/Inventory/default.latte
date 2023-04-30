@@ -4,23 +4,24 @@
 
 {block pageContent}
   <div class="uk-card uk-card-secondary uk-card-body uk-width-1-1 uk-padding-remove inventory-legend">
+    <div class="uk-text-center uk-text-lighter uk-text-uppercase uk-text-muted uk-letter-spacing-wider"><small>{_general.stats.symbolsDesc}:</small></div>
     <div class="uk-flex uk-flex-around uk-text-meta uk-flex-wrap">
-      <div class="uk-padding-tiny">
+      <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.attackDesc}">
         <span uk-icon="sword"></span> {_general.stats.attack}
       </div>
-      <div class="uk-padding-tiny">
+      <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.armorDesc}">
         <span uk-icon="shield"></span> {_general.stats.armor}
       </div>
-      <div class="uk-padding-tiny">
+      <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.strength.description}">
         <span uk-icon="strength"></span> {_general.stats.strength.title}
       </div>
-      <div class="uk-padding-tiny">
+      <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.stamina.description}">
         <span uk-icon="heart"></span> {_general.stats.stamina.title}
       </div>
-      <div class="uk-padding-tiny">
+      <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.speed.description}">
         <span uk-icon="speed"></span> {_general.stats.speed.title}
       </div>
-      <div class="uk-padding-tiny">
+      <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.energyDesc}">
         <span uk-icon="bolt"></span> {_general.stats.energy}
       </div>
     </div>
@@ -29,7 +30,7 @@
     {snippet inventoryWrapper}
       <div class="dashboard uk-flex-center" uk-grid>
         {include '../../components/Inventory/PlayerBody.latte', body => $playerBody}
-        {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory}
+        {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory, equipped => $playerBody}
       </div>
     {/snippet}
   </div>
