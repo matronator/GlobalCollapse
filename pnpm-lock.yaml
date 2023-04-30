@@ -11,8 +11,8 @@ dependencies:
     specifier: ^16.0.0
     version: 16.0.0
   axette:
-    specifier: ^2.0.4
-    version: 2.0.4
+    specifier: ^2.0.5
+    version: 2.0.5
   choices.js:
     specifier: ^9.1.0
     version: 9.1.0
@@ -2105,8 +2105,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axette@2.0.4:
-    resolution: {integrity: sha512-sQp0XmorNGFpKBWCA+Zx37qJnrZM7IiKzdtketQGIcm0UtmhFza6fCEZr3/vqI+V0G6SbJmqiNixFV28EzyeJQ==}
+  /axette@2.0.5:
+    resolution: {integrity: sha512-oYs5xZi54elXDES62bmxI9k0XNtPS2fW0rOFXlSwtvdOsrdfbJkhfRt0NYqJZkyCFJThBIQOq2/hEeZpTdW66Q==}
     dev: false
 
   /axios@0.21.4(debug@4.3.2):

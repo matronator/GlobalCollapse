@@ -50,6 +50,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
     public function beforeRender()
     {
+        if ($this->isAjax()) {
+			$this->redrawControl('wrapper');
+		}
         $this->template->user = (object) $this->user->getIdentity()->data;
         $this->template->navItems = [
             (object) [

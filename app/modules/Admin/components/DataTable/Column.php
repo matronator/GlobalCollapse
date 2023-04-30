@@ -10,6 +10,8 @@ class Column
     private $label;
     private $sortable = false;
     private $html = '';
+    public $renderer = null;
+    public $htmlClass = '';
 
     public function __construct(string $name, string $label)
     {
@@ -29,14 +31,27 @@ class Column
         return $this;
     }
 
+    public function setHtmlClass(string $class): self
+    {
+        $this->htmlClass = $class;
+        return $this;
+    }
+
+    /** Pass with no arguments to revert back to default renderer */
+    public function setRenderer(?callable $renderer = null): self
+    {
+        $this->renderer = $renderer;
+        return $this;
+    }
+
     public function isSortable(): bool
     {
         return $this->sortable;
     }
 
-    public function render(): string
+    public function render($row): string
     {
-        return $this->html !== '' ? $this->html : $this->label;
+        return call_user_func($this->renderer, $row);
     }
 
     public function __toString(): string

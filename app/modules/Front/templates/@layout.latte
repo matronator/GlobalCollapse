@@ -103,7 +103,7 @@
             {include '../components/UI/Sidebar/Sidebar.latte', loggedin => false}
         {/if}
 
-        <main class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section uk-flex uk-flex-column uk-flex-between uk-flex-stretch" data-fill-view>
+        <main class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section uk-flex uk-flex-column uk-flex-between uk-flex-stretch" data-fill-view n:snippet="main">
             <div class="uk-padding uk-padding-remove-horizontal uk-padding-remove-top" id="content">
                 {include pageContent}
             </div>

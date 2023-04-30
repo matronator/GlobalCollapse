@@ -67,6 +67,19 @@ class DataTable extends Control
         $this->data = $this->dataSource->order($column . ' ' . $order)->fetchAll();
         $this->template->data = $this->data;
         $this->template->sort = $this->sort;
-        $this->redrawControl('tbody');
+        $this->presenter->redrawControl('wrapper');
+        $this->presenter->redrawControl('content');
+        $this->redrawControl();
+    }
+
+    public function handleResetSort()
+    {
+        $this->sort = (object) ['column' => 'id', 'order' => 'ASC'];
+        $this->data = $this->dataSource->order('id ASC')->fetchAll();
+        $this->template->data = $this->data;
+        $this->template->sort = $this->sort;
+        $this->presenter->redrawControl('wrapper');
+        $this->presenter->redrawControl('content');
+        $this->redrawControl();
     }
 }

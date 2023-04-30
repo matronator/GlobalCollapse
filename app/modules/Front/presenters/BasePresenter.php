@@ -47,7 +47,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			$this->translator->setLocale($this->locale);
 		}
 		if ($this->isAjax()) {
-			$this->redrawControl('body');
+			$this->redrawControl('main');
 			$this->redrawControl('flashes');
 		}
 		$this->template->urlAbsolutePath = $this->getURL()->hostUrl;

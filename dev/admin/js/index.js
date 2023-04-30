@@ -1,5 +1,5 @@
-import UIkit from "uikit"
-import Icons from "uikit/dist/js/uikit-icons"
+import UIkit from "../../front/js/uikit/uikit"
+import Icons from "../../front/js/uikit/uikit-icons"
 import NetteForms from "../../../vendor/nette/forms/src/assets/netteForms.js"
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
 import Choices from "choices.js"
@@ -11,8 +11,12 @@ import {
   choicesOptions
 } from "./imports/settings"
 import { toggle } from "./imports/helpers"
+import { Axette } from "axette";
 
-// TODO: https://github.com/babel/babelify#why-arent-files-in-node_modules-being-transformed
+const axette = new Axette('.ajax');
+axette.onAfterAjax(() => {
+  NetteForms.initOnLoad();
+});
 
 // UIKit
 UIkit.use(Icons)

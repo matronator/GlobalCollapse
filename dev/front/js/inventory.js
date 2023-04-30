@@ -78,7 +78,6 @@ function onEquippedItemClick(e) {
 
 function onInventoryItemClick(e) {
     const item = e.target.parentElement;
-    console.log(item);
     const oldSlot = item.getAttribute('data-item-slot');
     const itemId = item.getAttribute('data-item-id');
     const subtype = item.getAttribute('data-item-subtype');

@@ -13,6 +13,7 @@ use ImageStorage;
 use Nette,
 	Nette\Application\UI\Form,
 	App\Model;
+use Nette\Utils\Html;
 
 final class ItemsPresenter extends BasePresenter
 {
@@ -41,9 +42,73 @@ final class ItemsPresenter extends BasePresenter
 	{
 		$dataTable = $this->dataTableFactory->create();
 		$dataTable->setDataSource($this->itemsRepository->findAll());
-		$dataTable->addColumn('name', 'Name')->setSortable();
-		$dataTable->addColumn('type', 'Type')->setSortable();
-		$dataTable->addColumn('subtype', 'Subtype')->setSortable();
+
+		$dataTable->addColumn('image', '')
+			->setRenderer(function ($row) {
+				$url = $this->template->basePath;
+				if ($row->built_in) {
+					$url .= ItemsRepository::IMAGES_DIR . '/' . $row->image;
+				} else {
+					$url .= ItemsRepository::IMAGES_UPLOAD_DIR . '/' . $row->image;
+				}
+				$imgEl = Html::el('img', ['src' => $url, 'width' => 48, 'height' => 48, 'alt' => $row->description]);
+				return $imgEl->toHtml();
+			});
+
+		$dataTable->addColumn('name', 'Name')
+			->setSortable()
+			->setHtmlClass('uk-table-link uk-link-reset uk-text-bold')
+			->setRenderer(function ($row) {
+				$aEl = Html::el('a', ['href' => $this->link('edit', $row->id)]);
+				$aEl->setText($row->name);
+				return $aEl->toHtml();
+			});
+
+		$dataTable->addColumn('type', 'Type')
+			->setSortable()
+			->setRenderer(function ($row) {
+				return ucfirst($row->type);
+			});
+
+		$dataTable->addColumn('subtype', 'Subtype')
+			->setSortable()
+			->setRenderer(function ($row) {
+				return ucfirst($row->subtype);
+			});
+
+		$dataTable->addColumn('cost', 'Cost')
+			->setSortable();
+
+		$dataTable->addColumn('unlock_at', 'Level')
+			->setSortable();
+
+		$dataTable->addColumn('attack', 'ATK')
+			->setHtml('<span uk-icon="sword"></span>')
+			->setSortable();
+
+		$dataTable->addColumn('armor', 'ARM')
+			->setHtml('<span uk-icon="shield"></span>')
+			->setSortable();
+
+		$dataTable->addColumn('strength', 'STR')
+			->setHtml('<span uk-icon="strength"></span>')
+			->setSortable();
+
+		$dataTable->addColumn('stamina', 'STA')
+			->setHtml('<span uk-icon="heart"></span>')
+			->setSortable();
+
+		$dataTable->addColumn('speed', 'SPD')
+			->setHtml('<span uk-icon="speed"></span>')
+			->setSortable();
+
+		$dataTable->addColumn('energy_max', 'ENG')
+			->setHtml('<span uk-icon="bolt"></span>')
+			->setSortable();
+
+		$dataTable->addColumn('xp_boost', 'XP')
+			->setSortable();
+
 		return $dataTable;
 	}
 

@@ -18,11 +18,14 @@
 	<meta name="msapplication-config" content="{$basePath}/dist/admin/images/browserconfig.xml">
 	<meta name="theme-color" content="#333333">
 	<link rel="stylesheet" href="{asset index.css admin}">
-	<script src="{asset index.js admin}"></script>
 	{block head}{/block}
 </head>
 <body class="l-body">
-{include body}
-{block scripts}{/block}
+{snippetArea wrapper}
+	{include body}
+{/snippetArea}
+	<script src="{asset index.js admin}"></script>
+{block scripts}
+{/block}
 </body>
 </html>

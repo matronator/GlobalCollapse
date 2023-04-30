@@ -63,7 +63,7 @@
 
         </aside>
 
-        <article class="l-article uk-padding uk-animation-fade">
+        <article class="l-article uk-padding uk-animation-fade" n:snippet="content">
 
             {foreach $flashes as $flash}
                 <div class="uk-alert-{$flash->type === 'info' ? 'success' : $flash->type}" uk-alert>

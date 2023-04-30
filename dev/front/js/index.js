@@ -15,12 +15,16 @@ import { registerEventHandlers } from "../../../app/modules/Front/components/Bui
 
 const axette = new Axette();
 
+axette.onBeforeAjax(() => {
+  deInitUIKit();
+});
+
 axette.onAfterAjax(() => {
   registerEventHandlers();
   registerFillView();
   timesToRelative();
   NetteForms.initOnLoad();
-  // training();
+  reInitUIKit();
 });
 
 // UIKit
@@ -109,4 +113,49 @@ function registerFillView() {
       fillViewEl.style.height = `calc(100% - calc(${footer.getBoundingClientRect().height}px * 1.5))`;
     }
   });
+}
+
+function deInitUIKit() {
+  const viewportIds = [];
+  const viewportEls = document.querySelectorAll(`[uk-height-viewport]`);
+  viewportEls.forEach(el => {
+    const viewportHeight = el.getAttribute(`uk-height-viewport`);
+    const viewportStyle = el.getAttribute(`style`);
+    const id = el.getAttribute(`id`);
+    
+    localStorage.setItem(`viewport-${id}`, viewportHeight);
+    localStorage.setItem(`style-${id}`, viewportStyle);
+    viewportIds.push(id);
+
+    el.removeAttribute(`uk-height-viewport`);
+    el.removeAttribute(`style`);
+  });
+
+  localStorage.setItem(`viewportIds`, JSON.stringify(viewportIds));
+
+  const sticky = UIkit.sticky(`[uk-sticky]`);
+  sticky.$destroy();
+}
+
+function reInitUIKit() {
+  const viewportIds = JSON.parse(localStorage.getItem(`viewportIds`));
+  if (!viewportIds) {
+    localStorage.removeItem(`viewportIds`);
+    return;
+  }
+
+  viewportIds.forEach(id => {
+    const el = document.getElementById(id);
+    const viewportHeight = localStorage.getItem(`viewport-${id}`);
+    const viewportStyle = localStorage.getItem(`style-${id}`);
+    el.setAttribute(`style`, viewportStyle);
+    el.setAttribute(`uk-height-viewport`, viewportHeight);
+    localStorage.removeItem(`viewport-${id}`);
+    localStorage.removeItem(`style-${id}`);
+  });
+
+  localStorage.removeItem(`viewportIds`);
+
+  const sticky = UIkit.sticky(`[uk-sticky]`);
+  sticky.$mount();
 }
