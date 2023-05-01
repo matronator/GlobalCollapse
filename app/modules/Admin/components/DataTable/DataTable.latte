@@ -55,3 +55,21 @@
         </tbody>
     </table>
 {/snippet}
+
+{if $paginator->getPageCount() > 1}
+    {snippet dataTable-pagination}
+        <ul class="uk-pagination uk-flex-center uk-width-1-1" uk-margin>
+            <li n:if="!$paginator->isFirst()" class="uk-right-auto"><a n:href="setPage! $paginator->getPage() - 1" class="ajax"><span uk-pagination-previous></span> Previous</a></li>
+            <li n:if="$paginator->getPage() > 3" class="{$paginator->getPage() === 1 ? 'uk-active'}"><a n:href="setPage! 1" class="ajax">1</a></li>
+            <li n:if="$paginator->getPage() > 4" class="uk-disabled"><span>&hellip;</span></li>
+            {for $i = 1; $i <= $paginator->getPageCount(); $i++}
+                <li n:if="$i < $paginator->getPage() + 3 && $i > $paginator->getPage() - 3" class="{$i === $paginator->getPage() ? 'uk-active'}">
+                    <a n:href="setPage! $i" class="ajax">{$i}</a>
+                </li>
+            {/for}
+            <li n:if="$paginator->getPage() < $paginator->getLastPage() - 3" class="uk-disabled"><span>&hellip;</span></li>
+            <li n:if="$paginator->getPage() < $paginator->getLastPage() - 2" class="{$paginator->getPage() === $paginator->getLastPage() ? 'uk-active'}"><a n:href="setPage! $paginator->getLastPage()" class="ajax">{$paginator->getLastPage()}</a></li>
+            <li n:if="!$paginator->isLast()" class="uk-left-auto"><a n:href="setPage! $paginator->getPage() + 1" class="ajax">Next <span uk-pagination-next></span></a></li>
+        </ul>
+    {/snippet}
+{/if}

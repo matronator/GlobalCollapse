@@ -28,11 +28,11 @@
       </li>
       {if $page > 1}
         <li><a n:href="Info:news, $page-1"><span uk-pagination-previous></span></a></li>
-        <li class="uk-disabled" n:if="$page == $lastPage && $page > 2"><span>...</span></li>
+        <li class="uk-disabled" n:if="$page === $lastPage && $page > 2"><span>...</span></li>
       {/if}
 
       {for $i = $page - 1; $i <= $page + 1; $i++}
-        <li n:if="$i >= 1 && $i <= $lastPage" n:class="$i==$page ? uk-active">
+        <li n:if="$i >= 1 && $i <= $lastPage" n:class="$i === $page ? uk-active">
           {if $i == $page}
             <span>{$i}</span>
           {else}
@@ -42,7 +42,7 @@
       {/for}
 
       {if $page < $lastPage}
-        <li class="uk-disabled" n:if="$page == 1 && $lastPage > 2"><span>...</span></li>
+        <li class="uk-disabled" n:if="$page === 1 && $lastPage > 2"><span>...</span></li>
         <li><a n:href="Info:news, $page+1"><span uk-pagination-next></span></a></li>
       {/if}
       <li n:class="$page == $lastPage ? uk-disabled, uk-margin-auto-left">

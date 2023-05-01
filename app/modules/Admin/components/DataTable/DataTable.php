@@ -7,34 +7,55 @@ namespace App\Components\DataTable;
 use Nette\Application\UI\Control;
 use Nette\Database\Explorer;
 use Nette\Database\Table\Selection;
+use Nette\Http\Session;
+use Nette\Utils\Arrays;
+use Nette\Utils\Paginator;
 
 class DataTable extends Control
 {
     private $database;
+    private $session;
+
     private Selection $dataSource;
+    private Selection $original;
     private array $columns;
     private $data;
     private array $keys;
     private object $sort;
 
-    public function __construct(Explorer $database)
+    private const DEFAULT_PAGE_SIZE = 20;
+
+    public Paginator $paginator;
+
+    public function __construct(Explorer $database, Session $session)
     {
         $this->database = $database;
-        $this->sort = (object) ['column' => 'id', 'order' => 'ASC'];
+        $this->session = $session;
+        $this->paginator = new Paginator();
+        
+        $this->sort = (object) ['column' => $session->getSection('dataTable-sort')->get('column') ?? 'id', 'order' => $session->getSection('dataTable-sort')->get('order') ?? 'ASC'];
+        $this->paginator->setItemsPerPage(self::DEFAULT_PAGE_SIZE);
+
     }
 
     public function setDataSource(Selection $dataSource)
     {
-        $this->dataSource = $dataSource;
-        $this->data = $dataSource->fetchAll();
-        $this->keys = array_keys($this->data[1]->toArray());
+        $this->initTable($dataSource);
     }
 
     public function setTable(string $tableName): void
     {
-        $this->dataSource = $this->database->table($tableName);
+        $dataSource = $this->database->table($tableName);
+        $this->initTable($dataSource);
+    }
+
+    /** Don't pass `$pageSize` to reset back to default page size (20) */
+    public function setPageSize(?int $pageSize = null): void
+    {
+        $this->paginator->setItemsPerPage($pageSize !== null ? $pageSize : self::DEFAULT_PAGE_SIZE);
+        $this->original->limit($this->paginator->getLength(), $this->paginator->getOffset());
+        $this->dataSource->limit($this->paginator->getLength(), $this->paginator->getOffset());
         $this->data = $this->dataSource->fetchAll();
-        $this->keys = array_keys($this->data[0]->toArray());
     }
 
     public function addColumn(string $name, string $label): Column
@@ -57,6 +78,7 @@ class DataTable extends Control
         $this->template->columns = $this->columns;
         $this->template->data = $this->data;
         $this->template->sort = $this->sort;
+        $this->template->paginator = $this->paginator;
 
         $this->template->render(__DIR__ . '/DataTable.latte');
     }
@@ -64,9 +86,14 @@ class DataTable extends Control
     public function handleSort(string $column, string $order = 'ASC')
     {
         $this->sort = (object) ['column' => $column, 'order' => $order];
-        $this->data = $this->dataSource->order($column . ' ' . $order)->fetchAll();
+        $this->session->getSection('dataTable-sort')->set('column', $column);
+        $this->session->getSection('dataTable-sort')->set('order', $order);
+        $this->paginator->setPage($this->session->getSection('items-paginator')->get('page'));
+        $this->dataSource = $this->original;
+        $this->data = $this->dataSource->order($this->sort->column . ' ' . $this->sort->order)->limit($this->paginator->getLength(), $this->paginator->getOffset())->fetchAll();
         $this->template->data = $this->data;
         $this->template->sort = $this->sort;
+
         $this->presenter->redrawControl('wrapper');
         $this->presenter->redrawControl('content');
         $this->redrawControl();
@@ -75,11 +102,41 @@ class DataTable extends Control
     public function handleResetSort()
     {
         $this->sort = (object) ['column' => 'id', 'order' => 'ASC'];
-        $this->data = $this->dataSource->order('id ASC')->fetchAll();
+        $this->session->getSection('dataTable-sort')->set('column', 'id');
+        $this->session->getSection('dataTable-sort')->set('order', 'ASC');
+        $this->dataSource = $this->original;
+        $this->data = $this->dataSource->order('id ASC')->limit($this->paginator->getLength(), $this->paginator->getOffset())->fetchAll();
         $this->template->data = $this->data;
         $this->template->sort = $this->sort;
+
         $this->presenter->redrawControl('wrapper');
         $this->presenter->redrawControl('content');
         $this->redrawControl();
+    }
+
+    public function handleSetPage(int $page)
+    {
+        $this->paginator->setPage($page);
+        $this->dataSource = $this->original;
+        $this->data = $this->dataSource->order($this->sort->column . ' ' . $this->sort->order)->limit($this->paginator->getLength(), $this->paginator->getOffset())->fetchAll();
+        $this->template->data = $this->data;
+
+        $section = $this->session->getSection('items-paginator');
+        $section->set('page', $page);
+        
+        $this->presenter->redrawControl('wrapper');
+        $this->presenter->redrawControl('content');
+        $this->redrawControl();
+    }
+
+    private function initTable(Selection $dataSource): void
+    {
+        $this->dataSource = $dataSource;
+        $this->original = clone $dataSource;
+        $this->paginator->setItemCount($this->original->count('id'));
+        $this->paginator->setPage($this->session->getSection('items-paginator')->get('page'));
+        $this->dataSource->limit($this->paginator->getLength(), $this->paginator->getOffset());
+        $this->data = $dataSource->fetchAll();
+        $this->keys = array_keys(is_array($this->data) ? Arrays::first($this->data)->toArray() : $this->data->toArray());
     }
 }

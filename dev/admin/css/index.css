@@ -10,6 +10,8 @@
 
 @import "imports/settings.variables.css";
 
+@import "../../front/css/common/general.css";
+
 /* objects */
 
 @import "imports/object.layout.css";

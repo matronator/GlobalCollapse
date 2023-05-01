@@ -43,6 +43,8 @@ final class ItemsPresenter extends BasePresenter
 		$dataTable = $this->dataTableFactory->create();
 		$dataTable->setDataSource($this->itemsRepository->findAll());
 
+		$dataTable->setPageSize(1);
+
 		$dataTable->addColumn('image', '')
 			->setRenderer(function ($row) {
 				$url = $this->template->basePath;

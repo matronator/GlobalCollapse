@@ -446,3 +446,11 @@ td.input-row {
 .uk-letter-spacing-wider {
   letter-spacing: .125rem;
 }
+
+.uk-right-auto {
+  margin-right: auto;
+}
+
+.uk-left-auto {
+  margin-left: auto;
+}
