@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ondrop: handleEquip,
     });
 
-    interact('.body-shoulders').dropzone({
+    interact('.body-shoulders, .body-shoulders-2').dropzone({
         accept: '.inventory-item[data-item-subtype="shoulders"]',
         overlap: 0.75,
         ondropactivate: handleDropActive,

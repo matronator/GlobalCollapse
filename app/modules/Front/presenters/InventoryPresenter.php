@@ -170,7 +170,6 @@ final class InventoryPresenter extends GamePresenter
 		$this->template->playerBody = $this->playerBody;
 		$this->template->inventory = $this->inventory;
 		
-		$this->flashMessage('Item moved!', 'success');
 		$this->redrawControl('inventoryWrapper');
 		$this->redrawControl('inventory');
 		$this->redrawControl('playerBody');

@@ -58,4 +58,16 @@ class Item
             self::TYPE_OTHER,
         ],
     ];
+
+    public const RARITY_COMMON = 'common';
+    public const RARITY_RARE = 'rare';
+    public const RARITY_EPIC = 'epic';
+    public const RARITY_LEGENDARY = 'legendary';
+
+    public const RARITIES = [
+        self::RARITY_COMMON => self::RARITY_COMMON,
+        self::RARITY_RARE => self::RARITY_RARE,
+        self::RARITY_EPIC => self::RARITY_EPIC,
+        self::RARITY_LEGENDARY => self::RARITY_LEGENDARY,
+    ];
 }

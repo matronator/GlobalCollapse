@@ -118,6 +118,19 @@
     & > img {
       box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.75);
       border: 1px solid var(--c-light-5);
+
+      &[data-rarity="rare"] {
+        box-shadow: 0 0 6px 2px rgba(0, 213, 255, 0.75);
+        border-color: var(--c-light-blue);
+      }
+      &[data-rarity="epic"] {
+        box-shadow: 0 0 6px 2px rgba(166, 0, 255, 0.75);
+        border-color: var(--c-purple);
+      }
+      &[data-rarity="legendary"] {
+        box-shadow: 0 0 6px 2px rgba(255, 191, 0, 0.75);
+        border-color: var(--c-yellow);
+      }
   
       @media screen and (max-width: 640px) {
         width: 96px;

@@ -1,0 +1,21 @@
+{varType object $item}
+{varType string $img}
+
+<div class="uk-width-1-1 uk-flex uk-background-secondary uk-light uk-padding-small" data-dropdown-content>
+    <div class="uk-width-auto item-image">
+        <img src="{$img}" width="128" height="128" alt="{$item->name}" data-rarity="{$item->rarity}">
+    </div>
+    <div class="uk-padding-small uk-padding-remove-horizontal uk-width-expand item-text">
+        <strong class="uk-text-bold inventory-item-title">{$item->name}</strong>
+        <p class="uk-text-small uk-text-meta uk-text-italic"><small>{$item->description}</small></p>
+    </div>
+    <ul class="uk-list uk-list-collapse item-stats-list">
+        <li n:if="$item->attack">+{$item->attack} <span uk-icon="sword"></span></li>
+        <li n:if="$item->armor">+{$item->armor} <span uk-icon="shield"></span></li>
+        <li n:if="$item->strength">+{$item->strength} <span uk-icon="strength"></span></li>
+        <li n:if="$item->stamina">+{$item->stamina} <span uk-icon="heart"></span></li>
+        <li n:if="$item->speed">+{$item->speed} <span uk-icon="speed"></span></li>
+        <li n:if="$item->energy_max">+{$item->energy_max} <span uk-icon="bolt"></span></li>
+        <li n:if="$item->xp_boost">{$item->xp_boost}&times; {_general.stats.xp}</li>
+    </ul>
+</div>

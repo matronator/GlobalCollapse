@@ -25,24 +25,7 @@
                             <img src="{$img}" alt="{$item->item->name}">
                         </div>
                         <div class="uk-width-max-content item-dropdown uk-hidden" data-item-slot="{$item->slot}" data-dropdown>
-                            <div class="uk-width-1-1 uk-flex uk-background-secondary uk-light uk-padding-small" data-dropdown-content>
-                                <div class="uk-width-auto item-image">
-                                    <img src="{$img}" width="128" height="128" alt="{$item->item->name}">
-                                </div>
-                                <div class="uk-padding-small uk-padding-remove-horizontal uk-width-1-1 item-text">
-                                    <strong class="uk-text-bold inventory-item-title">{$item->item->name}</strong>
-                                    <p class="uk-text-small uk-text-meta uk-text-italic"><small>{$item->item->description}</small></p>
-                                </div>
-                                <ul class="uk-list uk-list-collapse item-stats-list">
-                                    <li n:if="$item->item->attack">+{$item->item->attack} {*_general.stats.attackShort*}<span uk-icon="sword"></span></li>
-                                    <li n:if="$item->item->armor">+{$item->item->armor} {*_general.stats.armorShort*}<span uk-icon="shield"></span></li>
-                                    <li n:if="$item->item->strength">+{$item->item->strength} {*_general.stats.strength.short*}<span uk-icon="strength"></span></li>
-                                    <li n:if="$item->item->stamina">+{$item->item->stamina} {*_general.stats.stamina.short*}<span uk-icon="heart"></span></li>
-                                    <li n:if="$item->item->speed">+{$item->item->speed} {*_general.stats.speed.short*}<span uk-icon="speed"></span></li>
-                                    <li n:if="$item->item->energy_max">+{$item->item->energy_max} <span uk-icon="bolt"></span></li>
-                                    <li n:if="$item->item->xp_boost">{$item->item->xp_boost}&times; {_general.stats.xp}</li>
-                                </ul>
-                            </div>
+                            {include 'ItemTooltip.latte', item => $item->item, img => $img}
                         </div>
                     {/if}
                 </div>

@@ -43,8 +43,6 @@ final class ItemsPresenter extends BasePresenter
 		$dataTable = $this->dataTableFactory->create();
 		$dataTable->setDataSource($this->itemsRepository->findAll());
 
-		$dataTable->setPageSize(1);
-
 		$dataTable->addColumn('image', '')
 			->setRenderer(function ($row) {
 				$url = $this->template->basePath;
@@ -172,6 +170,10 @@ final class ItemsPresenter extends BasePresenter
 			->setHtmlAttribute('class', 'uk-select')
 			->setRequired('Please select a subtype.');
 
+		$form->addSelect('rarity', 'Rarity', Item::RARITIES)
+			->setHtmlAttribute('class', 'uk-select')
+			->setRequired('Please select a rarity.');
+
 		$image = $form->addUpload('image', 'Image');
 		if (!$id) {
 			$image->setRequired('Please select an image.');
@@ -223,6 +225,7 @@ final class ItemsPresenter extends BasePresenter
 		$primaryData['description'] = $values->description;
 		$primaryData['type'] = $values->type;
 		$primaryData['subtype'] = $values->subtype;
+		$primaryData['rarity'] = $values->rarity;
 		$primaryData['unlock_at'] = $values->unlock_at;
 		$primaryData['cost'] = $values->cost;
 		$primaryData['strength'] = $values->strength;

@@ -132,9 +132,6 @@ function deInitUIKit() {
   });
 
   localStorage.setItem(`viewportIds`, JSON.stringify(viewportIds));
-
-  const sticky = UIkit.sticky(`[uk-sticky]`);
-  sticky.$destroy();
 }
 
 function reInitUIKit() {
@@ -155,7 +152,4 @@ function reInitUIKit() {
   });
 
   localStorage.removeItem(`viewportIds`);
-
-  const sticky = UIkit.sticky(`[uk-sticky]`);
-  sticky.$mount();
 }
