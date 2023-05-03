@@ -134,7 +134,7 @@ class DataTable extends Control
         $this->dataSource = $dataSource;
         $this->original = clone $dataSource;
         $this->paginator->setItemCount($this->original->count('id'));
-        $this->paginator->setPage($this->session->getSection('items-paginator')->get('page'));
+        $this->paginator->setPage($this->session->getSection('items-paginator')->get('page') ?? 1);
         $this->dataSource->limit($this->paginator->getLength(), $this->paginator->getOffset());
         $this->data = $dataSource->fetchAll();
         $this->keys = array_keys(is_array($this->data) ? Arrays::first($this->data)->toArray() : $this->data->toArray());

@@ -26,8 +26,7 @@ for (let i = 1; i <= 3; i++) {
   }
 }
 
-const totalRounds = document.querySelector(`[data-assault-rounds]`).dataset
-  .assaultRounds
+const totalRounds = document.querySelector(`[data-assault-rounds]`).dataset.assaultRounds
 
 let thisRound = 1
 const timeouts = []
