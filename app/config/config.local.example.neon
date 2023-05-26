@@ -16,6 +16,9 @@ parameters:
   voteCallback:
     hash: 'anotherHash'
     confirm: 'andOneMoreForGoodMeassures'
+  marketUpdate:
+    hash: 'anotherHash'
+    confirm: 'andAnotherOne...'
   jobs!: [
     [
         locale: distributeMasks

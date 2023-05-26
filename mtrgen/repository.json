@@ -1,5 +1,5 @@
 {
-    "name": "repository",
+    "name": "gcp-repo",
     "filename": "<% entity|ucfirst %>Repository",
     "path": "app/model",
     "file": {

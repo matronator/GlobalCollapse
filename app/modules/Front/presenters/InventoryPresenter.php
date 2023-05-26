@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Model;
-use App\Model\UserRepository;
-use App\Model\AssaultsRepository;
 use App\Model\Entity\PlayerBody;
 use App\Model\InventoryRepository;
 use App\Model\ItemsRepository;
@@ -72,6 +70,20 @@ final class InventoryPresenter extends GamePresenter
 		$this->template->player = $this->_player;
 		$this->template->inventorySlots = $inventorySlots;
 		$this->template->inventory = $this->inventory;
+		$gearStats = $this->inventoryRepository->findPlayerGearStats($this->_player->id)->fetch();
+		if ($gearStats) {
+			$this->template->gearStats = $gearStats;
+		} else {
+			$this->template->gearStats = (object)[
+				'strength' => 0,
+				'stamina' => 0,
+				'speed' => 0,
+				'attack' => 0,
+				'armor' => 0,
+				'energy_max' => 0,
+				'xp_boost' => 1,
+			];
+		}
 		
 		$this->template->uploadDir = ItemsRepository::IMAGES_UPLOAD_DIR;
 		$this->template->imagesDir = ItemsRepository::IMAGES_DIR;

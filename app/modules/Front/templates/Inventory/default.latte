@@ -7,22 +7,25 @@
     <div class="uk-text-center uk-text-lighter uk-text-uppercase uk-text-muted uk-letter-spacing-wider"><small>{_general.stats.symbolsDesc}:</small></div>
     <div class="uk-flex uk-flex-around uk-text-meta uk-flex-wrap">
       <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.attackDesc}">
-        <span uk-icon="sword"></span> {_general.stats.attack}
+        +{$gearStats->attack} <span uk-icon="sword"></span> {_general.stats.attack}
       </div>
       <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.armorDesc}">
-        <span uk-icon="shield"></span> {_general.stats.armor}
+        +{$gearStats->armor} <span uk-icon="shield"></span> {_general.stats.armor}
       </div>
       <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.strength.description}">
-        <span uk-icon="strength"></span> {_general.stats.strength.title}
+        +{$gearStats->strength} <span uk-icon="strength"></span> {_general.stats.strength.title}
       </div>
       <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.stamina.description}">
-        <span uk-icon="heart"></span> {_general.stats.stamina.title}
+        +{$gearStats->stamina} <span uk-icon="heart"></span> {_general.stats.stamina.title}
       </div>
       <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.speed.description}">
-        <span uk-icon="speed"></span> {_general.stats.speed.title}
+        +{$gearStats->speed} <span uk-icon="speed"></span> {_general.stats.speed.title}
       </div>
       <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.energyDesc}">
-        <span uk-icon="bolt"></span> {_general.stats.energy}
+        +{$gearStats->energy_max} <span uk-icon="bolt"></span> {_general.stats.energy}
+      </div>
+      <div class="uk-padding-tiny uk-text-meta" uk-tooltip="title:{_general.stats.xpBoost}">
+        &times;{$gearStats->xp_boost} <span uk-icon="star"></span> {_general.stats.xpBoost}
       </div>
     </div>
   </div>

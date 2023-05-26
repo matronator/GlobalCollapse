@@ -67,7 +67,14 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->allPlayers = $allPlayers;
 		$this->template->onlinePlayers = $onlinePlayers;
 		if ($this->user->isLoggedIn()) {
-			$this->template->user = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$user = $this->userRepository->getUser($this->user->getIdentity()->id);
+			$this->template->user = $user;
+			$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
+			if ($gearStats) {
+				$this->template->maxEnergy = $user->player_stats->energy_max + $gearStats->energy_max;
+			} else {
+				$this->template->maxEnergy = $user->player_stats->energy_max;
+			}
 			$sectionPrefs = $this->session->getSection('user-prefs');
 			$userPreferences = new stdClass();
 			if (isset($sectionPrefs->timezone)) {

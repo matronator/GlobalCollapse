@@ -1,0 +1,19 @@
+parameters:
+    items:
+        naming:
+            common:
+                adjectives: ["rusty", "old", "broken", "dirty", "dusty", "common", "dented", "infected", "contaminated"]
+            rare:
+                adjectives: ["shiny", "new", "clean", "polished", "bright", "rare", "sterilized", "decontaminated"]
+            epic:
+                adjectives: ["flawless", "immaculate", "perfect", "decorated", "epic", "unique", "purified"]
+                suffixes: ["from quarantine", "of scientists", "from before the virus"]
+            legendary:
+                adjectives: ["legendary", "luxurious", "pristine", "mythical", "godly"]
+                suffixes: ["of gods", "of the old world", "of kings", "of the void", "of stars"]
+
+    market:
+        slots:
+            armor: [4, 8]
+            weapon: [1, 3]
+            misc: [0, 1]

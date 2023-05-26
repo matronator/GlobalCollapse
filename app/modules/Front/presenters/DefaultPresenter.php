@@ -202,8 +202,15 @@ final class DefaultPresenter extends BasePresenter
 				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
 				$reward = intval(10 * round($diff / 1800));
 				$newEnergy = $player->player_stats->energy + $reward;
-				if ($newEnergy > $player->player_stats->energy_max) {
-					$newEnergy = $player->player_stats->energy_max;
+				$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
+				if ($gearStats) {
+					if ($newEnergy > $player->player_stats->energy_max + $gearStats->energy_max) {
+						$newEnergy = $player->player_stats->energy_max + $gearStats->energy_max;
+					}
+				} else {
+					if ($newEnergy > $player->player_stats->energy_max) {
+						$newEnergy = $player->player_stats->energy_max;
+					}
 				}
 				$this->template->energyGained = $reward;
 				$this->template->newEnergy = $newEnergy;
@@ -280,9 +287,15 @@ final class DefaultPresenter extends BasePresenter
 				]);
 				$reward = intval(10 * round($diff / 1800));
 				if ($reward > 0) {
-					if ($player->player_stats->energy + $reward > $player->player_stats->energy_max) {
+					$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
+					if (!$gearStats) {
+						$plusEnergy = 0;
+					} else {
+						$plusEnergy = $gearStats->energy_max;
+					}
+					if ($player->player_stats->energy + $reward > $player->player_stats->energy_max + $plusEnergy) {
 						$this->userRepository->getUser($player->id)->player_stats->update([
-							'energy' => $player->player_stats->energy_max
+							'energy' => $player->player_stats->energy_max + $plusEnergy
 						]);
 					} else {
 						$this->userRepository->getUser($player->id)->player_stats->update([

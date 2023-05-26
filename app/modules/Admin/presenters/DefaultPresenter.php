@@ -17,11 +17,18 @@ final class DefaultPresenter extends BasePresenter
 	private $userRepository;
 	private $drugsRepository;
 
+	/**
+	 * @var array
+	 */
+	private $marketHashes;
+
 	public function __construct(
+		array $marketHashes,
 		UserRepository $userRepository,
 		DrugsRepository $drugsRepository
 	)
 	{
+		$this->marketHashes = $marketHashes;
 		$this->userRepository = $userRepository;
 		$this->drugsRepository = $drugsRepository;
 	}
@@ -112,6 +119,21 @@ final class DefaultPresenter extends BasePresenter
 			$this->redirect('Default:');
 		} else {
 			$this->redirect('Default:');
+		}
+	}
+
+	public function actionUpdateMarket(?string $hash = null, ?string $confirm = null)
+	{
+		if ($hash != null && $confirm != null) {
+			if ($hash === $this->marketHashes['hash'] && $confirm === $this->marketHashes['confirm']) {
+				
+				$this->flashMessage('Updated');
+				$this->redirectUrl('https://www.youtube.com/watch?v=-X6xulTF9sI');
+			} else {
+				$this->redirectUrl('https://www.youtube.com/watch?v=-X6xulTF9sI');
+			}
+		} else {
+			$this->redirectUrl('https://www.youtube.com/watch?v=-X6xulTF9sI');
 		}
 	}
 
