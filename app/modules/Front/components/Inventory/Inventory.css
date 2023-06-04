@@ -9,6 +9,7 @@
 }
 
 .inventory-slot,
+.market-inventory-slot,
 .player-body-slot {
   display: block;
   position: relative;
@@ -19,6 +20,7 @@
 }
 
 .inventory-item,
+.market-inventory-item,
 .equipped-item {
   position: relative;
   display: inline-block;
@@ -131,7 +133,7 @@
         box-shadow: 0 0 6px 2px rgba(255, 191, 0, 0.75);
         border-color: var(--c-yellow);
       }
-  
+
       @media screen and (max-width: 640px) {
         width: 96px;
         height: 96px;
@@ -271,6 +273,65 @@
       & .player-body-slot[data-slot-empty]::before {
         background-image: url('images/items/slots/boot.png');
       }
+    }
+  }
+}
+
+/* MARKET */
+
+.market-inventory {
+  width: 100%;
+  justify-content: center;
+}
+
+.market-inventory-slot {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+
+  @media screen and (max-width: 640px) {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.market-inventory-item {
+  &:after {
+    counter-reset: count var(--itemCount);
+    content: counter(count);
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: max-content;
+    height: max-content;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 2px 4px;
+    border-top-left-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: none;
+    border-right: none;
+    box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.75);
+  }
+}
+
+.market-buy-button {
+  margin: 0 auto;
+  & > .market-item-price {
+    display: block;
+    margin: 6px auto;
+  }
+  & > .btn-buy.uk-button {
+    & .uk-button-default {
+      display: block;
+      width: 100%;
+    }
+    &.uk-disabled {
+      border-color: #999;
+      color: #999;
+      opacity: .75;
+      pointer-events: all;
+      cursor: not-allowed;
     }
   }
 }

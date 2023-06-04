@@ -7,6 +7,8 @@ namespace App\Model;
 use App\Model\Entity\Item;
 use Math;
 use Nette;
+use Nette\Database\Table\ActiveRow;
+use Nette\Database\Table\Selection;
 use Strings;
 
 class MarketRepository
@@ -27,11 +29,14 @@ class MarketRepository
         Item::RARITY_LEGENDARY => 10,
     ];
 
-    public function __construct(array $itemsConfig, array $marketConfig, Nette\Database\Explorer $database)
+    private InventoryRepository $inventoryRepository;
+
+    public function __construct(array $itemsConfig, array $marketConfig, Nette\Database\Explorer $database, InventoryRepository $inventoryRepository)
     {
         $this->itemsConfig = $itemsConfig;
         $this->marketConfig = $marketConfig;
         $this->database = $database;
+        $this->inventoryRepository = $inventoryRepository;
     }
 
     public function findAll()
@@ -46,7 +51,7 @@ class MarketRepository
 
     public function findAllItems()
     {
-        return $this->database->table('items');
+        return $this->database->table('items')->where('available', true);
     }
 
     public function findAllItemsInMarket(int $marketId)
@@ -63,12 +68,13 @@ class MarketRepository
     public function getMarket(int $level = 1, ?int $id = null)
     {
         if ($id) {
-            $market = $this->findAll()->get($id);
+            $market = $this->findAll()->get($id); // This might return null
             if ($market) {
                 return $market;
             }
         }
 
+        /** @var ActiveRow|null $market */
         $market = $this->findAll()->order('id DESC')->limit(1)->where('level', $level)->fetch();
         if (!$market) {
             $market = $this->createMarket($level);
@@ -93,7 +99,7 @@ class MarketRepository
         if (!$market) {
             return false;
         }
-        
+
         $slots = $this->getMarketSlotsCount();
         $minChildren = $this->findAllItems()->min('children');
 
@@ -102,41 +108,15 @@ class MarketRepository
                 if (Math::random(0, 3) < 2 && $minChildren < 5) {
                     $itemToCopy = $this->findAllItems()->where('is_generated', 0)->where('rarity', 'common')->where('type', $type)
                         ->where('children <= ?', (int) $minChildren)->order('RAND()')->limit(1)->fetch();
-                    $itemId = $itemToCopy->id;
-                    $itemToCopy->update(['children+=' => 1]);
-                    $item = $this->findAllItems()->get($itemId)->toArray();
-                    unset($item['id']);
-                    $item['rarity'] = Math::getRarity();
-                    $item['name'] = $this->generateItemName((object) $item);
-                    $item['is_generated'] = 1;
-                    $item['children'] = 0;
-                    $item['cost'] = Math::random($item['cost'] / 2, $item['cost'] * 2, 0.5) * Math::random(self::RARITY_COST_MULTIPLIER[$item['rarity']] * 0.5, self::RARITY_COST_MULTIPLIER[$item['rarity']] * 2, 0.8);
-                    if ($item['type'] === Item::TYPE_ARMOR) {
-                        $item['armor'] = (int) round(Math::random($item['armor'] / 2, $item['armor'] * 2, 1) * max(1, floor(self::RARITY_COST_MULTIPLIER[$item['rarity']] / 2)));
-                    } else if ($item['type'] === Item::TYPE_WEAPON) {
-                        $item['attack'] = (int) round(Math::random($item['attack'] / 2, $item['attack'] * 2, 1) * max(1, floor(self::RARITY_COST_MULTIPLIER[$item['rarity']] / 2)));
+                    if ($itemToCopy) {
+                        $selectedItem = $this->generateItem($itemToCopy, $market);
+                    } else {
+                        $selectedItem = $this->selectItem($type);
                     }
-                    $item['unlock_at'] = Math::random($item['unlock_at'] / 1.5, $item['unlock_at'] * 1.5, 1.2);
-
-                    $selectedItem = $this->findAllItems()->insert($item);
                 } else {
-                    $rarity = Math::getRarity();
-                    $items = $this->findAllItems()->where('is_generated', 0)->where('rarity', $rarity)->where('type', $type)
-                        ->order('market_drop_rate')->fetchAll();
-                    if (!$items) {
-                        $items = $this->findAllItems()->where('is_generated', 0)->where('rarity', 'common')->where('type', $type)
-                            ->order('market_drop_rate')->fetchAll();
-                    }
-                    $itemsForMarket = [];
-                    foreach ($items as $itm) {
-                        for ($j = 0; $j < $itm->market_drop_rate; $j++) {
-                            $itemsForMarket[] = $itm;
-                        }
-                    }
-
-                    $selectedItem = $itemsForMarket[array_rand($itemsForMarket)];
+                    $selectedItem = $this->selectItem($type);
                 }
-                
+
                 $this->findAllMarketItems()->insert([
                     'market_id' => $marketId,
                     'items_id' => $selectedItem->id,
@@ -161,15 +141,119 @@ class MarketRepository
             // "misc" => $miscSlots,
         ];
     }
-    
+
+    public function buyItem(ActiveRow $marketItem, int $playerId, int $count = 1)
+    {
+        $market = $this->findAll()->get($marketItem->market_id);
+        $playerInventory = $this->inventoryRepository->findByUser($playerId)->fetch();
+        $item = $marketItem->item;
+
+        if (!$market || !$playerInventory || !$item) {
+            return false;
+        }
+
+        $player = $playerInventory->user;
+
+        $emptySlot = $this->inventoryRepository->findEmptySlot($player->id);
+
+        if (!$emptySlot) {
+            return false;
+        }
+
+        $this->inventoryRepository->findAllInventoryItems($playerInventory->id)->insert([
+            'player_inventory_id' => $playerInventory->id,
+            'item_id' => $item->id,
+            'slot' => $emptySlot,
+            'quantity' => $count,
+        ]);
+
+        $player->update([
+            'money-=' => $item->cost,
+        ]);
+
+        $marketItem->update([
+            'count-=' => $count,
+        ]);
+
+        $item->update([
+            'purchased+=' => 1,
+        ]);
+
+        if ($marketItem->count <= 0) {
+            $marketItem->delete();
+        }
+
+        return true;
+    }
+
     public function generateItemName($item): string
     {
         $adjectives = $this->itemsConfig['naming'][$item->rarity]['adjectives'];
         $suffixes = $this->itemsConfig['naming'][$item->rarity]['suffixes'] ?? [];
-        
+
         $adjective = Strings::capitalize($adjectives[array_rand($adjectives)]);
         $suffix = $suffixes === [] ? '' : Strings::capitalize($suffixes[array_rand($suffixes)]);
 
         return $adjective . ' ' . $item->name . ' ' . $suffix;
+    }
+
+    /**
+     * @param string $type
+     * @return mixed
+     */
+    private function selectItem(string $type)
+    {
+        $rarity = Math::getRarity();
+        $items = $this->findAllItems()->where('is_generated', 0)->where('rarity', $rarity)->where('type', $type)
+            ->order('market_drop_rate')->fetchAll();
+        if (!$items) {
+            $items = $this->findAllItems()->where('is_generated', 0)->where('rarity', 'common')->where('type', $type)
+                ->order('market_drop_rate')->fetchAll();
+        }
+        $itemsForMarket = [];
+        foreach ($items as $itm) {
+            for ($j = 0; $j < $itm->market_drop_rate; $j++) {
+                $itemsForMarket[] = $itm;
+            }
+        }
+
+        return $itemsForMarket[array_rand($itemsForMarket)];
+    }
+
+    /**
+     * @param ActiveRow $itemToCopy
+     * @param ActiveRow $market
+     * @return array|bool|int|iterable|ActiveRow|Selection|\Traversable
+     */
+    private function generateItem(ActiveRow $itemToCopy, ActiveRow $market)
+    {
+        $itemId = $itemToCopy->id;
+        $itemToCopy->update(['children+=' => 1]);
+        $item = $this->findAllItems()->get($itemId)->toArray();
+        unset($item['id']);
+        $item['rarity'] = Math::getRarity();
+        $item['name'] = $this->generateItemName((object)$item);
+        $item['is_generated'] = 1;
+        $item['children'] = 0;
+        $item['cost'] = Math::random($item['cost'] / 2, $item['cost'] * 2, 0.5) * $market->level * self::RARITY_COST_MULTIPLIER[$item['rarity']];
+        if ($item['type'] === Item::TYPE_ARMOR) {
+            $item['armor'] = (int) round(Math::random($item['armor'] / 2, $item['armor'] * 2, 1) * $market->level * max(1, floor(self::RARITY_COST_MULTIPLIER[$item['rarity']] / 3)));
+        } else if ($item['type'] === Item::TYPE_WEAPON) {
+            $item['attack'] = (int) round(Math::random($item['attack'] / 2, $item['attack'] * 2, 1) * $market->level * max(1, floor(self::RARITY_COST_MULTIPLIER[$item['rarity']] / 3)));
+        }
+        foreach (Item::ITEM_STATS as $stat) {
+            if (isset($item[$stat]) && $item[$stat] !== null) {
+                if ($stat !== 'xp_boost' && $stat !== 'energy_max') {
+                    $item[$stat] = (int) round(max(Math::random($item[$stat] / 2, $item[$stat] * 2, 1), 1) * $market->level * max(1, floor(self::RARITY_COST_MULTIPLIER[$item['rarity']] / 3)));
+                } else if ($stat === 'xp_boost') {
+                    $item[$stat] = round(max(Math::random($item[$stat] / 2, $item[$stat] * 2, 1), 1) * (max($market->level / 8, 0.25)) * max(1, floor(self::RARITY_COST_MULTIPLIER[$item['rarity']] / 3)), 4);
+                } else {
+                    $item[$stat] = (int) round($item[$stat] * (max($market->level / 7, 5)) * max(1, floor(self::RARITY_COST_MULTIPLIER[$item['rarity']] / 3)));
+                }
+            }
+        }
+        $item['unlock_at'] = (int) round(Math::random($item['unlock_at'] / 1.5, $item['unlock_at'] * 1.5, 1.2) * (max($market->level / 3, 1)));
+
+        return $this->findAllItems()->insert($item);
     }
 }

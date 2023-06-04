@@ -44,6 +44,8 @@ messages:
 	info:
 	warning:
 		cantRefreshOffer: "Can't refresh offer yet. Try again in %minutes% minutes."
+		itemLowLevel: "You need to be at least level %level% to buy this item."
+		noInventorySpace: "Your inventory is full."
 	danger:
 		wrongCredentials: "Wrong password, username or e-mail"
 		notEnoughMoney: "Not enough money"
@@ -55,6 +57,7 @@ messages:
 		orderSellVendorLow: "You're trying to sell more than the vendor can buy."
 		forgotPasswordNoUser: "No user account with this e-mail address was found."
 		buildingNotFound: "Building not found!"
+		somethingWentWrong: "Something went wrong."
 
 ui:
 	navbar:
@@ -134,6 +137,8 @@ ui:
 	date: 'Date'
 	both: 'Both'
 	all: 'All'
+	buy: 'Buy'
+	sell: 'Sell'
 	locationStatus:
 		closed: 'Closed'
 	restore:

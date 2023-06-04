@@ -19,7 +19,7 @@ final class ItemsPresenter extends BasePresenter
 {
 	/** @var Model\ItemsRepository */
 	private $itemsRepository;
-	
+
 	private ImageStorage $imageStorage;
 
 	private DataTableFactory $dataTableFactory;
@@ -208,6 +208,14 @@ final class ItemsPresenter extends BasePresenter
 			->setHtmlAttribute('class', 'uk-input')
 			->setHtmlAttribute('min', 0);
 
+		$form->addInteger('energy_max', 'Max. energy')
+			->setHtmlAttribute('class', 'uk-input')
+			->setHtmlAttribute('min', 0);
+
+		$form->addInteger('xp_boost', 'XP Boost')
+			->setHtmlAttribute('class', 'uk-input')
+			->setHtmlAttribute('min', 0);
+
 		$form->addCheckbox('stackable', ' Can the item be stacked?')
 			->setHtmlAttribute('class', 'uk-checkbox');
 
@@ -233,6 +241,8 @@ final class ItemsPresenter extends BasePresenter
 		$primaryData['speed'] = $values->speed;
 		$primaryData['attack'] = $values->attack;
 		$primaryData['armor'] = $values->armor;
+		$primaryData['energy_max'] = $values->energy_max;
+		$primaryData['xp_boost'] = $values->xp_boost;
 		$primaryData['stackable'] = $values->stackable;
 		$primaryData['built_in'] = false;
 		$primaryData['created_at'] = new DateTime();

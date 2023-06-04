@@ -87,70 +87,73 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> *}
     <!-- End Google Tag Manager (noscript) -->
 
-    {snippet flashes}
-        <div n:foreach="$flashes as $flash" class="flash uk-alert-{$flash->type} uk-margin-remove" uk-alert>
-            <a class="uk-alert-close" uk-close></a>
-            <p class="uk-margin-remove">{$flash->message}</p>
-        </div>
-    {/snippet}
+    {snippetArea wrapper}
 
-    <div n:snippet="body" uk-height-viewport="expand: true; offset-bottom: true;">
-        {include '../components/UI/Navbar/Navbar.latte'}
-
-        {if $presenter->user->isLoggedIn()}
-            {include '../components/UI/Sidebar/Sidebar.latte', loggedin => true}
-        {else}
-            {include '../components/UI/Sidebar/Sidebar.latte', loggedin => false}
-        {/if}
-
-        <main class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section uk-flex uk-flex-column uk-flex-between uk-flex-stretch" data-fill-view n:snippet="main">
-            <div class="uk-padding uk-padding-remove-horizontal uk-padding-remove-top" id="content">
-                {include pageContent}
+        {snippet flashes}
+            <div n:foreach="$flashes as $flash" class="flash uk-alert-{$flash->type} uk-margin-remove" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p class="uk-margin-remove">{$flash->message}</p>
             </div>
-            {include '../components/UI/Footer/Footer.latte'}
-        </main>
+        {/snippet}
 
-    </div>
+        <div n:snippet="body" uk-height-viewport="expand: true; offset-bottom: true;">
+            {include '../components/UI/Navbar/Navbar.latte'}
 
-    {*<script n:syntax="off">
-        grecaptcha.ready(function(){
-            grecaptcha.execute('PUBLIC_KEY_HERE', { action: 'unicare_form' })
-                .then(function(token) {
-                const token_inputs = document.querySelectorAll('input[name="recaptcha_token"]')
-                for(var i = 0; i < token_inputs.length; i++){
-                    token_inputs[i].value = token
-                }
-            })
-        })
-    </script>*}
-
-    <div id="pwaPrompt" class="pwa_prompt-wrapper">
-        <div class="pwa_prompt-content uk-text-center uk-dark">
-            <p class="uk-text-light pwa_prompt-text">
-                Save webapp shortcut to iPhone: tap <span uk-icon="push" class="uk-text-primary"></span> and then Add to homescreen. <small>(tap to close)</small>
-            </p>
-        </div>
-    </div>
-
-    <style n:syntax="off">
-        .grecaptcha-badge {opacity: 0 !important;pointer-events: none !important;}
-    </style>
-
-    {snippet js}
-        <script defer src="{asset index.js front}"></script>
-        {if $presenter->isLinkCurrent('Bar:default')}
-            {ifset $onMission}
-                <script n:if="$onMission >= 1" defer src="{asset countdownBar.js front}"></script>
-                <script n:if="$onMission < 1" defer src="{asset bar.js front}"></script>
+            {if $presenter->user->isLoggedIn()}
+                {include '../components/UI/Sidebar/Sidebar.latte', loggedin => true}
             {else}
-                {ifset $returned}
-                    <script n:if="$returned == true" defer src="{asset countdownBar.js front}"></script>
-                    <script n:if="!$returned" defer src="{asset bar.js front}"></script>
-                {/ifset}
-            {/ifset}
-        {/if}
-        {ifset scripts}{include scripts}{/ifset}
-    {/snippet}
+                {include '../components/UI/Sidebar/Sidebar.latte', loggedin => false}
+            {/if}
 
+            <main class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section uk-flex uk-flex-column uk-flex-between uk-flex-stretch" data-fill-view n:snippet="main">
+                <div class="uk-padding uk-padding-remove-horizontal uk-padding-remove-top" id="content">
+                    {include pageContent}
+                </div>
+                {include '../components/UI/Footer/Footer.latte'}
+            </main>
+
+        </div>
+
+        {*<script n:syntax="off">
+            grecaptcha.ready(function(){
+                grecaptcha.execute('PUBLIC_KEY_HERE', { action: 'unicare_form' })
+                    .then(function(token) {
+                    const token_inputs = document.querySelectorAll('input[name="recaptcha_token"]')
+                    for(var i = 0; i < token_inputs.length; i++){
+                        token_inputs[i].value = token
+                    }
+                })
+            })
+        </script>*}
+
+        <div id="pwaPrompt" class="pwa_prompt-wrapper">
+            <div class="pwa_prompt-content uk-text-center uk-dark">
+                <p class="uk-text-light pwa_prompt-text">
+                    Save webapp shortcut to iPhone: tap <span uk-icon="push" class="uk-text-primary"></span> and then Add to homescreen. <small>(tap to close)</small>
+                </p>
+            </div>
+        </div>
+
+        <style n:syntax="off">
+            .grecaptcha-badge { opacity: 0 !important;pointer-events: none !important; }
+        </style>
+
+        {snippet js}
+            <script defer src="{asset index.js front}"></script>
+            {if $presenter->isLinkCurrent('Bar:default')}
+                {ifset $onMission}
+                    <script n:if="$onMission >= 1" defer src="{asset countdownBar.js front}"></script>
+                    <script n:if="$onMission < 1" defer src="{asset bar.js front}"></script>
+                {else}
+                    {ifset $returned}
+                        <script n:if="$returned == true" defer src="{asset countdownBar.js front}"></script>
+                        <script n:if="!$returned" defer src="{asset bar.js front}"></script>
+                    {/ifset}
+                {/ifset}
+            {/if}
+            {ifset scripts}{include scripts}{/ifset}
+        {/snippet}
+
+    {/snippetArea}
 </body>
 </html>

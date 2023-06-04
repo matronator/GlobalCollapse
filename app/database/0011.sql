@@ -39,4 +39,11 @@ ADD `id` int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
 
 ALTER TABLE `market_items`
 DROP FOREIGN KEY `market_items_ibfk_1`,
-ADD FOREIGN KEY (`market_id`) REFERENCES `market` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+ADD FOREIGN KEY (`market_id`) REFERENCES `market` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE `items`
+ADD `available` tinyint NOT NULL DEFAULT '1' AFTER `stackable`;
+
+ALTER TABLE `items`
+ADD `purchased` int unsigned NOT NULL DEFAULT '0' AFTER `children`,
+ADD `sold` int unsigned NOT NULL DEFAULT '0' AFTER `purchased`;

@@ -52,13 +52,28 @@ function registerClickListeners() {
         interact(item).off('tap', onInventoryItemClick);
         interact(item).on('tap', onInventoryItemClick);
     });
+
+    const buyButtons = document.querySelectorAll('[data-buy-item]');
+    buyButtons.forEach((button) => {
+        button.removeEventListener('click', onBuyItemClick);
+        button.addEventListener('click', onBuyItemClick);
+    });
+}
+
+function onBuyItemClick(e) {
+    const item = e.currentTarget;
+    const itemId = item.getAttribute('data-market-buy');
+
+    let url = document.querySelector('[data-buy-endpoint]').getAttribute('data-buy-endpoint');
+    url = `${url}&itemId=${Number(itemId)}`;
+
+    axette.sendRequest(url);
 }
 
 function onInventoryItemClick(e) {
-    const item = e.target.parentElement;
+    const item = e.currentTarget.parentElement;
     const oldSlot = item.getAttribute('data-item-slot');
     const itemId = item.getAttribute('data-item-id');
-    const subtype = item.getAttribute('data-item-subtype');
 
     let url = document.querySelector('[data-equip-endpoint]').getAttribute('data-equip-endpoint');
     url = `${url}&itemId=${Number(itemId)}&bodySlot=${emptySlotEl.getAttribute('data-body-slot')}&slot=${Number(oldSlot)}`;

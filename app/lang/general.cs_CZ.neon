@@ -42,6 +42,8 @@ messages:
 		allBuildingCollected: "Všechny budovy sesbírány!"
 	info:
 	warning:
+	    itemLowLevel: "Musíš být aspoň level %level% pro koupení této věci."
+	    noInventorySpace: "Tvůj inventář je plný."
 	danger:
 		wrongCredentials: "Špatné heslo, uživatelské jméno nebo e-mail"
 		notEnoughMoney: "Nedostatek peněz"
@@ -53,6 +55,7 @@ messages:
 		orderSellVendorLow: "Tvá objednávka je za víc peněz než má vendor k dispozici."
 		forgotPasswordNoUser: "Žádný hráč s tímto e-mailem nebyl nalezen."
 		buildingNotFound: "Budova nenalezena!"
+		somethingWentWrong: "Něco se pokazilo."
 
 ui:
 	navbar:
@@ -130,6 +133,8 @@ ui:
 	date: 'Datum'
 	both: 'Obojí'
 	all: 'Vše'
+	buy: 'Koupit'
+	sell: 'Prodat'
 	locationStatus:
 		closed: 'Zavřeno'
 	restore:

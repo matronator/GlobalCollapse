@@ -73,6 +73,7 @@ function onEquippedItemClick(e) {
     const item = e.target.parentElement;
     const oldSlot = item.parentElement.getAttribute('data-body-slot');
     const emptySlotEl = document.querySelector('.inventory-slot[data-slot-empty]');
+    if (!emptySlotEl) return;
     const emptySlot = emptySlotEl.getAttribute('data-inventory-slot');
 
     let url = document.querySelector('[data-unequip-endpoint]').getAttribute('data-unequip-endpoint');

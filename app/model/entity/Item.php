@@ -70,4 +70,12 @@ class Item
         self::RARITY_EPIC => self::RARITY_EPIC,
         self::RARITY_LEGENDARY => self::RARITY_LEGENDARY,
     ];
+
+    public const ITEM_STATS = [
+        'strength',
+        'stamina',
+        'speed',
+        'energy_max',
+        'xp_boost',
+    ];
 }

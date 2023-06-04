@@ -97,8 +97,56 @@ class InventoryRepository
         return $this->database->table('player_gear_stats');
     }
 
-    public function findPlayerGearStats(int $userId) {
+    public function findPlayerGearStats(int $userId)
+    {
         return $this->findAllGearStats()->where('user_id', $userId);
+    }
+
+    public function checkSlotIsEmpty(int $userId, int $slot)
+    {
+        $inventory = $this->findAll()->where('user_id', $userId)->fetch();
+        if (!$inventory) {
+            return false;
+        }
+
+        $item = $this->findInventoryItem($inventory->id, $slot)->fetch();
+        if (!$item) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function findEmptySlot(int $userId): ?int
+    {
+        $inventory = $this->findAll()->where('user_id', $userId)->fetch();
+        if (!$inventory) {
+            return null;
+        }
+
+        $slots = $inventory->width * $inventory->height;
+
+        for ($i = 0; $i < $slots; $i++) {
+            $item = $this->findInventoryItem($inventory->id, $i)->fetch();
+            if (!$item) {
+                return $i;
+            }
+        }
+
+        return null;
+    }
+
+    public function checkInventoryHasSpace(int $userId)
+    {
+        $inventory = $this->findAll()->where('user_id', $userId)->fetch();
+        if (!$inventory) {
+            return false;
+        }
+
+        $items = $this->findAllInventoryItems($inventory->id)->fetchAll();
+        $itemsCount = count($items);
+        $inventorySize = $inventory->width * $inventory->height;
+        return $itemsCount < $inventorySize;
     }
 
     public function addGearStats(int $userId, array $stats) {
@@ -178,13 +226,17 @@ class InventoryRepository
             return;
         }
 
+        if (!$this->checkSlotIsEmpty($userId, $slot)) {
+            return;
+        }
+
         $this->findAllInventoryItems($inventoryId)->insert([
             'slot' => $slot,
             'item_id' => $equippedItem->id,
             'player_inventory_id' => $inventoryId,
             'quantity' => 1,
         ]);
-        
+
         $this->addGearStats($userId, $this->getGearStats($equippedItem->id, false));
 
         $this->findBodyByPlayerId($userId)->update([

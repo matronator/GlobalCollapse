@@ -5,21 +5,16 @@
 {block pageContent}
 <div class="uk-container">
   <div>
-    <div class="uk-card uk-width-auto uk-card-default uk-padding-small uk-card-body uk-margin-bottom" data-move-endpoint="{link //moveItem!}">
+    <div class="uk-card uk-width-auto uk-card-default uk-padding-remove uk-card-body" data-move-endpoint="{link //moveItem!}">
       <div class="uk-card-media illustration-card" style="background-image:url('{$basePath}/dist/front/images/illustrations/market.webp');">
         <h2 class="uk-heading-large">{_general.ui.sidebar.city.market}</h2>
       </div>
     </div>
     <div class="uk-text-center">
-      <h3>{_general.ui.sidebar.city.market}</h3>
-      <hr class="uk-divider-icon uk-margin-remove-top">
       {snippet inventoryWrapper}
-        <div class="dashboard uk-flex-center" uk-grid>
-          <div class="card card-default card-body">
-            <ul>
-              <li n:foreach="$marketItems as $item">{$item->item->name}</li>
-            </ul>
-          </div>
+        <div class="uk-flex-center">
+          {include '../../components/Inventory/MarketInventory.latte', types => $marketItems}
+          <hr class="uk-divider-icon uk-margin-remove-top">
           {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory, equipped => $playerBody}
         </div>
       {/snippet}

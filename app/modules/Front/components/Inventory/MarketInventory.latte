@@ -1,0 +1,36 @@
+<div class="uk-card uk-card-secondary uk-card-body market-inventory" data-buy-endpoint="{plink //buyItem!}">
+    {foreach $types as $type => $items}
+        <h3 class="uk-card-title">{$type === 'weapon' ? 'weapons' : $type|firstUpper}</h3>
+        <div class="uk-grid-small uk-flex-center" uk-grid>
+            {foreach $items as $item}
+                <div class="position-relative">
+                    <div class="market-inventory-slot">
+                        {var $img = $basePath.$uploadDir.$item->item->image}
+                        <div class="market-inventory-item" data-item-count="{$item->count}" data-item-id="{$item->item->id}" data-market-id="{$item->id}" style="--itemCount: {$item->count};">
+                            <img src="{$img}" alt="{$item->item->name}">
+                        </div>
+                        <div class="uk-width-max-content item-dropdown uk-hidden" data-dropdown>
+                            {include 'ItemTooltip.latte', item => $item->item, img => $img}
+                        </div>
+                    </div>
+                    <div class="market-buy-button">
+                        <small class="market-item-price">${$item->item->cost|number}</small>
+                        {if $inventoryHasSpace}
+                            {if $user->player_stats->level >= $item->item->unlock_at}
+                                {if $user->money >= $item->item->cost}
+                                    <button class="btn-buy uk-button uk-button-default uk-button-small" data-buy-item data-buy-id="{$item->item->id}" data-market-buy="{$item->id}"><span uk-icon="cart"></span> {_general.ui.buy}</button>
+                                {else}
+                                    <button uk-tooltip="{_general.messages.danger.notEnoughMoney}" class="btn-buy uk-button uk-button-default uk-button-small uk-disabled"><span uk-icon="cart"></span> {_general.ui.buy}</button>
+                                {/if}
+                            {else}
+                                <button uk-tooltip="{_general.messages.warning.itemLowLevel, ['level' => $item->item->unlock_at]}" class="btn-buy uk-button uk-button-default uk-button-small uk-disabled">LVL {$item->item->unlock_at}</button>
+                            {/if}
+                        {else}
+                            <button uk-tooltip="{_general.messages.warning.noInventorySpace}" class="btn-buy uk-button uk-button-default uk-button-small uk-disabled">No space</button>
+                        {/if}
+                    </div>
+                </div>
+            {/foreach}
+        </div>
+    {/foreach}
+</div>
