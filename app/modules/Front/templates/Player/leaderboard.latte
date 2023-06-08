@@ -30,7 +30,7 @@
                     <span>{$user->username}</span>
                   {/if}
                 </td>
-                <td class="uk-text-nowrap uk-text-middle">{$otherUser->player_stats->power}</td>
+                <td class="uk-text-nowrap uk-text-middle">{$otherUser->player_stats->power + $presenter->getUserGearPower($otherUser->id)}</td>
               </tr>
             {/foreach}
           </tbody>

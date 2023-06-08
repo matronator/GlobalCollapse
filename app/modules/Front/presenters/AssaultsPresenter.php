@@ -160,15 +160,15 @@ final class AssaultsPresenter extends GamePresenter
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$victimMoney = $victim->money;
 		$attackerLevel = $player->player_stats->level;
-		$attackerPower = $player->player_stats->power;
+		$attackerPower = $player->player_stats->power + $this->getUserGearPower($player->id);
 		$victimLevel = $victim->player_stats->level;
-		$victimPower = $victim->player_stats->power;
+		$victimPower = $victim->player_stats->power + $this->getUserGearPower($victim->id);
 		$winReward = [];
 
 		$ratio = max(0, (((3 * $victimPower) - ($attackerPower)) / sqrt($attackerPower)) * ((3 * $victimLevel) / $attackerLevel));
 		$percentage = min($ratio, 10);
 		$winReward['win_money'] = (int)round(($victimMoney / 100) * $percentage);
-		$winReward['win_xp'] = round(min($ratio, 10 + min($attackerLevel / 7, 25)));
+		$winReward['win_xp'] = round(min($ratio, 10 + min($attackerLevel / 7, 50)));
 
 		$ratio = max(0, (((3 * $attackerPower) - (2 * $victimPower)) / sqrt($victimPower)) * ((3 * $attackerLevel) / $victimLevel));
 		$percentage = min($ratio, 25);
@@ -182,8 +182,10 @@ final class AssaultsPresenter extends GamePresenter
 		$victim = $this->userRepository->getUser($id);
 		$astats = $player->player_stats;
 		$vstats = $victim->player_stats;
-		$playerHealth = $astats->stamina * 2;
-		$victimHealth = $vstats->stamina * 2;
+        $aGearStats = $this->getUserGearStats($player->id);
+        $vGearStats = $this->getUserGearStats($victim->id);
+		$playerHealth = ($astats->stamina + $aGearStats->stamina) * 2;
+		$victimHealth = ($vstats->stamina + $vGearStats->stamina) * 2;
 		$rounds = [];
 		$i = 0;
 		$result = '';
@@ -203,8 +205,8 @@ final class AssaultsPresenter extends GamePresenter
 		$i++;
 
 		while ($playerHealth > 0 && $victimHealth > 0) {
-			$round = $this->assaultRound($astats, $vstats, $victimHealth);
-			$continue = $round['status'] == 'kill' ? false : true;
+			$round = $this->assaultRound($astats, $vstats, $victimHealth, $aGearStats, $vGearStats);
+			$continue = $round['status'] === 'kill' ? false : true;
 			$aDamage = $round['dmg'];
 			$victimHealth = $round['hp'];
 			if (!$continue) {
@@ -222,30 +224,30 @@ final class AssaultsPresenter extends GamePresenter
 				];
 				$result = 'win';
 				break;
-			} else {
-				$round = $this->assaultRound($vstats, $astats, $playerHealth);
-				$continue = $round['status'] == 'kill' ? 'end' : 'continue';
-				$vDamage = $round['dmg'];
-				$playerHealth = $round['hp'];
-				$rounds[$i] = [
-					"id" => $i,
-					"attacker" => [
-						"hp" => $playerHealth,
-						"dmg" => $aDamage
-					],
-					"victim" => [
-						"hp" => $victimHealth,
-						"dmg" => $vDamage
-					],
-					"status" => $continue
-				];
-				if ($continue == 'end') {
-					$result = 'defeat';
-					break;
-				}
-				$i++;
 			}
-		}
+
+            $round = $this->assaultRound($vstats, $astats, $playerHealth, $vGearStats, $aGearStats);
+            $continue = $round['status'] === 'kill' ? 'end' : 'continue';
+            $vDamage = $round['dmg'];
+            $playerHealth = $round['hp'];
+            $rounds[$i] = [
+                "id" => $i,
+                "attacker" => [
+                    "hp" => $playerHealth,
+                    "dmg" => $aDamage
+                ],
+                "victim" => [
+                    "hp" => $victimHealth,
+                    "dmg" => $vDamage
+                ],
+                "status" => $continue
+            ];
+            if ($continue === 'end') {
+                $result = 'defeat';
+                break;
+            }
+            $i++;
+        }
 		$json = [
 			"attacker" => $player->username,
 			"victim" => $victim->username,
@@ -256,10 +258,10 @@ final class AssaultsPresenter extends GamePresenter
 		return json_encode($json);
 	}
 
-	private function assaultRound($astats, $vstats, $vHp) {
+	private function assaultRound($astats, $vstats, $vHp, $agear, $vgear) {
 		$results = [];
-		$aDmg = $this->calculateDamage($astats, $vstats);
-		$realDmgA = $aDmg == 'dodged' ? 0 : $aDmg;
+		$aDmg = $this->calculateDamage($astats, $vstats, $agear, $vgear);
+		$realDmgA = $aDmg === 'dodged' ? 0 : $aDmg;
 		$vHp -= $realDmgA;
 		$results['status'] = 'continue';
 		if ($vHp <= 0) {
@@ -271,19 +273,20 @@ final class AssaultsPresenter extends GamePresenter
 		return $results;
 	}
 
-	private function calculateDamage($attackerStats, $victimStats) {
+	private function calculateDamage($attackerStats, $victimStats, $attackerGear, $victimGear)
+    {
 		$attackerDodge = 0;
-		$dodgeChance = min(($victimStats->speed - $attackerStats->speed) + (($victimStats->level - $attackerStats->level) / 2), 90);
+		$dodgeChance = min((($victimStats->speed + $victimGear->speed) - ($attackerStats->speed + $attackerGear->speed)) + (($victimStats->level - $attackerStats->level) / 3.5), 90);
 		if ($dodgeChance > 0) {
 			$attackerDodge = $dodgeChance;
 		}
-		$dodged = rand(0, 100) <= $attackerDodge ? true : false;
+		$dodged = rand(0, 100) <= $attackerDodge;
 		if ($dodged) {
 			return 'dodged';
-		} else {
-			return round(max($attackerStats->strength - ($victimStats->strength / rand(3, 5)), 0));
 		}
-	}
+
+        return round(max(($attackerStats->strength + $attackerGear->strength) - (($victimStats->strength + $victimGear->strength) / rand(3, 5)), 0) + ($attackerGear->attack / (($victimGear->armor + 100) / 100)));
+    }
 
 	/**
 	 * --------------- Reward formula -------------------

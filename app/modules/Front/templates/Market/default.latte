@@ -15,7 +15,14 @@
         <div class="uk-flex-center">
           {include '../../components/Inventory/MarketInventory.latte', types => $marketItems}
           <hr class="uk-divider-icon uk-margin-remove-top">
-          {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory, equipped => $playerBody}
+          <div class="uk-flex-center" uk-grid>
+            <div>
+              {include '../../components/Inventory/SellItem.latte'}
+            </div>
+            <div>
+              {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory, equipped => $playerBody}
+            </div>
+          </div>
         </div>
       {/snippet}
     </div>

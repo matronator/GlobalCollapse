@@ -14,7 +14,7 @@
       </tr>
       <tr class="border-bottom">
         <td>XP</td>
-        <td>+ {$xp}</td>
+        <td>+ {$xp * $presenter->getUserGearStats($user->id)->xp_boost|number}</td>
       </tr>
     </table>
     <a n:href="Bar:newjobs, $newJobsHash" class="uk-button uk-button-primary uk-button-large">{_general.ui.continue}</a>
@@ -51,9 +51,9 @@
           {include '../../components/Jobs/Jobs.latte'}
         {else}
           <div class="uk-padding uk-text-center">
-            {var $imgSrc}
-            {var $imgPos}
-            {var $imgDir}
+            {var $imgSrc = ''}
+            {var $imgPos = ''}
+            {var $imgDir = ''}
             {switch $jobName}
               {case distributeMasks}
                 {php $imgSrc = 'city'}

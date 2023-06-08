@@ -34,7 +34,7 @@ class AssaultsRepository
 	 *
 	 * @param integer $attackerId
 	 * @param integer $defenderId
-	 * @param DateTime $date
+	 * @param \DateTime $date
 	 * @param string $result
 	 * @param string $aName attacker username
 	 * @param string $vName victim username

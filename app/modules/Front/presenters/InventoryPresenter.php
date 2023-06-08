@@ -8,51 +8,17 @@ use App\Model;
 use App\Model\Entity\PlayerBody;
 use App\Model\InventoryRepository;
 use App\Model\ItemsRepository;
+use Nette\Database\Table\ActiveRow;
 use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
-final class InventoryPresenter extends GamePresenter
+final class InventoryPresenter extends ItemsBasePresenter
 {
-	/** @var Model\InventoryRepository */
-	private $inventoryRepository;
-
-	/** @var Model\ItemsRepository */
-	private $itemsRepository;
-
-	private $inventory;
-
-	private $playerBody;
-
-	public function __construct(
-		InventoryRepository $inventoryRepository,
-		ItemsRepository $itemsRepository
-	)
-	{
-		parent::__construct();
-		$this->inventoryRepository = $inventoryRepository;
-		$this->itemsRepository = $itemsRepository;
-	}
-
-	protected function startup()
-	{
-		parent::startup();
-
-		if (!Debugger::isEnabled() || Debugger::getStrategy() === Debugger::PRODUCTION) {
-			$this->flashMessage('Inventory is still under construction.', 'warning');
-			$this->redirect('Default:default');
-		}
-
-		$this->inventory = $this->inventoryRepository->findByUser($this->_player->id)->fetch();
-		if (!$this->inventory) {
-			$this->inventory = $this->inventoryRepository->createInventory($this->_player->id);
-		}
-
-		$this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->_player->id)->fetch();
-		if (!$this->playerBody) {
-			$this->playerBody = $this->inventoryRepository->createBody($this->_player->id);
-		}
-	}
+    public function startup()
+    {
+        parent::startup();
+    }
 
 	public function renderDefault()
 	{
@@ -70,22 +36,8 @@ final class InventoryPresenter extends GamePresenter
 		$this->template->player = $this->_player;
 		$this->template->inventorySlots = $inventorySlots;
 		$this->template->inventory = $this->inventory;
-		$gearStats = $this->inventoryRepository->findPlayerGearStats($this->_player->id)->fetch();
-		if ($gearStats) {
-			$this->template->gearStats = $gearStats;
-		} else {
-			$this->template->gearStats = (object)[
-				'strength' => 0,
-				'stamina' => 0,
-				'speed' => 0,
-				'attack' => 0,
-				'armor' => 0,
-				'energy_max' => 0,
-				'xp_boost' => 1,
-			];
-		}
 
-		$this->template->uploadDir = ItemsRepository::IMAGES_UPLOAD_DIR;
+        $this->template->uploadDir = ItemsRepository::IMAGES_UPLOAD_DIR;
 		$this->template->imagesDir = ItemsRepository::IMAGES_DIR;
 	}
 
@@ -149,29 +101,6 @@ final class InventoryPresenter extends GamePresenter
 
         $this->refreshTemplate();
     }
-
-	public function handleMoveItem(?int $startSlot, ?int $endSlot)
-	{
-		if ($startSlot === null || $endSlot === null) {
-			$this->flashMessage('Item or slot not specified!', 'danger');
-			return;
-		}
-
-		$inventoryItem = $this->inventoryRepository->findInventoryItem($this->inventory->id, $startSlot)->fetch();
-		if (!$inventoryItem) {
-			$this->flashMessage('Item not found in inventory!', 'danger');
-			return;
-		}
-
-		$this->inventoryRepository->moveItem($this->inventory->id, $startSlot, $endSlot);
-
-		$this->template->playerBody = $this->playerBody;
-		$this->template->inventory = $this->inventory;
-
-		$this->redrawControl('inventoryWrapper');
-		$this->redrawControl('inventory');
-		$this->redrawControl('playerBody');
-	}
 
 	public function getEquippedItem(int $itemId)
 	{

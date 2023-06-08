@@ -13,50 +13,11 @@ use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
-final class MarketPresenter extends GamePresenter
+final class MarketPresenter extends ItemsBasePresenter
 {
-	/** @var Model\InventoryRepository */
-	private $inventoryRepository;
-
-	/** @var Model\ItemsRepository */
-	private $itemsRepository;
-
-	/** @var Model\MarketRepository */
-	private $marketRepository;
-
-	private $inventory;
-
-	private $playerBody;
-
-	private $market;
-
-	public function __construct(
-		InventoryRepository $inventoryRepository,
-		ItemsRepository $itemsRepository,
-		MarketRepository $marketRepository
-	)
-	{
-		parent::__construct();
-		$this->inventoryRepository = $inventoryRepository;
-		$this->itemsRepository = $itemsRepository;
-		$this->marketRepository = $marketRepository;
-	}
-
-	protected function startup()
+	public function startup()
 	{
 		parent::startup();
-
-		$this->inventory = $this->inventoryRepository->findByUser($this->_player->id)->fetch();
-		if (!$this->inventory) {
-			$this->inventory = $this->inventoryRepository->createInventory($this->_player->id);
-		}
-
-		$this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->_player->id)->fetch();
-		if (!$this->playerBody) {
-			$this->playerBody = $this->inventoryRepository->createBody($this->_player->id);
-		}
-
-		$this->market = $this->marketRepository->getMarketByPlayerLevel($this->_player->player_stats->level);
 	}
 
 	public function renderDefault()
@@ -102,18 +63,18 @@ final class MarketPresenter extends GamePresenter
             return;
         }
 
-        if ($this->_player->money < $marketItem->item->cost) {
-            $this->flashMessage($this->translator->trans('general.messages.danger.notEnoughMoney'), 'danger');
+        if ($this->_player->money < $this->marketRepository->getItemPrice($marketItem)) {
+            $this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
             return;
         }
 
         if ($this->_player->player_stats->level < $marketItem->item->unlock_at) {
-            $this->flashMessage($this->translator->trans('general.messages.warning.itemLowLevel', ['level' => $marketItem->item->unlock_at]), 'danger');
+            $this->flashMessage($this->translator->translate('general.messages.warning.itemLowLevel', ['level' => $marketItem->item->unlock_at]), 'danger');
             return;
         }
 
         if (!$this->marketRepository->buyItem($marketItem, $this->_player->id)) {
-            $this->flashMessage($this->translator->trans('general.messages.danger.somethingWentWrong'), 'danger');
+            $this->flashMessage($this->translator->translate('general.messages.danger.somethingWentWrong'), 'danger');
             return;
         }
 
@@ -127,26 +88,31 @@ final class MarketPresenter extends GamePresenter
         $this->redrawControl('sidebar-stats');
     }
 
-	public function handleMoveItem(?int $startSlot, ?int $endSlot)
-	{
-		if ($startSlot === null || $endSlot === null) {
-			$this->flashMessage('Item or slot not specified!', 'danger');
-			return;
-		}
+    public function handleSellItem(?int $slotId)
+    {
+        if (!$slotId) {
+            $this->flashMessage($this->translator->translate('general.messages.danger.itemOrSlotNotSpecified'), 'danger');
+            $this->redrawControl('wrapper');
+            $this->redrawControl('flashes');
+            return;
+        }
 
-		$inventoryItem = $this->inventoryRepository->findInventoryItem($this->inventory->id, $startSlot)->fetch();
-		if (!$inventoryItem) {
-			$this->flashMessage('Item not found in inventory!', 'danger');
-			return;
-		}
+        $inventoryItem = $this->inventoryRepository->findInventoryItem($this->inventory->id, $slotId)->fetch();
+        if (!$inventoryItem) {
+            $this->flashMessage($this->translator->translate('general.messages.danger.itemNotFoundInInventory'), 'danger');
+            $this->redrawControl('wrapper');
+            $this->redrawControl('flashes');
+            return;
+        }
 
-		$this->inventoryRepository->moveItem($this->inventory->id, $startSlot, $endSlot);
+        $this->marketRepository->sellItem($inventoryItem, $this->market->id);
 
-		$this->template->playerBody = $this->playerBody;
-		$this->template->inventory = $this->inventory;
-
-		$this->redrawControl('inventoryWrapper');
-		$this->redrawControl('inventory');
-		$this->redrawControl('playerBody');
-	}
+        $this->flashMessage($this->translator->translate('general.messages.success.itemSold'), 'success');
+        $this->redrawControl('inventoryWrapper');
+        $this->redrawControl('inventory');
+        $this->redrawControl('playerBody');
+        $this->redrawControl('wrapper');
+        $this->redrawControl('flashes');
+        $this->redrawControl('sidebar-stats');
+    }
 }

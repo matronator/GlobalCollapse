@@ -43,7 +43,7 @@
             </div>
             <div class="uk-width-expand uk-flex uk-flex-row uk-padding-tiny uk-child-width-1-2 border-bottom">
               <div class="uk-text-left uk-text-bold">{_general.stats.power.title}</div>
-              <div class="uk-text-right">{$user->player_stats->power}</div>
+              <div class="uk-text-right">{$user->player_stats->power + $gearPower}</div>
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="uk-width-expand">
           {include '../../components/UI/ProgressBar/ProgressBar.latte',
             min => 0,
-            max => $user->player_stats->energy_max,
+            max => $user->player_stats->energy_max + $gearStats->energy_max,
             value => $user->player_stats->energy,
             type => 'yellow',
             name => 'energyBar',

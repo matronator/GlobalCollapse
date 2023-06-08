@@ -6,6 +6,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model;
 use DateTime;
+use Nette\Database\Table\ActiveRow;
 use stdClass;
 
 /////////////////////// FRONT: BASE PRESENTER ///////////////////////
@@ -30,15 +31,20 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	/** @var Model\BuildingsRepository */
 	private $buildingsRepository;
 
+    /** @var Model\InventoryRepository */
+    private $inventoryRepository;
+
 	public function injectRepository(
 		Model\UserRepository $userRepository,
 		Model\UnlockablesRepository $unlockablesRepository,
-		Model\BuildingsRepository $buildingsRepository
+		Model\BuildingsRepository $buildingsRepository,
+        Model\InventoryRepository $inventoryRepository
 	)
 	{
 		$this->userRepository = $userRepository;
 		$this->unlockablesRepository = $unlockablesRepository;
 		$this->buildingsRepository = $buildingsRepository;
+        $this->inventoryRepository = $inventoryRepository;
 	}
 
 	protected function beforeRender()
@@ -69,6 +75,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		if ($this->user->isLoggedIn()) {
 			$user = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$this->template->user = $user;
+            $gearStats = $this->getGearStats();
+            $this->template->gearStats = $gearStats;
+            $this->template->gearPower = $gearStats->strength + $gearStats->stamina + $gearStats->speed;
 			$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
 			if ($gearStats) {
 				$this->template->maxEnergy = $user->player_stats->energy_max + $gearStats->energy_max;
@@ -149,4 +158,49 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			return $targetTime - $diff;
 		}
 	}
+
+    /**
+     * @return object|ActiveRow
+     */
+    private function getGearStats()
+    {
+        $gearStats = $this->inventoryRepository->findPlayerGearStats($this->user->id)->fetch();
+        if (!$gearStats) {
+            return (object)[
+                'strength' => 0,
+                'stamina' => 0,
+                'speed' => 0,
+                'attack' => 0,
+                'armor' => 0,
+                'energy_max' => 0,
+                'xp_boost' => 1,
+            ];
+        }
+
+        return $gearStats;
+    }
+
+    public function getUserGearStats(int $userId)
+    {
+        $gearStats = $this->inventoryRepository->findPlayerGearStats($userId)->fetch();
+        if (!$gearStats) {
+            return (object)[
+                'strength' => 0,
+                'stamina' => 0,
+                'speed' => 0,
+                'attack' => 0,
+                'armor' => 0,
+                'energy_max' => 0,
+                'xp_boost' => 1,
+            ];
+        }
+
+        return $gearStats;
+    }
+
+    public function getUserGearPower(int $userId): int
+    {
+        $gearStats = $this->getUserGearStats($userId);
+        return $gearStats->strength + $gearStats->stamina + $gearStats->speed;
+    }
 }

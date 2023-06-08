@@ -4,6 +4,9 @@
  *   player         array         The player to show
  *   stats          array         Player's assault stats
  *}
+{var $playerGearStats = $presenter->getUserGearStats($player->id)}
+{var $playerGearPower = $presenter->getUserGearPower($player->id)}
+
 <div class="uk-card uk-width-auto uk-card-default uk-card-body" style="flex:1 0 auto;">
     <div class="split uk-flex-bottom">
         <div>
@@ -15,8 +18,8 @@
     <div class="uk-width-expand uk-flex">
         {include '../../components/UI/ProgressBar/ProgressBar.latte',
             min => 0,
-            max => $player->player_stats->stamina * 2,
-            value => $player->player_stats->stamina * 2,
+            max => ($player->player_stats->stamina + $playerGearStats->stamina) * 2,
+            value => ($player->player_stats->stamina + $playerGearStats->stamina) * 2,
             type => 'red',
             small => true,
             name => 'playerHP'
@@ -30,15 +33,15 @@
             <table class="uk-table uk-table-small uk-table-divider">
                 <tr>
                     <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">{_general.stats.strength.title}</td>
-                    <td class="uk-text-nowrap">{$player->player_stats->strength}</td>
+                    <td class="uk-text-nowrap">{$player->player_stats->strength + $playerGearStats->strength}</td>
                     <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">{_general.stats.stamina.title}</td>
-                    <td class="uk-text-nowrap">{$player->player_stats->stamina}</td>
+                    <td class="uk-text-nowrap">{$player->player_stats->stamina + $playerGearStats->stamina}</td>
                 </tr>
                 <tr>
                     <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">{_general.stats.speed.title}</td>
-                    <td class="uk-text-nowrap">{$player->player_stats->speed}</td>
+                    <td class="uk-text-nowrap">{$player->player_stats->speed + $playerGearStats->speed}</td>
                     <td class="uk-text-nowrap border-left" uk-tooltip="title:{$player->username}'s total power."><strong>Power</strong></td>
-                    <td class="uk-text-nowrap"><strong>{$player->player_stats->power}</strong></td>
+                    <td class="uk-text-nowrap"><strong>{$player->player_stats->power + $playerGearPower}</strong></td>
                 </tr>
             </table>
             <h3 class="uk-text-center">Assault stats</h3>

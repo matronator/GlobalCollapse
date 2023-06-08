@@ -32,6 +32,13 @@
   }
 }
 
+.inventory-item {
+  &.sell-active {
+    opacity: .5;
+    animation: blink 1s ease-out infinite;
+  }
+}
+
 .item-dropdown,
 .equipped-dropdown {
   z-index: 99;
@@ -315,13 +322,15 @@
   }
 }
 
-.market-buy-button {
+.market-buy-button,
+.market-sell-button {
   margin: 0 auto;
   & > .market-item-price {
     display: block;
     margin: 6px auto;
   }
-  & > .btn-buy.uk-button {
+  & > .btn-buy.uk-button,
+  & > .btn-sell.uk-button {
     & .uk-button-default {
       display: block;
       width: 100%;
@@ -333,5 +342,54 @@
       pointer-events: all;
       cursor: not-allowed;
     }
+  }
+}
+
+.sell-item-card {
+  max-width: 420px;
+}
+
+.market-sell-price {
+  display: block;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.sell-item-slot {
+  display: block;
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 0.25rem;
+  background-color: #a20c0c;
+  background-image: repeating-linear-gradient(223deg, rgba(255,255,255, 0.125), rgba(255,255,255, 0.125) 1px, transparent 0, transparent 2px);
+  box-shadow: inset 4px 4px 10px -3px rgba(0, 0, 0, 0.5),
+    inset 16px 16px 10px -3px rgba(0, 0, 0, 0.25), inset -16px -16px 10px -3px rgba(0, 0, 0, 0.25);
+  border: 5px dashed transparent;
+
+  &.drop-active {
+    border-color: var(--c-red);
+  }
+
+  &.drop-target {
+    border-color: var(--c-green);
+  }
+}
+
+.market-sell-item[data-is-filled] {
+  cursor: pointer;
+}
+
+.market-sell-button {
+  margin-top: 0.5rem;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.25;
   }
 }

@@ -235,6 +235,9 @@ city:
 		scavengingSince: 'Jsi na průzkumu od:'
 		scavengingReturn: 'Vrátit se z průzkumu'
 		scavengeDone: '<p>Vrátil jsi se do města po <strong>%hours% hodinách</strong> na průzkumu.</p></p>Za peníze jsi prodal všechny úlovky co jsi našel a ještě jsi k tomu získal nějaké zkušenosti navíc.</p>'
+	market:
+	    sellItem: 'Prodat předmět'
+	    dropItem: 'Vlož předmět'
 
 stats:
 	stat: 'Atributy'

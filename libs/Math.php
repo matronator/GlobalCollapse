@@ -7,7 +7,7 @@ class Math
     public static function random(float $min, float $max, float $gamma = 1): int
     {
         $offset = $max - $min + 1;
-        return (int) floor($min + pow(lcg_value(), $gamma) * $offset);
+        return (int) floor($min + (lcg_value() ** $gamma) * $offset);
     }
 
     public static function randomDist(float $mean, float $sd): float
@@ -19,18 +19,16 @@ class Math
 
     public static function getRarity(): string
     {
-        $number = self::random(1, 100);
+        $number = rand(0, 100);
         switch (true) {
-            case $number <= 50:
+            case $number <= 55:
                 return 'common';
             case $number <= 80:
                 return 'rare';
             case $number <= 95:
                 return 'epic';
-            case $number <= 100:
-                return 'legendary';
             default:
-                return 'common';
+                return 'legendary';
         }
     }
 }

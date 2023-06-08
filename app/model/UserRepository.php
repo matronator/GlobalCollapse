@@ -63,6 +63,12 @@ class UserRepository
         return $this->database->table('user')->order('player_stats.' . $sortBy . ' DESC');
     }
 
+    public function getLeaderboard()
+    {
+        return $this->database->table('user')
+            ->order('(player_stats.power + IFNULL(:player_gear_stats.strength, 0) + IFNULL(:player_gear_stats.stamina, 0) + IFNULL(:player_gear_stats.speed, 0)) DESC');
+    }
+
     public function findAllStats()
     {
         return $this->database->table('player_stats');
@@ -349,10 +355,9 @@ class UserRepository
      *
      * @param integer $id
      * @param integer $lvl
-     * @return void
+     * @return int
      */
     public function levelUp(int $id, int $lvl) {
-        $gearStats = $this->findPlayerGearStats($id)->fetch();
         $player = $this->getUser($id);
         $newLevel = $lvl + 1;
         $energy = $player->player_stats->energy_max;
@@ -365,9 +370,6 @@ class UserRepository
         $this->getUser($id)->update([
             'skillpoints' => $sp
         ]);
-        if ($gearStats && $gearStats->energy_max <> 0) {
-            $energy += $gearStats->energy_max;
-        }
         $this->getUser($id)->player_stats->update([
             'xp_min' => $oldMax,
             'xp_max' => $newMax,
@@ -391,7 +393,7 @@ class UserRepository
      * @return int
      */
     private function getMaxExp(int $lvl): int {
-        return round((pow($lvl, 2) * log($lvl)), -1) + round($this->expMaxBase * pow($lvl, 1.125), -1);
+        return round((($lvl ** 2) * log($lvl)), -1) + round($this->expMaxBase * ($lvl ** 1.125), -1);
     }
 
     /**
@@ -404,6 +406,6 @@ class UserRepository
      * @return int
      */
     private function getMaxEnergy(int $lvl): int {
-        return pow($lvl, 2) + $this->maxEnergyBase;
+        return ($lvl ** 2) + $this->maxEnergyBase;
     }
 }

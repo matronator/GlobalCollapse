@@ -41,6 +41,7 @@ messages:
 		buildingCollected: "Building collected!"
 		allBuildingCollected: "All buildings collected!"
 		offerRefreshed: "Generated new offer!"
+		itemSold: "Item sold!"
 	info:
 	warning:
 		cantRefreshOffer: "Can't refresh offer yet. Try again in %minutes% minutes."
@@ -58,6 +59,8 @@ messages:
 		forgotPasswordNoUser: "No user account with this e-mail address was found."
 		buildingNotFound: "Building not found!"
 		somethingWentWrong: "Something went wrong."
+		itemOrSlotNotSpecified: "Item or slot not specified!"
+		itemNotFoundInInventory: "Item not found in inventory!"
 
 ui:
 	navbar:
@@ -250,6 +253,10 @@ city:
 		scavengingSince: 'You are scavenging since:'
 		scavengingReturn: 'Return from scavenging'
 		scavengeDone: '<p>You returned to the city after <strong>%hours% hours</strong> of scavenging.</p></p>You sold all the scraps you found and gained some experience.</p>'
+	market:
+	    sellItem: 'Sell item'
+	    dropItem: 'Drop item'
+	    dropItemInfo: 'To sell an item, click on it or drag and drop it to the slot below and click on the "Sell item" button below the slot. (Click on the item again to cancel)'
 
 stats:
 	stat: 'Stat'
@@ -290,6 +297,9 @@ stats:
 	xp: 'XP'
 	xpTooltip: 'Your XP'
 	symbolsDesc: 'Symbols description'
+	baseStats: 'Base stat'
+	fromGear: 'From gear'
+	totalStat: 'Total stat'
 
 drugs:
 	drugName: 'Drug'

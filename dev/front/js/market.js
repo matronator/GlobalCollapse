@@ -71,14 +71,18 @@ function onBuyItemClick(e) {
 }
 
 function onInventoryItemClick(e) {
-    const item = e.currentTarget.parentElement;
-    const oldSlot = item.getAttribute('data-item-slot');
-    const itemId = item.getAttribute('data-item-id');
+    const item = e.target.parentElement;
+    const slot = document.getElementById('sellItemSlot');
+    if (item.classList.contains('sell-active')) {
+        makeSellInactive(slot, item);
+    } else {
+        const activeItemsForSell = document.querySelectorAll('.inventory-item.sell-active');
+        activeItemsForSell.forEach(el => {
+            el.classList.remove('sell-active');
+        });
 
-    let url = document.querySelector('[data-equip-endpoint]').getAttribute('data-equip-endpoint');
-    url = `${url}&itemId=${Number(itemId)}&bodySlot=${emptySlotEl.getAttribute('data-body-slot')}&slot=${Number(oldSlot)}`;
-
-    axette.sendRequest(url);
+        makeSellActive(slot, item);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -98,14 +102,14 @@ document.addEventListener("DOMContentLoaded", () => {
         onend: dragEndedListener,
     });
 
-    interact('.sell-item').dropzone({
-        accept: '.inventory-item',
+    interact('.sell-item-slot').dropzone({
+        accept: '.inventory-item:not(.sell-active)',
         overlap: 0.75,
         ondropactivate: handleDropActive,
         ondropdeactivate: handleDropDeactive,
         ondragenter: handleDragEnter,
         ondragleave: handleDragLeave,
-        ondrop: handleEquip,
+        ondrop: handleDropItemToSell,
     });
 
     interact('.inventory-slot:not([data-slot-filled])').dropzone({
@@ -138,17 +142,75 @@ function handleDragLeave(event) {
     event.target.classList.remove('drop-target');
 }
 
-function handleEquip(event) {
+function handleDropItemToSell(event) {
+    const sellSlotEl = event.target;
     const itemEl = event.relatedTarget;
+
+    makeSellActive(sellSlotEl, itemEl);
+}
+
+function makeSellActive(slotEl, itemEl) {
+    const slotItemEl = slotEl.querySelector('.market-sell-item');
     const itemId = itemEl.getAttribute('data-item-id');
     const itemSlot = itemEl.getAttribute('data-item-slot');
+    const sellButton = document.querySelector('button[data-sell-item]');
+    const sellPriceEl = document.getElementById('itemSellPrice');
 
-    const bodySlot = event.target.getAttribute('data-body-slot');
+    slotItemEl.removeAttribute('data-is-empty');
+    slotItemEl.setAttribute('data-is-filled', true);
+    slotItemEl.setAttribute('data-original-id', itemId);
+    slotItemEl.setAttribute('data-original-slot', itemSlot);
+    slotItemEl.innerHTML = itemEl.innerHTML;
+    sellButton.innerHTML = `<span uk-icon="money4"></span> ${sellButton.parentElement.getAttribute('data-sell-locale')}`;
+    sellButton.classList.add('uk-button-danger');
+    sellButton.classList.remove('uk-button-default');
+    sellButton.classList.remove('uk-disabled');
+    sellButton.addEventListener('click', onSellItemClick);
 
-    let url = document.querySelector('[data-equip-endpoint]').getAttribute('data-equip-endpoint');
-    url = `${url}&itemId=${Number(itemId)}&bodySlot=${bodySlot}&slot=${Number(itemSlot)}`;
+    sellPriceEl.innerHTML = `<span class="uk-text-muted uk-text-light">You will get</span> ${itemEl.getAttribute('data-item-cost')} <span class="uk-text-muted uk-text-light">for this item.</span>`;
+
+    slotItemEl.addEventListener('click', onDroppedItemClick);
+
+    itemEl.classList.add('sell-active');
+}
+
+function makeSellInactive(slotEl, itemEl) {
+    const slotItemEl = slotEl.querySelector('.market-sell-item');
+    const sellButton = document.querySelector('button[data-sell-item]');
+    const sellPriceEl = document.getElementById('itemSellPrice');
+
+    slotItemEl.removeAttribute('data-is-filled');
+    slotItemEl.setAttribute('data-is-empty', true);
+    slotItemEl.setAttribute('data-original-id', '');
+    slotItemEl.setAttribute('data-original-slot', '');
+    slotItemEl.innerHTML = '';
+    sellButton.innerHTML = `<span uk-icon="push"></span> ${sellButton.parentElement.getAttribute('data-drop-locale')}`;
+    sellButton.classList.add('uk-disabled');
+    sellButton.classList.add('uk-button-default');
+    sellButton.classList.remove('uk-button-danger');
+
+    sellPriceEl.innerHTML = '';
+
+    itemEl.classList.remove('sell-active');
+
+    slotItemEl.removeEventListener('click', onDroppedItemClick);
+}
+
+function onSellItemClick(e) {
+    const itemEl = document.querySelector('.market-sell-item[data-is-filled]');
+    const itemSlot = itemEl.getAttribute('data-original-slot');
+
+    let url = document.querySelector('[data-sell-endpoint]').getAttribute('data-sell-endpoint');
+    console.log(url);
+    url = `${url}&slotId=${Number(itemSlot)}`;
 
     axette.sendRequest(url);
+}
+
+function onDroppedItemClick(e) {
+    const item = document.querySelector(`.inventory-item[data-item-id="${e.currentTarget.getAttribute('data-original-id')}"]`);
+    const slot = document.getElementById('sellItemSlot');
+    makeSellInactive(slot, item);
 }
 
 function handleMoveItem(event) {

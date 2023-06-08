@@ -14,14 +14,14 @@
         {/if}
         {include '../../components/UI/ProgressBar/ProgressBar.latte',
           min => 0,
-          max => $user->player_stats->energy_max,
+          max => $user->player_stats->energy_max + $gearStats->energy_max,
           value => $newEnergy,
           type => 'yellow',
           name => 'energyBar',
           added => $resting ? $energyGained : null
         }
         <p n:if="$resting" class="uk-margin-bottom">{_general.resting.restingSince}{$restingSince|date:'%d %B %Y, %T'}&nbsp;<strong>({$timePassed}&nbsp;{_general.ui.ago})</strong></p>
-        {if $user->player_stats->energy < $user->player_stats->energy_max}
+        {if $user->player_stats->energy < $user->player_stats->energy_max + $gearStats->energy_max}
           <button n:if="!$resting" type="submit" class="uk-button uk-button-primary" n:name="rest">{_general.resting.title}</button>
         {/if}
         <button n:if="$resting" type="submit" class="uk-button uk-button-secondary" n:name="wakeup">{_general.resting.stop}</button>

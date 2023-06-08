@@ -47,12 +47,12 @@ final class PlayerPresenter extends BasePresenter
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 
-			$usersRanked = $this->userRepository->findAll()->select('*')->order('player_stats.power DESC');
+			$usersRanked = $this->userRepository->getLeaderboard();
 			$lastPage = 0;
 			$ranked = $usersRanked->page($page, 20, $lastPage);
 			$data = [];
 			foreach ($ranked as $rankedPlayer) {
-				array_push($data, $rankedPlayer);
+				$data[] = $rankedPlayer;
 			}
 			$this->template->user = $player;
 			$this->template->data = $data;

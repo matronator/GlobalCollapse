@@ -1,3 +1,5 @@
+{var $otherPlayerGearStats = $presenter->getUserGearStats($otherPlayer->id)}
+
 <div class="uk-card uk-width-expand@s uk-card-default uk-card-body" id="battle">
   <div class="uk-text-left uk-flex uk-flex-middle flex-responsive">
     <h4 class="uk-text-nowrap uk-margin-remove uk-padding-remove uk-width-1-4@s">
@@ -5,8 +7,8 @@
     </h4>
     {include '../../components/UI/ProgressBar/ProgressBar.latte',
       min => 0,
-      max => $user->player_stats->stamina * 2,
-      value => $user->player_stats->stamina * 2,
+      max => ($user->player_stats->stamina + $gearStats->stamina) * 2,
+      value => ($user->player_stats->stamina + $gearStats->stamina) * 2,
       type => 'red',
       small => true,
       name => 'attackerHp'
@@ -29,8 +31,8 @@
   <div class="uk-text-right uk-flex uk-flex-middle flex-responsive">
     {include '../../components/UI/ProgressBar/ProgressBar.latte',
       min => 0,
-      max => $otherPlayer->player_stats->stamina * 2,
-      value => $otherPlayer->player_stats->stamina * 2,
+      max => ($otherPlayer->player_stats->stamina + $otherPlayerGearStats->stamina) * 2,
+      value => ($otherPlayer->player_stats->stamina + $otherPlayerGearStats->stamina) * 2,
       type => 'red',
       small => true,
       name => 'victimHp'

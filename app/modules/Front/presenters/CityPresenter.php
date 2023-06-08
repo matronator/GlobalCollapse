@@ -319,7 +319,7 @@ final class CityPresenter extends GamePresenter
 		$this->userRepository->addXp($this->getUser()->identity->id, $plusXp);
 		$this->userRepository->addMoney($this->getUser()->identity->id, $totalMoney);
 		return [
-			'xp' => $plusXp,
+			'xp' => $plusXp * $this->getUserGearStats($this->_player->id)->xp_boost,
 			'money' => $plusMoney
 		];
 	}

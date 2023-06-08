@@ -13,6 +13,7 @@ use App\Libs\Notifications;
 use App\Model\AssaultsRepository;
 use App\Model\BuildingsRepository;
 use App\Model\MiscRepository;
+use Nette\Database\Table\ActiveRow;
 use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
@@ -26,6 +27,7 @@ final class DefaultPresenter extends BasePresenter
 	private $buildingsRepository;
 	private AssaultsRepository $assaultsRepository;
 	private MiscRepository $miscRepository;
+    private Model\InventoryRepository $inventoryRepository;
 
 	/** @var Model\ArticlesRepository */
   private $articleModel;
@@ -35,7 +37,9 @@ final class DefaultPresenter extends BasePresenter
 		Model\ArticlesRepository $articleModel,
 		BuildingsRepository $buildingsRepository,
 		AssaultsRepository $assaultsRepository,
-		MiscRepository $miscRepository
+		MiscRepository $miscRepository,
+        Model\InventoryRepository $inventoryRepository
+
 	)
 	{
 		parent::__construct();
@@ -44,6 +48,7 @@ final class DefaultPresenter extends BasePresenter
 		$this->buildingsRepository = $buildingsRepository;
 		$this->assaultsRepository = $assaultsRepository;
 		$this->miscRepository = $miscRepository;
+        $this->inventoryRepository = $inventoryRepository;
 	}
 
 	protected function startup()
@@ -106,18 +111,18 @@ final class DefaultPresenter extends BasePresenter
 			// Leaderboard
 			$page = 1;
 			$itemsPerPage = 10;
-			$usersRanked = $this->userRepository->findUsers();
+			$usersRanked = $this->userRepository->getLeaderboard();
 			$position = 0;
 			foreach ($usersRanked as $currentUser) {
 				if ($currentUser->id == $player->id) {
 					break;
-				} else {
-					$position++;
 				}
-			}
-			$page = intval(floor($position / $itemsPerPage)) + 1;
-			$lastPage = intval(round($this->userRepository->getTotalPlayers() / $itemsPerPage));
-			$leaderboard = $this->userRepository->findUsers()->page($page, $itemsPerPage);
+
+                $position++;
+            }
+			$page = (int) floor($position / $itemsPerPage) + 1;
+			$lastPage = (int) round($this->userRepository->getTotalPlayers() / $itemsPerPage);
+			$leaderboard = $this->userRepository->getLeaderboard()->page($page, $itemsPerPage);
 			$this->template->users = $leaderboard;
 			$this->template->lastPage = $lastPage;
 			$this->template->page = $page;
@@ -152,9 +157,9 @@ final class DefaultPresenter extends BasePresenter
 			$this->template->skillpoints = $player->skillpoints;
 			$this->template->progressValue = round((($xp - $xpMin) / ($xpMax - $xpMin)) * (100));
 
-			$strengthCost = round($player->player_stats->strength * pow(max(1, $player->player_stats->strength), 0.4));
-			$staminaCost = round($player->player_stats->stamina * pow(max(1, $player->player_stats->stamina), 0.4));
-			$speedCost = round($player->player_stats->speed * pow(max(1, $player->player_stats->speed), 0.4));
+			$strengthCost = round($player->player_stats->strength * (max(1, $player->player_stats->strength) ** 0.4));
+			$staminaCost = round($player->player_stats->stamina * (max(1, $player->player_stats->stamina) ** 0.4));
+			$speedCost = round($player->player_stats->speed * (max(1, $player->player_stats->speed) ** 0.4));
 			$this->template->strengthCost = $strengthCost;
 			$this->template->staminaCost = $staminaCost;
 			$this->template->speedCost = $speedCost;
@@ -326,8 +331,8 @@ final class DefaultPresenter extends BasePresenter
 		]);
 	}
 
-	public function handleStartTraining($stat) {
-		$trainNumber = 0;
+	public function handleStartTraining($stat)
+    {
 		$trainNumber = $stat === 'strength' ? 1 : ($stat === 'stamina' ? 2 : ($stat === 'speed' ? 3 : 0));
 		$trainSkill = $stat;
 

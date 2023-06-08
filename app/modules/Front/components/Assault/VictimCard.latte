@@ -3,10 +3,16 @@
  *
  *   victim         array         The defending player
  *}
-{var $strDiff = $victim->player_stats->strength - $attacker->player_stats->strength}
-{var $staDiff = $victim->player_stats->stamina - $attacker->player_stats->stamina}
-{var $speDiff = $victim->player_stats->speed - $attacker->player_stats->speed}
-{var $powDiff = $victim->player_stats->power - $attacker->player_stats->power}
+
+{var $victimGearStats = $presenter->getUserGearStats($victim->id)}
+{var $victimGearPower = $presenter->getUserGearPower($victim->id)}
+{var $attackerGearStats = $presenter->getUserGearStats($attacker->id)}
+{var $attackerGearPower = $presenter->getUserGearPower($attacker->id)}
+
+{var $strDiff = ($victim->player_stats->strength + $victimGearStats->strength) - ($attacker->player_stats->strength + $attackerGearStats->strength)}
+{var $staDiff = ($victim->player_stats->stamina + $victimGearStats->stamina) - ($attacker->player_stats->stamina + $attackerGearStats->stamina)}
+{var $speDiff = ($victim->player_stats->speed + $victimGearStats->speed) - ($attacker->player_stats->speed + $attackerGearStats->speed)}
+{var $powDiff = ($victim->player_stats->power + $victimGearPower) - ($attacker->player_stats->power + $attackerGearPower)}
 
 {var $showStats = isset($noStats) ? $noStats : false}
 
@@ -16,8 +22,8 @@
   </h3>
   {include '../../components/UI/ProgressBar/ProgressBar.latte',
     min => 0,
-    max => $victim->player_stats->stamina * 2,
-    value => $victim->player_stats->stamina * 2,
+    max => ($victim->player_stats->stamina + $victimGearStats->stamina) * 2,
+    value => ($victim->player_stats->stamina + $victimGearStats->stamina) * 2,
     type => 'red',
     small => true,
     name => 'victimHp'
@@ -26,23 +32,23 @@
     <div class="uk-width-expand uk-margin-right">
       <table class="uk-table uk-table-small uk-table-hover" n:if="!$showStats">
         <tr>
-          <td class="uk-text-nowrap">{$victim->player_stats->strength}</td>
-          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $strDiff > 0}uk-text-success{elseif $strDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.strength.pvp}: {$attacker->player_stats->strength}"><span n:if="$strDiff > 0">+</span>{$strDiff}</td>
+          <td class="uk-text-nowrap">{$victim->player_stats->strength + $victimGearStats->strength}</td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $strDiff > 0}uk-text-success{elseif $strDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.strength.pvp}: {$attacker->player_stats->strength + $attackerGearStats->strength}"><span n:if="$strDiff > 0">+</span>{$strDiff}</td>
           <td class="uk-text-nowrap uk-text-right" uk-tooltip="title:{_general.stats.strength.description}">{_general.stats.strength.title}</td>
         </tr>
         <tr>
-          <td class="uk-text-nowrap">{$victim->player_stats->stamina}</td>
-          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $staDiff > 0}uk-text-success{elseif $staDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.stamina.pvp}: {$attacker->player_stats->stamina}"><span n:if="$staDiff > 0">+</span>{$staDiff}</td>
+          <td class="uk-text-nowrap">{$victim->player_stats->stamina + $victimGearStats->stamina}</td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $staDiff > 0}uk-text-success{elseif $staDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.stamina.pvp}: {$attacker->player_stats->stamina + $attackerGearStats->stamina}"><span n:if="$staDiff > 0">+</span>{$staDiff}</td>
           <td class="uk-text-nowrap uk-text-right" uk-tooltip="title:{_general.stats.stamina.description}">{_general.stats.stamina.title}</td>
         </tr>
         <tr>
-          <td class="uk-text-nowrap">{$victim->player_stats->speed}</td>
-          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $speDiff > 0}uk-text-success{elseif $speDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.speed.pvp}: {$attacker->player_stats->speed}"><span n:if="$speDiff > 0">+</span>{$speDiff}</td>
+          <td class="uk-text-nowrap">{$victim->player_stats->speed + $victimGearStats->speed}</td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $speDiff > 0}uk-text-success{elseif $speDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.speed.pvp}: {$attacker->player_stats->speed + $attackerGearStats->speed}"><span n:if="$speDiff > 0">+</span>{$speDiff}</td>
           <td class="uk-text-nowrap uk-text-right" uk-tooltip="title:{_general.stats.speed.description}">{_general.stats.speed.title}</td>
         </tr>
         <tr>
-          <td class="uk-text-nowrap"><strong>{$victim->player_stats->power}</strong></td>
-          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $powDiff > 0}uk-text-success{elseif $powDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.power.description}: {$attacker->player_stats->power}"><span n:if="$powDiff > 0">+</span>{$powDiff}</td>
+          <td class="uk-text-nowrap"><strong>{$victim->player_stats->power + $victimGearPower}</strong></td>
+          <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $powDiff > 0}uk-text-success{elseif $powDiff < 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.power.description}: {$attacker->player_stats->power + $attackerGearPower}"><span n:if="$powDiff > 0">+</span>{$powDiff}</td>
           <td class="uk-text-nowrap uk-text-right"><strong>{_general.stats.power.title}</strong></td>
         </tr>
       </table>
@@ -55,7 +61,7 @@
     <div>
       {_general.pvp.assault.winReward}&nbsp;${$cashMoney|number}
       <br>
-      {_general.pvp.assault.winRewardXp}&nbsp;{$xpReward|number}
+      {_general.pvp.assault.winRewardXp}&nbsp;{$xpReward * $attackerGearStats->xp_boost|number}
     </div>
   </div>
 </div>

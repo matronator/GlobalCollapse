@@ -47,3 +47,39 @@ ADD `available` tinyint NOT NULL DEFAULT '1' AFTER `stackable`;
 ALTER TABLE `items`
 ADD `purchased` int unsigned NOT NULL DEFAULT '0' AFTER `children`,
 ADD `sold` int unsigned NOT NULL DEFAULT '0' AFTER `purchased`;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_9`,
+    ADD FOREIGN KEY (`feet`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_8`,
+    ADD FOREIGN KEY (`legs`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_7`,
+    ADD FOREIGN KEY (`shoulders`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_4`,
+    ADD FOREIGN KEY (`body`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_3`,
+    ADD FOREIGN KEY (`face`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_12`,
+    ADD FOREIGN KEY (`shield`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_13`,
+    ADD FOREIGN KEY (`head`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_11`,
+    ADD FOREIGN KEY (`ranged`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;
+
+ALTER TABLE `player_body`
+    DROP FOREIGN KEY `player_body_ibfk_10`,
+    ADD FOREIGN KEY (`melee`) REFERENCES `items` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT;

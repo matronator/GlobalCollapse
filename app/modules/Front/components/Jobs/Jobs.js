@@ -8,6 +8,11 @@ const progressBar = document.getElementById(`bar-energyBar`)
 const progressBarValSpan = document.getElementById(`barTextValue-energyBar`)
 const progressBarXp = document.getElementById(`bar-jobXp`)
 const progressBarValSpanXp = document.getElementById(`barTextValue-jobXp`)
+const xpBoostEl = document.querySelector(`[data-xp-boost]`)
+let xpBoost = 1
+if (xpBoostEl) {
+  xpBoost = Number(xpBoostEl.dataset.xpBoost)
+}
 
 if (jobs && duration && description && progressBar && progressBarXp && money) {
   const progressBarFill = progressBar.querySelector(
@@ -29,7 +34,7 @@ if (jobs && duration && description && progressBar && progressBarXp && money) {
       duration.innerHTML = job.dataset.jobDuration
       energy.innerHTML = job.dataset.jobEnergy
       money.innerHTML = job.dataset.jobMoney
-      xp.innerHTML = job.dataset.jobXp
+      xp.innerHTML = job.dataset.jobXp * xpBoost
       description.innerHTML = job.dataset.jobDescription
       document.querySelectorAll(`li[data-job-name]`).forEach(liJob => {
         job.querySelector(
@@ -52,7 +57,7 @@ if (jobs && duration && description && progressBar && progressBarXp && money) {
       progressBarFill.style.width = `${newBarFill}%`
 
       // progress bar xp
-      const newBarValueXp = progressValueXp + Number(job.dataset.jobXp)
+      const newBarValueXp = progressValueXp + (Number(job.dataset.jobXp) * xpBoost)
       progressBarXp.dataset.barValue = newBarValueXp
       progressBarValSpanXp.innerHTML = newBarValueXp
       const newBarFillXp = Math.round(

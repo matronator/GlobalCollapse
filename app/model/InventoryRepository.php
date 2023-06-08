@@ -75,8 +75,8 @@ class InventoryRepository
 
     public function createBody(int $userId)
     {
-        if ($this->findBodyByPlayerId($userId)) {
-            return;
+        if ($this->findBodyByPlayerId($userId)->fetch() !== null) {
+            return $this->findBodyByPlayerId($userId)->fetch();
         }
 
         return $this->findAllBody()->insert([

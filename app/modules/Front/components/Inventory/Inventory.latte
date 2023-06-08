@@ -21,7 +21,7 @@
                                 {var $hasHelmet = true}
                             {/if}
                         {/if}
-                        <div class="inventory-item {$hasHeadgear ? 'has-headgear'} {$hasHelmet ? 'has-helmet'}" data-item-type="{$item->item->type}" data-item-subtype="{$item->item->subtype}" data-item-slot="{$item->slot}" data-item-id="{$item->id}">
+                        <div class="inventory-item {$hasHeadgear ? 'has-headgear'} {$hasHelmet ? 'has-helmet'}" data-item-type="{$item->item->type}" data-item-cost="${$presenter->getMarketSellCost($item->item->id) ?? 0|number}" data-item-subtype="{$item->item->subtype}" data-item-slot="{$item->slot}" data-item-id="{$item->id}">
                             <img src="{$img}" alt="{$item->item->name}">
                         </div>
                         <div class="uk-width-max-content item-dropdown uk-hidden" data-item-slot="{$item->slot}" data-dropdown>
