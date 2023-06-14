@@ -15,6 +15,7 @@ use App\Model\BuildingsRepository;
 use App\Model\MiscRepository;
 use Nette\Database\Table\ActiveRow;
 use Timezones;
+use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
@@ -30,7 +31,7 @@ final class DefaultPresenter extends BasePresenter
     private Model\InventoryRepository $inventoryRepository;
 
 	/** @var Model\ArticlesRepository */
-  private $articleModel;
+    private $articleModel;
 
 	public function __construct(
 		DrugsRepository $drugsRepository,
@@ -293,7 +294,7 @@ final class DefaultPresenter extends BasePresenter
 				$reward = (int)(10 * round($diff / 1800));
                 $this->statisticsRepository->findByUser($player->id)->update([
                     'times_rested+=' => 1,
-                    'minutes_rested+=' => (int) date('i', $diff),
+                    'minutes_rested+=' => (int) max(round($diff / 60), 0),
                 ]);
 				if ($reward > 0) {
 					$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
@@ -311,7 +312,7 @@ final class DefaultPresenter extends BasePresenter
 							'energy+=' => $reward
 						]);
 					}
-					$this->flashMessage($this->translate('general.messages.success.restEnd', $reward), 'success');
+					$this->flashMessage($this->translator->translate('general.messages.success.restEnd', ['reward' => $reward]), 'success');
 				}
 			}
 		}

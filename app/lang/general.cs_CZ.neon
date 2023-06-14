@@ -150,6 +150,11 @@ account:
 	notVotedYet: 'Tento týden jsi ještě nehlasoval.'
 	alreadyVoted: 'Tento týden jsi již hlasoval a obdržel jsi $250,000 jako odměnu.'
 	voteAgainTime: 'Znovu budeš moct hlasovat za %days% dny a %hours% hodiny.'
+	statistics:
+	    incomeSource: 'Zdroj příjmu'
+	    timeSpent: 'Čas strávený na aktivitách'
+	    activitiesDone: 'Počet aktivit'
+	    onTheseActivities: 'na těchto aktivitách'
 
 faq:
 	title: 'Věděl jsi že... ?'

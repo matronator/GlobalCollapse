@@ -1,0 +1,39 @@
+{default ?string $username = null}
+
+<div class="uk-card uk-card-default uk-card-body uk-margin-auto">
+    <h3 class="uk-card-title uk-text-center">{_general.account.statistics.timeSpent}</h3>
+    <div class="uk-flex uk-flex-row uk-flex-center">
+        <table class="uk-table uk-table-divider uk-table-responsive table-bordered">
+            <tr>
+                <th n:foreach="$timeSpent as $key => $item">{$key|firstUpper}</th>
+                <th class="uk-text-right border-left">{_general.ui.total}</th>
+            </tr>
+            <tr>
+                <td n:foreach="$timeSpent as $item">{$item|time}</td>
+                <td class="uk-text-bold uk-text-right border-left">{=array_sum((array) $timeSpent)|time}</td>
+            </tr>
+        </table>
+    </div>
+    <p class="uk-margin-remove-top uk-margin-remove-bottom uk-padding-small uk-text-center">You spent totally <strong>{=array_sum((array) $timeSpent)|time, true}</strong> {_general.account.statistics.onTheseActivities}:</p>
+    <h3 class="uk-card-title uk-text-center uk-margin-remove-top">{_general.account.statistics.activitiesDone}</h3>
+    <div class="uk-flex uk-flex-row uk-flex-center">
+        <table class="uk-table uk-table-divider uk-table-responsive table-bordered">
+            <tr>
+                <th n:foreach="$activitiesCount as $key => $item">{$key|firstUpper}</th>
+                <th class="uk-text-right border-left">{_general.ui.total}</th>
+            </tr>
+            <tr>
+                <td n:foreach="$activitiesCount as $item">{$item|number}</td>
+                <td class="uk-text-bold uk-text-right border-left">{=array_sum((array) $activitiesCount)|number}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="uk-flex uk-flex-row uk-flex-center uk-flex-wrap">
+        <div>
+            <canvas id="timeSpentPie" {if $username}data-stats-username="{$username}"{/if} width="400" height="400"></canvas>
+        </div>
+        <div>
+            <canvas id="timeSpentBars" width="400" height="400"></canvas>
+        </div>
+    </div>
+</div>

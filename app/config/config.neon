@@ -49,6 +49,7 @@ services:
             # - addFilter('imageGenerator', '@App\Filter\ImageFilter')
             - addFilter('fromSnake', 'App\Filter\StaticFilters::fromSnake')
             - addFilter('firstLower', 'App\Filter\StaticFilters::firstLower')
+            - addFilter('time', 'App\Filter\StaticFilters::time')
 
 http:
     headers:

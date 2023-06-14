@@ -42,4 +42,12 @@ class StaticFilters
         return Strings::firstLower($text);
     }
 
+    public static function time(string $text, bool $longFormat = false): string
+    {
+        $time = (int) $text;
+        $hours = floor($time / 60);
+        $minutes = $time % 60;
+
+        return $longFormat ? sprintf('%d hours and %d minutes', $hours, $minutes) : sprintf('%02d:%02d', $hours, $minutes);
+    }
 }

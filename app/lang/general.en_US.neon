@@ -168,6 +168,11 @@ account:
 		timezone: 'Timezone'
 		dst: 'DST / Summer time'
 		yourTime: 'Your current time is'
+	statistics:
+	    incomeSource: 'Source of Income'
+	    timeSpent: 'Time Spent'
+	    activitiesDone: 'Activities done'
+	    onTheseActivities: 'on these activities'
 
 faq:
 	title: 'Did you know... ?'

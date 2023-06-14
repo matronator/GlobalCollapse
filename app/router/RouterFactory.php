@@ -73,6 +73,8 @@ class RouterFactory
 
             // API
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/money-sources[/<username>]', 'Statistics:getMoneySourceChartData')
+			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/time-spent[/<username>]', 'Statistics:getTimeSpentData')
+			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/activities[/<username>]', 'Statistics:getActivitiesCountData')
 
 			->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default') //most general route
 

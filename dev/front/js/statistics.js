@@ -9,12 +9,15 @@ const BASE_URL = location.origin;
 
 const ENDPOINTS = {
     moneySources: BASE_URL + "/statistics/charts/money-sources",
+    timeSpent: BASE_URL + "/statistics/charts/time-spent",
+    activities: BASE_URL + "/statistics/charts/activities",
 };
 
 const axette = new Axette();
 
 document.addEventListener("DOMContentLoaded", () => {
     createMoneySourceCharts();
+    createTimeSpentCharts();
 });
 
 async function createMoneySourceCharts() {
@@ -51,12 +54,6 @@ async function createMoneySourceCharts() {
         type: "bar",
         data: {
             labels: Object.keys(data).map((item) => item.charAt(0).toUpperCase() + item.slice(1)),
-            // datasets: [
-            //     {
-            //         label: Object.keys(data)[0],
-            //         data: Object.values(data)[0],
-            //     }
-            // ],
             datasets: [{
                 label: "Source of income",
                 data: Object.values(data),
@@ -71,6 +68,65 @@ async function createMoneySourceCharts() {
                 title: {
                     display: true,
                     text: 'Source of income'
+                }
+            }
+        }
+    });
+}
+
+async function createTimeSpentCharts() {
+    const timeSpentPieEl = document.getElementById("timeSpentPie");
+    const timeSpentBarsEl = document.getElementById("timeSpentBars");
+    const username = timeSpentPieEl.getAttribute("data-stats-username") ?? null;
+    const timeSpentUrl = ENDPOINTS.timeSpent + (username ? `?username=${username}` : "");
+    const activitiesUrl = ENDPOINTS.activities + (username ? `?username=${username}` : "");
+    const timeSpentData = await axette.get(timeSpentUrl);
+    const activitiesData = await axette.get(activitiesUrl);
+
+    const moneySourcePie = new Chart(timeSpentPieEl, {
+        type: "pie",
+        data: {
+            labels: Object.keys(timeSpentData).map((item) => item.charAt(0).toUpperCase() + item.slice(1)),
+            datasets: [{
+                label: "Time spent",
+                data: Object.values(timeSpentData),
+            }],
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Time spent (in minutes)'
+                }
+            }
+        }
+    });
+
+    const moneySourceBars = new Chart(timeSpentBarsEl, {
+        type: "bar",
+        data: {
+            labels: Object.keys(timeSpentData).map((item) => item.charAt(0).toUpperCase() + item.slice(1)),
+            datasets: [{
+                label: "Time spent",
+                data: Object.values(timeSpentData),
+            }, {
+                label: "Activities",
+                data: Object.values(activitiesData),
+            }],
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Time spent on activities'
                 }
             }
         }
