@@ -108,7 +108,7 @@ final class CityPresenter extends GamePresenter
 		]);
 		$this->drugsRepository->findOffer($offer->id)->update([
 			'drug_id' => array_pop($drugs),
-			'quantity' => rand(500, 2000) * pow($offer->vendor->level, 1.05),
+			'quantity' => rand(500, 2000) * ($offer->vendor->level ** 1.05),
 			'buys' => 0,
 			'sells' => 0
 		]);
@@ -152,11 +152,11 @@ final class CityPresenter extends GamePresenter
 	public function processOfferForm(Form $form, $values)
 	{
 		$control = $form->isSubmitted();
-		if ($control->name == 'offerBuy') {
+		if ($control->name === 'offerBuy') {
 			$quantity = $values['offerInput'];
 			$hash = $values['offerId'];
 			$this->offerBuy($hash, $quantity);
-		} else if ($control->name == 'offerSell') {
+		} else if ($control->name === 'offerSell') {
 			$quantity = $values['offerInput'];
 			$hash = $values['offerId'];
 			$this->offerSell($hash, $quantity);
@@ -273,7 +273,7 @@ final class CityPresenter extends GamePresenter
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$isScavenging = $player->actions->scavenging;
 		$isOnMission = $player->actions->on_mission;
-		if ($control->name == 'scavenge') {
+		if ($control->name === 'scavenge') {
 			if ($isScavenging <= 0 && $isOnMission <= 0) {
 				$playerScavengeStart = new DateTime();
 				$this->userRepository->getUser($player->id)->actions->update([
@@ -282,7 +282,7 @@ final class CityPresenter extends GamePresenter
 				]);
 				$this->flashMessage($this->translate('general.messages.success.scavengingStart'), 'success');
 			}
-		} else if ($control->name == 'stopScavenging') {
+		} else if ($control->name === 'stopScavenging') {
 			if ($isScavenging > 0) {
 				$scavengingSince = $player->actions->scavenge_start;
 				$nowDate = new DateTime();
@@ -298,6 +298,11 @@ final class CityPresenter extends GamePresenter
 					$section->hours = round($diff / 3600);
 					$section->money = $reward['money'];
 					$section->exp = $reward['xp'];
+                    $this->statisticsRepository->findByUser($player->id)->update([
+                        'minutes_scavenged+=' => (int) date('i', $diff),
+                        'money_from_scavenging+=' => $reward['money'],
+                        'times_scavenged+=' => 1,
+                    ]);
 					$this->flashMessage('You returned from scavenging. You found $' . $reward['money'] . ' and gained ' . $reward['xp'] . ' XP', 'success');
 				} else {
 					$this->flashMessage('You can return after at least an hour of scavenging', 'danger');

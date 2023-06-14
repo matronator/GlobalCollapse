@@ -84,6 +84,7 @@ ui:
 			unlockables: 'Unlockables'
 			reward: 'Free Reward'
 			leaderboard: 'Leaderboard'
+			statistics: 'Statistics'
 		city:
 			title: 'City'
 			bar: 'Bar'
@@ -142,6 +143,7 @@ ui:
 	all: 'All'
 	buy: 'Buy'
 	sell: 'Sell'
+	total: 'Total'
 	locationStatus:
 		closed: 'Closed'
 	restore:

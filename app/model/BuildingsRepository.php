@@ -202,13 +202,11 @@ class BuildingsRepository
 					'storage' => 0
 				]);
 				return true;
-			} else {
-				return false;
 			}
-		} else {
-			return false;
-		}
-	}
+        }
+
+        return false;
+    }
 
 	public function unlockBuilding(int $buildingId, int $userId) {
 		$building = $this->findAllBuildings()->get($buildingId);
@@ -251,10 +249,10 @@ class BuildingsRepository
 				}
 			}
 			return true;
-		} else {
-			return false;
 		}
-	}
+
+        return false;
+    }
 
 	public function demolishBuilding(int $bId, ?int $userId = null) {
 		$building = $this->getBuilding($bId)->fetch();
@@ -270,10 +268,10 @@ class BuildingsRepository
 			]);
 			$this->getBuilding($bId)->delete();
 			return true;
-		} else {
-			return false;
 		}
-	}
+
+        return false;
+    }
 
 	public function getLandPrice()
 	{
@@ -282,13 +280,13 @@ class BuildingsRepository
 
 	public function getLandUpgradeCost(int $level)
 	{
-		return (int)round($this->baseUpgradeCost * pow($level, 2), -2);
+		return (int)round($this->baseUpgradeCost * ($level ** 2), -2);
 	}
 
 	public function getLandUpgradeTime(int $level)
 	{
 		// return (int)round($this->baseUpgradeTime * pow($level, 2), -2);
-		return (int)round($this->baseUpgradeTime * pow(($level), 1.05), 0);
+		return (int)round($this->baseUpgradeTime * (($level) ** 1.05), 0);
 	}
 
 	public function getIncomeType(string $buildingName)
@@ -324,11 +322,11 @@ class BuildingsRepository
 	 */
 	public function getBuildingIncome(int $baseIncome = 0, int $level = 1): float
 	{
-		return $baseIncome + round($baseIncome * pow(($level - 1) / 2, 1.02));
+		return $baseIncome + round($baseIncome * ((($level - 1) / 2) ** 1.02));
 	}
 
 	public function getBuildingCapacity(int $capacity = 0, int $level = 1)
 	{
-		return $capacity + round($capacity * pow(($level - 1) / 2, 1.02) * 1.25);
+		return $capacity + round($capacity * ((($level - 1) / 2) ** 1.02) * 1.25);
 	}
 }

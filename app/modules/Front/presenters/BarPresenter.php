@@ -61,7 +61,7 @@ final class BarPresenter extends GamePresenter
 			if (!$isOnMission) {
 				$session = $this->session;
 				$section = $session->getSection('returnedJob');
-				if (isset($section['returnedJob']) && $section['returnedJob'] == 'new') {
+				if (isset($section['returnedJob']) && $section['returnedJob'] === 'new') {
 					$this->template->returned = true;
 					$this->template->moneyPlus = $section['money'];
 					$this->template->xpointsPlus = $section['exp'];
@@ -77,7 +77,7 @@ final class BarPresenter extends GamePresenter
 						for ($i = 0; $i < 3; $i++) {
 							$selectedJob = $this->getRandomWeightedElement($jobDeck);
 							$section['job-' . $i] = $selectedJob;
-							array_push($templateJobs, $selectedJob);
+							$templateJobs[] = $selectedJob;
 							$jobKey = array_search($selectedJob, $jobDeck);
 							unset($jobDeck[$jobKey]);
 						}
@@ -85,7 +85,7 @@ final class BarPresenter extends GamePresenter
 					} else {
 						for ($i = 0; $i < 3; $i++) {
 							$selectedJob = $section['job-' . $i];
-							array_push($templateJobs, $selectedJob);
+							$templateJobs[] = $selectedJob;
 						}
 					}
 					$this->template->jobs = $templateJobs;
@@ -98,7 +98,7 @@ final class BarPresenter extends GamePresenter
 				if ($diff >= 0) {
 					$missionKey = array_search($whatMission, array_column($this->allJobs, 'locale'));
 					$currentMission = $this->allJobs[$missionKey];
-					$missionDuration = $this->jobDuration(intval($currentMission['duration']), $player->player_stats->level);
+					$missionDuration = $this->jobDuration((int) $currentMission['duration'], $player->player_stats->level);
 					$s = $diff % 60;
 					$m = $diff / 60 % 60;
 					$this->template->minutes = $m > 9 ? $m : '0'.$m;
@@ -124,13 +124,13 @@ final class BarPresenter extends GamePresenter
 
 	public function jobDuration(int $duration, int $playerLevel, ?int $modifier = null) {
 		if (!$modifier) {
-			return intval(min(round(($duration * $playerLevel) / 15, 2), $duration) * 60);
-		} else {
-			$result = min(round(($duration * $playerLevel) / 15, 2), $duration);
-			$modified = round(($modifier / 100) * $result, 2);
-			return intval(($result - $modified) * 60);
+			return (int) round(min(round(($duration * $playerLevel) / 15, 2), $duration) * 60);
 		}
-	}
+
+        $result = min(round(($duration * $playerLevel) / 15, 2), $duration);
+        $modified = round(($modifier / 100) * $result, 2);
+        return (int) (($result - $modified) * 60);
+    }
 
 	public function actionNewjobs(?string $hash = null) {
 		if ($hash) {
@@ -166,6 +166,10 @@ final class BarPresenter extends GamePresenter
 			$this->userRepository->getUser($this->user->getIdentity()->id)->actions->update([
 				'on_mission' => 0
 			]);
+            $this->statisticsRepository->findByUser($this->user->getIdentity()->id)->update([
+                'money_from_jobs+=' => $plusMoney,
+                'jobs_completed+=' => 1,
+            ]);
 			return [
 				'xp' => $plusXp,
 				'money' => $plusMoney
@@ -209,7 +213,10 @@ final class BarPresenter extends GamePresenter
 				if ($chosenJob) {
 					if ($player->player_stats->energy >= $chosenJob['energy']) {
 						$now = new DateTime();
-						$jobDuration = $this->jobDuration(intval($chosenJob['duration']), $player->player_stats->level);
+						$jobDuration = $this->jobDuration((int) $chosenJob['duration'], $player->player_stats->level);
+                        $this->statisticsRepository->findByUser($player->id)->update([
+                            'minutes_on_job+=' => (int) max(round($jobDuration / 60), 0),
+                        ]);
 						// set job end date
 						$jobEndTS = $now->getTimestamp();
 						$jobEndTS += $jobDuration;

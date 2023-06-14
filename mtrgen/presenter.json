@@ -1,0 +1,53 @@
+{
+  "name": "gcp-presenter",
+  "filename": "<%name|ucfirst%>Presenter",
+  "path": "app/modules/<%module%>/presenters",
+  "file": {
+    "strict": true,
+    "use": [],
+    "namespace": {
+      "name": "App\\<%module|ucfirst%>Module\\Presenters",
+      "class": {
+        "name": "<%name|ucfirst%>Presenter",
+        "modifier": "final",
+        "extends": "App\\<%module|ucfirst%>Module\\Presenters\\BasePresenter",
+        "props": [
+          {
+            "comments": [],
+            "getter": false,
+            "setter": false,
+            "name": "<%name|lcfirst%>Repository",
+            "init": false,
+            "type": "App\\Model\\<%name|ucfirst%>Repository",
+            "nullable": false,
+            "static": false,
+            "visibility": "private"
+          }
+        ],
+        "methods": [
+          {
+            "name": "__construct",
+            "visibility": "public",
+            "body": [
+              "parent::__construct();",
+              "$this-><%name|lcfirst%>Repository = $<%name|lcfirst%>Repository;"
+            ],
+            "params": [
+              {
+                "name": "<%name|lcfirst%>Repository",
+                "type": "App\\Model\\<%name|ucfirst%>Repository"
+              }
+            ]
+          },
+          {
+            "name": "renderDefault",
+            "visibility": "public"
+          }
+        ]
+      },
+      "use": [
+        "App\\Model\\<%name|ucfirst%>Repository"
+      ]
+    }
+  }
+}

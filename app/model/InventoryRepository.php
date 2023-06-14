@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Model\Entity\Item;
 use Nette;
 
 class InventoryRepository
@@ -187,15 +188,20 @@ class InventoryRepository
             return;
         }
 
-        if ($bodySlot === 'face' && $inventoryItem->item->subtype === 'headgear' && $body->head) {
+        if ($bodySlot === 'face' && $inventoryItem->item->subtype === Item::ARMOR_SUBTYPE_HEADGEAR && $body->head) {
             return;
         }
-
-        $inventoryItem->delete();
 
         if ($body->{$bodySlot}) {
             $this->unequipItem($inventoryId, $bodySlot, $slot, $userId);
         }
+        if ($inventoryItem->item->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE && $body->ranged && $body->ref('items', 'ranged')->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED) {
+            $this->unequipItem($inventoryId, 'ranged', $this->findEmptySlot($userId), $userId);
+        } else if ($inventoryItem->item->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED && $body->melee && $body->ref('items', 'melee')->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE) {
+            $this->unequipItem($inventoryId, 'melee', $this->findEmptySlot($userId), $userId);
+        }
+
+        $inventoryItem->delete();
 
         $body->update([
             $bodySlot => $itemId,

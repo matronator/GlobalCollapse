@@ -53,12 +53,13 @@ class PlayerBody
         self::SLOT_MELEE => [
             Item::TYPE_WEAPON => [
                 Item::WEAPON_SUBTYPE_MELEE,
-                Item::WEAPON_SUBTYPE_TWO_HANDED,
+                Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE,
             ],
         ],
         self::SLOT_RANGED => [
             Item::TYPE_WEAPON => [
                 Item::WEAPON_SUBTYPE_RANGED,
+                Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED,
             ],
         ],
         self::SLOT_SHIELD => [
@@ -66,7 +67,8 @@ class PlayerBody
                 Item::ARMOR_SUBTYPE_SHIELD,
             ],
             ITEM::TYPE_WEAPON => [
-                Item::WEAPON_SUBTYPE_TWO_HANDED,
+                Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED,
+                Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE,
             ]
         ],
         self::SLOT_LEGS => [

@@ -23,6 +23,6 @@ abstract class GamePresenter extends BasePresenter
   }
 
 	public function toUserDate($date) {
-    return Timezones::getUserTime($date, $this->userPrefs->timezone, $this->userPrefs->dst);
+        return Timezones::getUserTime($date, $this->userPrefs->timezone, $this->userPrefs->dst);
 	}
 }

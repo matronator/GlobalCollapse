@@ -1,0 +1,72 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\FrontModule\Presenters;
+
+use Nette\Database\Table\ActiveRow;
+
+final class StatisticsPresenter extends BasePresenter
+{
+    private ActiveRow $player;
+    private ActiveRow $statistics;
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    protected function startup()
+    {
+        parent::startup();
+
+        $this->player = $this->userRepository->getUser($this->user->getIdentity()->id);
+        if (!$this->player) {
+            $this->redirect('Default:default');
+        }
+
+        $this->statistics = $this->statisticsRepository->findByUser($this->player->id);
+        if (!$this->statistics) {
+            $this->redirect('Default:default');
+        }
+    }
+
+    public function renderDefault()
+    {
+        $this->template->statistics = $this->statistics;
+        $this->template->moneySources = $this->getMoneySourcesData();
+    }
+
+    public function actionGetMoneySourceChartData(?string $username = null)
+    {
+        if (!$this->user->isLoggedIn()) {
+            $this->sendJson(['error' => 'Not logged in.']);
+        }
+
+        $data = $this->getMoneySourcesData($username);
+
+        $this->sendJson($data);
+    }
+
+    private function getMoneySourcesData(?string $username = null)
+    {
+        if (!$username) {
+            return (object) [
+                'jobs' => (int) $this->statistics->money_from_jobs,
+                'darknet' => (int) $this->statistics->money_from_darknet,
+                'scavenging' => (int) $this->statistics->money_from_scavenging,
+                'assaults' => (int) $this->statistics->money_from_assaults,
+                'market' => (int) $this->statistics->money_from_market,
+            ];
+        }
+
+        $stats = $this->statisticsRepository->findByUser($this->userRepository->getUserByName($username)->id);
+        return (object) [
+            'jobs' => (int) $stats->money_from_jobs,
+            'darknet' => (int) $stats->money_from_darknet,
+            'scavenging' => (int) $stats->money_from_scavenging,
+            'assaults' => (int) $stats->money_from_assaults,
+            'market' => (int) $stats->money_from_market,
+        ];
+    }
+}

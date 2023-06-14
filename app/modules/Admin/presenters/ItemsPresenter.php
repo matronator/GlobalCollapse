@@ -149,80 +149,81 @@ final class ItemsPresenter extends BasePresenter
 	}
 
 	protected function createComponentItemForm()
-	{
-		$form = new Form;
+    {
+        $form = new Form;
 
-		$id = $this->getParameter('id');
+        $id = $this->getParameter('id');
 
-		$form->addText('name', 'Name')
-			->setHtmlAttribute('class', 'uk-input')
-			->setRequired('Please enter name.');
+        $form->addText('name', 'Name')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setRequired('Please enter name.');
 
-		$form->addText('description', 'Description')
-			->setHtmlAttribute('class', 'uk-input')
-			->setRequired('Please enter description.');
+        $form->addText('description', 'Description')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setRequired('Please enter description.');
 
-		$form->addSelect('type', 'Type', Item::ITEM_TYPES)
-			->setHtmlAttribute('class', 'uk-select')
-			->setRequired('Please select type.');
+        $form->addSelect('type', 'Type', Item::ITEM_TYPES)
+            ->setHtmlAttribute('class', 'uk-select')
+            ->setRequired('Please select type.');
 
-		$form->addSelect('subtype', 'Subtype', Item::ITEM_SUBTYPES)
-			->setHtmlAttribute('class', 'uk-select')
-			->setRequired('Please select a subtype.');
+        $form->addSelect('subtype', 'Subtype', Item::ITEM_SUBTYPES)
+            ->setHtmlAttribute('class', 'uk-select')
+            ->setRequired('Please select a subtype.');
 
-		$form->addSelect('rarity', 'Rarity', Item::RARITIES)
-			->setHtmlAttribute('class', 'uk-select')
-			->setRequired('Please select a rarity.');
+        $form->addSelect('rarity', 'Rarity', Item::RARITIES)
+            ->setHtmlAttribute('class', 'uk-select')
+            ->setRequired('Please select a rarity.');
 
-		$image = $form->addUpload('image', 'Image');
-		if (!$id) {
-			$image->setRequired('Please select an image.');
-		}
+        $image = $form->addUpload('image', 'Image');
+        if (!$id) {
+            $image->setRequired('Please select an image.');
+        }
 
-		$form->addInteger('unlock_at', 'Level to unlock')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 1)
-			->setRequired('Please enter level to unlock.');
+        $form->addInteger('unlock_at', 'Level to unlock')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 1)
+            ->setRequired('Please enter level to unlock.');
 
-		$form->addInteger('cost', 'Cost')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addInteger('cost', 'Cost')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0);
 
-		$form->addInteger('strength', 'Strength')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addInteger('strength', 'Strength')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0);
 
-		$form->addInteger('stamina', 'Stamina')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addInteger('stamina', 'Stamina')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0);
 
-		$form->addInteger('speed', 'Speed')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addInteger('speed', 'Speed')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0);
 
-		$form->addInteger('attack', 'Attack')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addInteger('attack', 'Attack')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0);
 
-		$form->addInteger('armor', 'Armor')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addInteger('armor', 'Armor')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0);
 
-		$form->addInteger('energy_max', 'Max. energy')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addInteger('energy_max', 'Max. energy')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0);
 
-		$form->addInteger('xp_boost', 'XP Boost')
-			->setHtmlAttribute('class', 'uk-input')
-			->setHtmlAttribute('min', 0);
+        $form->addText('xp_boost', 'XP Boost')
+            ->setHtmlAttribute('class', 'uk-input')
+            ->setHtmlAttribute('min', 0)
+            ->addRule($form::Float, 'Strength must be numeric.');
 
-		$form->addCheckbox('stackable', ' Can the item be stacked?')
-			->setHtmlAttribute('class', 'uk-checkbox');
+        $form->addCheckbox('stackable', ' Can the item be stacked?')
+            ->setHtmlAttribute('class', 'uk-checkbox');
 
-		$form->addSubmit('save', 'Save');
-		$form->onSuccess[] = [$this, 'itemFormSucceeded'];
-		return $form;
-	}
+        $form->addSubmit('save', 'Save');
+        $form->onSuccess[] = [$this, 'itemFormSucceeded'];
+        return $form;
+    }
 
 	public function itemFormSucceeded(Form $form, $values)
 	{
@@ -242,7 +243,10 @@ final class ItemsPresenter extends BasePresenter
 		$primaryData['attack'] = $values->attack;
 		$primaryData['armor'] = $values->armor;
 		$primaryData['energy_max'] = $values->energy_max;
-		$primaryData['xp_boost'] = $values->xp_boost;
+		$primaryData['xp_boost'] = $values->xp_boost === '' ? null : (float) $values->xp_boost;
+        if ($primaryData['xp_boost'] === 0) {
+            unset($primaryData['xp_boost']);
+        }
 		$primaryData['stackable'] = $values->stackable;
 		$primaryData['built_in'] = false;
 		$primaryData['created_at'] = new DateTime();

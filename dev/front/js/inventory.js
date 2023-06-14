@@ -1,6 +1,7 @@
 import interact from "interactjs";
 import { Axette } from "axette";
-import tippy, { followCursor } from 'tippy.js';
+import tippy, { followCursor } from "tippy.js";
+import { attachChangers, detachChangers } from "./imports/inventorySlots";
 
 function initTippy() {
     tippy('[data-item-id]', {
@@ -42,13 +43,13 @@ function initTippy() {
 const axette = new Axette();
 
 axette.onBeforeAjax(() => {
-    headgearChangerDetach();
+    detachChangers();
 });
 
 axette.onAfterAjax(() => {
     initTippy();
     registerClickListeners();
-    headgearChangerAttach();
+    attachChangers();
 });
 
 function registerClickListeners() {
@@ -94,6 +95,11 @@ function onInventoryItemClick(e) {
             return;
         }
         emptySlotEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
+    } else if (subtype === 'two-handed-melee' || subtype === 'two-handed-ranged') {
+        const shieldEl = document.querySelector(`.player-body-slot[data-body-slot="shield"]`);
+        if (shieldEl.hasAttribute('data-slot-filled')) {
+            return;
+        }
     } else {
         emptySlotEl = document.querySelector(`.player-body-slot[data-body-slot="${getBodyPartForGear(subtype)}"]`);
     }
@@ -107,7 +113,7 @@ function onInventoryItemClick(e) {
 
 document.addEventListener("DOMContentLoaded", () => {
     registerClickListeners();
-    headgearChangerAttach();
+    attachChangers();
     interact('.inventory-item, .equipped-item').draggable({
         inertia: false,
         autoScroll: true,
@@ -164,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     interact('.body-melee').dropzone({
-        accept: '.inventory-item[data-item-subtype="melee"]',
+        accept: '.inventory-item[data-item-subtype="melee"], .inventory-item[data-item-subtype="two-handed-melee"]:not(.has-shield)',
         overlap: 0.75,
         ondropactivate: handleDropActive,
         ondropdeactivate: handleDropDeactive,
@@ -174,7 +180,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     interact('.body-ranged').dropzone({
-        accept: '.inventory-item[data-item-subtype="ranged"]',
+        accept: '.inventory-item[data-item-subtype="ranged"], .inventory-item[data-item-subtype="two-handed-ranged"]:not(.has-shield)',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
+    interact('.body-shield').dropzone({
+        accept: '.inventory-item[data-item-subtype="shield"]:not(.has-two-handed-melee):not(.has-two-handed-ranged)',
         overlap: 0.75,
         ondropactivate: handleDropActive,
         ondropdeactivate: handleDropDeactive,
@@ -215,38 +231,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     initTippy();
 });
-
-function headgearChangerAttach() {
-    const headgearEls = document.querySelectorAll('.inventory-item[data-item-subtype="headgear"]:not(.has-helmet)');
-    headgearEls.forEach(el => {
-        el.addEventListener('mouseover', addHeadgearIndicator);
-        el.addEventListener('mouseout', removeHeadgearIndicator);
-    });
-}
-
-function headgearChangerDetach() {
-    const headgearEls = document.querySelectorAll('.inventory-item[data-item-subtype="headgear"]:not(.has-helmet)');
-    headgearEls.forEach(el => {
-        el.removeEventListener('mouseover', addHeadgearIndicator);
-        el.removeEventListener('mouseout', removeHeadgearIndicator);
-    });
-}
-
-function addHeadgearIndicator() {
-    const headEl = document.querySelector(`.player-body-slot[data-body-slot="head"]`);
-    const faceEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
-
-    headEl.classList.add('headgear-slot-indicator');
-    faceEl.classList.add('headgear-slot-indicator');
-}
-
-function removeHeadgearIndicator() {
-    const headEl = document.querySelector(`.player-body-slot[data-body-slot="head"]`);
-    const faceEl = document.querySelector(`.player-body-slot[data-body-slot="face"]`);
-
-    headEl.classList.remove('headgear-slot-indicator');
-    faceEl.classList.remove('headgear-slot-indicator');
-}
 
 function handleDropActive(event) {
     event.target.classList.add('drop-active');
@@ -298,9 +282,9 @@ function handleMoveItem(event) {
 }
 
 function dragMoveListener(event) {
-    var target = event.target
-    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+    const target = event.target
+    const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+    const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
 
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
 

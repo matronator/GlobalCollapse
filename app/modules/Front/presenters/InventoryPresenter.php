@@ -73,6 +73,22 @@ final class InventoryPresenter extends ItemsBasePresenter
 			$this->flashMessage('You can\'t equip a helmet while wearing a headgear.', 'warning');
 			return;
 		}
+        if ($bodySlot === 'melee' && $item->subtype === 'two-handed-melee' && $this->playerBody->shield) {
+            $this->flashMessage('You can\'t equip a two-handed melee weapon while wearing a shield.', 'warning');
+            return;
+        }
+        if ($bodySlot === 'ranged' && $item->subtype === 'two-handed-ranged' && $this->playerBody->shield) {
+            $this->flashMessage('You can\'t equip a two-handed ranged weapon while wearing a shield.', 'warning');
+            return;
+        }
+        if ($bodySlot === 'shield' && $this->playerBody->melee && $this->playerBody->ref('items', 'melee')->subtype === 'two-handed-melee') {
+            $this->flashMessage('You can\'t equip a shield while wearing a two-handed melee weapon.', 'warning');
+            return;
+        }
+        if ($bodySlot === 'shield' && $this->playerBody->ranged && $this->playerBody->ref('items', 'ranged')->subtype === 'two-handed-ranged') {
+            $this->flashMessage('You can\'t equip a shield while wearing a two-handed ranged weapon.', 'warning');
+            return;
+        }
 
 		$this->inventoryRepository->equipItem($this->inventory->id, $item->id, $bodySlot, $slot, $this->_player->id);
 

@@ -170,9 +170,9 @@ final class DefaultPresenter extends BasePresenter
 				$now = new DateTime();
 				$diff = $trainingUntil->getTimestamp() - $now->getTimestamp();
 				if ($diff >= 0) {
-					$s = $diff % 60;
-					$m = $diff / 60 % 60;
-					$h = $diff / 3600 % 60;
+					$s = (int) date('s', $diff);
+					$m = (int) date('i', $diff);
+                    $h = (int) date('H', $diff);
 					$this->template->hours = $h > 9 ? $h : '0'.$h;
 					$this->template->minutes = $m > 9 ? $m : '0'.$m;
 					$this->template->seconds = $s > 9 ? $s : '0'.$s;
@@ -205,7 +205,7 @@ final class DefaultPresenter extends BasePresenter
 				$this->template->restingSince = Timezones::getUserTime($restingSince, $this->userPrefs->timezone, $this->userPrefs->dst);
 				$nowDate = new DateTime();
 				$diff = abs($restingSince->getTimestamp() - $nowDate->getTimestamp());
-				$reward = intval(10 * round($diff / 1800));
+				$reward = (int)(10 * round($diff / 1800));
 				$newEnergy = $player->player_stats->energy + $reward;
 				$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
 				if ($gearStats) {
@@ -290,7 +290,11 @@ final class DefaultPresenter extends BasePresenter
 				$this->userRepository->getUser($player->id)->actions->update([
 					'resting' => 0
 				]);
-				$reward = intval(10 * round($diff / 1800));
+				$reward = (int)(10 * round($diff / 1800));
+                $this->statisticsRepository->findByUser($player->id)->update([
+                    'times_rested+=' => 1,
+                    'minutes_rested+=' => (int) date('i', $diff),
+                ]);
 				if ($reward > 0) {
 					$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
 					if (!$gearStats) {

@@ -93,12 +93,10 @@ class UserRepository
                     'days' => $daysLeft,
                     'hours' => $hoursLeft,
                 ];
-            } else {
-                return true;
             }
-        } else {
-            return true;
         }
+
+        return true;
     }
 
     public function getSettings(int $userId)
@@ -122,19 +120,13 @@ class UserRepository
         return $this->database->table('actions');
     }
 
-    public function getUser(?int $id = null): ?ActiveRow
+    public function getUser(int $id): ?ActiveRow
     {
-        if (!$id)
-            return null;
-        return $this->findAll()
-            ->wherePrimary($id)
-            ->fetch();
+        return $this->findAll()->get($id);
     }
 
-    public function getUserByName(?string $username = null): ?ActiveRow
+    public function getUserByName(string $username): ?ActiveRow
     {
-        if (!$username)
-            return null;
         return $this->findAll()
             ->where('username', $username)
             ->fetch();

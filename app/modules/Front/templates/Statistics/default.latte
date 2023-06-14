@@ -1,0 +1,19 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Statistics{/define}
+{define metaDescription}Statistics{/define}
+
+{block pageContent}
+  <div class="uk-container-small uk-margin-auto">
+    <div class="dashboard uk-flex" uk-grid>
+      <div class="uk-width-1-1 uk-text-center">
+        <h2>{_general.ui.sidebar.player.statistics}</h2>
+        <hr class="uk-divider-icon">
+      </div>
+      {include '../../components/Statistics/MoneySources.latte'}
+    </div>
+  </div>
+{/block}
+
+{block scripts}
+  <script src="{asset statistics.js front}"></script>
+{/block}

@@ -1,7 +1,7 @@
 <?php
 
 $user = 'root';
-$password = 'root';
+$password = 'rootroot';
 $db = 'globalcollapse';
 $host = 'localhost';
 $port = 3306;

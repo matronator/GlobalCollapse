@@ -17,6 +17,8 @@ class MarketRepository
     /** @var Nette\Database\Explorer */
     private $database;
 
+    private StatisticsRepository $statisticsRepository;
+
     private array $itemsConfig;
     private array $marketConfig;
 
@@ -33,12 +35,13 @@ class MarketRepository
 
     private InventoryRepository $inventoryRepository;
 
-    public function __construct(array $itemsConfig, array $marketConfig, Nette\Database\Explorer $database, InventoryRepository $inventoryRepository)
+    public function __construct(array $itemsConfig, array $marketConfig, Nette\Database\Explorer $database, InventoryRepository $inventoryRepository, StatisticsRepository $statisticsRepository)
     {
         $this->itemsConfig = $itemsConfig;
         $this->marketConfig = $marketConfig;
         $this->database = $database;
         $this->inventoryRepository = $inventoryRepository;
+        $this->statisticsRepository = $statisticsRepository;
     }
 
     public function findAll()
@@ -167,8 +170,15 @@ class MarketRepository
             'quantity' => $count,
         ]);
 
+        $price = $this->getItemPrice($marketItem) * $count;
+
+        $this->statisticsRepository->findByUser($player->id)->update([
+            'money_to_market+=' => $price,
+            'items_bought+=' => $count,
+        ]);
+
         $player->update([
-            'money-=' => $this->getItemPrice($marketItem) * $count,
+            'money-=' => $price,
         ]);
 
         $marketItem->update([
@@ -197,8 +207,15 @@ class MarketRepository
 
         $player = $playerInventory->user;
 
+        $price = $this->getMarketSellPrice($item->id, $marketId) * $count;
+
+        $this->statisticsRepository->findByUser($player->id)->update([
+            'money_from_market+=' => $price,
+            'items_sold+=' => $count,
+        ]);
+
         $player->update([
-            'money+=' => $this->getMarketSellPrice($item->id, $marketId) * $count,
+            'money+=' => $price,
         ]);
 
         $inventoryItem->update([
@@ -221,10 +238,18 @@ class MarketRepository
         $adjectives = $this->itemsConfig['naming'][$item->rarity]['adjectives'];
         $suffixes = $this->itemsConfig['naming'][$item->rarity]['suffixes'] ?? [];
 
-        $adjective = Strings::capitalize($adjectives[array_rand($adjectives)]);
-        $suffix = $suffixes === [] ? '' : Strings::capitalize($suffixes[array_rand($suffixes)]);
+        if ($item->rarity === Item::RARITY_COMMON) {
+            $adjective = rand(0,3) <= 2 ? Strings::capitalize($adjectives[array_rand($adjectives)]) . ' ' : '';
+            $suffix = $suffixes === [] ? '' : Strings::capitalize($suffixes[array_rand($suffixes)]);
+            if ($suffix !== '') {
+                $suffix = rand(0,3) <= 2 ? ' ' . $suffix : '';
+            }
+        } else {
+            $adjective = Strings::capitalize($adjectives[array_rand($adjectives)]) . ' ';
+            $suffix = $suffixes === [] ? '' : ' ' . Strings::capitalize($suffixes[array_rand($suffixes)]);
+        }
 
-        return $adjective . ' ' . $item->name . ' ' . $suffix;
+        return $adjective . $item->name . $suffix;
     }
 
     public function createMarket(int $level = 1): Nette\Database\Table\ActiveRow
@@ -252,12 +277,20 @@ class MarketRepository
                     $itemToCopy = $this->findAllItems()->where('is_generated', 0)->where('rarity', Math::getRarity())->where('type', $type)
                         ->where('children <= ?', (int) $minChildren)->order('RAND()')->limit(1)->fetch();
                     if ($itemToCopy) {
-                        $selectedItem = $this->generateItem($itemToCopy, $market);
+                        if ($market->level > 1) {
+                            $selectedItem = $this->generateItem($itemToCopy, $market);
+                        } else {
+                            $selectedItem = $itemToCopy;
+                        }
                     } else {
                         $itemToCopy = $this->findAllItems()->where('is_generated', 0)->where('rarity', 'common')->where('type', $type)
                             ->where('children <= ?', (int) $minChildren)->order('RAND()')->limit(1)->fetch();
                         if ($itemToCopy) {
-                            $selectedItem = $this->generateItem($itemToCopy, $market);
+                            if ($market->level > 1) {
+                                $selectedItem = $this->generateItem($itemToCopy, $market);
+                            } else {
+                                $selectedItem = $itemToCopy;
+                            }
                         } else {
                             $selectedItem = $this->generateItem($this->getRandomItem($type, $market), $market);
                         }

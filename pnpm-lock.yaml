@@ -11,8 +11,11 @@ dependencies:
     specifier: ^16.0.0
     version: 16.0.0
   axette:
-    specifier: ^2.0.5
-    version: 2.0.5
+    specifier: ^2.0.7
+    version: 2.0.7
+  chart.js:
+    specifier: ^4.3.0
+    version: 4.3.0
   choices.js:
     specifier: ^9.1.0
     version: 9.1.0
@@ -1497,6 +1500,10 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.13
     dev: true
 
+  /@kurkle/color@0.3.2:
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: false
+
   /@mrmlnc/readdir-enhanced@2.2.1:
     resolution: {integrity: sha512-bPHp6Ji8b41szTOcaP63VlnbbO5Ny6dwAATtY6JTjh5N2OLrb5Qk/Th5cRkRQhkWCt+EJsYrNB0MiL+Gpn6e3g==}
     engines: {node: '>=4'}
@@ -2105,8 +2112,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /axette@2.0.5:
-    resolution: {integrity: sha512-oYs5xZi54elXDES62bmxI9k0XNtPS2fW0rOFXlSwtvdOsrdfbJkhfRt0NYqJZkyCFJThBIQOq2/hEeZpTdW66Q==}
+  /axette@2.0.7:
+    resolution: {integrity: sha512-ODMLnWHHcRFN79el01H0Z0fgnWzGJldmCc71B/+Kd8jhLF7OfB7WKAVwsYvh9cfworl0OqV3SruzZ3ftqL+pCA==}
     dev: false
 
   /axios@0.21.4(debug@4.3.2):
@@ -2846,6 +2853,13 @@ packages:
   /charenc@0.0.2:
     resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
     dev: true
+
+  /chart.js@4.3.0:
+    resolution: {integrity: sha512-ynG0E79xGfMaV2xAHdbhwiPLczxnNNnasrmPEXriXsPJGjmhOBYzFVEsB65w2qMDz+CaBJJuJD0inE/ab/h36g==}
+    engines: {pnpm: '>=7'}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: false
 
   /choices.js@9.1.0:
     resolution: {integrity: sha512-6NnqiE/MNnNAiMzdW7phJ49nMQylkKMQ6La6PAS1+h1VhrGt38MOPnjzEJ3cRaECieqaGpl9eFGtI2icW27r8A==}

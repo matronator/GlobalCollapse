@@ -7,9 +7,6 @@ namespace App\FrontModule\Presenters;
 use App\Model\InventoryRepository;
 use App\Model\ItemsRepository;
 use App\Model\MarketRepository;
-use Nette;
-use Tracy\Debugger;
-
 
 abstract class ItemsBasePresenter extends GamePresenter
 {

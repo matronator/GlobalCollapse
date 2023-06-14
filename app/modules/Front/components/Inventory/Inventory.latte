@@ -9,6 +9,9 @@
                         {var $equippedItem = null}
                         {var $hasHeadgear = false}
                         {var $hasHelmet = false}
+                        {var $hasTwoHandedMelee = false}
+                        {var $hasTwoHandedRanged = false}
+                        {var $hasShield = false}
                         {if $item->item->subtype === App\Model\Entity\Item::ARMOR_SUBTYPE_HELMET}
                             {if $equipped->face}
                                 {var $equippedItem = $equipped->ref('items', 'face')}
@@ -21,7 +24,18 @@
                                 {var $hasHelmet = true}
                             {/if}
                         {/if}
-                        <div class="inventory-item {$hasHeadgear ? 'has-headgear'} {$hasHelmet ? 'has-helmet'}" data-item-type="{$item->item->type}" data-item-cost="${$presenter->getMarketSellCost($item->item->id) ?? 0|number}" data-item-subtype="{$item->item->subtype}" data-item-slot="{$item->slot}" data-item-id="{$item->id}">
+                        {if $item->item->subtype === App\Model\Entity\Item::ARMOR_SUBTYPE_SHIELD}
+                            {if $equipped->melee && $equipped->ref('items', 'melee')->subtype === App\Model\Entity\Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE}
+                                {var $hasTwoHandedMelee = true}
+                            {elseif $equipped->ranged && $equipped->ref('items', 'ranged')->subtype === App\Model\Entity\Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED}
+                                {var $hasTwoHandedRanged = true}
+                            {/if}
+                        {elseif in_array($item->item->subtype, [App\Model\Entity\Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE, App\Model\Entity\Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED])}
+                            {if $equipped->shield}
+                                {var $hasShield = true}
+                            {/if}
+                        {/if}
+                        <div class="inventory-item {$hasHeadgear ? 'has-headgear'} {$hasHelmet ? 'has-helmet'} {$hasTwoHandedRanged ? 'has-two-handed-ranged'} {$hasTwoHandedMelee ? 'has-two-handed-melee'} {$hasShield ? 'has-shield'}" data-item-type="{$item->item->type}" data-item-cost="${$presenter->getMarketSellCost($item->item->id) ?? 0|number}" data-item-subtype="{$item->item->subtype}" data-item-slot="{$item->slot}" data-item-id="{$item->id}">
                             <img src="{$img}" alt="{$item->item->name}">
                         </div>
                         <div class="uk-width-max-content item-dropdown uk-hidden" data-item-slot="{$item->slot}" data-dropdown>

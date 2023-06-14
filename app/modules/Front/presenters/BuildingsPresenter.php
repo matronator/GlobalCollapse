@@ -207,6 +207,9 @@ final class BuildingsPresenter extends GamePresenter
 				$this->buildingsRepository->getBuilding($building->id)->update([
 					'storage' => 0
 				]);
+                $this->statisticsRepository->findByUser($player->id)->update([
+                    'buildings_collected+=' => 1,
+                ]);
 				$this->flashMessage($this->translate('general.messages.success.buildingCollected'), 'success');
 				// $this->redirect('Buildings:default');
 				$this->redrawControl('playerStash');
@@ -233,6 +236,9 @@ final class BuildingsPresenter extends GamePresenter
 			$count++;
 		}
 		if ($count > 0) {
+            $this->statisticsRepository->findByUser($player->id)->update([
+                'buildings_collected+=' => $count,
+            ]);
 			$this->flashMessage($this->translate('general.messages.success.allBuildingCollected'), 'success');
 			$this->redrawControl('playerStash');
 			$this->redrawControl('buildings');
@@ -290,6 +296,6 @@ final class BuildingsPresenter extends GamePresenter
 
 	public function getUpgradeCost(int $basePrice = 0, int $level = 1): int
 	{
-		return (int) round(($basePrice * pow($level, 1.05)) / 2, -1);
+		return (int) round(($basePrice * ($level ** 1.05)) / 2, -1);
 	}
 }

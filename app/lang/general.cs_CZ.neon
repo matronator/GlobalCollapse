@@ -77,6 +77,7 @@ ui:
 			unlockables: 'Odměny'
 			reward: 'Dárek zdarma'
 			leaderboard: 'Žebříček'
+			statistics: 'Statistiky'
 		city:
 			title: 'Město'
 			bar: 'Bar'
@@ -135,6 +136,7 @@ ui:
 	all: 'Vše'
 	buy: 'Koupit'
 	sell: 'Prodat'
+	total: 'Celkem'
 	locationStatus:
 		closed: 'Zavřeno'
 	restore:

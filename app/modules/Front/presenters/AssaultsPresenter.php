@@ -89,8 +89,11 @@ final class AssaultsPresenter extends GamePresenter
 				$winReward = $reward['win_money'];
 				$xpReward = $reward['win_xp'];
 				$defeatPenalty = $reward['lose_money'];
-				if ($assaultResult == 'win') {
+				if ($assaultResult === 'win') {
 					$this->userRepository->addMoney($playerId, $winReward);
+                    $this->statisticsRepository->findByUser($playerId)->update([
+                        'money_from_assaults+=' => $winReward,
+                    ]);
 					if ($xpReward > 0) {
 						$this->assaultsRepository->addAssaultVictory($playerId, $otherPlayer->id, $assaultId);
 						$this->userRepository->addXp($playerId, $xpReward);
@@ -99,6 +102,9 @@ final class AssaultsPresenter extends GamePresenter
 				} else {
 					$this->assaultsRepository->addAssaultDefeat($playerId, $otherPlayer->id, $assaultId);
 					$this->userRepository->addMoney($playerId, $defeatPenalty * (-1));
+                    $this->statisticsRepository->findByUser($playerId)->update([
+                        'money_from_assaults-=' => $defeatPenalty,
+                    ]);
 				}
 				$this->template->cashMoney = $winReward;
 				$this->template->cashMoneyLose = $defeatPenalty;

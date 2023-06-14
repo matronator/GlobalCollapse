@@ -9,9 +9,12 @@ class DrugsRepository
 	/** @var Nette\Database\Explorer */
 	private $database;
 
-	public function __construct(Nette\Database\Explorer $database)
+    private StatisticsRepository $statisticsRepository;
+
+	public function __construct(Nette\Database\Explorer $database, StatisticsRepository $statisticsRepository)
 	{
 		$this->database = $database;
+        $this->statisticsRepository = $statisticsRepository;
 	}
 
 	// ---------------------------------------
@@ -47,13 +50,11 @@ class DrugsRepository
 					'quantity-=' => $qtty
 				]);
 				return true;
-			} else {
-				return false;
 			}
-		} else {
-			return false;
-		}
-	}
+        }
+
+        return false;
+    }
 	public function buyDrugs(?int $userId = null, ?int $drugId = null, ?int $qtty = 0)
 	{
 		$drugInv = $this->findUserDrug($userId, $drugId)->fetch();
@@ -63,22 +64,22 @@ class DrugsRepository
 					'quantity+=' => $qtty
 				]);
 				return true;
-			} else {
-				return false;
 			}
-		} else {
-			if ($qtty > 0) {
-				$this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->insert([
-					'user_id' => $userId,
-					'drugs_id' => $drugId,
-					'quantity' => $qtty
-				]);
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
+
+            return false;
+        }
+
+        if ($qtty > 0) {
+            $this->findInventory()->where('user_id = ? && drugs_id = ?', $userId, $drugId)->insert([
+                'user_id' => $userId,
+                'drugs_id' => $drugId,
+                'quantity' => $qtty
+            ]);
+            return true;
+        }
+
+        return false;
+    }
 
 	public function findDrug(?int $drugId = null)
 	{
@@ -98,11 +99,11 @@ class DrugsRepository
 	{
 		if ($offerId == null) {
 			return $this->database->table('vendors')->where('id', $vendorId);
-		} else {
-			$offer = $this->findOffer($offerId)->fetch();
-			return $this->database->table('vendors')->where('id', $offer->vendor_id);
 		}
-	}
+
+        $offer = $this->findOffer($offerId)->fetch();
+        return $this->database->table('vendors')->where('id', $offer->vendor_id);
+    }
 
 	public function findVendorOffers(int $vendorId) {
 		return $this->findAllOffers()->where('vendor_id', $vendorId);
@@ -149,6 +150,9 @@ class DrugsRepository
 				'money+=' => $price,
 				'sells+=' => 1
 			]);
+            $this->statisticsRepository->findByUser($userId)->update([
+                'money_to_darknet+=' => $price,
+            ]);
 			$this->buyDrugs($userId, $offer->drug_id, $quantity);
 			if ($newOfferQuantity <= 0) {
 				$this->changeOffer($offerId);
@@ -169,6 +173,9 @@ class DrugsRepository
 				'money-=' => $price,
 				'buys+=' => 1
 			]);
+            $this->statisticsRepository->findByUser($user->id)->update([
+                'money_from_darknet+=' => $price,
+            ]);
 
 			$this->sellDrug($user->id, $offer->drug_id, $quantity);
 
@@ -189,14 +196,14 @@ class DrugsRepository
 			$drugArray = [];
 			for ($i = 1; $i <= 5; $i++) {
 				if ($i != $drug) {
-					array_push($drugArray, $i);
+					$drugArray[] = $i;
 				}
 			}
 			shuffle($drugArray);
 			// $this->findVendor($offer->vendor_id)->update([
 			// 	'base_money' => $baseMoney
 			// ]);
-			$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
+			$newQuantity = rand(500, 2000) * ($offer->vendor->level ** 1.05);
 			$this->findOffer($offerId)->update([
 				'drug_id' => array_pop($drugArray),
 				'quantity' => $newQuantity
@@ -219,11 +226,11 @@ class DrugsRepository
 		$drugArray = [];
 		for ($i = 1; $i <= 5; $i++) {
 			if ($i != $drug) {
-				array_push($drugArray, $i);
+				$drugArray[] = $i;
 			}
 		}
 		shuffle($drugArray);
-		$newQuantity = rand(500, 2000) * pow($offer->vendor->level, 1.05);
+		$newQuantity = rand(500, 2000) * ($offer->vendor->level ** 1.05);
 		$this->findOffer($offerId)->update([
 			'drug_id' => array_pop($drugArray),
 			'quantity' => $newQuantity

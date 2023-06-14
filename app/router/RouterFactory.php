@@ -41,7 +41,10 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru>/]wastelands', 'City:wastelands')
 			->addRoute('[<locale=en en|ru>/]lands', 'Buildings:lands')
 			->addRoute('[<locale=en en|ru>/]buildings', 'Buildings:default')
-			->addRoute('[<locale=en en|ru>/]player/detail/<user>', 'Player:detail')
+			->addRoute('[<locale=en en|ru>/]leaderboard', 'Player:leaderboard')
+			->addRoute('[<locale=en en|ru>/]statistics', 'Statistics:default')
+			->addRoute('[<locale=en en|ru>/]player/<user>/statistics', 'Player:statistics')
+			->addRoute('[<locale=en en|ru>/]player/<user>', 'Player:detail')
 			->addRoute('[<locale=en en|ru>/]assaults', 'Assaults:default')
 			->addRoute('[<locale=en en|ru>/]assaults/detail/<user>', 'Assaults:detail')
 			->addRoute('[<locale=en en|ru>/]assaults/assault/<match>', 'Assaults:assault')
@@ -60,10 +63,16 @@ class RouterFactory
 			->addRoute('[<locale=cs cs>/]pustina', 'City:wastelands')
 			->addRoute('[<locale=cs cs>/]pozemky', 'Buildings:lands')
 			->addRoute('[<locale=cs cs>/]budovy', 'Buildings:default')
-			->addRoute('[<locale=cs cs>/]hrac/detail/<user>', 'Player:detail')
+			->addRoute('[<locale=cs cs>/]zebricek', 'Player:leaderboard')
+			->addRoute('[<locale=cs cs>/]statistiky', 'Statistics:default')
+			->addRoute('[<locale=cs cs>/]hrac/<user>/statistiky', 'Player:statistics')
+			->addRoute('[<locale=cs cs>/]hrac/<user>', 'Player:detail')
 			->addRoute('[<locale=cs cs>/]prepadeni', 'Assaults:default')
 			->addRoute('[<locale=cs cs>/]prepadeni/detail/<user>', 'Assaults:detail')
 			->addRoute('[<locale=cs cs>/]prepadeni/souboj/<match>', 'Assaults:assault')
+
+            // API
+			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/money-sources[/<username>]', 'Statistics:getMoneySourceChartData')
 
 			->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default') //most general route
 

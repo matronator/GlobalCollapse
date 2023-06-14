@@ -30,6 +30,7 @@ services:
     - App\Model\ItemsRepository
     - App\Model\InventoryRepository
     - App\Model\MarketRepository(%items%, %market%)
+    - App\Model\StatisticsRepository
     - App\Filter\ImageFilter
     - App\Components\DataTable\DataTableFactory
     - App\AdminModule\Presenters\VendorPresenter(%darknetUpdate%)

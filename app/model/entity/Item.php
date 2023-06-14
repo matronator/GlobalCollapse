@@ -40,12 +40,14 @@ class Item
 
     public const WEAPON_SUBTYPE_MELEE = 'melee';
     public const WEAPON_SUBTYPE_RANGED = 'ranged';
-    public const WEAPON_SUBTYPE_TWO_HANDED = 'two-handed';
+    public const WEAPON_SUBTYPE_TWO_HANDED_RANGED = 'two-handed-ranged';
+    public const WEAPON_SUBTYPE_TWO_HANDED_MELEE = 'two-handed-melee';
 
     public const WEAPON_SUBTYPES = [
         self::WEAPON_SUBTYPE_MELEE => self::WEAPON_SUBTYPE_MELEE,
         self::WEAPON_SUBTYPE_RANGED => self::WEAPON_SUBTYPE_RANGED,
-        self::WEAPON_SUBTYPE_TWO_HANDED => self::WEAPON_SUBTYPE_TWO_HANDED,
+        self::WEAPON_SUBTYPE_TWO_HANDED_RANGED => self::WEAPON_SUBTYPE_TWO_HANDED_RANGED,
+        self::WEAPON_SUBTYPE_TWO_HANDED_MELEE => self::WEAPON_SUBTYPE_TWO_HANDED_MELEE,
     ];
 
     public const ITEM_SUBTYPES = [

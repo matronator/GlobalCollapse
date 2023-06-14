@@ -34,17 +34,22 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
     /** @var Model\InventoryRepository */
     private $inventoryRepository;
 
+    /** @var Model\StatisticsRepository */
+    protected $statisticsRepository;
+
 	public function injectRepository(
 		Model\UserRepository $userRepository,
 		Model\UnlockablesRepository $unlockablesRepository,
 		Model\BuildingsRepository $buildingsRepository,
-        Model\InventoryRepository $inventoryRepository
+        Model\InventoryRepository $inventoryRepository,
+        Model\StatisticsRepository $statisticsRepository
 	)
 	{
 		$this->userRepository = $userRepository;
 		$this->unlockablesRepository = $unlockablesRepository;
 		$this->buildingsRepository = $buildingsRepository;
         $this->inventoryRepository = $inventoryRepository;
+        $this->statisticsRepository = $statisticsRepository;
 	}
 
 	protected function beforeRender()

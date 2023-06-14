@@ -425,6 +425,14 @@ td.input-row {
   }
 }
 
+.table-bordered {
+  border: 1px solid var(--c-light-2);
+
+  & th {
+    background-color: var(--c-extra-light);
+  }
+}
+
 .crypto-address {
   width: 156px;
   overflow: scroll;

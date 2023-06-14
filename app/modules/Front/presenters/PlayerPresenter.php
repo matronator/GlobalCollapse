@@ -63,4 +63,12 @@ final class PlayerPresenter extends BasePresenter
 			$this->redirect('Default:default');
 		}
 	}
+
+    public function renderStatistics(string $user) {
+        if (!$this->user->isLoggedIn()) {
+            $this->redirect('Default:default');
+        }
+
+        $player = $this->userRepository->getUserByName($user);
+    }
 }

@@ -1,0 +1,25 @@
+{default ?string $username = null}
+
+<div class="uk-card uk-card-default uk-card-body uk-margin-auto">
+    <h3 class="uk-card-title uk-text-center">Source of Income</h3>
+    <div class="uk-flex uk-flex-row uk-flex-center">
+        <table class="uk-table uk-table-divider uk-table-responsive table-bordered">
+            <tr>
+                <th n:foreach="$moneySources as $key => $item">{$key|firstUpper}</th>
+                <th class="uk-text-right border-left">{_general.ui.total}</th>
+            </tr>
+            <tr>
+                <td n:foreach="$moneySources as $item">${$item|number}</td>
+                <td class="uk-text-bold uk-text-right border-left">${=array_sum((array) $moneySources)|number}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="uk-flex uk-flex-row uk-flex-center uk-flex-wrap">
+        <div>
+            <canvas id="moneySourcePie" {if $username}data-stats-username="{$username}"{/if} width="400" height="400"></canvas>
+        </div>
+        <div>
+            <canvas id="moneySourceBars" width="400" height="400"></canvas>
+        </div>
+    </div>
+</div>
