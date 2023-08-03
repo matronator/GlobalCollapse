@@ -1641,8 +1641,8 @@ packages:
       '@types/node': 17.0.35
     dev: true
 
-  /@xmldom/xmldom@0.7.5:
-    resolution: {integrity: sha512-V3BIhmY36fXZ1OtVcI9W+FxQqxVLsPKcNjWigIaa81dLC9IolJl5Mt4Cvhmr0flUnjSpTdrbMTSbXqYqV5dT6A==}
+  /@xmldom/xmldom@0.7.13:
+    resolution: {integrity: sha512-lm2GW5PkosIzccsaZIz7tp8cPADSIlIHWDFTR1N0SzfinhhYgeIQjFMz4rYzanCScr3DqQLeomUDArp6MWKm+g==}
     engines: {node: '>=10.0.0'}
     dev: true
 
@@ -10291,7 +10291,7 @@ packages:
     engines: {node: '>=6.4.0'}
     hasBin: true
     dependencies:
-      '@xmldom/xmldom': 0.7.5
+      '@xmldom/xmldom': 0.7.13
       async: 3.2.3
       css-selector-parser: 1.4.1
       cssmin: 0.4.3
