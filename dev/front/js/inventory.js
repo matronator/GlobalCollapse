@@ -169,6 +169,16 @@ document.addEventListener("DOMContentLoaded", () => {
         ondrop: handleEquip,
     });
 
+    interact('.body-back').dropzone({
+        accept: '.inventory-item[data-item-subtype="inventory"]',
+        overlap: 0.75,
+        ondropactivate: handleDropActive,
+        ondropdeactivate: handleDropDeactive,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleEquip,
+    });
+
     interact('.body-melee').dropzone({
         accept: '.inventory-item[data-item-subtype="melee"], .inventory-item[data-item-subtype="two-handed-melee"]:not(.has-shield)',
         overlap: 0.75,
@@ -219,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ondrop: handleEquip,
     });
 
-    interact('.inventory-slot:not([data-slot-filled])').dropzone({
+    interact('.inventory-slot').dropzone({
         accept: '.inventory-item, .equipped-item',
         overlap: 0.75,
         ondropactivate: handleDropActive,
@@ -330,6 +340,7 @@ const bodyPartMap = {
     'face': 'mask',
     'shoulders': 'shoulders',
     'body': 'chest',
+    'back': 'back',
     'melee': 'melee',
     'ranged': 'ranged',
     'legs': 'legs',

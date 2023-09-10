@@ -228,6 +228,7 @@ function watchFiles() {
   watch(config.js.watch, series(js, reload))
   watch(config.etc.watch, series(etc, reload))
   watch(config.icons.watch, series(icons, reload))
+  watch(config.images.watch, series(images, reload))
   watch(config.templates.watch, series(reload))
 }
 

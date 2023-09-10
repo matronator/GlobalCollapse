@@ -3,10 +3,14 @@
 
 <div class="uk-width-1-1 uk-flex uk-background-secondary uk-light uk-padding-small" data-dropdown-content>
     <div class="uk-width-auto item-image">
-        <img src="{$img}" width="128" height="128" alt="{$item->name}" data-rarity="{$item->rarity}">
+        <div class="uk-inline">
+            <img src="{$img}" width="128" height="128" alt="{$item->name}" data-rarity="{$item->rarity}">
+            <div class="uk-overlay uk-position-bottom item-unlock-at uk-padding-remove-vertical uk-padding-small">Level {$item->unlock_at}</div>
+        </div>
     </div>
     <div class="uk-padding-small uk-padding-remove-horizontal uk-width-expand item-text">
         <strong class="uk-text-bold inventory-item-title">{$item->name}</strong>
+        <span class="inventory-item-subtitle">{$item->type|firstUpper} | {$item->subtype|firstUpper}</span>
         <p class="uk-text-small uk-text-meta uk-text-italic"><small>{$item->description}</small></p>
     </div>
     <ul class="uk-list uk-list-collapse item-stats-list">

@@ -85,6 +85,7 @@ final class MarketPresenter extends ItemsBasePresenter
         $this->redrawControl('inventory');
         $this->redrawControl('playerBody');
         $this->redrawControl('wrapper');
+        $this->redrawControl('flashes');
         $this->redrawControl('sidebar-stats');
     }
 

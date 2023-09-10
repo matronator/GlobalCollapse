@@ -116,6 +116,7 @@ async function createTimeSpentCharts() {
             }, {
                 label: "Activities",
                 data: Object.values(activitiesData),
+                yAxisID: 'y2',
             }],
         },
         options: {
@@ -127,6 +128,25 @@ async function createTimeSpentCharts() {
                 title: {
                     display: true,
                     text: 'Time spent on activities'
+                }
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    position: 'left',
+                    border: {
+                        color: '#37a2ebaa',
+                    },
+                },
+                y2: {
+                    type: 'linear',
+                    position: 'right',
+                    border: {
+                        color: '#ff6384aa',
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    }
                 }
             }
         }

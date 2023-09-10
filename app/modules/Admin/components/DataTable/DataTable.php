@@ -32,7 +32,7 @@ class DataTable extends Control
         $this->database = $database;
         $this->session = $session;
         $this->paginator = new Paginator();
-        
+
         $this->sort = (object) ['column' => $session->getSection('dataTable-sort')->get('column') ?? 'id', 'order' => $session->getSection('dataTable-sort')->get('order') ?? 'ASC'];
         $this->paginator->setItemsPerPage(self::DEFAULT_PAGE_SIZE);
 
@@ -114,8 +114,9 @@ class DataTable extends Control
         $this->redrawControl();
     }
 
-    public function handleSetPage(int $page)
+    public function handleSetPage(?int $page = null)
     {
+        $page = $page ?? 1;
         $this->paginator->setPage($page);
         $this->dataSource = $this->original;
         $this->data = $this->dataSource->order($this->sort->column . ' ' . $this->sort->order)->limit($this->paginator->getLength(), $this->paginator->getOffset())->fetchAll();
@@ -123,7 +124,7 @@ class DataTable extends Control
 
         $section = $this->session->getSection('items-paginator');
         $section->set('page', $page);
-        
+
         $this->presenter->redrawControl('wrapper');
         $this->presenter->redrawControl('content');
         $this->redrawControl();
@@ -134,9 +135,13 @@ class DataTable extends Control
         $this->dataSource = $dataSource;
         $this->original = clone $dataSource;
         $this->paginator->setItemCount($this->original->count('id'));
+        $section = $this->session->getSection('items-paginator');
+        if ($section->get('page') === null) {
+            $section->set('page', 1);
+        }
         $this->paginator->setPage($this->session->getSection('items-paginator')->get('page') ?? 1);
         $this->dataSource->limit($this->paginator->getLength(), $this->paginator->getOffset());
-        $this->data = $dataSource->fetchAll();
+        $this->data = $dataSource->order($this->sort->column . ' ' . $this->sort->order)->limit($this->paginator->getLength(), $this->paginator->getOffset())->fetchAll();
         $this->keys = array_keys(is_array($this->data) ? Arrays::first($this->data)->toArray() : $this->data->toArray());
     }
 }

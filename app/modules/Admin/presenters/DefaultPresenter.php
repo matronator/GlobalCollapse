@@ -16,6 +16,7 @@ final class DefaultPresenter extends BasePresenter
 {
 	private $userRepository;
 	private $drugsRepository;
+    private $marketRepository;
 
 	/**
 	 * @var array
@@ -25,12 +26,14 @@ final class DefaultPresenter extends BasePresenter
 	public function __construct(
 		array $marketHashes,
 		UserRepository $userRepository,
-		DrugsRepository $drugsRepository
+		DrugsRepository $drugsRepository,
+        Model\MarketRepository $marketRepository
 	)
 	{
 		$this->marketHashes = $marketHashes;
 		$this->userRepository = $userRepository;
 		$this->drugsRepository = $drugsRepository;
+        $this->marketRepository = $marketRepository;
 	}
 
 	protected function startup()
@@ -88,10 +91,10 @@ final class DefaultPresenter extends BasePresenter
 			$vendors = $this->drugsRepository->findAllVendors()->fetchAll();
 			$drugDeck = [];
 			foreach ($drugs as $drug) {
-				array_push($drugDeck, $drug);
-				array_push($drugDeck, $drug);
-				array_push($drugDeck, $drug);
-				array_push($drugDeck, $drug);
+				$drugDeck[] = $drug;
+				$drugDeck[] = $drug;
+				$drugDeck[] = $drug;
+				$drugDeck[] = $drug;
 			}
 			foreach ($vendors as $vendor) {
 				shuffle($drugDeck);
@@ -122,17 +125,17 @@ final class DefaultPresenter extends BasePresenter
 		}
 	}
 
-	public function actionUpdateMarket(?string $hash = null, ?string $confirm = null)
+	public function actionUpdateMarkets(?string $hash = null, ?string $confirm = null)
 	{
-		if ($hash != null && $confirm != null) {
-			if ($hash === $this->marketHashes['hash'] && $confirm === $this->marketHashes['confirm']) {
-				
-				$this->flashMessage('Updated');
-				$this->redirectUrl('https://www.youtube.com/watch?v=-X6xulTF9sI');
-			} else {
-				$this->redirectUrl('https://www.youtube.com/watch?v=-X6xulTF9sI');
-			}
-		} else {
+		if ($hash !== null && $confirm !== null && $hash === $this->marketHashes['hash'] && $confirm === $this->marketHashes['confirm']) {
+            $markets = $this->marketRepository->findAll();
+            foreach ($markets as $market) {
+                $this->marketRepository->updateMarketStock($market->id);
+            }
+
+            $this->flashMessage('Markets updated');
+            $this->sendJson(['status' => 'success']);
+        } else {
 			$this->redirectUrl('https://www.youtube.com/watch?v=-X6xulTF9sI');
 		}
 	}

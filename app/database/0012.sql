@@ -23,3 +23,15 @@ ALTER TABLE `statistics`
 
 ALTER TABLE `statistics`
     ADD `money_to_darknet` int unsigned NOT NULL DEFAULT '0' AFTER `money_from_darknet`;
+
+ALTER TABLE `items`
+    CHANGE `special_ability` `special_ability` text COLLATE 'utf8mb4_unicode_520_ci' NULL AFTER `xp_boost`;
+
+ALTER TABLE `player_body`
+    ADD `back` int NULL AFTER `body`;
+
+ALTER TABLE `player_body`
+    ADD FOREIGN KEY (`back`) REFERENCES `items` (`id`) ON DELETE SET NULL;
+
+ALTER TABLE `player_stats`
+    ADD `job_time_modifier` float NOT NULL DEFAULT '1';

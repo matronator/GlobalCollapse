@@ -14,6 +14,6 @@ parameters:
 
     market:
         slots:
-            armor: [4, 8]
-            weapon: [1, 3]
+            armor: [3, 6]
+            weapon: [1, 2]
             misc: [0, 1]

@@ -8,14 +8,12 @@ class Item
 {
     public const TYPE_WEAPON = 'weapon';
     public const TYPE_ARMOR = 'armor';
-    public const TYPE_SERUM = 'serum';
-    public const TYPE_OTHER = 'other';
+    public const TYPE_MISC = 'misc';
 
     public const ITEM_TYPES = [
         self::TYPE_WEAPON => self::TYPE_WEAPON,
         self::TYPE_ARMOR => self::TYPE_ARMOR,
-        self::TYPE_SERUM => self::TYPE_SERUM,
-        self::TYPE_OTHER => self::TYPE_OTHER,
+        self::TYPE_MISC => self::TYPE_MISC,
     ];
 
     public const ARMOR_SUBTYPE_HELMET = 'helmet';
@@ -50,15 +48,20 @@ class Item
         self::WEAPON_SUBTYPE_TWO_HANDED_MELEE => self::WEAPON_SUBTYPE_TWO_HANDED_MELEE,
     ];
 
+    public const MISC_SUBTYPE_INVENTORY = 'inventory';
+    public const MISC_SUBTYPE_SERUM = 'serum';
+    public const MISC_SUBTYPE_OTHER = 'other';
+
+    public const MISC_SUBTYPES = [
+        self::MISC_SUBTYPE_INVENTORY => self::MISC_SUBTYPE_INVENTORY,
+        self::MISC_SUBTYPE_SERUM => self::MISC_SUBTYPE_SERUM,
+        self::MISC_SUBTYPE_OTHER => self::MISC_SUBTYPE_OTHER,
+    ];
+
     public const ITEM_SUBTYPES = [
         self::TYPE_WEAPON => self::WEAPON_SUBTYPES,
         self::TYPE_ARMOR => self::ARMOR_SUBTYPES,
-        self::TYPE_SERUM => [
-            self::TYPE_SERUM,
-        ],
-        self::TYPE_OTHER => [
-            self::TYPE_OTHER,
-        ],
+        self::TYPE_MISC => self::MISC_SUBTYPES,
     ];
 
     public const RARITY_COMMON = 'common';

@@ -21,7 +21,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 	{
 		parent::startup();
 
-        if (!$this->isLinkCurrent('Vendor:updateOffers') || !$this->isLinkCurrent('Vendor:updatePrices')) {
+        if (!$this->isLinkCurrent('Vendor:updateOffers') || !$this->isLinkCurrent('Vendor:updatePrices') || !$this->isLinkCurrent('Default:updateMarkets')) {
             if (!$this->user->isLoggedIn())
                 $this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
 

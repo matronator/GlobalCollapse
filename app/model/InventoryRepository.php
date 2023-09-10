@@ -6,6 +6,7 @@ namespace App\Model;
 
 use App\Model\Entity\Item;
 use Nette;
+use Tracy\Debugger;
 
 class InventoryRepository
 {
@@ -15,9 +16,12 @@ class InventoryRepository
     public const BASE_WIDTH = 4;
     public const BASE_HEIGHT = 3;
 
-    public function __construct(Nette\Database\Explorer $database)
+    public ItemsRepository $itemsRepository;
+
+    public function __construct(Nette\Database\Explorer $database, ItemsRepository $itemsRepository)
     {
         $this->database = $database;
+        $this->itemsRepository = $itemsRepository;
     }
 
     public function findAll()
@@ -68,7 +72,7 @@ class InventoryRepository
     {
         $body = $this->findBodyByPlayerId($playerId)->fetch();
         if (!$body) {
-            return;
+            return null;
         }
 
         return $this->database->table('items')->get($body->{$bodySlot});
@@ -91,6 +95,7 @@ class InventoryRepository
             'shield' => null,
             'legs' => null,
             'feet' => null,
+            'back' => null,
         ]);
     }
 
@@ -192,9 +197,6 @@ class InventoryRepository
             return;
         }
 
-        if ($body->{$bodySlot}) {
-            $this->unequipItem($inventoryId, $bodySlot, $slot, $userId);
-        }
         if ($inventoryItem->item->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE && $body->ranged && $body->ref('items', 'ranged')->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED) {
             $this->unequipItem($inventoryId, 'ranged', $this->findEmptySlot($userId), $userId);
         } else if ($inventoryItem->item->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_RANGED && $body->melee && $body->ref('items', 'melee')->subtype === Item::WEAPON_SUBTYPE_TWO_HANDED_MELEE) {
@@ -203,9 +205,15 @@ class InventoryRepository
 
         $inventoryItem->delete();
 
+        if ($body->{$bodySlot}) {
+            $this->unequipItem($inventoryId, $bodySlot, $slot, $userId);
+        }
+
         $body->update([
             $bodySlot => $itemId,
         ]);
+
+        $this->equipInventoryItem($itemId, $userId);
 
         $this->addGearStats($userId, $this->getGearStats($itemId));
     }
@@ -245,6 +253,8 @@ class InventoryRepository
 
         $this->addGearStats($userId, $this->getGearStats($equippedItem->id, false));
 
+        $this->unequipInventoryItem($equippedItem->id, $userId);
+
         $this->findBodyByPlayerId($userId)->update([
             $bodySlot => null,
         ]);
@@ -252,13 +262,65 @@ class InventoryRepository
 
     public function moveItem(int $inventoryId, int $oldSlot, int $newSlot)
     {
-        $inventoryItem = $this->findInventoryItem($inventoryId, $oldSlot);
+        $inventoryItem = $this->findInventoryItem($inventoryId, $oldSlot)->fetch();
         if (!$inventoryItem) {
             return;
+        }
+
+        $otherItem = $this->findInventoryItem($inventoryId, $newSlot)->fetch();
+        if ($otherItem) {
+            $otherItem->update([
+                'slot' => $oldSlot,
+            ]);
         }
 
         $inventoryItem->update([
             'slot' => $newSlot,
         ]);
+    }
+
+    public function equipInventoryItem(int $itemId, int $userId)
+    {
+        $item = $this->itemsRepository->findAll()->get($itemId);
+        if (!$item) {
+            return false;
+        }
+
+        $inventory = $this->findByUser($userId);
+
+        if (!$inventory) {
+            $inventory = $this->createInventory($userId);
+        }
+
+        if ($item->type === Item::TYPE_MISC && $item->subtype === Item::MISC_SUBTYPE_INVENTORY) {
+            $ability = json_decode($item->special_ability);
+            $capacity = $ability->inventory;
+
+            $inventory->update([
+                'width' => $capacity->width,
+                'height' => $capacity->height,
+            ]);
+
+            return true;
+        }
+    }
+
+    public function unequipInventoryItem(int $itemId, int $userId)
+    {
+        $item = $this->itemsRepository->findAll()->get($itemId);
+        if (!$item) {
+            return false;
+        }
+
+        $inventory = $this->findByUser($userId);
+
+        if ($item->type === Item::TYPE_MISC && $item->subtype === Item::MISC_SUBTYPE_INVENTORY) {
+            $inventory->update([
+                'width' => self::BASE_WIDTH,
+                'height' => self::BASE_HEIGHT,
+            ]);
+
+            return true;
+        }
     }
 }

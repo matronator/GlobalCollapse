@@ -85,6 +85,7 @@ ui:
 			reward: 'Free Reward'
 			leaderboard: 'Leaderboard'
 			statistics: 'Statistics'
+			premium: 'Premium'
 		city:
 			title: 'City'
 			bar: 'Bar'

@@ -15,6 +15,7 @@ class PlayerBody
     public const SLOT_SHIELD = 'shield';
     public const SLOT_LEGS = 'legs';
     public const SLOT_FEET = 'feet';
+    public const SLOT_BACK = 'back';
 
     public const BODY_SLOTS = [
         self::SLOT_HEAD => self::SLOT_HEAD,
@@ -26,6 +27,7 @@ class PlayerBody
         self::SLOT_SHIELD => self::SLOT_SHIELD,
         self::SLOT_LEGS => self::SLOT_LEGS,
         self::SLOT_FEET => self::SLOT_FEET,
+        self::SLOT_BACK => self::SLOT_BACK,
     ];
 
     public const ALLOWED_ITEMS = [
@@ -79,6 +81,11 @@ class PlayerBody
         self::SLOT_FEET => [
             Item::TYPE_ARMOR => [
                 Item::ARMOR_SUBTYPE_BOOTS,
+            ],
+        ],
+        self::SLOT_BACK => [
+            Item::TYPE_MISC => [
+                Item::MISC_SUBTYPE_INVENTORY,
             ],
         ],
     ];

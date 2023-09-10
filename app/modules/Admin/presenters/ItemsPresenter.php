@@ -220,6 +220,10 @@ final class ItemsPresenter extends BasePresenter
         $form->addCheckbox('stackable', ' Can the item be stacked?')
             ->setHtmlAttribute('class', 'uk-checkbox');
 
+        $form->addTextArea('special_ability', 'Special ability')
+            ->setHtmlAttribute('class', 'uk-textarea')
+            ->addRule([\CustomValidators::class, 'validateJson'], 'Special ability must be a valid JSON or empty.');
+
         $form->addSubmit('save', 'Save');
         $form->onSuccess[] = [$this, 'itemFormSucceeded'];
         return $form;
@@ -243,6 +247,7 @@ final class ItemsPresenter extends BasePresenter
 		$primaryData['attack'] = $values->attack;
 		$primaryData['armor'] = $values->armor;
 		$primaryData['energy_max'] = $values->energy_max;
+		$primaryData['special_ability'] = empty(trim($values->special_ability)) ? $values->special_ability : json_encode(json_decode($values->special_ability), JSON_PRETTY_PRINT);
 		$primaryData['xp_boost'] = $values->xp_boost === '' ? null : (float) $values->xp_boost;
         if ($primaryData['xp_boost'] === 0) {
             unset($primaryData['xp_boost']);

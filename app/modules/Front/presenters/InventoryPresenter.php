@@ -6,7 +6,6 @@ namespace App\FrontModule\Presenters;
 
 use App\Model;
 use App\Model\Entity\PlayerBody;
-use App\Model\InventoryRepository;
 use App\Model\ItemsRepository;
 use Nette\Database\Table\ActiveRow;
 use Tracy\Debugger;
@@ -123,7 +122,7 @@ final class InventoryPresenter extends ItemsBasePresenter
 		$equippedItem = $this->itemsRepository->get($itemId);
 		if (!$equippedItem) {
 			$this->flashMessage('Item not found in inventory!', 'danger');
-			return;
+			return false;
 		}
 
 		return $equippedItem;
@@ -133,7 +132,19 @@ final class InventoryPresenter extends ItemsBasePresenter
     {
         $this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->_player->id)->fetch();
         $this->template->playerBody = $this->playerBody;
+        $this->inventory = $this->inventoryRepository->findByUser($this->_player->id)->fetch();
         $this->template->inventory = $this->inventory;
+
+        $inventorySlots = [];
+        for ($i = 0; $i < $this->inventory->height * $this->inventory->width; $i++) {
+            $inventorySlots[$i] = null;
+        }
+
+        $inventoryItems = $this->inventoryRepository->findAllInventoryItems($this->inventory->id)->fetchAll();
+        foreach ($inventoryItems as $item) {
+            $inventorySlots[$item->slot] = $item;
+        }
+        $this->template->inventorySlots = $inventorySlots;
 
         $this->flashMessage('Item equipped!', 'success');
         $this->redrawControl('inventoryWrapper');

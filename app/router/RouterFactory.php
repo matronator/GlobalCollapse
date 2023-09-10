@@ -20,6 +20,10 @@ class RouterFactory
 
 		/////////////////////// ADMIN ROUTES ///////////////////////
 		$router->withModule('Admin')
+            // CRON
+            ->addRoute('[<locale=en en|ru|cs>/]admin/cron/update-markets[/<hash>[/<confirm>]]', 'Default:updateMarkets')
+
+            // Default
 			->addRoute('[<locale=en en|ru|cs>/]admin/<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 
 		/////////////////////// FRONT ROUTES ///////////////////////
@@ -72,6 +76,7 @@ class RouterFactory
 			->addRoute('[<locale=cs cs>/]prepadeni/souboj/<match>', 'Assaults:assault')
 
             // API
+            // Charts
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/money-sources[/<username>]', 'Statistics:getMoneySourceChartData')
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/time-spent[/<username>]', 'Statistics:getTimeSpentData')
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/activities[/<username>]', 'Statistics:getActivitiesCountData')

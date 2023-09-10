@@ -17,6 +17,7 @@ class UnlockablesRepository
 	public const UNLOCKS_MAX_ENERGY = 'max_energy';
 	public const UNLOCKS_COLLECT_ALL_BUILDINGS = 'collect_all_buildings';
 	public const UNLOCKS_FASTER_TRAINING = 'faster_training';
+	public const UNLOCKS_ITEM = 'item';
 
 	/** @var Nette\Database\Explorer */
 	private $database;
@@ -105,6 +106,7 @@ class UnlockablesRepository
 					break;
 				case self::UNLOCKS_COLLECT_ALL_BUILDINGS:
 				case self::UNLOCKS_FASTER_TRAINING:
+				case self::UNLOCKS_ITEM:
 				default:
 					break;
 			}
