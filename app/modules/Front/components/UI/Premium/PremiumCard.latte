@@ -1,0 +1,26 @@
+{default $tier = 1}
+{default $name = 'Infected'}
+{default $price = 'Free'}
+{default $benefits = ['Free to play']}
+{default $playerTier = 1}
+
+{var $isCurrent = $playerTier === $tier}
+
+<div class="uk-card uk-card-secondary {$isCurrent ? 'uk-card-special' : ''} uk-card-body premium-card tier-{$tier} {if $isCurrent}current-tier{/if}">
+    <div n:if="$isCurrent" class="current-tier-label">
+        <span class="">Current Tier</span>
+    </div>
+    <div class="premium-details">
+        <h3 class="uk-card-title">{$name}</h3>
+        <p class="uk-text-lead">{$price}</p>
+        <h5>Benefits:</h5>
+        <ul class="uk-list">
+            <li n:foreach="$benefits as $benefit">{$benefit}</li>
+        </ul>
+    </div>
+    <div class="uk-flex-bottom premium-footer">
+        <a n:href="upgradeTier!, $tier" class="ajax uk-button uk-button-{$isCurrent ? 'default' : 'primary'} uk-width-1-1 {$isCurrent ? 'uk-disabled'}" n:attr="disabled: $isCurrent, uk-disabled: $isCurrent">
+            {_$isCurrent ? 'general.ui.currentTier' : 'general.ui.buy'}
+        </a>
+    </div>
+</div>

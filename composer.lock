@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65b6613ad3eaa9bc739a7ebe74f336d0",
+    "content-hash": "e9159d9df5cecb99482d93b0724ecfe6",
     "packages": [
         {
             "name": "brick/math",
@@ -138,6 +138,66 @@
                 "source": "https://github.com/contributte/translation/tree/master"
             },
             "time": "2020-03-04T08:54:01+00:00"
+        },
+        {
+            "name": "gopay/payments-sdk-php",
+            "version": "v1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gopaycommunity/gopay-php-api.git",
+                "reference": "f9baf80cea928e9ea30b5dcdf4c21f1f9e0ef946"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gopaycommunity/gopay-php-api/zipball/f9baf80cea928e9ea30b5dcdf4c21f1f9e0ef946",
+                "reference": "f9baf80cea928e9ea30b5dcdf4c21f1f9e0ef946",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2.1|7.*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "hamcrest/hamcrest-php": "*",
+                "phpspec/prophecy": "~1.0",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "9.3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "factory.php"
+                ],
+                "psr-4": {
+                    "GoPay\\": "src/"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "GoPay",
+                    "homepage": "https://github.com/gopaycommunity/gopay-php-api/contributors"
+                }
+            ],
+            "description": "GoPay's PHP SDK for Payments REST API",
+            "keywords": [
+                "api",
+                "gopay",
+                "payments",
+                "rest",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/gopaycommunity/gopay-php-api/issues",
+                "source": "https://github.com/gopaycommunity/gopay-php-api/tree/v1.7.0"
+            },
+            "time": "2023-05-17T16:12:51+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

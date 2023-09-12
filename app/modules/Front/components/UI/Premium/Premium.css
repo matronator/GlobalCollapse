@@ -1,0 +1,43 @@
+.premium-card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    &.tier-2 {
+        box-shadow: 0px 0px 16px 0px #ffd900;
+    }
+    &.tier-3 {
+        box-shadow: 0px 0px 16px 0px #1975ff;
+    }
+    
+    &.current-tier {
+        box-shadow: 0px 0px 8px 4px #51a64d;
+        border-radius: 20px;
+        position: relative;
+
+        & .current-tier-label {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: max-content;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            font-weight: 300;
+            padding: 6px 8px;
+            border-radius: 30px;
+            border-bottom: none;
+            color: #000;
+            transform: translate(-50%, -120%);
+        }
+    }
+
+    & .premium-details {
+        flex: 1 1 auto;
+    }
+
+    & .premium-footer {
+        flex-grow: 0;
+    }
+}

@@ -315,6 +315,18 @@ class UserRepository
 		return $jobxp + round($jobxp * ($level - 1) * 0.1);
 	}
 
+    public function findAllPremiumUsers(int $minTier = 2)
+    {
+        return $this->findAll()->where('tier > ?', $minTier - 1);
+    }
+
+    public function upgradePlayerTier(int $userId, int $newTier): bool
+    {
+        return $this->getUser($userId)->update([
+            'tier' => $newTier
+        ]);
+    }
+
     /**
      * Add experience points to player
      *

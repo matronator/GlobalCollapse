@@ -67,4 +67,14 @@ final class InfoPresenter extends BasePresenter
       $this->template->voted = false;
     }
   }
+
+  public function renderPremium()
+  {
+    
+  }
+
+  public function handleUpgradeTier(int $tier = 1)
+  {
+    
+  }
 }

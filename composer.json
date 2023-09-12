@@ -74,7 +74,8 @@
 		"h4kuna/assets": "^1.0",
 		"contributte/translation": "^0.6.1",
 		"ramsey/uuid": "^4.2",
-		"matronator/mtrgen": "v1.1.1b4"
+		"matronator/mtrgen": "v1.1.1b4",
+		"gopay/payments-sdk-php": "^1.7"
 	},
 	"require-dev": {
 		"nette/tester": "^2.3.4"

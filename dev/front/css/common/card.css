@@ -1,3 +1,7 @@
-.card {
-  display: flex;
+.uk-card-special {
+  background-color: #19271b;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 4px solid #265d30;
+  background-image: repeating-linear-gradient(220deg, rgba(107, 198, 93, 0.125), rgba(107, 198, 93, 0.3) 1px, transparent 1px, transparent 3px);
 }

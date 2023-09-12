@@ -145,6 +145,7 @@ ui:
 	buy: 'Buy'
 	sell: 'Sell'
 	total: 'Total'
+	currentTier: 'Current tier'
 	locationStatus:
 		closed: 'Closed'
 	restore:

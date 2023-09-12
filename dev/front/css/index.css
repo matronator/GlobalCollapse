@@ -20,6 +20,8 @@
 
 @import "common/buttons.css";
 
+@import "common/card.css";
+
 @import "common/footer.css";
 
 @import "common/flash.css";
@@ -57,3 +59,4 @@
 @import "../../../app/modules/Front/components/UI/DidYouKnow/DidYouKnow.css";
 @import "../../../app/modules/Front/components/UI/NewsFeed/NewsFeed.css";
 @import "../../../app/modules/Front/components/Inventory/Inventory.css";
+@import "../../../app/modules/Front/components/UI/Premium/Premium.css";
