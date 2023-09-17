@@ -55,4 +55,14 @@ class StaticFilters
     {
         return 'target=\"_blank\" rel=\"noopener\"';
     }
+
+    public static function asset(string $asset, string $module = 'front'): string
+    {
+        $rawManifest = file_get_contents(WWW_DIR . '/dist/' . $module . '/asset-manifest.json');
+        $manifest = json_decode($rawManifest, true);
+
+        $path = '/dist/' . $module . '/' . $manifest[$asset];
+
+        return $path;
+    }
 }
