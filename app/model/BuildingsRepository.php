@@ -156,7 +156,7 @@ class BuildingsRepository
 		return $this->database->table('player_income')->where('user_id', $userId);
 	}
 
-	public function buyBuilding(int $userId = 0, int $bId = 0, ?int $buildingsId)
+	public function buyBuilding(int $userId = 0, int $bId = 0, ?int $buildingsId = null)
 	{
 		$checkLocked = $this->getBuilding($buildingsId)->fetch();
 		if (isset($checkLocked->level) && $checkLocked->level === 0) {

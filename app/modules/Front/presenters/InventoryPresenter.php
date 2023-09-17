@@ -32,7 +32,7 @@ final class InventoryPresenter extends ItemsBasePresenter
 		}
 
 		$this->template->playerBody = $this->playerBody;
-		$this->template->player = $this->_player;
+		$this->template->player = $this->player;
 		$this->template->inventorySlots = $inventorySlots;
 		$this->template->inventory = $this->inventory;
 
@@ -89,7 +89,7 @@ final class InventoryPresenter extends ItemsBasePresenter
             return;
         }
 
-		$this->inventoryRepository->equipItem($this->inventory->id, $item->id, $bodySlot, $slot, $this->_player->id);
+		$this->inventoryRepository->equipItem($this->inventory->id, $item->id, $bodySlot, $slot, $this->player->id);
 
         $this->refreshTemplate();
     }
@@ -112,7 +112,7 @@ final class InventoryPresenter extends ItemsBasePresenter
 			return;
 		}
 
-		$this->inventoryRepository->unequipItem($this->inventory->id, $bodySlot, $slot, $this->_player->id);
+		$this->inventoryRepository->unequipItem($this->inventory->id, $bodySlot, $slot, $this->player->id);
 
         $this->refreshTemplate();
     }
@@ -130,9 +130,9 @@ final class InventoryPresenter extends ItemsBasePresenter
 
     private function refreshTemplate(): void
     {
-        $this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->_player->id)->fetch();
+        $this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->player->id)->fetch();
         $this->template->playerBody = $this->playerBody;
-        $this->inventory = $this->inventoryRepository->findByUser($this->_player->id)->fetch();
+        $this->inventory = $this->inventoryRepository->findByUser($this->player->id)->fetch();
         $this->template->inventory = $this->inventory;
 
         $inventorySlots = [];

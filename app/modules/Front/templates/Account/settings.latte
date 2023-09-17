@@ -5,6 +5,10 @@
 {block pageContent}
 <div class="uk-container-small uk-margin-auto uk-padding-top">
   <div class="dashboard uk-flex uk-flex-top" uk-margin>
+    <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-1-1" n:if="isset($user->tier) && $user->tier > 1">
+      <h3>{_general.ui.managePremium}</h3>
+      <a n:href="managePremium" class="uk-button uk-button-primary">Manage premium on Stripe <span uk-icon="external-link"></span></a>
+    </div>
     <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-expand">
       <h3>{_general.account.datetimePrefs.title}</h3>
       <p>{_general.account.datetimePrefs.yourTime} <strong>{$userLocalTime|date:'%B %d, %Y - %R'}</strong></p>

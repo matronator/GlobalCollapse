@@ -41,17 +41,17 @@ abstract class ItemsBasePresenter extends GamePresenter
 	{
         parent::startup();
 
-        $this->inventory = $this->inventoryRepository->findByUser($this->_player->id)->fetch();
+        $this->inventory = $this->inventoryRepository->findByUser($this->player->id)->fetch();
         if (!$this->inventory) {
-            $this->inventory = $this->inventoryRepository->createInventory($this->_player->id);
+            $this->inventory = $this->inventoryRepository->createInventory($this->player->id);
         }
 
-        $this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->_player->id)->fetch();
+        $this->playerBody = $this->inventoryRepository->findBodyByPlayerId($this->player->id)->fetch();
         if (!$this->playerBody) {
-            $this->playerBody = $this->inventoryRepository->createBody($this->_player->id);
+            $this->playerBody = $this->inventoryRepository->createBody($this->player->id);
         }
 
-        $this->market = $this->marketRepository->getMarketByPlayerLevel($this->_player->player_stats->level);
+        $this->market = $this->marketRepository->getMarketByPlayerLevel($this->player->player_stats->level);
 	}
 
     public function handleMoveItem(?int $startSlot, ?int $endSlot)

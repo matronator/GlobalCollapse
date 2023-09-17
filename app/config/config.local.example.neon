@@ -10,6 +10,11 @@ database:
 
 # For testing purposes, this will override the duration of all jobs to 1 minute
 parameters:
+  stripe:
+    pubKey: 'publishable_key'
+    secret: 'secret_key'
+    appUrl: 'https://global-collapse.com'
+    webhookSecret: 'webhook_secret'
   darknetUpdate:
     hash: '2Rc9XqqWXa3ur4iiL5IKox782'
     confirm: 'aRXPKmm1Fgzyy6m4z2LZgii1q'

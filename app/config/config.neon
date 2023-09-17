@@ -31,6 +31,7 @@ services:
     - App\Model\InventoryRepository
     - App\Model\MarketRepository(%items%, %market%)
     - App\Model\StatisticsRepository
+    - App\Model\StripeOrdersRepository
     - App\Filter\ImageFilter
     - App\Components\DataTable\DataTableFactory
     - App\AdminModule\Presenters\VendorPresenter(%darknetUpdate%)
@@ -43,6 +44,7 @@ services:
     voteRewards: \VoteRewards(%voteCallback%)
     timezones: \Timezones
     router: App\Router\RouterFactory::createRouter
+    stripe: App\Services\StripeService(%stripe%)
     nette.latteFactory:
         setup:
             # - addFilter(NULL, 'App\Filter\StaticFilters::common')
@@ -56,6 +58,7 @@ http:
         X-Powered-By: StarterPack CMS # for security sake
         X-Content-Type-Options: nosniff
         X-XSS-Protection: '1; mode=block'
+        Content-Security-Policy: "default-src 'self'; script-src 'self' https://connect-js.stripe.com https://js.stripe.com/ 'unsafe-inline'; style-src sha256-0hAheEzaMe6uXIKV4EehS9pu1am1lj/KnnzrOYqckXk= 'self' 'unsafe-inline'; frame-src https://connect-js.stripe.com https://js.stripe.com/"
 
 latte:
     macros:

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9159d9df5cecb99482d93b0724ecfe6",
+    "content-hash": "ab5f4fa63542cea68d0d8234fdfa37a1",
     "packages": [
         {
             "name": "brick/math",
@@ -138,66 +138,6 @@
                 "source": "https://github.com/contributte/translation/tree/master"
             },
             "time": "2020-03-04T08:54:01+00:00"
-        },
-        {
-            "name": "gopay/payments-sdk-php",
-            "version": "v1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gopaycommunity/gopay-php-api.git",
-                "reference": "f9baf80cea928e9ea30b5dcdf4c21f1f9e0ef946"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/gopaycommunity/gopay-php-api/zipball/f9baf80cea928e9ea30b5dcdf4c21f1f9e0ef946",
-                "reference": "f9baf80cea928e9ea30b5dcdf4c21f1f9e0ef946",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.2.1|7.*",
-                "php": ">=7.4"
-            },
-            "require-dev": {
-                "hamcrest/hamcrest-php": "*",
-                "phpspec/prophecy": "~1.0",
-                "phpspec/prophecy-phpunit": "^2.0",
-                "phpunit/phpunit": "9.3.7"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "factory.php"
-                ],
-                "psr-4": {
-                    "GoPay\\": "src/"
-                },
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "GoPay",
-                    "homepage": "https://github.com/gopaycommunity/gopay-php-api/contributors"
-                }
-            ],
-            "description": "GoPay's PHP SDK for Payments REST API",
-            "keywords": [
-                "api",
-                "gopay",
-                "payments",
-                "rest",
-                "sdk"
-            ],
-            "support": {
-                "issues": "https://github.com/gopaycommunity/gopay-php-api/issues",
-                "source": "https://github.com/gopaycommunity/gopay-php-api/tree/v1.7.0"
-            },
-            "time": "2023-05-17T16:12:51+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2816,6 +2756,67 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v12.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "07829f2102362b0bfe0b680dab801e00cc4dce89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/07829f2102362b0bfe0b680dab801e00cc4dce89",
+                "reference": "07829f2102362b0bfe0b680dab801e00cc4dce89",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.5.0",
+                "php-coveralls/php-coveralls": "^2.5",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^5.7 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v12.2.0"
+            },
+            "time": "2023-09-07T18:03:22+00:00"
         },
         {
             "name": "symfony/config",

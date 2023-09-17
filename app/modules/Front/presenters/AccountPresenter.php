@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\FrontModule\Presenters;
 
+use App\Services\StripeService;
 use ChangePasswordForm;
 use ChangeEmailForm;
 use DateTime;
@@ -14,9 +15,12 @@ final class AccountPresenter extends BasePresenter
 {
     private $userData = null;
 
-    public function __construct()
+    private StripeService $stripeService;
+
+    public function __construct(StripeService $stripeService)
     {
         parent::__construct();
+        $this->stripeService = $stripeService;
     }
 
     protected function startup()
@@ -37,6 +41,18 @@ final class AccountPresenter extends BasePresenter
     {
         $now = Timezones::getUserTime(new DateTime(), $this->userPrefs->timezone, $this->userPrefs->dst);
         $this->template->userLocalTime = $now;
+    }
+
+    public function actionManagePremium()
+    {
+        $this->redirect('Default:default');
+        
+        $portalSession = $this->stripeService->stripeClient->billingPortal->sessions->create([
+            'customer' => $this->user->getIdentity()->getData()['stripe_customer_id'],
+            'return_url' => $this->stripeService->appUrl . '/account/settings',
+        ]);
+
+        $this->redirectUrl($portalSession->url);
     }
 
     public function createComponentChangePasswordForm()

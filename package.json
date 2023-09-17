@@ -10,7 +10,7 @@
     "postpost": "npm run report-js && npm run report-css && npm run report-lh",
     "start-admin": "gulp --mod admin",
     "build-admin": "gulp --production --mod admin",
-    "serve": "source .env && php -S 127.0.0.1:8000 -t www/",
+    "serve": "php -S 127.0.0.1:8000 -t www/",
     "p-serve": "pnpm run serve",
     "dev": "npm-run-all -p -l p-serve p-start",
     "lint-js": "eslint dev/**/*.js --fix",

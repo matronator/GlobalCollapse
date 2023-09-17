@@ -1,7 +1,8 @@
 {define sidebarGame}
   <div class="status-bar uk-flex uk-text-small uk-text-light" n:snippet="sidebar-stats">
     <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$user->money|number}</span>
-    <span class="uk-text-yellow uk-flex uk-flex-middle" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$maxEnergy}</span>
+    <span class="uk-text-warning" uk-tooltip="title: Bitcoins;pos:bottom">{include '../Icon/Icon.latte', icon => 'btc'} {$user->bitcoins|number}</span>
+    <span class="uk-text-yellow uk-flex uk-flex-middle uk-align-center uk-margin-remove-vertical uk-padding-tiny uk-padding-remove-bottom uk-width-1-1 uk-text-center uk-display-block" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$maxEnergy}</span>
   </div>
   <ul class="uk-nav-default" uk-nav="multiple: true">
     <li class="uk-open uk-parent">
@@ -11,8 +12,8 @@
       <ul class="uk-nav-sub">
         {* NEW badge VVV *}
         {* <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Account:voting">{_general.ui.sidebar.player.reward}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li> *}
-        <li n:class="$presenter->isLinkCurrent('Info:voting') ? uk-active"><a n:href="Info:voting">{_general.ui.sidebar.player.reward}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
-        <li n:class="$presenter->isLinkCurrent('Info:premium') ? uk-active"><a n:href="Info:premium">{_general.ui.sidebar.player.premium}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
+        <li n:class="$presenter->isLinkCurrent('Info:voting') ? uk-active"><a n:href="Info:voting">{_general.ui.sidebar.player.reward}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Premium:default') ? uk-active"><a n:href="Premium:default">{_general.ui.sidebar.player.premium}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.home}</a></li>
         <li n:class="$presenter->isLinkCurrent('Account:settings') ? uk-active"><a n:href="Account:settings">{_general.ui.sidebar.player.account}</a></li>
@@ -26,7 +27,7 @@
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Assaults:*') ? uk-active"><a n:href="Assaults:default">{_general.ui.sidebar.player.assaults}</a></li>
         <li n:class="$presenter->isLinkCurrent('Player:leaderboard') ? uk-active"><a n:href="Player:leaderboard">{_general.ui.sidebar.player.leaderboard}</a></li>
-        <li n:class="$presenter->isLinkCurrent('Statistics:default') ? uk-active"><a n:href="Statistics:default">{_general.ui.sidebar.player.statistics}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Statistics:default') ? uk-active"><a n:href="Statistics:default">{_general.ui.sidebar.player.statistics}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
       </ul>
     </li>
     <li class="uk-open uk-parent">
@@ -34,7 +35,7 @@
       <ul class="uk-nav-sub">
         <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a n:href="Bar:">{_general.ui.sidebar.city.bar}</a></li>
         <li class="uk-nav-divider"></li>
-        <li n:class="$presenter->isLinkCurrent('Market:default') ? uk-active"><a n:href="Market:default">{_general.ui.sidebar.city.market}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Market:default') ? uk-active"><a n:href="Market:default">{_general.ui.sidebar.city.market}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
         <li n:class="$presenter->isLinkCurrent('City:darknet') ? uk-active"><a n:href="City:darknet">{_general.ui.sidebar.city.darknet}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('City:wastelands') ? uk-active"><a n:href="City:wastelands">{_general.ui.sidebar.city.wastelands}</a></li>

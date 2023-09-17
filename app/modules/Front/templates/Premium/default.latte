@@ -1,0 +1,45 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Premium{/define}
+{define metaDescription}Premium{/define}
+
+{block pageContent}
+<div class="uk-container uk-margin-auto uk-text-center uk-grid-item-match uk-grid-match" uk-grid>
+  <div class="uk-width-1-1">
+    <h1 class="uk-margin-remove">Premium</h1>
+    <hr>
+    <h3 class="uk-margin-remove-top">Upgrade your account</h3>
+    <p class="uk-margin-remove-top">Choose your plan:</p>
+  </div>
+  <div class="uk-width-1-1">
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <stripe-pricing-table
+      pricing-table-id="prctbl_1NpgqfJJBQOBYTuQHxgXLNuZ"
+      publishable-key="{$stripePublicKey}"
+      customer-email="{$user->email}"
+      client-reference-id="{$user->username}"
+    ></stripe-pricing-table>
+    <stripe-pricing-table
+      pricing-table-id="prctbl_1NpnnmJJBQOBYTuQl1DtvTOT"
+      publishable-key="{$stripePublicKey}"
+      customer-email="{$user->email}"
+      client-reference-id="{$user->username}"
+    ></stripe-pricing-table>
+  </div>
+  <div class="uk-width-1-1">
+    <hr>
+    <h3>Buy Bitcoins</h3>
+    <stripe-pricing-table
+      pricing-table-id="prctbl_1NqLKmJJBQOBYTuQCosyoYf8"
+      publishable-key="{$stripePublicKey}"
+      customer-email="{$user->email}"
+      client-reference-id="{$user->username}"
+    ></stripe-pricing-table>
+    <stripe-pricing-table
+      pricing-table-id="prctbl_1NqLZLJJBQOBYTuQXQAaaMtz"
+      publishable-key="{$stripePublicKey}"
+      customer-email="{$user->email}"
+      client-reference-id="{$user->username}"
+    ></stripe-pricing-table>
+  </div>
+</div>
+{/block}

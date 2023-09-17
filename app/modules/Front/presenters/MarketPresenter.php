@@ -33,11 +33,11 @@ final class MarketPresenter extends ItemsBasePresenter
 		}
 
 		$this->template->playerBody = $this->playerBody;
-		$this->template->player = $this->_player;
+		$this->template->player = $this->player;
 		$this->template->inventorySlots = $inventorySlots;
 		$this->template->inventory = $this->inventory;
 		$this->template->market = $this->market;
-        $this->template->inventoryHasSpace = $this->inventoryRepository->checkInventoryHasSpace($this->_player->id);
+        $this->template->inventoryHasSpace = $this->inventoryRepository->checkInventoryHasSpace($this->player->id);
 
 		$this->template->uploadDir = ItemsRepository::IMAGES_UPLOAD_DIR;
 		$this->template->imagesDir = ItemsRepository::IMAGES_DIR;
@@ -63,17 +63,17 @@ final class MarketPresenter extends ItemsBasePresenter
             return;
         }
 
-        if ($this->_player->money < $this->marketRepository->getItemPrice($marketItem)) {
+        if ($this->player->money < $this->marketRepository->getItemPrice($marketItem)) {
             $this->flashMessage($this->translator->translate('general.messages.danger.notEnoughMoney'), 'danger');
             return;
         }
 
-        if ($this->_player->player_stats->level < $marketItem->item->unlock_at) {
+        if ($this->player->player_stats->level < $marketItem->item->unlock_at) {
             $this->flashMessage($this->translator->translate('general.messages.warning.itemLowLevel', ['level' => $marketItem->item->unlock_at]), 'danger');
             return;
         }
 
-        if (!$this->marketRepository->buyItem($marketItem, $this->_player->id)) {
+        if (!$this->marketRepository->buyItem($marketItem, $this->player->id)) {
             $this->flashMessage($this->translator->translate('general.messages.danger.somethingWentWrong'), 'danger');
             return;
         }

@@ -37,6 +37,7 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru>/]terms-of-use', 'Info:tos')
 			->addRoute('[<locale=en en|ru>/]privacy-policy', 'Info:privacy')
 			->addRoute('[<locale=en en|ru>/]earn-reward', 'Info:voting')
+			->addRoute('[<locale=en en|ru>/]premium', 'Premium:default')
 			->addRoute('[<locale=en en|ru>/]reset-password/<hash>', 'Recover:default')
 			->addRoute('[<locale=en en|ru>/]unlockables', 'Default:unlockables')
 			->addRoute('[<locale=en en|ru>/]rest', 'Default:rest')
@@ -85,6 +86,9 @@ class RouterFactory
 
 		// APIs
 		->addRoute('api/job', 'Api:job')
+
+		// Webhooks
+		->addRoute('webhook', 'Webhook:default')
 
 		->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 

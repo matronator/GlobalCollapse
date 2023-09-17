@@ -75,7 +75,7 @@
 		"contributte/translation": "^0.6.1",
 		"ramsey/uuid": "^4.2",
 		"matronator/mtrgen": "v1.1.1b4",
-		"gopay/payments-sdk-php": "^1.7"
+		"stripe/stripe-php": "^12.2"
 	},
 	"require-dev": {
 		"nette/tester": "^2.3.4"

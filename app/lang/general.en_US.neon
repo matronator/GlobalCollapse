@@ -146,6 +146,7 @@ ui:
 	sell: 'Sell'
 	total: 'Total'
 	currentTier: 'Current tier'
+	managePremium: 'Manage premium'
 	locationStatus:
 		closed: 'Closed'
 	restore:
