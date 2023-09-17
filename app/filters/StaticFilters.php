@@ -50,4 +50,9 @@ class StaticFilters
 
         return $longFormat ? sprintf('%d hours and %d minutes', $hours, $minutes) : sprintf('%02d:%02d', $hours, $minutes);
     }
+
+    public static function external(): string
+    {
+        return 'target=\"_blank\" rel=\"noopener\"';
+    }
 }

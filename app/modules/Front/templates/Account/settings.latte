@@ -11,7 +11,7 @@
     </div>
     <div class="uk-card uk-card-body uk-text-center uk-card-default uk-width-expand">
       <h3>{_general.account.datetimePrefs.title}</h3>
-      <p>{_general.account.datetimePrefs.yourTime} <strong>{$userLocalTime|date:'%B %d, %Y - %R'}</strong></p>
+      <p>{_general.account.datetimePrefs.yourTime} <strong>{$userLocalTime|date:'M d, Y - H:m'}</strong></p>
       {control datetimeForm}
     </div>
     <div class="uk-width-1-1 uk-flex split">
@@ -48,5 +48,5 @@
     </div>
   </div>
 </div>
-<script defer src="{asset settings.js front}"></script>
+<script defer src="{='settings.js'|fullpath:'front'}"></script>
 {/block}

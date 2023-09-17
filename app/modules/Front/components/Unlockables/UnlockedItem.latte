@@ -8,7 +8,7 @@
 
 <div class="uk-card uk-card-secondary uk-card-body uk-padding-remove unlocked-card">
     <div class="uk-width-1-1">
-      <div n:if="$item->unlockables->image" class="unlocked-image" style="background-image:url({='dist/front/images/unlockables/'.$item->unlockables->image|asset});">
+      <div n:if="$item->unlockables->image" class="unlocked-image" style="background-image:url({asset 'dist/front/images/unlockables/'.$item->unlockables->image});">
         <div n:if="$item->unlockables->amount" class="icon-overlay">{$item->unlockables->unlock_at}</div>
       </div>
       <div n:if="!$item->unlockables->image" class="unlocked-image">
@@ -25,7 +25,8 @@
        {case 'building'}<p class="uk-margin-small-top uk-text-lighter">{$item->unlockables->unlocks|fromSnake|upper}</p>
        {case 'max_energy'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="bolt"></span>{$item->unlockables->amount}</p>
        {case 'faster_training'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="future"></span> x{$item->unlockables->amount}%</p>
-       {case 'collect_all_buildings', default}
+       {case 'collect_all_buildings'}
+       {default}
       {/switch}
     </div>
 </div>

@@ -10,18 +10,18 @@
     <div class="uk-flex-between uk-flex-start uk-child-width-auto uk-grid-small" uk-grid>
       <div>
         <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
-          <h2 class="uk-card-title uk-text-center"><a href="https://www.paypal.com/paypalme/matronator" {external}>PayPal</a></h2>
-          <a href="https://www.paypal.com/paypalme/matronator" {external}>
+          <h2 class="uk-card-title uk-text-center"><a href="https://www.paypal.com/paypalme/matronator" {external()}>PayPal</a></h2>
+          <a href="https://www.paypal.com/paypalme/matronator" {external()}>
             <img src="{$basePath}/dist/front/images/support/paypal.png" alt="Donate via PayPal" width="143">
           </a>
         </div>
       </div>
       <div>
         <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
-          <h2 class="uk-card-title uk-text-center"><a href="https://ko-fi.com/matronator" {external}>Ko-fi</a></h2>
+          <h2 class="uk-card-title uk-text-center"><a href="https://ko-fi.com/matronator" {external()}>Ko-fi</a></h2>
           <div class="uk-text-center">
             <a uk-toggle="#kofi-widget">
-              <img height="36" style="border:0px;height:36px;" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" border="0" alt="Buy Me a Coffee at ko-fi.com">
+              <img height="36" style="border:0px;height:36px;" src="{asset 'dist/front/images/support/kofi.png'}" border="0" alt="Buy Me a Coffee at ko-fi.com">
             </a>
           </div>
           <div id="kofi-widget" hidden>
@@ -31,8 +31,8 @@
       </div>
       <div>
         <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-small">
-          <h2 class="uk-card-title uk-text-center"><a href="https://www.patreon.com/bePatron?u=34136375" {external}>Patreon</a></h2>
-          <a href="https://www.patreon.com/bePatron?u=34136375" {external}>
+          <h2 class="uk-card-title uk-text-center"><a href="https://www.patreon.com/bePatron?u=34136375" {external()}>Patreon</a></h2>
+          <a href="https://www.patreon.com/bePatron?u=34136375" {external()}>
             <img src="{$basePath}/dist/front/images/support/patreon.png" alt="Support on Patreon" width="143">
           </a>
         </div>
@@ -73,5 +73,5 @@
 {/block}
 
 {block scripts}
-  <script src="{asset support.js front}"></script>
+  <script src="{='support.js'|fullpath:'front'}"></script>
 {/block}

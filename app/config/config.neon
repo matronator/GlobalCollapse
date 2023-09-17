@@ -52,6 +52,8 @@ services:
             - addFilter('fromSnake', 'App\Filter\StaticFilters::fromSnake')
             - addFilter('firstLower', 'App\Filter\StaticFilters::firstLower')
             - addFilter('time', 'App\Filter\StaticFilters::time')
+            - addFilter('fullpath', 'App\Extensions\Latte\AssetExtension::asset')
+            - addFunction('external', 'App\Filter\StaticFilters::external')
 
 http:
     headers:
@@ -66,7 +68,7 @@ latte:
 
 extensions:
     translation: Contributte\Translation\DI\TranslationExtension
-    assetsExtension: h4kuna\Assets\DI\AssetsExtension
+    assetExtension: SixtyEightPublishers\Asset\Bridge\Nette\DI\AssetExtension
 
 translation:
     localeResolvers:
@@ -78,8 +80,3 @@ translation:
         fallback: ['en_US']
     dirs:
         - %appDir%/lang
-
-assetsExtension:
-    wwwDir: %wwwDir%
-    debugMode: %debugMode%
-    tempDir: %tempDir%

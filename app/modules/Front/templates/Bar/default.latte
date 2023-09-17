@@ -79,7 +79,7 @@
                 {php $imgSrc = 'center'}
                 {php $imgPos = 'center'}
                 {php $imgDir = 'vertical'}
-              {case default}
+              {default}
                 {php $imgSrc = 'bar'}
                 {php $imgPos = 'center'}
                 {php $imgDir = 'horizontal'}
@@ -87,7 +87,7 @@
             <div class="job-img-split">
               <div class="job-info">
                 <h3>{_general.city.bar.jobs.working}</h3>
-                <p>{_general.city.bar.jobs.workingUntil}{$workingUntil|date:'%T'}</p>
+                <p>{_general.city.bar.jobs.workingUntil}{$workingUntil|date:'H:i:s'}</p>
                 {include '../../components/CountdownBar/CountdownBar.latte',
                   minute => $minutes,
                   sec => $seconds,

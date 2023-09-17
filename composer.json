@@ -50,45 +50,41 @@
 		"GPL-3.0"
 	],
 	"require": {
-		"php": ">= 7.4",
-		"nette/application": "^3.0.7",
-		"nette/bootstrap": "^3.0.2",
-		"nette/caching": "^3.0.2",
-		"nette/component-model": "^3.0.1",
-		"nette/database": "^3.0.7",
-		"nette/di": "^3.0.6",
-		"nette/finder": "^2.5.1",
-		"nette/forms": "^3.0.7",
-		"nette/http": "^3.0.5",
-		"nette/mail": "^3.1.8",
-		"nette/neon": "^3.2.1",
-		"nette/robot-loader": "^3.3.1",
-		"nette/routing": "^3.0.1",
-		"nette/safe-stream": "^2.4.0",
-		"nette/security": "^3.0.5",
-		"nette/schema": "^1.0.4",
-		"nette/utils": "^3.2.0",
-		"tracy/tracy": "^2.8.0",
-		"latte/latte": "^2.11.4",
+		"php": ">= 8.2",
+		"nette/application": "^3.1",
+		"nette/bootstrap": "^3.2",
+		"nette/caching": "^3.2",
+		"nette/component-model": "^3.0",
+		"nette/database": "^3.1",
+		"nette/di": "^3.1",
+		"nette/finder": "^3.0",
+		"nette/forms": "^3.1",
+		"nette/http": "^3.2",
+		"nette/mail": "^4.0",
+		"nette/neon": "^3.4",
+		"nette/robot-loader": "^4.0",
+		"nette/routing": "^3.0",
+		"nette/safe-stream": "^3.0",
+		"nette/security": "^3.1",
+		"nette/schema": "^1.2",
+		"nette/utils": "^4.0",
+		"tracy/tracy": "^2.10.0",
+		"latte/latte": "^3.0",
 		"ext-json": "*",
-		"h4kuna/assets": "^1.0",
-		"contributte/translation": "^0.6.1",
-		"ramsey/uuid": "^4.2",
-		"matronator/mtrgen": "v1.1.1b4",
-		"stripe/stripe-php": "^12.2"
+		"68publishers/asset": "^3.3",
+		"contributte/translation": "^2.0",
+		"ramsey/uuid": "^4.7",
+		"matronator/mtrgen": "^2.0",
+		"stripe/stripe-php": "^12.3"
 	},
 	"require-dev": {
-		"nette/tester": "^2.3.4"
+		"nette/tester": "^2.5"
 	},
 	"autoload": {
 		"classmap": [
 			"app/bootstrap.php"
 		]
 	},
-	"minimum-stability": "stable",
-	"config": {
-		"platform": {
-			"php": "7.4"
-		}
-	}
+	"minimum-stability": "dev",
+	"prefer-stable": true
 }

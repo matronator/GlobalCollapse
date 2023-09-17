@@ -43,7 +43,7 @@
         {else}
           <p>{_general.city.wastelands.scavenging}</p>
           <p>{_general.city.wastelands.scavengingSince}</p>
-          <p class="uk-margin-large-bottom">{$scavengingSince|date:'%d %B %Y, %T'}&nbsp;<strong>({$timePassed} ago)</strong></p>
+          <p class="uk-margin-large-bottom">{$scavengingSince|date:'d B Y, H:i:s'}&nbsp;<strong>({$timePassed} ago)</strong></p>
           {form scavengeForm}
             <div class="uk-flex uk-flex-center uk-padding uk-padding-remove-horizontal">
               <button type="submit" class="uk-button uk-button-primary" n:name="stopScavenging">{_general.city.wastelands.scavengingReturn}</button>

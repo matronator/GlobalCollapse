@@ -100,7 +100,7 @@ final class BarPresenter extends GamePresenter
 					$currentMission = $this->allJobs[$missionKey];
 					$missionDuration = $this->jobDuration((int) $currentMission['duration'], $player->player_stats->level);
 					$s = $diff % 60;
-					$m = $diff / 60 % 60;
+					$m = floor($diff / 60) % 60;
 					$this->template->minutes = $m > 9 ? $m : '0'.$m;
 					$this->template->seconds = $s > 9 ? $s : '0'.$s;
 					$this->template->workingUntil = Timezones::getUserTime($workingUntil, $this->userPrefs->timezone, $this->userPrefs->dst);

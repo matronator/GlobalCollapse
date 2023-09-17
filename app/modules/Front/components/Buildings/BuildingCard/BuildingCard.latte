@@ -16,7 +16,7 @@
 <div class="uk-card uk-card-default uk-card-body uk-padding-small building-card" n:snippet="building-{$building->id}">
   <div class="building-card-main">
     <div class="uk-width-1-1">
-      <div class="building-image" style="background-image:url({='dist/front/images/illustrations/buildings/'.$buildingName.'.jpg'|asset});"></div>
+      <div class="building-image" style="background-image:url({asset 'dist/front/images/illustrations/buildings/'.$buildingName.'.jpg'});"></div>
     </div>
     <span class="uk-text-small">{$storage}g / {$capacity}g</span>
     <p class="uk-margin-remove" n:if="$storage > 0">

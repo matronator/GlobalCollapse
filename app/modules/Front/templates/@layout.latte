@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="description" content="{ifset #metaDescription}{include #metaDescription|stripHtml|trim}{/ifset}">
     <meta name="keywords" content="coronavirus,game,pbbg,browser game,php game,covid-19,covid19,mmorpg,pandemic,mmo,browser based games">
-    <meta name="copyright" content="© {php echo date('Y'); }">
+    <meta name="copyright" content="© {= new \DateTime('Y')|date:'Y'}">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Matronator; https://matronator.com">
 
@@ -16,21 +16,21 @@
     <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Enable WAP -->
     <meta name="apple-mobile-web-app-title" content="Pandemic"> <!-- Title -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Status bar -->
-    <link rel="apple-touch-icon" sizes="76x76" href="{='dist/front/images/apple-touch-icon-ipad.png'|asset}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{='dist/front/images/apple-touch-icon-iphone-retina.png'|asset}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{='dist/front/images/apple-touch-icon-ipad-retina.png'|asset}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{='dist/front/images/apple-touch-icon.png'|asset}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{asset 'dist/front/images/apple-touch-icon-ipad.png'}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{asset 'dist/front/images/apple-touch-icon-iphone-retina.png'}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{asset 'dist/front/images/apple-touch-icon-ipad-retina.png'}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{asset 'dist/front/images/apple-touch-icon.png'}">
     <!-- Splashscreens -->
-    <link href="{='dist/front/images/splashscreens/iphone5_splash.jpg'|asset}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/iphone6_splash.jpg'|asset}" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/iphoneplus_splash.jpg'|asset}" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/iphonex_splash.jpg'|asset}" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/iphonexr_splash.jpg'|asset}" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/iphonexsmax_splash.jpg'|asset}" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/ipad_splash.jpg'|asset}" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/ipadpro1_splash.jpg'|asset}" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/ipadpro3_splash.jpg'|asset}" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
-    <link href="{='dist/front/images/splashscreens/ipadpro2_splash.jpg'|asset}" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/iphone5_splash.jpg'}" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/iphone6_splash.jpg'}" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/iphoneplus_splash.jpg'}" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/iphonex_splash.jpg'}" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/iphonexr_splash.jpg'}" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/iphonexsmax_splash.jpg'}" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/ipad_splash.jpg'}" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/ipadpro1_splash.jpg'}" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/ipadpro3_splash.jpg'}" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+    <link href="{asset 'dist/front/images/splashscreens/ipadpro2_splash.jpg'}" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
 
     <!--------- Android --------->
     <meta name="mobile-web-app-capable" content="yes">
@@ -38,19 +38,19 @@
     <!--------- Windows --------->
     <meta name="msapplication-TileColor" content="#b91d1d">
     <meta name="msapplication-navbutton-color" content="#b91d1d">
-    <meta name="msapplication-config" content="{='dist/front/images/browserconfig.xml'|asset}">
+    <meta name="msapplication-config" content="{asset 'dist/front/images/browserconfig.xml'}">
 
     <!--------- Favicons --------->
-    <link rel="icon" type="image/png" sizes="16x16" href="{='dist/front/images/favicon-16x16.png'|asset}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{='dist/front/images/favicon-32x32.png'|asset}">
-    <link rel="icon" type="image/png" sizes="48x48" href="{='dist/front/images/favicon-48x48.png'|asset}">
-    <link rel="manifest" href="{='dist/front/images/site.webmanifest'|asset}">
-    <link rel="mask-icon" href="{='dist/front/images/safari-pinned-tab.svg'|asset}" color="#b91d1d">
-    <link rel="shortcut icon" type="image/x-icon" href="{='dist/front/images/favicon.ico'|asset}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{asset 'dist/front/images/favicon-16x16.png'}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{asset 'dist/front/images/favicon-32x32.png'}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{asset 'dist/front/images/favicon-48x48.png'}">
+    <link rel="manifest" href="{asset 'dist/front/images/site.webmanifest'}">
+    <link rel="mask-icon" href="{asset 'dist/front/images/safari-pinned-tab.svg'}" color="#b91d1d">
+    <link rel="shortcut icon" type="image/x-icon" href="{asset 'dist/front/images/favicon.ico'}">
     <meta name="application-name" content="Pandemic">
     <meta name="theme-color" content="#b91d1d">
 
-    <link rel="stylesheet" href="{asset index.css front}">
+    <link rel="stylesheet" href="{='index.css'|fullpath}">
 
     <link n:foreach="$presenter->localeList as $localeItem" rel="alternate" hreflang="{$localeItem}" href="{link //this, locale=>$localeItem}"/>
     <link rel="alternate" hreflang="x-default" href="{link //this, locale=>$defaultLocale}" />
@@ -139,15 +139,15 @@
         </style>
 
         {snippet js}
-            <script defer src="{asset index.js front}"></script>
+            <script defer src="{='index.js'|fullpath}"></script>
             {if $presenter->isLinkCurrent('Bar:default')}
                 {ifset $onMission}
-                    <script n:if="$onMission >= 1" defer src="{asset countdownBar.js front}"></script>
-                    <script n:if="$onMission < 1" defer src="{asset bar.js front}"></script>
+                    <script n:if="$onMission >= 1" defer src="{='countdownBar.js'|fullpath}"></script>
+                    <script n:if="$onMission < 1" defer src="{='bar.js'|fullpath}"></script>
                 {else}
                     {ifset $returned}
-                        <script n:if="$returned == true" defer src="{asset countdownBar.js front}"></script>
-                        <script n:if="!$returned" defer src="{asset bar.js front}"></script>
+                        <script n:if="$returned == true" defer src="{='countdownBar.js'|fullpath}"></script>
+                        <script n:if="!$returned" defer src="{='bar.js'|fullpath}"></script>
                     {/ifset}
                 {/ifset}
             {/if}

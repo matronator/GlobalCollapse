@@ -17,14 +17,14 @@
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="msapplication-config" content="{$basePath}/dist/admin/images/browserconfig.xml">
 	<meta name="theme-color" content="#333333">
-	<link rel="stylesheet" href="{asset index.css admin}">
+	<link rel="stylesheet" href="{='index.css'|fullpath:'admin'}">
 	{block head}{/block}
 </head>
 <body class="l-body">
 {snippetArea wrapper}
 	{include body}
 {/snippetArea}
-	<script src="{asset index.js admin}"></script>
+	<script src="{='index.js'|fullpath:'admin'}"></script>
 {block scripts}
 {/block}
 </body>

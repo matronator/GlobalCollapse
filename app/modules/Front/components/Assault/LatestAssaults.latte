@@ -40,8 +40,8 @@
           <a n:href="Player:detail, $opponent" n:tag-if="$victimExists">{$opponent}</a>
         </td>
         <td class="{$assaultType['mobile'] === 'ATK' ? ($assault->result === 'win' ? 'uk-text-success' : 'uk-text-danger') : ($assault->result === 'win' ? 'uk-text-danger' : 'uk-text-success')}">{$assaultType['mobile'] === 'ATK' ? $assault->result : ($assault->result === 'win' ? 'defeat' : 'win')|capitalize}</td>
-        {* <td><span class="uk-text-nowrap">{$assaultDate|date:'%x'}</span> - <span class="uk-text-nowrap">{$assaultDate|date:'%k:%M'}</span></td> *}
-        <td uk-tooltip="title: {$assaultDate|date:'%F %T'}"><time class="relative-time" datetime="{$assaultDate|date:'%FT%T'}">{$assaultDate|date:'%FT%T'}</time></td>
+        {* <td><span class="uk-text-nowrap">{$assaultDate|date:'%x'}</span> - <span class="uk-H:i:sext-nowrap">{$assaultDate|date:'%k:%M'}</span></td> *}
+        <td uk-tooltip="title: {$assaultDate|date:'F H:i:s'}"><time class="relative-time" datetime="{$assaultDate|date:'FH:i:s T'}">{$assaultDate|date:'FH:i:s T'}</time></td>
       </tr>
     </tbody>
   </table>

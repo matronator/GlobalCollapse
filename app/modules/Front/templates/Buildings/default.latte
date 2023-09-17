@@ -62,7 +62,7 @@
                     <div>{_general.drugs.Coke.name}: {$playerIncome->coke ? $playerIncome->coke : 0|number}g / 5h</div>
                 </div>
             </div>
-            <p n:if="!isset($noLastCollection) && isset($lastCollection)" class="uk-margin-top"><small class="uk-text-italic">{_general.buildings.lastCollection|capitalize} {$lastCollection|date:'%T'} (<strong>{$timeAgo}</strong> ago)</small></p>
+            <p n:if="!isset($noLastCollection) && isset($lastCollection)" class="uk-margin-top"><small class="uk-text-italic">{_general.buildings.lastCollection|capitalize} {$lastCollection|date:'H:i:s'} (<strong>{$timeAgo}</strong> ago)</small></p>
             <p n:ifset="$noLastCollection" class="uk-margin-top"><small class="uk-text-italic">{_general.buildings.lastCollection|capitalize} <strong>{_general.buildings.noCollections}</strong></small></p>
             <hr class="uk-divider-icon uk-margin-remove-top">
             <div class="uk-text-center uk-margin-bottom" n:ifset="$collectAll">
@@ -94,12 +94,12 @@
                     <h3>
                         Land expansion in progress...
                     </h3>
-                    <p>Upgrading until <strong>{$upgradeUntil|date:'%B %d - %T'}</strong></p>
+                    <p>Upgrading until <strong>{$upgradeUntil|date:'B d - H:i:s'}</strong></p>
                     <p>During land upgrade, you can't access your buildings and you won't collect any resources from production.</p>
                 </div>
             </div>
         {/snippet}
     </div>
 </div>
-<script defer src="{asset buildings.js front}" n:if="$land"></script>
+<script defer src="{='buildings.js'|fullpath:'front'}" n:if="$land"></script>
 {/block}

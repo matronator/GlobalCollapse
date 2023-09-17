@@ -20,7 +20,7 @@
           name => 'energyBar',
           added => $resting ? $energyGained : null
         }
-        <p n:if="$resting" class="uk-margin-bottom">{_general.resting.restingSince}{$restingSince|date:'%d %B %Y, %T'}&nbsp;<strong>({$timePassed}&nbsp;{_general.ui.ago})</strong></p>
+        <p n:if="$resting" class="uk-margin-bottom">{_general.resting.restingSince}{$restingSince|date:'d B Y, H:i:s'}&nbsp;<strong>({$timePassed}&nbsp;{_general.ui.ago})</strong></p>
         {if $user->player_stats->energy < $user->player_stats->energy_max + $gearStats->energy_max}
           <button n:if="!$resting" type="submit" class="uk-button uk-button-primary" n:name="rest">{_general.resting.title}</button>
         {/if}
