@@ -10,7 +10,7 @@
                         {$item->title}
                     </a>
                     {if $isParent}
-                        {include navList, list => $item->items, nested => true}
+                        {include navList, list: $item->items, nested: true}
                     {/if}
                 </li>
                 <li class="uk-nav-divider" n:if="!$iterator->isLast()"></li>

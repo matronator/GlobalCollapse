@@ -1,4 +1,4 @@
-{layout '../@layoutSginedIn.latte'}
+{layout '../@layoutSignedIn.latte'}
 {var $offerCounts = []}
 {block content}
     <h1 n:block="title" class="uk-heading-divider">Vendors</h1>
@@ -64,9 +64,9 @@
                             uk-icon="trash">
                     </a>
                     {include '../../components/Modals/deleteConfirm.latte'
-                        id => "delete-" . $id,
-                        action => $presenter->link('delete', $id),
-                        text => 'Do you really want to delete vendor ' . $row->name . '?',
+                        id: "delete-" . $id,
+                        action: $presenter->link('delete', $id),
+                        text: 'Do you really want to delete vendor ' . $row->name . '?',
                     }
                 </td>
             </tr>

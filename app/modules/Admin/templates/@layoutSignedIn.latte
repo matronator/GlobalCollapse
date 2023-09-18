@@ -14,7 +14,7 @@
                     class="uk-navbar-toggle uk-hidden@l"
                     uk-navbar-toggle-icon
                     uk-toggle="target: #navigation"
-                    href="#"
+                    href="#">
                 </a>
 
                 <a class="uk-navbar-item uk-logo uk-visible@s" href="{$baseUrl}/admin">
@@ -51,7 +51,7 @@
 
         <aside class="l-aside uk-background-secondary uk-padding-small uk-visible@l uk-light">
 
-            {include '../components/Navigation/Navigation.latte', list => $navItems}
+            {include '../components/Navigation/Navigation.latte', list: $navItems}
 
             <div class="uk-text-center uk-margin-top">
                 <a n:href=":Front:Default:default" class="uk-button uk-button-default uk-width-1-1">Show website</a>
@@ -81,7 +81,7 @@
         <div class="uk-offcanvas-bar">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
 
-            {include '../components/Navigation/Navigation.latte', list => $navItems}
+            {include '../components/Navigation/Navigation.latte', list: $navItems}
 
             <div class="uk-text-center uk-text-small uk-margin-large-top">
                 <span uk-icon="user"></span>

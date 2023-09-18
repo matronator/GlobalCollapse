@@ -53,7 +53,7 @@ class StaticFilters
 
     public static function external(): string
     {
-        return 'target=\"_blank\" rel=\"noopener\"';
+        return 'target="_blank" rel="noopener"';
     }
 
     public static function asset(string $asset, string $module = 'front'): string

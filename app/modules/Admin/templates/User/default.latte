@@ -1,4 +1,4 @@
-{layout '../@layoutSginedIn.latte'}
+{layout '../@layoutSignedIn.latte'}
 
 {block content}
     <h1 n:block="title" class="uk-heading-divider">Uživatelé</h1>
@@ -48,9 +48,9 @@
                             uk-icon="trash">
                     </a>
                     {include '../../components/Modals/deleteConfirm.latte'
-                    id => "delete-" . $id,
-                    action => $presenter->link('delete', $id),
-                    text => 'Opravdu chcete smazat uživatele ' . $row->email . '?',
+                        id: "delete-" . $id,
+                        action: $presenter->link('delete', $id),
+                        text: 'Opravdu chcete smazat uživatele ' . $row->email . '?',
                     }
                 </td>
             </tr>

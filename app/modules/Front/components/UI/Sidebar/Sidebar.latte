@@ -47,9 +47,9 @@
       <ul class="uk-nav-sub">
         <li n:class="$presenter->isLinkCurrent('Info:news') ? uk-active"><a n:href="Info:news">{_general.ui.sidebar.info.news}</a></li>
         <li n:class="$presenter->isLinkCurrent('Info:support') ? uk-active"><a n:href="Info:support">{_general.ui.sidebar.info.donations}</a></li>
-        <li><a href="https://github.com/matronator/GlobalCollapse/wiki" {external()}>{_general.ui.sidebar.info.help}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
-        <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" {external()}>{_general.ui.sidebar.info.changelog}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
-        <li><a href="https://github.com/matronator/GlobalCollapse/" {external()}>{_general.ui.sidebar.info.source}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse/wiki" {external()|noescape}>{_general.ui.sidebar.info.help}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" {external()|noescape}>{_general.ui.sidebar.info.changelog}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
+        <li><a href="https://github.com/matronator/GlobalCollapse/" {external()|noescape}>{_general.ui.sidebar.info.source}{include '../Icon/Icon.latte', icon => 'external-link'}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Info:tos') ? uk-active"><a n:href="Info:tos">{_general.ui.sidebar.info.tos}</a></li>
         <li n:class="$presenter->isLinkCurrent('Info:copyright') ? uk-active"><a n:href="Info:copyright">{_general.ui.sidebar.info.copyright}</a></li>
@@ -71,9 +71,9 @@
   <ul class="uk-nav-default sidebar-nav" uk-nav>
     <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.info.about}</a></li>
     <li n:class="$presenter->isLinkCurrent('Info:news') ? uk-active"><a n:href="Info:news">{_general.ui.sidebar.info.news}</a></li>
-    <li><a href="https://github.com/matronator/GlobalCollapse#support-the-project" {external()}>{_general.ui.sidebar.info.donations}</a></li>
-    <li><a href="https://github.com/matronator/GlobalCollapse/wiki" {external()}>{_general.ui.sidebar.info.help}</a></li>
-    <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" {external()}>Changelog</a></li>
+    <li n:class="$presenter->isLinkCurrent('Info:support') ? uk-active"><a n:href="Info:support">{_general.ui.sidebar.info.donations}</a></li>
+    <li><a href="https://github.com/matronator/GlobalCollapse/wiki" {external()|noescape}>{_general.ui.sidebar.info.help}</a></li>
+    <li><a href="https://github.com/matronator/GlobalCollapse/blob/master/CHANGELOG.md#changelog" {external()|noescape}>Changelog</a></li>
   </ul>
   <div class="uk-flex uk-flex-column sidebar-footer uk-border-top">
     <hr>
