@@ -100,9 +100,9 @@
             {include '../components/UI/Navbar/Navbar.latte'}
 
             {if $presenter->user->isLoggedIn()}
-                {include '../components/UI/Sidebar/Sidebar.latte', loggedin => true}
+                {include '../components/UI/Sidebar/Sidebar.latte', loggedin: true}
             {else}
-                {include '../components/UI/Sidebar/Sidebar.latte', loggedin => false}
+                {include '../components/UI/Sidebar/Sidebar.latte', loggedin: false}
             {/if}
 
             <main class="uk-section uk-padding-remove-bottom uk-background-muted uk-dark main-section uk-flex uk-flex-column uk-flex-between uk-flex-stretch" data-fill-view n:snippet="main">

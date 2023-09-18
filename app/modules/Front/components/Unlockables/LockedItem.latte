@@ -55,7 +55,8 @@
        {case 'building'}<p class="uk-margin-small-top uk-text-lighter">{$item->buildings->name|fromSnake|upper}</p>
        {case 'max_energy'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="bolt"></span> {$item->amount}</p>
        {case 'faster_training'}<p class="uk-margin-small-top uk-text-lighter"><span uk-icon="future"></span> x{$item->amount}%</p>
-       {case 'collect_all_buildings', default}
+       {case 'collect_all_buildings'}
+       {default}
       {/switch}
     </div>
 </div>

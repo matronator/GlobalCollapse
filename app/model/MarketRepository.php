@@ -179,8 +179,7 @@ class MarketRepository
         $player = $playerInventory->user;
 
         $emptySlot = $this->inventoryRepository->findEmptySlot($player->id);
-
-        if (!$emptySlot) {
+        if ($emptySlot === null) {
             return false;
         }
 

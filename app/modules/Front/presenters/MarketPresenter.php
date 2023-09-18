@@ -78,6 +78,8 @@ final class MarketPresenter extends ItemsBasePresenter
             return;
         }
 
+        $this->flashMessage($this->translator->translate('general.messages.success.itemBought'), 'success');
+
         $this->template->playerBody = $this->playerBody;
         $this->template->inventory = $this->inventory;
 
@@ -91,7 +93,7 @@ final class MarketPresenter extends ItemsBasePresenter
 
     public function handleSellItem(?int $slotId)
     {
-        if (!$slotId) {
+        if ($slotId === null) {
             $this->flashMessage($this->translator->translate('general.messages.danger.itemOrSlotNotSpecified'), 'danger');
             $this->redrawControl('wrapper');
             $this->redrawControl('flashes');

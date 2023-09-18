@@ -42,6 +42,7 @@ messages:
 		allBuildingCollected: "All buildings collected!"
 		offerRefreshed: "Generated new offer!"
 		itemSold: "Item sold!"
+		itemBought: "Item bought!"
 	info:
 	warning:
 		cantRefreshOffer: "Can't refresh offer yet. Try again in %minutes% minutes."

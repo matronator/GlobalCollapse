@@ -1,7 +1,7 @@
 {define sidebarGame}
   <div class="status-bar uk-flex uk-text-small uk-text-light" n:snippet="sidebar-stats">
     <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$user->money|number}</span>
-    <span class="uk-text-warning" uk-tooltip="title: Bitcoins;pos:bottom">{include '../Icon/Icon.latte', icon => 'btc'} {$user->bitcoins|number}</span>
+    <span class="uk-text-warning" uk-tooltip="title: Bitcoins;pos:bottom"><span uk-icon="bitcoin"></span> {$user->bitcoins|number}</span>
     <span class="uk-text-yellow uk-flex uk-flex-middle uk-align-center uk-margin-remove-vertical uk-padding-tiny uk-padding-remove-bottom uk-width-1-1 uk-text-center uk-display-block" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$user->player_stats->energy}/{$maxEnergy}</span>
   </div>
   <ul class="uk-nav-default" uk-nav="multiple: true">

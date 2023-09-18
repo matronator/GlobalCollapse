@@ -142,7 +142,7 @@ class InventoryRepository
         return null;
     }
 
-    public function checkInventoryHasSpace(int $userId)
+    public function checkInventoryHasSpace(int $userId): bool
     {
         $inventory = $this->findAll()->where('user_id', $userId)->fetch();
         if (!$inventory) {
