@@ -67,6 +67,7 @@ ui:
 	sidebar:
 		preparing: '(Již brzy)'
 		new: 'NOVÉ'
+		soon: 'BRZY'
 		player:
 			account: 'Účet'
 			training: 'Trénink'

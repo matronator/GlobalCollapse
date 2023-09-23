@@ -9,13 +9,10 @@ use App\Model\DrugsRepository;
 use Nette\Application\UI\Form;
 use DateTime;
 use ActionLocker;
-use App\Libs\Notifications;
 use App\Model\AssaultsRepository;
 use App\Model\BuildingsRepository;
 use App\Model\MiscRepository;
-use Nette\Database\Table\ActiveRow;
 use Timezones;
-use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 

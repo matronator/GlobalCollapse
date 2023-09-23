@@ -4,12 +4,7 @@ declare(strict_types=1);
 
 namespace App\FrontModule\Presenters;
 
-use App\Model;
-use App\Model\Entity\PlayerBody;
-use App\Model\InventoryRepository;
 use App\Model\ItemsRepository;
-use App\Model\MarketRepository;
-use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 

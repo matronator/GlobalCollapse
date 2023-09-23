@@ -44,9 +44,9 @@ final class ApiPresenter extends GamePresenter
             if ($diff >= 0) {
                 $missionKey = array_search($whatMission, array_column($this->allJobs, 'locale'));
                 $currentMission = $this->allJobs[$missionKey];
-                $missionDuration = intval($currentMission['duration'] * 60);
+                $missionDuration = (int) ($currentMission['duration'] * 60);
                 $s = $diff % 60;
-                $m = $diff / 60 % 60;
+                $m = (int) round($diff / 60) % 60;
                 $minutes = $m;
                 $seconds = $s;
                 $timeMax = $missionDuration;

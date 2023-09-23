@@ -73,6 +73,7 @@ ui:
 	sidebar:
 		preparing: '(Preparing)'
 		new: 'NEW'
+		soon: 'SOON'
 		player:
 			account: 'Account'
 			inventory: 'Inventory'
