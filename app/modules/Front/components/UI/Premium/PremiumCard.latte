@@ -3,24 +3,45 @@
 {default $price = 'Free'}
 {default $benefits = ['Free to play']}
 {default $playerTier = 1}
+{default $img = null}
+{default $imgAlt = ''}
+{default $buyBtnId = ''}
+{default $url = ''}
 
 {var $isCurrent = $playerTier === $tier}
 
-<div class="uk-card uk-card-secondary {$isCurrent ? 'uk-card-special' : ''} uk-card-body premium-card tier-{$tier} {if $isCurrent}current-tier{/if}">
-    <div n:if="$isCurrent" class="current-tier-label">
-        <span class="">Current Tier</span>
+<div class="uk-card uk-card-secondary {$isCurrent ? 'uk-card-special' : ''} premium-card tier-{$tier} {if $isCurrent}current-tier{/if}">
+    <div class="uk-card-media-top">
+        <img n:if="$img !== null" src="{$img}" alt="{$imgAlt}">
     </div>
-    <div class="premium-details">
-        <h3 class="uk-card-title">{$name}</h3>
-        <p class="uk-text-lead">{$price}</p>
-        <h5>Benefits:</h5>
-        <ul class="uk-list">
-            <li n:foreach="$benefits as $benefit">{$benefit}</li>
-        </ul>
-    </div>
-    <div class="uk-flex-bottom premium-footer">
-        <a n:href="upgradeTier!, $tier" class="ajax uk-button uk-button-{$isCurrent ? 'default' : 'primary'} uk-width-1-1 {$isCurrent ? 'uk-disabled'}" n:attr="disabled: $isCurrent, uk-disabled: $isCurrent">
-            {_$isCurrent ? 'general.ui.currentTier' : 'general.ui.buy'}
-        </a>
+    <div class="uk-card-body">
+        <div n:if="$isCurrent" class="current-tier-label">
+            <span class="">Current Plan</span>
+        </div>
+        <div class="premium-details">
+            <h3 class="uk-card-title">{$name}</h3>
+            <p class="uk-text-lead">{$price}</p>
+            <h5>Benefits:</h5>
+            <ul class="uk-list">
+                <li n:foreach="$benefits as $benefit">{$benefit}</li>
+            </ul>
+        </div>
+        <div class="uk-flex-bottom premium-footer">
+            {if $tier > 1}
+                {if $useStripe && $priceId}
+                    <a n:href="upgradeAccount!, item: $priceId" class="uk-button uk-button-{$isCurrent ? 'default' : 'primary'} uk-width-1-1 {$isCurrent ? 'uk-disabled'}" n:attr="disabled: $isCurrent, uk-disabled: $isCurrent" data-upgrade-tier="{$tier}">
+                        {_$isCurrent ? 'general.ui.currentTier' : 'general.ui.buy'}
+                    </a>
+                {else}
+                    <a href="#" class="uk-button uk-button-{$isCurrent ? 'default' : 'primary'} uk-width-1-1 {$isCurrent ? 'uk-disabled'}" n:attr="disabled: $isCurrent, uk-disabled: $isCurrent" data-upgrade-tier="{$tier}" {ifset $priceId}data-price-id="{$priceId}"{/ifset}>
+                        {_$isCurrent ? 'general.ui.currentTier' : 'general.ui.buy'}
+                    </a>
+                {/if}
+            {else}
+                <span class="uk-button uk-button-{$isCurrent ? 'default' : 'primary'} uk-width-1-1 {$isCurrent ? 'uk-disabled'}" n:attr="disabled: $isCurrent, uk-disabled: $isCurrent">
+                    {_$isCurrent ? 'general.ui.currentTier' : 'general.ui.buy'}
+                </span>
+            {/if}
+        </div>
     </div>
 </div>

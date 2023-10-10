@@ -224,6 +224,20 @@ td.input-row {
   margin-top: 1rem;
 }
 
+.premium-border {
+  border: 1px solid var(--c-yellow);
+  border-radius: 5px;
+
+  &.tier-2 {
+    border: 2px solid var(--c-green);
+    box-shadow: 0 0 10px 0 #0f0;
+  }
+  &.tier-3 {
+    border: 2px solid var(--c-blue);
+    box-shadow: 0 0 10px 0 #00f;
+  }
+}
+
 .illustration-split {
   position: relative;
   width: 100%;

@@ -2,6 +2,23 @@
 {define pageTitle}Premium{/define}
 {define metaDescription}Premium{/define}
 
+{block #head}
+  {if $useStripe}
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <script src="{='stripe.js'|fullpath}"></script>
+  {else}
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script>
+      Paddle.Environment.set("sandbox");
+      Paddle.Setup({
+        seller: 14798,
+      });
+    </script>
+    <script src="{='paddle.js'|fullpath}"></script>
+  {/if}
+{/block}
+
 {block pageContent}
 <div class="uk-container uk-margin-auto uk-text-center uk-grid-item-match uk-grid-match" uk-grid>
   <div class="uk-width-1-1">
@@ -10,25 +27,89 @@
     <h3 class="uk-margin-remove-top">Upgrade your account</h3>
     <p class="uk-margin-remove-top">Choose your plan:</p>
   </div>
-  <div class="uk-width-1-1">
-    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-    <stripe-pricing-table
-      pricing-table-id="prctbl_1NpgqfJJBQOBYTuQHxgXLNuZ"
-      publishable-key="{$stripePublicKey}"
-      customer-email="{$user->email}"
-      client-reference-id="{$user->username}"
-    ></stripe-pricing-table>
-    <stripe-pricing-table
-      pricing-table-id="prctbl_1NpnnmJJBQOBYTuQl1DtvTOT"
-      publishable-key="{$stripePublicKey}"
-      customer-email="{$user->email}"
-      client-reference-id="{$user->username}"
-    ></stripe-pricing-table>
-  </div>
+  {if $useStripe}
+    {* <div class="uk-width-1-1">
+      <stripe-pricing-table
+        pricing-table-id="prctbl_1NpgqfJJBQOBYTuQHxgXLNuZ"
+        publishable-key="{$stripePublicKey}"
+        customer-email="{$user->email}"
+        client-reference-id="{$user->username}"
+      ></stripe-pricing-table>
+      <stripe-pricing-table
+        pricing-table-id="prctbl_1NpnnmJJBQOBYTuQl1DtvTOT"
+        publishable-key="{$stripePublicKey}"
+        customer-email="{$user->email}"
+        client-reference-id="{$user->username}"
+      ></stripe-pricing-table>
+    </div> *}
+    <div class="uk-width-1-3@s uk-width-1-1">
+      {include '../../components/UI/Premium/PremiumCard.latte',
+        playerTier: $user->tier,
+        img: $basePath . '/dist/front/images/premium/infected.jpg',
+        imgAlt: 'Free To Play Account',
+      }
+    </div>
+    <div class="uk-width-1-3@s uk-width-1-1">
+      {include '../../components/UI/Premium/PremiumCard.latte',
+        name: 'Survivor',
+        price: '$5 / month',
+        tier: 2,
+        benefits: ['Survivor name badge', 'Avatar frame', 'Upload custom avatar', 'x1.25 XP Boost'],
+        playerTier: $user->tier,
+        img: $basePath . '/dist/front/images/premium/survivor.jpg',
+        imgAlt: 'Survivor Premium Account',
+        priceId: 'price_1NpXM1JJBQOBYTuQNyUN0T86',
+      }
+    </div>
+    <div class="uk-width-1-3@s uk-width-1-1">
+      {include '../../components/UI/Premium/PremiumCard.latte',
+        name: 'Immune',
+        price: '$15 / month',
+        tier: 3,
+        benefits: ['Immune name badge', 'Avatar frame', 'Upload animated avatar', 'Protection from assaults', 'x1.5 XP Boost', 'All times cut by half'],
+        playerTier: $user->tier,
+        img: $basePath . '/dist/front/images/premium/immune.jpg',
+        imgAlt: 'Immune Premium Account',
+        priceId: 'price_1NpXMPJJBQOBYTuQ4geLaLqp',
+      }
+    </div>
+  {else}
+    <div class="uk-width-1-3@s uk-width-1-1">
+      {include '../../components/UI/Premium/PremiumCard.latte',
+        playerTier: $user->tier,
+        img: $basePath . '/dist/front/images/premium/infected.jpg',
+        imgAlt: 'Free To Play Account',
+      }
+    </div>
+    <div class="uk-width-1-3@s uk-width-1-1">
+      {include '../../components/UI/Premium/PremiumCard.latte',
+        name: 'Survivor',
+        price: '$10 / month',
+        tier: 2,
+        benefits: ['Survivor name badge', 'Avatar frame', 'Upload custom avatar', 'x1.25 XP Boost'],
+        playerTier: $user->tier,
+        priceId: 'pri_01hbe1dewd7b8edmpw2f5nvt93',
+        img: $basePath . '/dist/front/images/premium/survivor.jpg',
+        imgAlt: 'Survivor Premium Account',
+      }
+    </div>
+    <div class="uk-width-1-3@s uk-width-1-1">
+      {include '../../components/UI/Premium/PremiumCard.latte',
+        name: 'Immune',
+        price: '$25 / month',
+        tier: 3,
+        benefits: ['Immune name badge', 'Avatar frame', 'Upload animated avatar', 'Protection from assaults', 'x1.5 XP Boost', 'All times cut by half'],
+        playerTier: $user->tier,
+        priceId: 'pri_01hbe1f6bx2gjh4zddhyrh6s2p',
+        img: $basePath . '/dist/front/images/premium/immune.jpg',
+        imgAlt: 'Immune Premium Account',
+      }
+    </div>
+  {/if}
   <div class="uk-width-1-1">
     <hr>
     <h3>Buy Bitcoins</h3>
-    <stripe-pricing-table
+    {* <stripe-pricing-table
       pricing-table-id="prctbl_1NqLKmJJBQOBYTuQCosyoYf8"
       publishable-key="{$stripePublicKey}"
       customer-email="{$user->email}"
@@ -39,7 +120,7 @@
       publishable-key="{$stripePublicKey}"
       customer-email="{$user->email}"
       client-reference-id="{$user->username}"
-    ></stripe-pricing-table>
+    ></stripe-pricing-table> *}
   </div>
 </div>
 {/block}

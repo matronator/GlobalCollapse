@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Nette;
-
+use Stripe\StripeObject;
 
 class StripeOrdersRepository
 {
@@ -20,16 +20,17 @@ class StripeOrdersRepository
 		return $this->database->table('stripe_orders');
 	}
 
-	public function createOrder($session, string $type = 'awaiting orders')
+	public function createOrder(StripeObject $session, string $type = 'awaiting orders')
 	{
 		$this->findAll()->insert([
-			'data' => $session,
+			'data' => $session->toJSON(),
+			'stripe_id' => $session->id,
 			'status' => $type,
 		]);
 	}
 
-	public function fulfillOrder($session)
+	public function saveOrder(StripeObject $session, string $event = 'checkout.session.completed')
 	{
-		$this->createOrder($session, 'fulfilled');
+		$this->createOrder($session, $event);
 	}
 }

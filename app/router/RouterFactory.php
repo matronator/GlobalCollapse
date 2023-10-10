@@ -82,13 +82,14 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/time-spent[/<username>]', 'Statistics:getTimeSpentData')
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/activities[/<username>]', 'Statistics:getActivitiesCountData')
 
+			// Webhooks
+			->addRoute('webhook/stripe', 'Webhook:default')
+			->addRoute('webhook/paddle', 'Webhook:paddle')
+
 			->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default') //most general route
 
 		// APIs
 		->addRoute('api/job', 'Api:job')
-
-		// Webhooks
-		->addRoute('webhook', 'Webhook:default')
 
 		->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 

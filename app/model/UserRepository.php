@@ -140,6 +140,11 @@ class UserRepository
             ->where('email', $email)->fetch();
     }
 
+    public function getUserByStripeCustomerId(string $customerId): ?ActiveRow
+    {
+        return $this->findAll()->where('stripe_customer_id', $customerId)->fetch();
+    }
+
     public function deleteUser(?int $id = null): ?ActiveRow
     {
         $user = $this->getUser($id);

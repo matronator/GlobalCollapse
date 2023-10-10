@@ -23,7 +23,7 @@ final class PremiumPresenter extends GamePresenter
     protected function startup()
     {
         parent::startup();
-        $this->redirect('Default:default');
+        // $this->redirect('Default:default');
     }
 
     public function renderDefault()
@@ -39,7 +39,16 @@ final class PremiumPresenter extends GamePresenter
         $this->template->stripePublicKey = $this->stripeService->publicKey;
     }
 
-    public function handleUpgradeTier(int $tier = 1)
+    public function renderSuccess(string $sessionId = null)
     {
+        if (!$sessionId) {
+            $this->redirect('default');
+        }
+    }
+
+    public function handleUpgradeAccount(string $item)
+    {
+        $cs = $this->stripeService->createCheckoutSession($item, $this->player);
+        $this->redirectUrl($cs->url);
     }
 }

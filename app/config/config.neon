@@ -1,5 +1,6 @@
 parameters:
     version: 0.2.2
+    psp: 'stripe' # stripe or paddle
 
 application:
     errorPresenter: Error
@@ -45,6 +46,8 @@ services:
     timezones: \Timezones
     router: App\Router\RouterFactory::createRouter
     stripe: App\Services\StripeService(%stripe%)
+    paddle: App\Services\PaddleService(%paddle%)
+    payment: App\Services\PaymentService(%psp%)
     nette.latteFactory:
         setup:
             # - addFilter(NULL, 'App\Filter\StaticFilters::common')
@@ -60,7 +63,7 @@ http:
         X-Powered-By: StarterPack CMS # for security sake
         X-Content-Type-Options: nosniff
         X-XSS-Protection: '1; mode=block'
-        Content-Security-Policy: "default-src 'self'; script-src 'self' https://connect-js.stripe.com https://js.stripe.com/ 'unsafe-inline'; style-src sha256-0hAheEzaMe6uXIKV4EehS9pu1am1lj/KnnzrOYqckXk= 'self' 'unsafe-inline'; frame-src https://connect-js.stripe.com https://js.stripe.com/"
+        Content-Security-Policy: "default-src 'self' https://cdn.paddle.com/; script-src 'self' https://connect-js.stripe.com https://js.stripe.com/ https://cdn.paddle.com/ 'unsafe-inline'; style-src sha256-0hAheEzaMe6uXIKV4EehS9pu1am1lj/KnnzrOYqckXk= 'self' 'unsafe-inline' https://sandbox-cdn.paddle.com/; frame-src https://connect-js.stripe.com https://js.stripe.com/ https://sandbox-buy.paddle.com/ https://buy.paddle.com/"
 
 latte:
     macros:

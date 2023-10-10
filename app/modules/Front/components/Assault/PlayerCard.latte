@@ -11,7 +11,7 @@
     <div class="split uk-flex-bottom">
         <div>
             <h3 class="uk-margin-remove-bottom">
-            {$player->username}&nbsp;<small class="uk-text-muted">Level {$player->player_stats->level}</small>
+                {$player->username}&nbsp;<small class="uk-text-muted">Level {$player->player_stats->level}</small>
             </h3>
         </div>
     </div>
@@ -26,7 +26,7 @@
         }
     </div>
     <div class="split">
-        <div class="uk-width-auto">
+        <div class="uk-width-auto {if $player->tier > 1}premium-border tier-{$player->tier}{/if}">
             <img src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="128" height="128">
         </div>
         <div class="uk-width-expand">

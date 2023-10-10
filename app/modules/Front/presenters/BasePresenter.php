@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Model;
+use App\Services\PaymentService;
 use DateTime;
 use Nette\Database\Table\ActiveRow;
 use stdClass;
@@ -21,6 +22,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
 	/** @var \Contributte\Translation\Translator @inject */
 	public $translator;
+	
+	/** @var PaymentService @inject */
+	public PaymentService $paymentService;
 
 	/** @var Model\UserRepository */
 	protected $userRepository;
@@ -61,6 +65,8 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			$this->redrawControl('main');
 			$this->redrawControl('flashes');
 		}
+		$this->template->psp = $this->paymentService->getPsp();
+		$this->template->useStripe = $this->paymentService->isStripe();
 		$this->template->urlAbsolutePath = $this->getURL()->hostUrl;
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;
@@ -80,9 +86,9 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		if ($this->user->isLoggedIn()) {
 			$user = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$this->template->user = $user;
-            $gearStats = $this->getGearStats();
-            $this->template->gearStats = $gearStats;
-            $this->template->gearPower = $gearStats->strength + $gearStats->stamina + $gearStats->speed;
+			$gearStats = $this->getGearStats();
+			$this->template->gearStats = $gearStats;
+			$this->template->gearPower = $gearStats->strength + $gearStats->stamina + $gearStats->speed;
 			$gearStats = $this->userRepository->findPlayerGearStats($this->user->getIdentity()->id)->fetch();
 			if ($gearStats) {
 				$this->template->maxEnergy = $user->player_stats->energy_max + $gearStats->energy_max;

@@ -24,6 +24,8 @@ parameters:
   marketUpdate:
     hash: 'anotherHash'
     confirm: 'andAnotherOne...'
+  paddle:
+    secret: 'paddle_notification_secret'
   jobs!: [
     [
         locale: distributeMasks

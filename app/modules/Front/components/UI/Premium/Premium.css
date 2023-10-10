@@ -1,8 +1,18 @@
 .premium-card {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+
+    & .uk-card-media-top {
+        flex: 1 1 auto;
+    }
+
+    & .uk-card-body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+    }
     
     &.tier-2 {
         box-shadow: 0px 0px 16px 0px #ffd900;
@@ -12,24 +22,25 @@
     }
     
     &.current-tier {
-        box-shadow: 0px 0px 8px 4px #51a64d;
-        border-radius: 20px;
         position: relative;
+        overflow: hidden;
 
         & .current-tier-label {
             display: block;
             position: absolute;
             top: 0;
-            left: 50%;
-            width: max-content;
+            left: 0;
+            width: 240px;
             text-transform: uppercase;
-            font-size: 1.5rem;
-            font-weight: 300;
-            padding: 6px 8px;
-            border-radius: 30px;
-            border-bottom: none;
-            color: #000;
-            transform: translate(-50%, -120%);
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0;
+            color: #970000;
+            text-shadow: 1px 1px 0 #fff;
+            background-color: #ffc000;
+            box-shadow: 0 4px 12px -6px #000000;
+            border: 3px solid #ff9d00;
+            transform: translate(-30%, 132%) rotate(-45deg);
         }
     }
 
@@ -40,4 +51,10 @@
     & .premium-footer {
         flex-grow: 0;
     }
+}
+
+.premium-star {
+    margin-left: .25rem;
+    width: 16px;
+    height: 16px;
 }

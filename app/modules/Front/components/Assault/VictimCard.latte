@@ -54,7 +54,7 @@
       </table>
     </div>
     <div class="uk-width-auto">
-      <img src="{$basePath}/dist/front/images/default-avatars/{$victim->avatar}" class="uk-comment-avatar" width="128" height="128">
+      <img src="{$basePath}/dist/front/images/default-avatars/{$victim->avatar}" class="uk-comment-avatar {if $victim->tier > 1}premium-border tier-{$victim->tier}{/if}" width="128" height="128">
     </div>
   </div>
   <div class="uk-flex uk-width-expand uk-flex-center" n:if="$attacker->id != $victim->id">

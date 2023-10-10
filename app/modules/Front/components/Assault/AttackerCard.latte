@@ -30,7 +30,7 @@
   }
   <div class="split">
     <div class="uk-width-auto">
-      <img src="{$basePath}/dist/front/images/default-avatars/{$attacker->avatar}" class="uk-comment-avatar" width="128" height="128">
+      <img src="{$basePath}/dist/front/images/default-avatars/{$attacker->avatar}" class="uk-comment-avatar {if $attacker->tier > 1}premium-border tier-{$attacker->tier}{/if}" width="128" height="128">
     </div>
     <div class="uk-width-expand uk-margin-left">
       <table class="uk-table uk-table-small uk-table-hover" n:if="!$showStats">
