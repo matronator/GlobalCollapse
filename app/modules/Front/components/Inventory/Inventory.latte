@@ -41,6 +41,10 @@
                             </div>
                             <div class="uk-width-max-content item-dropdown uk-hidden" data-item-slot="{$item->slot}" data-dropdown>
                                 {include 'ItemTooltip.latte', item => $item->item, img => $img}
+                                {var $equippedItems = $presenter->itemsRepository->getSlotByType($item->item->subtype, $playerBody)}
+                                {if $equippedItems !== []}
+                                    {include 'EquippedItemTooltip.latte', equippedItems => $equippedItems, item => $item->item}
+                                {/if}
                             </div>
                         {/if}
                     </div>

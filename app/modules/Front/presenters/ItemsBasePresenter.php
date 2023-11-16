@@ -14,7 +14,7 @@ abstract class ItemsBasePresenter extends GamePresenter
     protected $inventoryRepository;
 
     /** @var ItemsRepository */
-    protected $itemsRepository;
+    public $itemsRepository;
 
     /** @var MarketRepository */
     public $marketRepository;

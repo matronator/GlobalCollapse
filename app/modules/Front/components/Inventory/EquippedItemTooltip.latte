@@ -1,0 +1,30 @@
+{varType array $equippedItems}
+{varType object $item}
+
+{foreach $equippedItems as $equipped}
+    {continueIf $equipped === null}
+    <div class="uk-width-auto uk-background-secondary uk-light uk-padding-small equipped-item-content" data-dropdown-content>
+        <div class="uk-width-auto item-image">
+            <div class="uk-inline">
+                <img src="{$basePath.$uploadDir.$equipped->image}" width="64" height="64" alt="{$equipped->name}" data-rarity="{$equipped->rarity}">
+                <div class="uk-overlay uk-position-bottom item-unlock-at uk-padding-remove-vertical uk-padding-small">{$equipped->unlock_at}</div>
+            </div>
+        </div>
+        <ul class="uk-list uk-list-collapse item-stats-list">
+            {var $newAttack = ($item->attack ?? 0) - ($equipped->attack ?? 0)}
+            {var $newArmor = ($item->armor ?? 0) - ($equipped->armor ?? 0)}
+            {var $newStrength = ($item->strength ?? 0) - ($equipped->strength ?? 0)}
+            {var $newStamina = ($item->stamina ?? 0) - ($equipped->stamina ?? 0)}
+            {var $newSpeed = ($item->speed ?? 0) - ($equipped->speed ?? 0)}
+            {var $newEnergyMax = ($item->energy_max ?? 0) - ($equipped->energy_max ?? 0)}
+            {var $newXpBoost = ($item->xp_boost ?? 0) - ($equipped->xp_boost ?? 0)}
+            <li n:if="$item->attack || $equipped->attack" n:class="$newAttack > 0 ? 'uk-text-success' : 'uk-text-danger'">{if $newAttack > 0}+{/if}{$newAttack} <span uk-icon="sword"></span></li>
+            <li n:if="$item->armor || $equipped->armor" n:class="$newArmor > 0 ? 'uk-text-success' : 'uk-text-danger'">{if $newArmor > 0}+{/if}{$newArmor} <span uk-icon="shield"></span></li>
+            <li n:if="$item->strength || $equipped->strength" n:class="$newStrength > 0 ? 'uk-text-success' : 'uk-text-danger'">{if $newStrength > 0}+{/if}{$newStrength} <span uk-icon="strength"></span></li>
+            <li n:if="$item->stamina || $equipped->stamina" n:class="$newStamina > 0 ? 'uk-text-success' : 'uk-text-danger'">{if $newStamina > 0}+{/if}{$newStamina} <span uk-icon="heart"></span></li>
+            <li n:if="$item->speed || $equipped->speed" n:class="$newSpeed > 0 ? 'uk-text-success' : 'uk-text-danger'">{if $newSpeed > 0}+{/if}{$newSpeed} <span uk-icon="speed"></span></li>
+            <li n:if="$item->energy_max || $equipped->energy_max" n:class="$newEnergyMax > 0 ? 'uk-text-success' : 'uk-text-danger'">{if $newEnergyMax > 0}+{/if}{$newEnergyMax} <span uk-icon="bolt"></span></li>
+            <li n:if="$item->xp_boost || $equipped->xp_boost" n:class="$newXpBoost > 0 ? 'uk-text-success' : 'uk-text-danger'">{if $newXpBoost > 0}+{/if}{$newXpBoost}&times; {_general.stats.xp}</li>
+        </ul>
+    </div>
+{/foreach}
