@@ -1,0 +1,26 @@
+{default $amount = 10}
+{default $price = 5}
+{default $img = null}
+{default $buyBtnId = ''}
+{default $url = ''}
+
+<div class="uk-card uk-card-secondary">
+    <div class="uk-card-media-top">
+        <img n:if="$img !== null" src="{$img}" alt="{$amount} Bitcoins">
+    </div>
+    <div class="uk-card-body">
+        <h3 class="uk-card-title">{$amount} Bitcoins</h3>
+        <p class="uk-text-lead">${$price}</p>
+        <div class="uk-flex-bottom">
+            {if $useStripe && $priceId}
+                <a n:href="buyBitcoins!, item: $priceId" class="uk-button uk-button-primary uk-width-1-1">
+                    {_general.ui.buy}
+                </a>
+            {else}
+                <a href="#" class="uk-button uk-button-primary uk-width-1-1">
+                    {_general.ui.buy}
+                </a>
+            {/if}
+        </div>
+    </div>
+</div>

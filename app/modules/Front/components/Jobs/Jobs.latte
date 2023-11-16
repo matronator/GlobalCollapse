@@ -24,7 +24,7 @@
       {foreach $jobs as $job}
         {var $locale = $job['locale']}
         <li class="job-item {first}selected{/first}" data-job-name="{$locale}"
-            data-job-duration="{round($presenter->jobDuration(intval($job['duration']), $user->player_stats->level) / 60, 1)}"
+            data-job-duration="{round($presenter->jobDuration(intval($job['duration']), $user->player_stats->level, $user->tier) / 60, 1)}"
             data-job-energy="{$job['energy']}"
             data-job-money="{$presenter->userRepository->getRewardMoney($job['money'], $user->player_stats->level)}"
             data-job-description="{_general.city.bar.jobs.{$locale}.description}"

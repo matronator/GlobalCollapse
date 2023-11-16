@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2023-10-10
+
+- Added: Premium accounts
+- Added: Stripe integration
+- Added: Bitcoins
+- Minor fixes and modifications
+
 ## [0.2.2] - 2023-04-23
 
 - Added: Delete account option

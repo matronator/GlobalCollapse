@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\BaseModule\Presenters;
 
+use DateTime;
 use Nette\Http\Request;
 use Nette\Http\Url;
 use Nette\Application\UI\Presenter;
@@ -38,6 +39,7 @@ class BasePresenter extends Presenter
             'ru' => 'Русский',
             'cs' => 'Čeština'
         ];
+        date_default_timezone_set('UTC');
         $this->locale = $this->getParameter('locale') ?? 'en';
     }
 

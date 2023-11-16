@@ -25,7 +25,7 @@
                   <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar uk-hidden@s" width="24" height="24">
                   <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar uk-visible@s" width="48" height="48">
                   {if $otherUser->username != $user->username}
-                    <a n:href="Assaults:detail, $otherUser->username" class="uk-text-middle">
+                    <a n:href="Player:detail, $otherUser->username" class="uk-text-middle">
                       {$otherUser->username}
                       {if $otherUser->tier === 2}
                         <img src="{$basePath}/dist/front/images/premium/star2.png" class="premium-star survivor" alt="Survivor">

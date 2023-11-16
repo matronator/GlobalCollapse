@@ -9,6 +9,7 @@ use App\Model\EventsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
+use App\Model\BarRepository;
 use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
@@ -19,6 +20,8 @@ final class BarPresenter extends GamePresenter
 
 	public $userRepository;
 
+	public BarRepository $barRepository;
+
 	/**
 	 * @var array
 	 */
@@ -27,12 +30,14 @@ final class BarPresenter extends GamePresenter
 	public function __construct(
 		array $allJobs,
 		EventsRepository $eventRepository,
-		UserRepository $userRepository
+		UserRepository $userRepository,
+		BarRepository $barRepository
 	)
 	{
 		parent::__construct();
 		$this->eventRepository = $eventRepository;
 		$this->userRepository = $userRepository;
+		$this->barRepository = $barRepository;
 		$this->allJobs = $allJobs;
 	}
 
@@ -98,7 +103,7 @@ final class BarPresenter extends GamePresenter
 				if ($diff >= 0) {
 					$missionKey = array_search($whatMission, array_column($this->allJobs, 'locale'));
 					$currentMission = $this->allJobs[$missionKey];
-					$missionDuration = $this->jobDuration((int) $currentMission['duration'], $player->player_stats->level);
+					$missionDuration = $this->barRepository->getJobDuration((int) $currentMission['duration'], $player->player_stats->level, $player->tier);
 					$s = $diff % 60;
 					$m = floor($diff / 60) % 60;
 					$this->template->minutes = $m > 9 ? $m : '0'.$m;
@@ -122,14 +127,8 @@ final class BarPresenter extends GamePresenter
 		}
 	}
 
-	public function jobDuration(int $duration, int $playerLevel, ?int $modifier = null) {
-		if (!$modifier) {
-			return (int) round(min(round(($duration * $playerLevel) / 15, 2), $duration) * 60);
-		}
-
-        $result = min(round(($duration * $playerLevel) / 15, 2), $duration);
-        $modified = round(($modifier / 100) * $result, 2);
-        return (int) (($result - $modified) * 60);
+	public function jobDuration(int $duration, int $playerLevel, int $playerTier) {
+		return $this->barRepository->getJobDuration($duration, $playerLevel, $playerTier);
     }
 
 	public function actionNewjobs(?string $hash = null) {
@@ -213,7 +212,7 @@ final class BarPresenter extends GamePresenter
 				if ($chosenJob) {
 					if ($player->player_stats->energy >= $chosenJob['energy']) {
 						$now = new DateTime();
-						$jobDuration = $this->jobDuration((int) $chosenJob['duration'], $player->player_stats->level);
+						$jobDuration = $this->barRepository->getJobDuration((int) $chosenJob['duration'], $player->player_stats->level, $player->tier);
                         $this->statisticsRepository->findByUser($player->id)->update([
                             'minutes_on_job+=' => (int) max(round($jobDuration / 60), 0),
                         ]);

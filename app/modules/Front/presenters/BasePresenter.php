@@ -95,8 +95,8 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			} else {
 				$this->template->maxEnergy = $user->player_stats->energy_max;
 			}
-			$sectionPrefs = $this->session->getSection('user-prefs');
-			$userPreferences = new stdClass();
+			$sectionPrefs = $this->session->getSection('preferences');
+			$userPreferences = (object) ['timezone' => null, 'dst' => null];
 			if (isset($sectionPrefs->timezone)) {
 				$userPreferences->timezone = $sectionPrefs->timezone;
 				if (isset($sectionPrefs->dst)) {

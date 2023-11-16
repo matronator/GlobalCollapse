@@ -63,7 +63,7 @@ class StripeService
             return $this->createCheckoutSession($priceId, $user, $mode);
         }
 
-        return Session::create([
+        $session = Session::create([
             'line_items' => [[
                 'price' => $priceId,
                 'quantity' => 1,
@@ -76,11 +76,6 @@ class StripeService
             'consent_collection' => [
                 'terms_of_service' => 'required',
             ],
-            'subscription_data' => [
-                'metadata' => [
-                    'user_id' => $user->id,
-                ],
-            ],
             'customer_update' => [
                 'address' => 'auto',
                 'shipping' => 'auto',
@@ -92,5 +87,15 @@ class StripeService
             'success_url' => $this->appUrl . '/premium/success?sessionId={CHECKOUT_SESSION_ID}',
             'cancel_url' => $this->appUrl . '/premium/cancel',
         ]);
+
+        if ($mode === 'subscription') {
+            $session['subscription_data'] = [
+                'metadata' => [
+                    'user_id' => $user->id,
+                ],
+            ];
+        }
+
+        return $session;
     }
 }

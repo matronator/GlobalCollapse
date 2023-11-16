@@ -16,13 +16,8 @@
                         "comments": [
                             "@var Nette\\Database\\Explorer"
                         ],
-                        "getter": false,
-                        "setter": false,
                         "name": "database",
-                        "init": false,
-                        "type": "",
-                        "nullable": false,
-                        "static": false,
+                        "type": "Nette\\Database\\Explorer",
                         "visibility": "private"
                     }
                 ],

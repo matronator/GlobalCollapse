@@ -122,5 +122,61 @@
       client-reference-id="{$user->username}"
     ></stripe-pricing-table> *}
   </div>
+  <div class="uk-width-1-4@s uk-width-1-1">
+    {include '../../components/UI/Premium/BitcoinCard.latte',
+      amount: 10,
+      price: 5,
+      priceId: 'price_1Nx8jXJJBQOBYTuQD2Dd9kFk',
+      img: $basePath . '/dist/front/images/premium/10btc.jpg',
+    }
+  </div>
+  <div class="uk-width-1-4@s uk-width-1-1">
+    {include '../../components/UI/Premium/BitcoinCard.latte',
+      amount: 25,
+      price: 10,
+      priceId: '',
+      img: $basePath . '/dist/front/images/premium/25btc.jpg',
+    }
+  </div>
+  <div class="uk-width-1-4@s uk-width-1-1">
+    {include '../../components/UI/Premium/BitcoinCard.latte',
+      amount: 50,
+      price: 20,
+      priceId: '',
+      img: $basePath . '/dist/front/images/premium/50btc.jpg',
+    }
+  </div>
+  <div class="uk-width-1-4@s uk-width-1-1">
+    {include '../../components/UI/Premium/BitcoinCard.latte',
+      amount: 100,
+      price: 40,
+      priceId: '',
+      img: $basePath . '/dist/front/images/premium/100btc.jpg',
+    }
+  </div>
+  <div class="uk-width-1-4@s uk-width-1-1">
+    {include '../../components/UI/Premium/BitcoinCard.latte',
+      amount: 250,
+      price: 90,
+      priceId: '',
+      img: $basePath . '/dist/front/images/premium/250btc.jpg',
+    }
+  </div>
+  <div class="uk-width-1-4@s uk-width-1-1">
+    {include '../../components/UI/Premium/BitcoinCard.latte',
+      amount: 500,
+      price: 175,
+      priceId: '',
+      img: $basePath . '/dist/front/images/premium/500btc.jpg',
+    }
+  </div>
+  <div class="uk-width-1-4@s uk-width-1-1">
+    {include '../../components/UI/Premium/BitcoinCard.latte',
+      amount: 1000,
+      price: 330,
+      priceId: '',
+      img: $basePath . '/dist/front/images/premium/1000btc.jpg',
+    }
+  </div>
 </div>
 {/block}

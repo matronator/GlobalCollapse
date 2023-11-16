@@ -267,20 +267,23 @@ class Timezones
 
   public static function getUserTime(DateTime $date, $tz, $dst = false): DateTime
   {
-    if ($dst != false) {
-      $pragueTime = new DateTime('', new DateTimeZone('Europe/Prague'));
-      $isSummer = $pragueTime->format('I');
-      if ($isSummer == 1) {
-        $timezone = (string) Timezones::TIME_ZONES[$tz + 1]['timezone'];
-      } else {
-        $timezone = (string) Timezones::TIME_ZONES[$tz]['timezone'];
-      }
-    } else {
-      $timezone = (string) Timezones::TIME_ZONES[$tz]['timezone'];
-    }
-    $timezone = substr_count($timezone, '+', 0, 1) >= 1 ? str_replace('+', '-', $timezone) : str_replace('-', '+', $timezone);
+    // if ($dst !== false) {
+    //   $pragueTime = new DateTime('', new DateTimeZone('Europe/Prague'));
+    //   $isSummer = $pragueTime->format('I');
+    //   if ($isSummer === 1) {
+    //     $timezone = (string) Timezones::TIME_ZONES[$tz + 1]['timezone'];
+    //   } else {
+    //     $timezone = (string) Timezones::TIME_ZONES[$tz]['timezone'];
+    //   }
+    // } else {
+    //   $timezone = (string) Timezones::TIME_ZONES[$tz]['timezone'];
+    // }
+    $timezone = (string) Timezones::TIME_ZONES[$tz]['timezone'];
+    // $timezone = substr_count($timezone, '+', 0, 1) >= 1 ? str_replace('+', '-', $timezone) : str_replace('-', '+', $timezone);
     $datestr = $date->format('Y-m-d H:i:s');
-    return new DateTime("$datestr $timezone");
+    $time = new DateTime($datestr);
+    $time->setTimezone(new DateTimeZone($timezone));
+    return $time;
   }
 
   public static function getUserTimezone($tz)

@@ -26,8 +26,11 @@
         }
     </div>
     <div class="split">
-        <div class="uk-width-auto {if $player->tier > 1}premium-border tier-{$player->tier}{/if}">
-            <img src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="128" height="128">
+        <div class="uk-width-auto">
+            <div class="{if $player->tier > 1}premium-border tier-{$player->tier}{/if}">
+                <img n:if="$player->tier <= 2" src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="128" height="128">
+                <div n:if="$player->tier > 2" style="background-image: url('{$basePath}/dist/front/images/default-avatars/{$player->avatar}');" class="uk-comment-avatar immune-avatar"></div>
+            </div>
         </div>
         <div class="uk-width-expand">
             <table class="uk-table uk-table-small uk-table-divider">

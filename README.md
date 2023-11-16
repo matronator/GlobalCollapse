@@ -69,6 +69,13 @@ Monero: **84yS17W3dLvV6Lj2XaATgYX4Ef7tPpGtmdBoanyL68GofxM2VQD8ZUNWaKpdyerJdZ7mce
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
 
+## [0.3.0] - 2023-10-10
+
+- Added: Premium accounts
+- Added: Stripe integration
+- Added: Bitcoins
+- Minor fixes and modifications
+
 ## [0.2.2] - 2023-04-23
 
 - Added: Delete account option
@@ -108,13 +115,6 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
   - Players can now upgrade their lands to get more building slots
 - Changed: Assaults page and player detail
 - Various updates and minor fixes
-
-## [0.1.4] - 2020-05-24
-
-- Updated: Darknet prices (see the [Wiki](https://github.com/matronator/GlobalCollapse/wiki/Darknet) for current prices)
-- Added: New jobs
-- Added: "Did you know" cards during jobs
-- Adjusted: Experience gain from missions
 
 More in [CHANGELOG.md](CHANGELOG.md)
 

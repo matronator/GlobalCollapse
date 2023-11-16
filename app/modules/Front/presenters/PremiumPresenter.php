@@ -51,4 +51,10 @@ final class PremiumPresenter extends GamePresenter
         $cs = $this->stripeService->createCheckoutSession($item, $this->player);
         $this->redirectUrl($cs->url);
     }
+
+    public function handleBuyBitcoins(string $item)
+    {
+        $cs = $this->stripeService->createCheckoutSession($item, $this->player, 'payment');
+        $this->redirectUrl($cs->url);
+    }
 }

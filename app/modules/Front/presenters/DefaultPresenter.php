@@ -12,6 +12,7 @@ use ActionLocker;
 use App\Model\AssaultsRepository;
 use App\Model\BuildingsRepository;
 use App\Model\MiscRepository;
+use App\Model\UserRepository;
 use Timezones;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
@@ -358,7 +359,7 @@ final class DefaultPresenter extends BasePresenter
 					$now = new DateTime();
 					$trainingEndTS = $now->getTimestamp();
 					// Training time = 5 minutes = 300s
-					$trainingEndTS += (int) round(self::TRAINING_TIME * (100 / $trainMultiplier), 0);
+					$trainingEndTS += (int) UserRepository::getPremiumDuration(round(self::TRAINING_TIME * (100 / $trainMultiplier)), $player->tier);
 					$now->setTimestamp($trainingEndTS);
 					$trainingEnd = $now->format('Y-m-d H:i:s');
 					$this->userRepository->addMoney($player->id, -$trainingCost);

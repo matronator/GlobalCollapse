@@ -6,14 +6,14 @@ import sourcemaps from "gulp-sourcemaps" // gulp
 import tap from "gulp-tap" // gulp
 import sprite from "gulp-svg-sprite" // gulp
 import imagemin from "gulp-imagemin" // gulp
-import postcss from "gulp-postcss" // css
-import postcssImport from "postcss-import" // css
-import postcssNesting from "postcss-nesting" // css
-import postcssNano from "cssnano" // css
-import postcssCustomMedia from "postcss-custom-media" // css
-import postcssCalc from "postcss-calc" // css
-import postscssAutoprefixer from "autoprefixer" // css
-import postcssMixins from "postcss-mixins" // css
+import postcss from "gulp-postcss" 
+import postcssImport from "postcss-import" 
+import postcssNesting from "postcss-nesting" 
+import postcssNano from "cssnano" 
+import postcssCustomMedia from "postcss-custom-media" 
+import postcssCalc from "postcss-calc" 
+import postscssAutoprefixer from "autoprefixer" 
+import postcssMixins from "postcss-mixins" 
 import browserify from "browserify" // js
 import buffer from "vinyl-buffer" // js
 import babelify from "babelify" // js

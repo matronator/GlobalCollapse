@@ -115,6 +115,17 @@ class UserRepository
         return $this->getSettings($userId)->fetch();
     }
 
+    public static function getModifiedDuration($time, int $modifier = 100): int
+    {
+        $modified = round(($modifier / 100) * $time);
+        return (int) $time - $modified;
+    }
+
+    public static function getPremiumDuration($time, int $tier): int
+    {
+        return self::getModifiedDuration($time, $tier === 3 ? 50 : ($tier === 2 ? 25 : 100));
+    }
+
     public function findAllActions()
     {
         return $this->database->table('actions');

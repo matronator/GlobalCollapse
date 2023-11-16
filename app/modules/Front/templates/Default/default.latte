@@ -28,8 +28,11 @@
         <div class="uk-flex uk-flex-top">
           <div class="uk-width-auto uk-margin-right">
             <a href="#change-avatar" uk-toggle="target: #change-avatar;">
-              <div class="uk-inline uk-position-relative">
-                <img src="{$basePath}/dist/front/images/default-avatars/{$userAvatar}" class="uk-comment-avatar {if $user->tier > 1}premium-border tier-{$user->tier}{/if}" width="96" height="96">
+              <div class="uk-inline uk-position-relative player-avatar">
+                <div class="{if $user->tier > 1}premium-border tier-{$user->tier}{/if}">
+                    <img n:if="$user->tier <= 2" src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}" class="uk-comment-avatar" width="96" height="96">
+                    <div n:if="$user->tier > 2" style="background-image: url('{$basePath}/dist/front/images/default-avatars/{$user->avatar}');" class="uk-comment-avatar immune-avatar"></div>
+                </div>
                 <div class="uk-overlay uk-overlay-primary uk-position-center" id="avatarChange">
                   <p class="text-tiny">{_general.ui.changeAvatar}</p>
                 </div>

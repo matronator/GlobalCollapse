@@ -74,11 +74,11 @@
 		"68publishers/asset": "^3.3",
 		"contributte/translation": "^2.0",
 		"ramsey/uuid": "^4.7",
-		"matronator/mtrgen": "^2.0",
 		"stripe/stripe-php": "^12.3"
 	},
 	"require-dev": {
-		"nette/tester": "^2.5"
+		"nette/tester": "^2.5",
+		"matronator/mtrgen": "^1.2"
 	},
 	"autoload": {
 		"classmap": [

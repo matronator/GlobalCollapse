@@ -13,14 +13,8 @@
         "extends": "App\\<%module|ucfirst%>Module\\Presenters\\BasePresenter",
         "props": [
           {
-            "comments": [],
-            "getter": false,
-            "setter": false,
             "name": "<%name|lcfirst%>Repository",
-            "init": false,
             "type": "App\\Model\\<%name|ucfirst%>Repository",
-            "nullable": false,
-            "static": false,
             "visibility": "private"
           }
         ],
