@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     interact('.body-body').dropzone({
-        accept: '.inventory-item[data-item-subtype="body"]',
+        accept: '.inventory-item[data-item-subtype="chest"]',
         overlap: 0.75,
         ondropactivate: handleDropActive,
         ondropdeactivate: handleDropDeactive,
@@ -219,8 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
         ondrop: handleEquip,
     });
 
-    interact('.body-feet').dropzone({
-        accept: '.inventory-item[data-item-subtype="feet"]',
+    interact('.body-feet, .body-feet-2').dropzone({
+        accept: '.inventory-item[data-item-subtype="boots"]',
         overlap: 0.75,
         ondropactivate: handleDropActive,
         ondropdeactivate: handleDropDeactive,
@@ -256,7 +256,7 @@ function handleDragEnter(event) {
 }
 
 function handleDragLeave(event) {
-    event.target.classList.remove('drop-target')
+    event.target.classList.remove('drop-target');
 }
 
 function handleEquip(event) {
@@ -344,7 +344,7 @@ const bodyPartMap = {
     'melee': 'melee',
     'ranged': 'ranged',
     'legs': 'legs',
-    'feet': 'feet',
+    'feet': 'boots',
 };
 
 function matchBodyPartToGear(gear, bodyPart) {
