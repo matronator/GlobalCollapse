@@ -32,7 +32,7 @@
   <div class="uk-container-small uk-margin-auto">
     {snippet inventoryWrapper}
       <div class="dashboard uk-flex-center" uk-grid>
-        {include '../../components/Inventory/PlayerBody.latte', body => $playerBody}
+        {include '../../components/Inventory/PlayerBody.latte', body: $playerBody, interactable: true}
         {include '../../components/Inventory/Inventory.latte', inventory => $inventorySlots, playerInventory => $inventory, equipped => $playerBody}
       </div>
     {/snippet}

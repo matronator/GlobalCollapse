@@ -1,4 +1,4 @@
-<div class="uk-card uk-card-default uk-card-body player-body" data-equip-endpoint="{plink //equipItem!}" data-move-endpoint="{plink //moveItem!}" data-unequip-endpoint="{plink //unequipItem!}" n:snippet="playerBody">
+<div class="uk-card uk-card-default uk-card-body player-body" {if $interactable}data-equip-endpoint="{plink //equipItem!}" data-move-endpoint="{plink //moveItem!}" data-unequip-endpoint="{plink //unequipItem!}"{/if} n:snippet="playerBody">
     <div class="body-grid">
         {var $bodyParts = ['head', 'face', 'shoulders', 'shoulders', 'body', 'back', 'melee', 'ranged', 'shield', 'legs', 'feet', 'feet']}
         {var $wasFeet = false}

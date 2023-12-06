@@ -7,7 +7,7 @@
 {var $playerGearStats = $presenter->getUserGearStats($player->id)}
 {var $playerGearPower = $presenter->getUserGearPower($player->id)}
 
-<div class="uk-card uk-width-auto uk-card-default uk-card-body" style="flex:1 0 auto;">
+<div class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-small" style="flex:1 0 auto;">
     <div class="split uk-flex-bottom">
         <div>
             <h3 class="uk-margin-remove-bottom">
@@ -47,9 +47,11 @@
                     <td class="uk-text-nowrap"><strong>{$player->player_stats->power + $playerGearPower}</strong></td>
                 </tr>
             </table>
-            <h3 class="uk-text-center">Assault stats</h3>
-            {include '../../components/Assault/AssaultStats.latte', stats => $stats}
         </div>
+    </div>
+    <div class="uk-flex-bottom">
+        <h3 class="uk-text-center uk-padding-small">Assault stats</h3>
+        {include '../../components/Assault/AssaultStats.latte', stats => $stats}
     </div>
     <div class="uk-margin-top uk-text-center">
         {if $user->id != $player->id}

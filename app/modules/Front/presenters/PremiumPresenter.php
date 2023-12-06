@@ -23,7 +23,7 @@ final class PremiumPresenter extends GamePresenter
     protected function startup()
     {
         parent::startup();
-        // $this->redirect('Default:default');
+        $this->redirect('Default:default');
     }
 
     public function renderDefault()

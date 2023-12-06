@@ -4,8 +4,17 @@
 
 {block pageContent}
   <div class="uk-container-small uk-margin-auto">
-    <div class="dashboard dashboard-assaults uk-flex" uk-margin>
-      {include '../../components/Assault/PlayerCard.latte', player => $otherPlayer, stats => $aStatsV}
+    <div class="uk-flex uk-flex-between" uk-grid>
+      <div class="uk-width-1-1 uk-width-1-2@l">
+        {include '../../components/Assault/PlayerCard.latte', player => $otherPlayer, stats => $aStatsV}
+      </div>
+      <div class="uk-width-1-1 uk-width-1-2@l">
+        {include '../../components/Inventory/PlayerBody.latte', body: $playerBody, interactable: false}
+      </div>
     </div>
   </div>
+{/block}
+
+{block scripts}
+  <script src="{='inventory.js'|fullpath:'front'}"></script>
 {/block}
