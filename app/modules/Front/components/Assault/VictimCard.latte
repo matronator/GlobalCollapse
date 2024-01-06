@@ -28,6 +28,17 @@
     small => true,
     name => 'victimHp'
   }
+  <div class="uk-width-expand uk-flex" n:if="$victimGearStats->armor > 0">
+    {include '../../components/UI/ProgressBar/ProgressBar.latte',
+        min => 0,
+        max => $victimGearStats->armor,
+        value => $victimGearStats->armor,
+        type => 'gray',
+        small => true,
+        tooltip => 'Armor',
+        name => 'playerArmor'
+    }
+  </div>
   <div class="split">
     <div class="uk-width-expand uk-margin-right">
       <table class="uk-table uk-table-small uk-table-hover" n:if="!$showStats">

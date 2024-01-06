@@ -58,7 +58,7 @@
         playerTier: $user->tier,
         img: $basePath . '/dist/front/images/premium/survivor.jpg',
         imgAlt: 'Survivor Premium Account',
-        priceId: 'price_1NpXM1JJBQOBYTuQNyUN0T86',
+        priceId: $dev ? 'price_1NpXM1JJBQOBYTuQNyUN0T86' : 'price_1NpXalJJBQOBYTuQitS7mpvM',
       }
     </div>
     <div class="uk-width-1-3@s uk-width-1-1">
@@ -70,7 +70,7 @@
         playerTier: $user->tier,
         img: $basePath . '/dist/front/images/premium/immune.jpg',
         imgAlt: 'Immune Premium Account',
-        priceId: 'price_1NpXMPJJBQOBYTuQ4geLaLqp',
+        priceId: $dev ? 'price_1NpXMPJJBQOBYTuQ4geLaLqp' : 'price_1NpglSJJBQOBYTuQYA000C56',
       }
     </div>
   {else}
@@ -122,59 +122,59 @@
       client-reference-id="{$user->username}"
     ></stripe-pricing-table> *}
   </div>
-  <div class="uk-width-1-4@s uk-width-1-1">
+  <div class="uk-width-1-3@s uk-width-1-1">
     {include '../../components/UI/Premium/BitcoinCard.latte',
       amount: 10,
       price: 5,
-      priceId: 'price_1Nx8jXJJBQOBYTuQD2Dd9kFk',
+      priceId: $dev ? 'price_1Nx8jXJJBQOBYTuQD2Dd9kFk' : 'price_1NqL7bJJBQOBYTuQvVhwLcOj',
       img: $basePath . '/dist/front/images/premium/10btc.jpg',
     }
   </div>
-  <div class="uk-width-1-4@s uk-width-1-1">
+  <div class="uk-width-1-3@s uk-width-1-1">
     {include '../../components/UI/Premium/BitcoinCard.latte',
       amount: 25,
       price: 10,
-      priceId: '',
+      priceId: $dev ? '' : 'price_1NqL8JJJBQOBYTuQh0ZFjANY',
       img: $basePath . '/dist/front/images/premium/25btc.jpg',
     }
   </div>
-  <div class="uk-width-1-4@s uk-width-1-1">
+  {* <div class="uk-width-1-3@s uk-width-1-1">
     {include '../../components/UI/Premium/BitcoinCard.latte',
       amount: 50,
       price: 20,
       priceId: '',
       img: $basePath . '/dist/front/images/premium/50btc.jpg',
     }
-  </div>
-  <div class="uk-width-1-4@s uk-width-1-1">
+  </div> *}
+  <div class="uk-width-1-3@s uk-width-1-1">
     {include '../../components/UI/Premium/BitcoinCard.latte',
       amount: 100,
       price: 40,
-      priceId: '',
+      priceId: $dev ? '' : 'price_1NqL9KJJBQOBYTuQ5E7hRMRR',
       img: $basePath . '/dist/front/images/premium/100btc.jpg',
     }
   </div>
-  <div class="uk-width-1-4@s uk-width-1-1">
+  <div class="uk-width-1-3@s uk-width-1-1">
     {include '../../components/UI/Premium/BitcoinCard.latte',
       amount: 250,
       price: 90,
-      priceId: '',
+      priceId: $dev ? '' : 'price_1NqLAVJJBQOBYTuQ2XOmPbiq',
       img: $basePath . '/dist/front/images/premium/250btc.jpg',
     }
   </div>
-  <div class="uk-width-1-4@s uk-width-1-1">
+  <div class="uk-width-1-3@s uk-width-1-1">
     {include '../../components/UI/Premium/BitcoinCard.latte',
       amount: 500,
       price: 175,
-      priceId: '',
+      priceId: $dev ? '' : 'price_1NqLBDJJBQOBYTuQ2k1qW6jX',
       img: $basePath . '/dist/front/images/premium/500btc.jpg',
     }
   </div>
-  <div class="uk-width-1-4@s uk-width-1-1">
+  <div class="uk-width-1-3@s uk-width-1-1">
     {include '../../components/UI/Premium/BitcoinCard.latte',
       amount: 1000,
       price: 330,
-      priceId: '',
+      priceId: $dev ? '' : 'price_1NqLDFJJBQOBYTuQD2KtlE3T',
       img: $basePath . '/dist/front/images/premium/1000btc.jpg',
     }
   </div>

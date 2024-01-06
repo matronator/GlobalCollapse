@@ -28,6 +28,17 @@
     small => true,
     name => 'attackerHp'
   }
+  <div class="uk-width-expand uk-flex" n:if="$attackerGearStats->armor > 0">
+    {include '../../components/UI/ProgressBar/ProgressBar.latte',
+        min => 0,
+        max => $attackerGearStats->armor,
+        value => $attackerGearStats->armor,
+        type => 'gray',
+        small => true,
+        tooltip => 'Armor',
+        name => 'playerArmor'
+    }
+  </div>
   <div class="split">
     <div class="uk-width-auto">
       <div class="{if $attacker->tier > 1}premium-border tier-{$attacker->tier}{/if}">

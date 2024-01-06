@@ -47,6 +47,9 @@
 .progress-bar.red .progress-bar-fill {
   background: var(--c-red);
 }
+.progress-bar.gray .progress-bar-fill {
+  background: var(--c-light-5);
+}
 .progress-bar.yellow .progress-bar-value {
   color: var(--black);
 }

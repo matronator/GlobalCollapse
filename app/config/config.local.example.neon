@@ -15,6 +15,7 @@ parameters:
     secret: 'secret_key'
     appUrl: 'https://global-collapse.com'
     webhookSecret: 'webhook_secret'
+    devMode: true
   darknetUpdate:
     hash: '2Rc9XqqWXa3ur4iiL5IKox782'
     confirm: 'aRXPKmm1Fgzyy6m4z2LZgii1q'

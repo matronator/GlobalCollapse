@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\FrontModule\Presenters;
 
 use App\Services\StripeService;
+use Tracy\Debugger;
 use VoteCallback;
 
 final class PremiumPresenter extends GamePresenter
@@ -23,12 +24,13 @@ final class PremiumPresenter extends GamePresenter
     protected function startup()
     {
         parent::startup();
-        $this->redirect('Default:default');
+        // $this->redirect('Default:default');
     }
 
     public function renderDefault()
     {
         $this->template->stripePublicKey = $this->stripeService->publicKey;
+        $this->template->dev = $this->stripeService->devMode;
     }
 
     public function renderManage()
@@ -39,11 +41,18 @@ final class PremiumPresenter extends GamePresenter
         $this->template->stripePublicKey = $this->stripeService->publicKey;
     }
 
-    public function renderSuccess(string $sessionId = null)
+    public function renderSuccess(string $sessionId = null, ?string $mode = null)
     {
         if (!$sessionId) {
             $this->redirect('default');
         }
+        
+        $this->template->mode = $mode;
+    }
+
+    public function renderCancel(?string $mode = null)
+    {
+        $this->template->mode = $mode;
     }
 
     public function handleUpgradeAccount(string $item)

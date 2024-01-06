@@ -17,6 +17,7 @@ class StripeService
     public string $publicKey;
     public string $webhookSecret;
     private string $secretKey;
+    public bool $devMode;
 
     public string $appUrl;
 
@@ -28,6 +29,7 @@ class StripeService
         $this->secretKey = $config['secret'];
         $this->appUrl = $config['appUrl'];
         $this->webhookSecret = $config['webhookSecret'];
+        $this->devMode = $config['devMode'];
 
         Stripe::setApiKey($this->secretKey);
         $this->stripeClient = new StripeClient($this->secretKey);
@@ -83,9 +85,10 @@ class StripeService
             'mode' => $mode,
             'metadata' => [
                 'user_id' => $user->id,
+                'mode' => $mode,
             ],
-            'success_url' => $this->appUrl . '/premium/success?sessionId={CHECKOUT_SESSION_ID}',
-            'cancel_url' => $this->appUrl . '/premium/cancel',
+            'success_url' => $this->appUrl . '/premium/success?mode=' . $mode . '&sessionId={CHECKOUT_SESSION_ID}',
+            'cancel_url' => $this->appUrl . '/premium/cancel?mode=' . $mode,
         ]);
 
         if ($mode === 'subscription') {

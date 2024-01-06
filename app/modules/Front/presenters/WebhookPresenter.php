@@ -145,6 +145,7 @@ final class WebhookPresenter extends BasePresenter
             http_response_code(200);
             die;
         }
+        $this->stripeOrdersRepository->saveOrder($session, $event->type);
         if ($session->payment_status === 'paid') {
             if ($session->mode === 'subscription') {
                 $price = Price::retrieve($session->line_items->data[0]->price->id);

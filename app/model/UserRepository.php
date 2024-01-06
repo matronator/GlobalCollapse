@@ -123,7 +123,7 @@ class UserRepository
 
     public static function getPremiumDuration($time, int $tier): int
     {
-        return self::getModifiedDuration($time, $tier === 3 ? 50 : ($tier === 2 ? 25 : 100));
+        return self::getModifiedDuration($time, $tier === 3 ? 50 : 0);
     }
 
     public function findAllActions()
@@ -357,6 +357,9 @@ class UserRepository
         }
 
         $player = $this->getUser($id);
+        if ($player->tier > 1) {
+            $xp = (int) floor($xp * ($player->tier === 2 ? 1.25 : 1.5));
+        }
         $xpNow = $player->player_stats->xp;
         $xpMax = $player->player_stats->xp_max;
         $level = $player->player_stats->level;

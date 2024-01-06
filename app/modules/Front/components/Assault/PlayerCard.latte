@@ -22,7 +22,19 @@
             value => ($player->player_stats->stamina + $playerGearStats->stamina) * 2,
             type => 'red',
             small => true,
-            name => 'playerHP'
+            name => 'playerHP',
+            class => $playerGearStats->armor > 0 ? 'uk-margin-remove-bottom' : ''
+        }
+    </div>
+    <div class="uk-width-expand uk-flex" n:if="$playerGearStats->armor > 0">
+        {include '../../components/UI/ProgressBar/ProgressBar.latte',
+            min => 0,
+            max => $playerGearStats->armor,
+            value => $playerGearStats->armor,
+            type => 'gray',
+            small => true,
+            tooltip => 'Armor',
+            name => 'playerArmor'
         }
     </div>
     <div class="split">

@@ -6,7 +6,8 @@
 <div class="uk-container uk-margin-auto">
   <div class="uk-card uk-width-auto uk-card-default uk-card-body">
     <h2 class="uk-card-title">Payment Successful</h2>
-    <p>Account was upgraded! <a n:href="default">Go back.</a></p>
+    <p n:if="$mode === 'subscription'">Account was upgraded! <a n:href="default">Go back.</a></p>
+    <p n:if="$mode === 'payment'">Bitcoins purchased! <a n:href="default">Go back.</a></p>
   </div>
 </div>
 {/block}

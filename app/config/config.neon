@@ -51,8 +51,6 @@ services:
     payment: App\Services\PaymentService(%psp%)
     nette.latteFactory:
         setup:
-            # - addFilter(NULL, 'App\Filter\StaticFilters::common')
-            # - addFilter('imageGenerator', '@App\Filter\ImageFilter')
             - addFilter('fromSnake', 'App\Filter\StaticFilters::fromSnake')
             - addFilter('firstLower', 'App\Filter\StaticFilters::firstLower')
             - addFilter('time', 'App\Filter\StaticFilters::time')
