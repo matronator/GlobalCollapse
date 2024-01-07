@@ -31,8 +31,8 @@ class RouterFactory
 			->addRoute('sitemap.xml', 'Sitemap:default')
 			->addRoute('sitemap', 'Sitemap:default')
 			// EN
-			->addRoute('[<locale=en en|ru>/]news[/<page>[/<id>]]', 'Info:news')
-			->addRoute('[<locale=en en|ru>/]news/<post>/<id>', 'Info:post')
+			->addRoute('[<locale=en en|ru>/]news[/<page>]', 'Info:news')
+			->addRoute('[<locale=en en|ru>/]news/post/<htaccess>', 'Info:post')
 			->addRoute('[<locale=en en|ru>/]copyright-notice', 'Info:copyright')
 			->addRoute('[<locale=en en|ru>/]terms-of-use', 'Info:tos')
 			->addRoute('[<locale=en en|ru>/]privacy-policy', 'Info:privacy')
@@ -55,8 +55,8 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru>/]assaults/assault/<match>', 'Assaults:assault')
 
 			// CZ
-			->addRoute('[<locale=cs cs>/]novinky[/<page>[/<id>]]', 'Info:news')
-			->addRoute('[<locale=cs cs>/]novinky/<post>/<id>', 'Info:post')
+			->addRoute('[<locale=cs cs>/]novinky[/<page>]', 'Info:news')
+			->addRoute('[<locale=cs cs>/]novinky/post/<htaccess>', 'Info:post')
 			->addRoute('[<locale=cs cs>/]vlastnicka-prava', 'Info:copyright')
 			->addRoute('[<locale=cs cs>/]podminky-pouziti', 'Info:tos')
 			->addRoute('[<locale=cs cs>/]ochrana-soukromi', 'Info:privacy')

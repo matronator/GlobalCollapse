@@ -58,10 +58,12 @@ final class InfoPresenter extends BasePresenter
         $this->template->lastPage = $lastPage;
     }
 
-    public function renderPost($id = 0)
+    public function renderPost(string $htaccess)
     {
-        $this->template->data = $this->articleModel->findAll()->where('id', $id)->fetch();
-        $this->template->translation = $this->articleModel->findArticleTranslations($id)->where('locale', 'en')->fetch();
+        $translation = $this->articleModel->findAllTranslations()->where('htaccess', $htaccess)->fetch();
+        $article = $this->articleModel->findAll()->where('id', $translation->article_id)->fetch();
+        $this->template->data = $article;
+        $this->template->translation = $this->articleModel->findArticleTranslations($article->id)->where('locale', 'en')->fetch();
     }
 
     public function renderVoting()
