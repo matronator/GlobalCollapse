@@ -154,6 +154,33 @@ final class BuildingsPresenter extends GamePresenter
 				$this->redirect('Buildings:default');
 			}
 		}
+
+		public function handleBuyExtraSlot()
+		{
+			$land = $this->buildingsRepository->findPlayerLand($this->player->id)->fetch();
+			if (!$land) {
+				$this->flashMessage('You need to buy land first!', 'danger');
+				$this->redirect('Buildings:default');
+			}
+
+			$cost = $this->buildingsRepository->getExtraSlotCost($this->player->id);
+			if ($this->player->bitcoins < $cost) {
+				$this->flashMessage('Not enough bitcoins!', 'danger');
+				$this->redirect('Buildings:default');
+			}
+
+			$this->buildingsRepository->buyExtraSlot($this->player->id);
+			$this->userRepository->updateUser($this->player->id, [
+				'bitcoins-=' => $cost,
+			]);
+			$this->flashMessage('Extra slot bought!', 'success');
+			$this->redrawControl('playerIncome');
+			$this->redrawControl('playerStash');
+			$this->redrawControl('buildings');
+			$this->redrawControl('land-card');
+			$this->redrawControl('sidebar-stats');
+			$this->redrawControl('body');
+		}
 		
 		public function actionBuyLand() {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
@@ -300,5 +327,10 @@ final class BuildingsPresenter extends GamePresenter
 		public function getUpgradeCost(int $basePrice = 0, int $level = 1): int
 		{
 			return (int) round(($basePrice * ($level ** 1.05)) / 2, -1);
+		}
+
+		public function getExtraSlotCost()
+		{
+			return $this->buildingsRepository->getExtraSlotCost($this->player->id);
 		}
 	}

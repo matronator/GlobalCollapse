@@ -35,6 +35,14 @@
       </div>
     </div>
     {* <hr> *}
-    <a n:href="upgradeLand!" class="uk-margin-top uk-button uk-button-primary ajax">{_general.buildings.upgrade}</a>
+    <div class="uk-padding-top uk-margin-top">
+      <a n:href="upgradeLand!" class="uk-button uk-button-primary ajax">{_general.buildings.upgrade}</a>
+      {include '../../UI/Bitcoins/BitcoinButton.latte',
+        link: $presenter->link('buyExtraSlot!'),
+        title: $presenter->translate('general.buildings.buyExtraSlot'),
+        cost: $presenter->getExtraSlotCost(),
+        ajax: true,
+      }
+    </div>
   </div>
 </div>

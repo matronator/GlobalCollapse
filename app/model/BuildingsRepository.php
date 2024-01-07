@@ -15,6 +15,9 @@ class BuildingsRepository
 	public $baseUpgradeCost = 50000;
 	public $baseUpgradeTime = 3600; // 1 hour
 
+	public const EXTRA_SLOT_BASE_COST = 1; // bitcoins
+	public const EXTRA_SLOT_COST_MULTIPLIER = 1.5;
+
 	public function __construct(Nette\Database\Explorer $database)
 	{
 		$this->database = $database;
@@ -328,5 +331,29 @@ class BuildingsRepository
 	public function getBuildingCapacity(int $capacity = 0, int $level = 1)
 	{
 		return $capacity + round($capacity * ((($level - 1) / 2) ** 1.02) * 1.25);
+	}
+
+	public function getExtraSlotCost(int $userId)
+	{
+		$land = $this->findPlayerLand($userId)->fetch();
+		if (!$land) {
+			return 0;
+		}
+		$extraSlots = $land->extra_slots;
+
+		return (int) round((($extraSlots + 1) * self::EXTRA_SLOT_BASE_COST) ** self::EXTRA_SLOT_COST_MULTIPLIER);
+	}
+
+	public function buyExtraSlot(int $userId)
+	{
+		$land = $this->findPlayerLand($userId)->fetch();
+		if (!$land) {
+			return false;
+		}
+
+		$land->update([
+			'extra_slots+=' => 1,
+			'free_slots+=' => 1,
+		]);
 	}
 }

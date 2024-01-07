@@ -93,6 +93,13 @@
                   sec => $seconds,
                   max => $timeMax
                 }
+                <p>
+                  {include '../../components/UI/Bitcoins/BitcoinButton.latte',
+                    link: $presenter->link('Bar:fastForward'),
+                    title: $presenter->translate('general.city.bar.jobs.fastForward'),
+                    cost: 1,
+                  }
+                </p>
               </div>
               <div class="uk-inline">
                 <div class="job-image" style="background-image:url('{$basePath}/dist/front/images/illustrations/{$imgSrc}.jpg');background-position:{$imgPos};">

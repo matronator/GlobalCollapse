@@ -112,14 +112,7 @@ final class BarPresenter extends GamePresenter
 					$this->template->timeMax = $missionDuration;
 					$this->template->jobName = $whatMission;
 				} else {
-					$reward = $this->endMission($whatMission, $player->player_stats->level);
-					$isOnMission = 0;
-					$session = $this->session;
-					$section = $session->getSection('returnedJob');
-					$section->returnedJob = true;
-					$section->money = $reward['money'];
-					$section->exp = $reward['xp'];
-					$section->times = 1;
+					$this->endJob($player);
 					$this->flashMessage('Job completed', 'success');
 					$this->redirect('this');
 				}
@@ -130,6 +123,34 @@ final class BarPresenter extends GamePresenter
 	public function jobDuration(int $duration, int $playerLevel, int $playerTier) {
 		return $this->barRepository->getJobDuration($duration, $playerLevel, $playerTier);
     }
+
+	public function endJob($player)
+	{
+		$whatMission = $player->actions->mission_name;
+		$reward = $this->getJobReward($whatMission, $player->player_stats->level);
+		$session = $this->session;
+		$section = $session->getSection('returnedJob');
+		$section->returnedJob = true;
+		$section->money = $reward['money'];
+		$section->exp = $reward['xp'];
+		$section->times = 1;
+	}
+
+	public function actionFastForward()
+	{
+		if ($this->player->bitcoins >= 1) {
+			$this->userRepository->updateUser($this->player->id, [
+				'bitcoins-=' => 1,
+			]);
+			$this->endJob($this->player);
+			$this->session->getSection('jobs')->shown = false;
+			$this->flashMessage('Job completed', 'success');
+			$this->redirect('default');
+		} else {
+			$this->flashMessage('Not enough bitcoins', 'danger');
+			$this->redirect('default');
+		}
+	}
 
 	public function actionNewjobs(?string $hash = null) {
 		if ($hash) {
@@ -149,7 +170,7 @@ final class BarPresenter extends GamePresenter
 		}
 	}
 
-	private function endMission($jobName, $level) {
+	private function getJobReward($jobName, $level) {
 		$key = array_search($jobName, array_column($this->allJobs, 'locale'));
 		$currentJob = $this->allJobs[$key];
 		if ($currentJob) {

@@ -75,6 +75,8 @@ final class WebhookPresenter extends BasePresenter
                         'stripe_customer_id' => null,
                         'tier' => 1,
                         'stripe_subscription_id' => null,
+                        'stripe_subscription_start_date' => null,
+                        'stripe_subscription_end_date' => null,
                     ]);
                 }
                 break;
@@ -95,7 +97,18 @@ final class WebhookPresenter extends BasePresenter
                 }
                 break;
             case 'customer.subscription.deleted':
-                $subscription = Subscription::retrieve($event->data->object->id);
+                $session = $event->data->object;
+                $subscription = Subscription::retrieve($session->id);
+                $customerId = $subscription->customer;
+                $user = $this->userRepository->getUserByStripeCustomerId($customerId);
+                if ($user) {
+                    $user->update([
+                        'stripe_subscription_id' => null,
+                        'tier' => 1,
+                        'stripe_subscription_start_date' => null,
+                        'stripe_subscription_end_date' => null,
+                    ]);
+                }
                 break;
             case 'checkout.session.completed':
                 $this->checkoutSessionCompleted($event);
@@ -108,7 +121,7 @@ final class WebhookPresenter extends BasePresenter
                 break;
             case 'payment_intent.succeeded':
                 $intent = PaymentIntent::retrieve($event->data->object->id, ['expand' => ['customer', 'payment_method']]);
-                $customer = $intent->customer;
+                $customer = Customer::retrieve($intent->customer);
                 if (!$customer->name) {
                     $paymentMethod = $intent->payment_method;
                     if ($paymentMethod->billing_details->name) {
@@ -138,25 +151,36 @@ final class WebhookPresenter extends BasePresenter
     private function checkoutSessionCompleted($event)
     {
         $session = Session::retrieve($event->data->object->id, ['expand' => ['line_items', 'customer', 'subscription']]);
-        $email = $session->customer->email;
-        $user = $this->userRepository->getUserByEmail($email);
+        $customer = Customer::retrieve($session->customer);
+        $customerId = $customer->id;
+        $email = $customer->email;
+        $user = $this->userRepository->getUserByStripeCustomerId($customerId);
         if (!$user) {
-            Debugger::log('User not found: ' . $email, ILogger::ERROR);
-            http_response_code(200);
-            die;
+            $user = $this->userRepository->getUserByEmail($email);
+            if (!$user) {
+                Debugger::log('User not found: ' . $email, ILogger::ERROR);
+                http_response_code(200);
+                die;
+            }
         }
         $this->stripeOrdersRepository->saveOrder($session, $event->type);
         if ($session->payment_status === 'paid') {
             if ($session->mode === 'subscription') {
-                $price = Price::retrieve($session->line_items->data[0]->price->id);
+                $lineItems = $session->allLineItems($session->id);
+                $price = Price::retrieve($lineItems->data[0]->price->id);
+                $subscription = Subscription::retrieve($session->subscription);
                 $this->userRepository->updateUser($user->id, [
                     'tier' => $price->metadata->tier,
-                    'stripe_subscription_id' => $session->subscription->id,
-                    'stripe_customer_id' => $session->customer->id,
+                    'stripe_subscription_id' => $subscription->id,
+                    'stripe_customer_id' => $customerId,
                 ]);
             } else {
+                $lineItems = $session->allLineItems($session->id);
+                $price = Price::retrieve($lineItems->data[0]->price->id);
+                $bitcoins = $price->metadata->bitcoins;
                 $this->userRepository->updateUser($user->id, [
-                    'stripe_customer_id' => $session->customer->id,
+                    'stripe_customer_id' => $customerId,
+                    'bitcoins' => $user->bitcoins + $bitcoins,
                 ]);
             }
         }

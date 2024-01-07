@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Nette;
 use Stripe\StripeObject;
+use Tracy\Debugger;
 
 class StripeOrdersRepository
 {
@@ -22,11 +23,14 @@ class StripeOrdersRepository
 
 	public function createOrder(StripeObject $session, string $type = 'awaiting orders')
 	{
-		$this->findAll()->insert([
+		Debugger::log($session, 'stripe-order');
+		$eventId = $session->id;
+		$check = $this->findAll()->insert([
+			'stripe_id' => $eventId,
 			'data' => $session->toJSON(),
-			'stripe_id' => $session->id,
 			'status' => $type,
 		]);
+		Debugger::log($check, 'stripe-order');
 	}
 
 	public function saveOrder(StripeObject $session, string $event = 'checkout.session.completed')

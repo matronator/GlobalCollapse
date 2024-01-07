@@ -129,6 +129,7 @@ ui:
 	skip: 'Přeskočit'
 	allPosts: 'Načíst další'
 	more: 'Více'
+	fullArticle: 'Celý článek'
 	first: 'První'
 	last: 'Poslední'
 	done: 'Hotovo'
@@ -205,6 +206,7 @@ city:
 		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
 		jobs:
 			title: 'Práce'
+			fastForward: 'Přeskočit'
 			description: "Vyber si jakou práci chceš vzít a pusť se do ní. Až ji uděláš, dostaneš odměnu."
 			duration: 'Délka'
 			energyBarTip: 'Tvá zbývající energie'
@@ -314,6 +316,7 @@ buildings:
 	showLess: 'Skrýt'
 	demolish: 'Zbourat'
 	upgrade: 'Vylepšit'
+	buyExtraSlot: 'Koupit další místo'
 	collect: 'Vybrat'
 	collectAll: 'Vybrat vše najednou'
 	buildings:

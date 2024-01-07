@@ -15,6 +15,7 @@
     "dev": "npm-run-all -p -l p-serve p-start",
     "lint-js": "eslint dev/**/*.js --fix",
     "lint-css": "stylelint dev/**/*.css app/**/*.css --fix",
+    "report": "npm-run-all -p -l report-js report-css report-lh",
     "report-css": "stylelint dev/**/*.css > www/dist/report/stylelint.txt || exit 0",
     "report-js": "eslint dev/**/*.js -f compact -o www/dist/report/eslint.txt",
     "report-lh": "lighthouse http://127.0.0.1:8000/ --output html --output-path www/dist/report/lighthouse.html",
@@ -258,8 +259,8 @@
         "warn"
       ],
       "indent": [
-        "error",
-        "4"
+        "warn",
+        4
       ]
     }
   },

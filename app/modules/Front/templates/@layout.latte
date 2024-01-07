@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
     <meta name="description" content="{ifset #metaDescription}{include #metaDescription|stripHtml|trim}{/ifset}">
-    <meta name="keywords" content="coronavirus,game,pbbg,browser game,php game,covid-19,covid19,mmorpg,pandemic,mmo,browser based games">
+    <meta name="keywords" content="coronavirus,game,pbbg,browser game,php game,covid-19,covid19,mmorpg,pandemic,mmo,browser based games,covid game">
     <meta name="copyright" content="© {= new \DateTime('Y')|date:'Y'}">
     <meta name="robots" content="index,follow">
     <meta name="author" content="Matronator; https://matronator.com">
 
-    <title>{ifset #pageTitle}{include #pageTitle|striptags} | {/ifset}{$urlFullDomain|noescape}</title>
+    <title>{ifset #pageTitle}{include #pageTitle|striptags} | {/ifset}Global Collapse: Pandemic</title>
 
     <!--------- iOS --------->
     <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Enable WAP -->
@@ -55,13 +55,15 @@
     <link n:foreach="$presenter->localeList as $localeItem" rel="alternate" hreflang="{$localeItem}" href="{link //this, locale=>$localeItem}"/>
     <link rel="alternate" hreflang="x-default" href="{link //this, locale=>$defaultLocale}" />
 
-    <!-- Google Tag Manager -->
-    {* <script n:syntax="off">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-XXXX');</script> *}
-    <!-- End Google Tag Manager -->
+    <!-- Google tag (gtag.js) -->
+    {* <script async src="https://www.googletagmanager.com/gtag/js?id=G-N32T6KN8EP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-N32T6KN8EP');
+    </script> *}
 
     {if count($flashes) > 0}
         <script n:syntax="off">

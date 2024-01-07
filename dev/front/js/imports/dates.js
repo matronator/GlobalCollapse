@@ -42,7 +42,7 @@ export function timesToRelative() {
         const lang = document.querySelector(`html`).getAttribute(`lang`)
 
         document.querySelectorAll(`time.relative-time`).forEach(el => {
-            el.innerHTML = fromNow(el.getAttribute(`datetime`), Date.now(), new Intl.RelativeTimeFormat(lang, { style: "long", numeric: "auto" }))
+            el.textContent = fromNow(el.getAttribute(`datetime`), Date.now(), new Intl.RelativeTimeFormat(lang, { style: "long", numeric: "auto" }))
         })
     })
 }

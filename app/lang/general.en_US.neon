@@ -138,6 +138,7 @@ ui:
 	skip: 'Skip'
 	allPosts: 'All posts'
 	more: 'More'
+	fullArticle: 'Full article'
 	first: 'First'
 	last: 'Last'
 	done: 'Done'
@@ -227,6 +228,7 @@ city:
 		closedSocialDistancing: 'The bar is temporary closed due to social distancing, caused by recent increase in coronavirus cases. You can get your missions online from the darknet.'
 		jobs:
 			title: 'Jobs'
+			fastForward: 'Fast forward'
 			description: "Choose a job that you like and get to work. You'll get a reward after it's done."
 			duration: 'Duration'
 			energyBarTip: 'Your remaining energy'
@@ -356,6 +358,7 @@ buildings:
 	showLess: 'Show less'
 	demolish: 'Demolish'
 	upgrade: 'Upgrade'
+	buyExtraSlot: 'Buy extra slot'
 	collect: 'Collect'
 	collectAll: 'Collect All Buildings'
 	buildings:

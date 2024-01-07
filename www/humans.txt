@@ -6,11 +6,11 @@ Website: https://matronator.com
 The Open Source community and everyone at Visualio (www.visualio.cz), thank you!!!
 
 /* SITE */
-Last update: 2020/05/07
-Standards: HTML5, CSS3, PostCSS, Humans.txt, security.txt
-Language: English / Czech
-Components: Nette Framework, UI KIT, StarterPack CMS
-Software: VSCodium, FileZilla, Photoshop
+Last update: 2024/01/07
+Standards: HTML5, CSS3, PostCSS, Humans.txt, security.txt, robots.txt
+Language: English, Czech, Russian
+Components: Nette Framework, UI KIT, StarterPack CMS, Stripe
+Software: VSCode, FileZilla, Photoshop, Pixelmator
 
 ------ Global Collapse: Pandemic -------
 
@@ -36,4 +36,4 @@ dMMMMh....mMMMMN........NMMMMm....hMMMMd
 ............hdmNNMMMMMMNNmdh............
 
 ----- Created by Matronator © 2020 -----
------------- matronator.com ------------
+------------ matronator.cz -------------

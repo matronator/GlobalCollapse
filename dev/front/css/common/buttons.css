@@ -1,9 +1,43 @@
-.uk-button.uk-button-large {
+/* .uk-button.uk-button-large {
   @media (max-width: 639px) {
-    /* padding: 0 30px; */
+    /* padding: 0 30px;
     text-align: center;
-    /* font-size: 0.875rem; */
+    /* font-size: 0.875rem;
     word-break: normal;
-    /* line-height: 3em; */
+    /* line-height: 3em;
+  }
+} */
+
+.uk-button.uk-button-bitcoin {
+  background: linear-gradient(125deg, #ffa200 0%,  #ffd35c 100%);
+  background-size: 200% 200%;
+  background-position: 0 0;
+  border: 1px transparent solid;
+  color: #fff;
+  text-shadow: #000 0px 0px 10px;
+  transition: all 0.3s ease;
+
+  & .uk-text-danger {
+    color: #000 !important;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  & .uk-icon {
+    color: #fff !important;
+    text-shadow: #000 0px 0px 5px;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    border: 1px transparent solid;
+    background-position: 100% 0%;
+    text-shadow: transparent 0px 0px 10px;
+    color: #000 !important;
+
+    & .uk-icon {
+      color: #000 !important;
+      text-shadow: transparent 0px 0px 5px;
+    }
   }
 }
