@@ -42,6 +42,7 @@
             <div class="{if $player->tier > 1}premium-border tier-{$player->tier}{/if}">
                 <img n:if="$player->tier <= 2" src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="128" height="128">
                 <div n:if="$player->tier > 2" style="background-image: url('{$basePath}/dist/front/images/default-avatars/{$player->avatar}');" class="uk-comment-avatar immune-avatar"></div>
+                <img n:if="$player->tier === 2" src="{$basePath}/dist/front/images/premium/gold-border.png" style="position: absolute; max-width: 200%" width="149" alt="Survivor Border">
             </div>
         </div>
         <div class="uk-width-expand">

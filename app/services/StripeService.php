@@ -29,7 +29,7 @@ class StripeService
         $this->secretKey = $config['secret'];
         $this->appUrl = $config['appUrl'];
         $this->webhookSecret = $config['webhookSecret'];
-        $this->devMode = $config['devMode'];
+        $this->devMode = $config['devMode'] ?? false;
 
         Stripe::setApiKey($this->secretKey);
         $this->stripeClient = new StripeClient($this->secretKey);

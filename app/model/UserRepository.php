@@ -13,6 +13,7 @@ use Nette\Security\Passwords;
 use Ramsey\Uuid\Guid\Guid;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\Uuid;
+use Stripe\Customer;
 
 const USER_ROLE_ADMIN = 'a';
 const USER_ROLE_USER = 'u';
@@ -194,6 +195,14 @@ class UserRepository
     }
 
     public function changeUserEmail(int $userId, string $email) {
+        $user = $this->getUser($userId);
+        $customer = Customer::retrieve($user->stripe_customer_id);
+        if ($customer) {
+            $customer->update($user->stripe_customer_id, [
+                'email' => $email,
+            ]);
+        }
+
         return $this->updateUser($userId, [
             'email' => $email
         ]);

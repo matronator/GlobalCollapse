@@ -65,4 +65,14 @@ class StaticFilters
 
         return $path;
     }
+
+    public static function links(string $text): string
+    {
+        $pattern = '/(?<!"|\')((https?:\/\/)([\da-z\.-]+\.[a-z\.]{2,6}|[\d\.]+)([\/:?=&#]{1}[\da-z\.-]+)*[\/\?]?)(?<!"|\')/im';
+        $text = Strings::replace($text, $pattern, function ($match) {
+            return '<a href="' . $match[0] . '" target="_blank" rel="noopener">' . $match[0] . '</a>';
+        });
+
+        return $text;
+    }
 }

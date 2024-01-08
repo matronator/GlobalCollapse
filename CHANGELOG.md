@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] - 2024-01-07
+
+- Added: premium features
+  - Two premium account tiers (Survivor and Immune)
+  - Bitcoins as a premium currency
+- Added: Avatar frames for premium accounts
+- Added: Gear comparison tooltip
+- Added: Pretty URLs for news posts
+- Fixed: Feet armor piece
+- Minor fixes and improvements
+
 ## [0.3.0] - 2023-10-10
 
 - Added: Premium accounts

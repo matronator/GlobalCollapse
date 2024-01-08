@@ -124,7 +124,7 @@ final class WebhookPresenter extends BasePresenter
                 $customer = Customer::retrieve($intent->customer);
                 if (!$customer->name) {
                     $paymentMethod = $intent->payment_method;
-                    if ($paymentMethod->billing_details->name) {
+                    if (isset($paymentMethod->billing_details->name)) {
                         $customer->update($customer->id, [
                             'name' => $paymentMethod->billing_details->name,
                         ]);

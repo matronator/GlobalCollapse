@@ -22,28 +22,35 @@ MMORPG Persistent Browser Based Game (PBBG) set in an alternate near future in w
 
 Still very early access, so much of the features are still yet to come.
 
-- [x] PWA
+- [x] **Monetization**
+  - [x] Integration with Stripe
+  - [x] In-game purchases
+  - [x] Premium account subscriptions
+    - [x] Multiple tiers of account upgrades
+  - [x] Premium currency
+- [x] **PWA**
   - [x] Players can add the site to their home screen and have it behave like a native app
   - [ ] Offline capabilities
 - [ ] **RPG Character**
   - [x] Leveling
   - [x] Skill training
   - [x] Inventory
-  - [ ] Equipping Items
-- [ ] **MMO elements**
+  - [x] Equipping items
+  - [ ] Trading items
+- [ ] **Social elements**
   - [x] PvP
   - [x] Leaderboard
   - [x] Items
+  - [ ] Gangs (clans or guilds)
 - [x] **Events**
   - [x] Social distancing event - bar is closed
 - [x] **Darknet** - black market
   - [x] Drug trade
-    - [x] Drug prices change every 5 hours to a semi-random value. Business 101: Buy low, sell high
   - [ ] Weapon trade
 - [ ] **Buildings**
   - [x] Player lands - each player will have own land with set number of plots to build buildings on
   - [x] Resource production (drug labs, plantations, etc)
-- [ ] **Market** - for buying other stuff
+- [x] **Market** - for buying other stuff
 - [x] **Bar** - this is where you'll get your missions from
   - [x] Missions
 - [x] **Wastelands** - area outside the city
@@ -68,6 +75,17 @@ Monero: **84yS17W3dLvV6Lj2XaATgYX4Ef7tPpGtmdBoanyL68GofxM2VQD8ZUNWaKpdyerJdZ7mce
 ## Changelog
 
 For full changelog see [CHANGELOG.md](CHANGELOG.md)
+
+## [0.3.1] - 2024-01-07
+
+- Added: premium features
+  - Two premium account tiers (Survivor and Immune)
+  - Bitcoins as a premium currency
+- Added: Avatar frames for premium accounts
+- Added: Gear comparison tooltip
+- Added: Pretty URLs for news posts
+- Fixed: Feet armor piece
+- Minor fixes and improvements
 
 ## [0.3.0] - 2023-10-10
 
@@ -100,21 +118,6 @@ For full changelog see [CHANGELOG.md](CHANGELOG.md)
 - Changed: Increase money rewards for missions
 - Changed: Darknet offers now change to a new one when vendor runs out of money
 - Minor fixes and modifications
-
-## [0.2.0] - 2020-06-24
-
-- Mobile pop-up informing that the site is PWA compatible and instructions how to install
-- Added: Russian translation (by [pase80](https://vk.com/pase80))
-- Added: Leaderboard with all player, not just top 10
-- Added: News page
-- Added: Account settings
-  - Timezone preferences
-  - Email settings
-- Added: Assault statistics
-- Added: Land upgrades
-  - Players can now upgrade their lands to get more building slots
-- Changed: Assaults page and player detail
-- Various updates and minor fixes
 
 More in [CHANGELOG.md](CHANGELOG.md)
 

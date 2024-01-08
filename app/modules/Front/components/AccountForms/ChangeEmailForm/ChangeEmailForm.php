@@ -6,6 +6,7 @@ use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use App\Model\UserRepository;
 use Nette\Application\BadRequestException;
+use Stripe\Customer;
 
 class ChangeEmailForm extends Control {
 
