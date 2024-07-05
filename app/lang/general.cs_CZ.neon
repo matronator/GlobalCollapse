@@ -85,6 +85,13 @@ ui:
 			market: 'Tržnice'
 			darknet: 'Darknet'
 			wastelands: 'Pustina'
+		gang:
+			title: 'Gang'
+			hideout: 'Úkryt'
+			chat: 'Chat'
+			findGang: 'Najdi gang'
+			invites: 'Pozvánky'
+			createGang: 'Založ gang'
 		info:
 			title: 'Info'
 			about: 'O hře'

@@ -1,9 +1,10 @@
 /* TEAM */
 Title: Matronator
-Website: https://matronator.com
+Website: https://matronator.cz
 
 /* THANKS */
-The Open Source community and everyone at Visualio (www.visualio.cz), thank you!!!
+The Open Source community, everyone at Visualio (www.visualio.cz) and my number one supporter - pase80.
+Thank you!
 
 /* SITE */
 Last update: 2024/01/07

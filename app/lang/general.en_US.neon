@@ -94,6 +94,13 @@ ui:
 			market: 'Market'
 			darknet: 'Darknet'
 			wastelands: 'Wastelands'
+		gang:
+			title: 'Gang'
+			hideout: 'Hideout'
+			chat: 'Chat'
+			findGang: 'Find a gang'
+			invites: 'Invites'
+			createGang: 'Start a gang'
 		info:
 			title: 'Info'
 			about: 'About'
