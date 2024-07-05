@@ -41,6 +41,19 @@
         <li n:class="$presenter->isLinkCurrent('City:wastelands') ? uk-active"><a n:href="City:wastelands">{_general.ui.sidebar.city.wastelands}</a></li>
       </ul>
     </li>
+    <li class="uk-open uk-parent">
+      <a href="#" class="uk-nav-header">{_general.ui.sidebar.gang.title}</a>
+      <ul class="uk-nav-sub" n:if="!$user->in_gang">
+        <li n:class="$presenter->isLinkCurrent('Gangs:leaderboard') ? uk-active"><a n:href="Gangs:leaderboard">{_general.ui.sidebar.gang.findGang}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Gangs:create') ? uk-active"><a n:href="Gangs:create">{_general.ui.sidebar.gang.createGang}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Gangs:invites') ? uk-active"><a n:href="Gangs:invites">{_general.ui.sidebar.gang.invites}</a></li>
+      </ul>
+      <ul class="uk-nav-sub" n:if="$user->in_gang">
+        <li n:class="$presenter->isLinkCurrent('Gangs:default') ? uk-active"><a n:href="Gangs:leaderboard">{_general.ui.sidebar.gang.findGang}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Gangs:create') ? uk-active"><a n:href="Gangs:create">{_general.ui.sidebar.gang.createGang}</a></li>
+        <li n:class="$presenter->isLinkCurrent('Gangs:invites') ? uk-active"><a n:href="Gangs:invites">{_general.ui.sidebar.gang.invites}</a></li>
+      </ul>
+    </li>
     <li class="uk-nav-divider"></li>
     <li n:class="$presenter->isLinkCurrent('Info:*') ? uk-open, uk-parent">
       <a href="#" class="uk-nav-header">{_general.ui.sidebar.info.title}</a>
