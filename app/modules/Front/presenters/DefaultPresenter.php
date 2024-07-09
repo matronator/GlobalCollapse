@@ -74,7 +74,6 @@ final class DefaultPresenter extends BasePresenter
 		}
 		if ($this->user->isLoggedIn()) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$this->template->user = $player;
 			$avatars = [];
 			for ($i = 1; $i <= 21; $i++) {
 				$avatars[$i] = $i;
@@ -149,7 +148,6 @@ final class DefaultPresenter extends BasePresenter
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			// $actionLocker = new ActionLocker();
 			// $actionLocker->checkActions($player, $this);
-			$this->template->user = $player;
 			$xp = $player->player_stats->xp;
 			$xpMax = $player->player_stats->xp_max;
 			$xpMin = $player->player_stats->xp_min;
@@ -196,7 +194,6 @@ final class DefaultPresenter extends BasePresenter
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$actionLocker = new ActionLocker();
 			$actionLocker->checkActions($player, $this);
-			$this->template->user = $player;
 			$isResting = $player->actions->resting;
 			$this->template->resting = $isResting;
 			if ($isResting) {

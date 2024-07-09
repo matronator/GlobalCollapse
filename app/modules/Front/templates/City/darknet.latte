@@ -5,7 +5,7 @@
 {block pageContent}
 <div class="uk-container">
     <div class="dashboard">
-        <div class="uk-card uk-width-1-1 uk-card-default uk-padding-small uk-card-body uk-margin-bottom">
+        <div class="uk-card uk-width-1-1 uk-card-secondary uk-light uk-padding-small uk-card-body uk-margin-bottom">
             <div class="uk-card-media illustration-card uk-margin-bottom" style="background-image:url('{$basePath}/dist/front/images/illustrations/darknet.jpg');">
                 <h2 class="uk-heading-large">Darknet</h2>
             </div>
@@ -27,7 +27,7 @@
     <div class="uk-child-width-auto@s" uk-margin uk-grid="masonry:true;">
         {foreach $offers as $offer}
             {var $offerId = $vendorOffers[$offer->id]}
-            {include '../../components/Darknet/Vendors/VendorOffer.latte', offer => $vendorOffers[$offerId], id => $offerId, noRefresh => $offerRefresh}
+            {include '../../components/Darknet/Vendors/VendorOffer.latte', offer: $vendorOffers[$offerId], id: $offerId, noRefresh: $offerRefresh}
         {/foreach}
     </div>
 </div>

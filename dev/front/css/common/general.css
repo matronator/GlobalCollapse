@@ -573,6 +573,10 @@ td.input-row {
   width: min-content;
 }
 
+.uk-width-fit-content {
+  width: fit-content;
+}
+
 .uk-letter-spacing-wider {
   letter-spacing: .125rem;
 }

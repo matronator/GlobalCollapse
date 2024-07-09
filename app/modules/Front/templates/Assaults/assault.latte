@@ -10,7 +10,7 @@
         <div n:ifset="$rounds" data-assault-rounds="{$roundCount}">
           <div id="assaultResult" class="uk-hidden">
             <h2>{$result|upper}!</h2>
-            <p n:if="$result == 'win'">You won the assault and stole ${$cashMoney|number} from <strong>{$victim}</strong>. You gained {$xpReward * $presenter->getUserGearStats($user->id)->xp_boost|number} XP</p>
+            <p n:if="$result == 'win'">You won the assault and stole ${$cashMoney|number} from <strong>{$victim}</strong>. You gained {$xpReward * $presenter->getUserGearStats($player->id)->xp_boost|number} XP</p>
             <p n:if="$result == 'defeat'">{$victim} fight you off and beat you. They stole ${$cashMoneyLose|number} from you.</p>
           </div>
           <div n:foreach="$rounds as $round" class="uk-hidden uk-margin-bottom" data-assault-round="{$round->id}">

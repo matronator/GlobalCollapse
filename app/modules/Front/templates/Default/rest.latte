@@ -10,18 +10,18 @@
         <h3 class="uk-card-title">{_general.resting.title}</h3>
         <p>{_general.resting.intro}</p>
         {if !$resting}
-          {var $newEnergy = $user->player_stats->energy}
+          {var $newEnergy = $player->player_stats->energy}
         {/if}
         {include '../../components/UI/ProgressBar/ProgressBar.latte',
           min => 0,
-          max => $user->player_stats->energy_max + $gearStats->energy_max,
+          max => $player->player_stats->energy_max + $gearStats->energy_max,
           value => $newEnergy,
           type => 'yellow',
           name => 'energyBar',
           added => $resting ? $energyGained : null
         }
         <p n:if="$resting" class="uk-margin-bottom">{_general.resting.restingSince}{$restingSince|date:'d B Y, H:i:s'}&nbsp;<strong>({$timePassed}&nbsp;{_general.ui.ago})</strong></p>
-        {if $user->player_stats->energy < $user->player_stats->energy_max + $gearStats->energy_max}
+        {if $player->player_stats->energy < $player->player_stats->energy_max + $gearStats->energy_max}
           <button n:if="!$resting" type="submit" class="uk-button uk-button-primary" n:name="rest">{_general.resting.title}</button>
         {/if}
         <button n:if="$resting" type="submit" class="uk-button uk-button-secondary" n:name="wakeup">{_general.resting.stop}</button>

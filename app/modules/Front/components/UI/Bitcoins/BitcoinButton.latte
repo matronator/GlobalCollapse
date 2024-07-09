@@ -7,7 +7,7 @@
  *      $ajax     bool?      (optional) Whether to use AJAX.
  *}
 
-{if $user->bitcoins >= $cost}
+{if $player->bitcoins >= $cost}
     <a href="{$link}" class="uk-button uk-button-bitcoin {if isset($ajax) && $ajax}ajax{/if}">{$title} <span class="uk-text-danger">(-{$cost}<span uk-icon="icon: bitcoin; ratio: 0.75"></span>)</span></a>
 {else}
     <button class="uk-button uk-button-secondary" disabled>{$title} (-{$cost}<span uk-icon="icon: bitcoin; ratio: 0.75"></span>)</button>

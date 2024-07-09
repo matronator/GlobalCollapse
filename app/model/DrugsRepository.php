@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Nette;
+use Nette\Database\Table\ActiveRow;
 
 class DrugsRepository
 {
@@ -237,15 +238,21 @@ class DrugsRepository
 		]);
 	}
 
-	public function getOfferBuyPrice($offer, int $quantity = 0): int
+	public function getOfferBuyPrice(ActiveRow $offer, int $quantity = 0): int
 	{
 		$vendorFee = 1 + $offer->vendor->charge;
 		return (int) round(($quantity * $offer->drug->price) * $vendorFee, 0);
 	}
 
-	public function getOfferSellPrice($offer, int $quantity = 0): int
+	public function getOfferSellPrice(ActiveRow $offer, int $quantity = 0): int
 	{
-		$vendorFee = 1;
+		$vendorFee = 1 - $offer->vendor->charge;
 		return (int) round(($quantity * $offer->drug->price) * $vendorFee, 0);
+	}
+
+	public function getQuantityFromSellPrice(ActiveRow $offer, int $price = 0): int
+	{
+		$vendorFee = 1 - $offer->vendor->charge;
+		return (int) floor($price / ($offer->drug->price * $vendorFee));
 	}
 }

@@ -22,7 +22,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 
 	/** @var \Contributte\Translation\Translator @inject */
 	public $translator;
-	
+
 	/** @var PaymentService @inject */
 	public PaymentService $paymentService;
 
@@ -85,7 +85,8 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->onlinePlayers = $onlinePlayers;
 		if ($this->user->isLoggedIn()) {
 			$user = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$this->template->user = $user;
+			$this->template->user = $this->user;
+			$this->template->player = $user;
 			$gearStats = $this->getGearStats();
 			$this->template->gearStats = $gearStats;
 			$this->template->gearPower = $gearStats->strength + $gearStats->stamina + $gearStats->speed;

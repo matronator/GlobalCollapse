@@ -1,4 +1,4 @@
-/*! UIkit 3.16.15 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.21.6 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('uikit-util')) :
@@ -28,7 +28,7 @@
         message: "",
         status: "",
         timeout: 5e3,
-        group: null,
+        group: "",
         pos: "top-center",
         clsContainer: "uk-notification",
         clsClose: "uk-notification-close",
@@ -36,17 +36,17 @@
       },
       install,
       computed: {
-        marginProp({ pos }) {
-          return `margin${uikitUtil.startsWith(pos, "top") ? "Top" : "Bottom"}`;
-        },
+        marginProp: ({ pos }) => `margin-${pos.match(/[a-z]+(?=-)/)[0]}`,
         startProps() {
           return { opacity: 0, [this.marginProp]: -this.$el.offsetHeight };
         }
       },
       created() {
-        const container = uikitUtil.$(`.${this.clsContainer}-${this.pos}`, this.container) || uikitUtil.append(
+        const posClass = `${this.clsContainer}-${this.pos}`;
+        const containerAttr = `data-${this.clsContainer}-container`;
+        const container = uikitUtil.$(`.${posClass}[${containerAttr}]`, this.container) || uikitUtil.append(
           this.container,
-          `<div class="${this.clsContainer} ${this.clsContainer}-${this.pos}" style="display: block"></div>`
+          `<div class="${this.clsContainer} ${posClass}" ${containerAttr}></div>`
         );
         this.$mount(
           uikitUtil.append(
@@ -67,7 +67,7 @@
       },
       events: {
         click(e) {
-          if (uikitUtil.closest(e.target, 'a[href="#"],a[href=""]')) {
+          if (e.target.closest('a[href="#"],a[href=""]')) {
             e.preventDefault();
           }
           this.close();

@@ -1,25 +1,25 @@
 {**
  * ASSAULT - Player Card
  *
- *   player         array         The player to show
- *   stats          array         Player's assault stats
+ *   selectedPlayer  array         The player to show
+ *   stats           array         Player's assault stats
  *}
-{var $playerGearStats = $presenter->getUserGearStats($player->id)}
-{var $playerGearPower = $presenter->getUserGearPower($player->id)}
+{var $playerGearStats = $presenter->getUserGearStats($selectedPlayer->id)}
+{var $playerGearPower = $presenter->getUserGearPower($selectedPlayer->id)}
 
 <div class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-small" style="flex:1 0 auto;">
     <div class="split uk-flex-bottom">
         <div>
             <h3 class="uk-margin-remove-bottom">
-                {$player->username}&nbsp;<small class="uk-text-muted">Level {$player->player_stats->level}</small>
+                {$selectedPlayer->username}&nbsp;<small class="uk-text-muted">Level {$selectedPlayer->player_stats->level}</small>
             </h3>
         </div>
     </div>
     <div class="uk-width-expand uk-flex">
         {include '../../components/UI/ProgressBar/ProgressBar.latte',
             min => 0,
-            max => ($player->player_stats->stamina + $playerGearStats->stamina) * 2,
-            value => ($player->player_stats->stamina + $playerGearStats->stamina) * 2,
+            max => ($selectedPlayer->player_stats->stamina + $playerGearStats->stamina) * 2,
+            value => ($selectedPlayer->player_stats->stamina + $playerGearStats->stamina) * 2,
             type => 'red',
             small => true,
             name => 'playerHP',
@@ -39,25 +39,25 @@
     </div>
     <div class="split">
         <div class="uk-width-auto">
-            <div class="{if $player->tier > 1}premium-border tier-{$player->tier}{/if}">
-                <img n:if="$player->tier <= 2" src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="128" height="128">
-                <div n:if="$player->tier > 2" style="background-image: url('{$basePath}/dist/front/images/default-avatars/{$player->avatar}');" class="uk-comment-avatar immune-avatar"></div>
-                <img n:if="$player->tier === 2" src="{$basePath}/dist/front/images/premium/gold-border.png" style="position: absolute; max-width: 200%" width="149" alt="Survivor Border">
+            <div class="{if $selectedPlayer->tier > 1}premium-border tier-{$selectedPlayer->tier}{/if}">
+                <img n:if="$selectedPlayer->tier <= 2" src="{$basePath}/dist/front/images/default-avatars/{$selectedPlayer->avatar}" class="uk-comment-avatar" width="128" height="128">
+                <div n:if="$selectedPlayer->tier > 2" style="background-image: url('{$basePath}/dist/front/images/default-avatars/{$selectedPlayer->avatar}');" class="uk-comment-avatar immune-avatar"></div>
+                <img n:if="$selectedPlayer->tier === 2" src="{$basePath}/dist/front/images/premium/gold-border.png" style="position: absolute; max-width: 200%" width="149" alt="Survivor Border">
             </div>
         </div>
         <div class="uk-width-expand">
             <table class="uk-table uk-table-small uk-table-divider">
                 <tr>
                     <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">{_general.stats.strength.title}</td>
-                    <td class="uk-text-nowrap">{$player->player_stats->strength + $playerGearStats->strength}</td>
+                    <td class="uk-text-nowrap">{$selectedPlayer->player_stats->strength + $playerGearStats->strength}</td>
                     <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">{_general.stats.stamina.title}</td>
-                    <td class="uk-text-nowrap">{$player->player_stats->stamina + $playerGearStats->stamina}</td>
+                    <td class="uk-text-nowrap">{$selectedPlayer->player_stats->stamina + $playerGearStats->stamina}</td>
                 </tr>
                 <tr>
                     <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">{_general.stats.speed.title}</td>
-                    <td class="uk-text-nowrap">{$player->player_stats->speed + $playerGearStats->speed}</td>
-                    <td class="uk-text-nowrap border-left" uk-tooltip="title:{$player->username}'s total power."><strong>Power</strong></td>
-                    <td class="uk-text-nowrap"><strong>{$player->player_stats->power + $playerGearPower}</strong></td>
+                    <td class="uk-text-nowrap">{$selectedPlayer->player_stats->speed + $playerGearStats->speed}</td>
+                    <td class="uk-text-nowrap border-left" uk-tooltip="title:{$selectedPlayer->username}'s total power."><strong>Power</strong></td>
+                    <td class="uk-text-nowrap"><strong>{$selectedPlayer->player_stats->power + $playerGearPower}</strong></td>
                 </tr>
             </table>
         </div>
@@ -67,12 +67,12 @@
         {include '../../components/Assault/AssaultStats.latte', stats => $stats}
     </div>
     <div class="uk-margin-top uk-text-center">
-        {if $user->id != $player->id}
+        {if $player->id != $selectedPlayer->id}
             <script>
                 document.write('<a class="uk-button uk-button-secondary" href="' + document.referrer + '"><span uk-icon="arrow-left"></span>{_general.ui.back|noescape}</a>');
             </script>
             {* <a n:href="Player:leaderboard" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a> *}
-            <a n:href="Assaults:detail, $player->username" class="uk-button uk-button-primary">Assault</a>
+            <a n:href="Assaults:detail, $selectedPlayer->username" class="uk-button uk-button-primary">Assault</a>
         {else}
             <a n:href="Player:leaderboard" class="uk-button uk-button-primary">Leaderboard</a>
         {/if}

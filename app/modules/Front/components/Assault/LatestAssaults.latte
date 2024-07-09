@@ -5,11 +5,11 @@
 **}
 <h3>Latest assaults</h3>
 {foreach $assaults as $assault}
-  {var $assaultType = $assault->attacker == $user->id ? 'Attack' : 'Defense'}
+  {var $assaultType = $assault->attacker == $player->id ? 'Attack' : 'Defense'}
   {var $opponent = $assaultType == 'Attack' ? $assault->victim_name : $assault->attacker_name}
 
   {var $victim = $presenter->getPlayerInfo($opponent)}
-  
+
   {if isset($victim->player_stats) && $victim->player_stats}
     {include '../../components/Assault/PlayerPopover.latte', victim => $presenter->getPlayerInfo($opponent)}
   {/if}
@@ -27,8 +27,8 @@
 
     <tbody class="assault-record" n:inner-foreach="$assaults as $assault">
       {var $assaultType = [
-        'default' => $assault->attacker == $user->id ? 'Attack' : 'Defense',
-        'mobile' => $assault->attacker == $user->id ? 'ATK' : 'DEF',
+        'default' => $assault->attacker == $player->id ? 'Attack' : 'Defense',
+        'mobile' => $assault->attacker == $player->id ? 'ATK' : 'DEF',
       ]}
       {var $opponent = $assaultType['default'] == 'Attack' ? $assault->victim_name : $assault->attacker_name}
       {var $victim = $presenter->getPlayerInfo($opponent)}

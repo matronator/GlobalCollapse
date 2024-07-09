@@ -32,19 +32,19 @@
       <stripe-pricing-table
         pricing-table-id="prctbl_1NpgqfJJBQOBYTuQHxgXLNuZ"
         publishable-key="{$stripePublicKey}"
-        customer-email="{$user->email}"
-        client-reference-id="{$user->username}"
+        customer-email="{$player->email}"
+        client-reference-id="{$player->username}"
       ></stripe-pricing-table>
       <stripe-pricing-table
         pricing-table-id="prctbl_1NpnnmJJBQOBYTuQl1DtvTOT"
         publishable-key="{$stripePublicKey}"
-        customer-email="{$user->email}"
-        client-reference-id="{$user->username}"
+        customer-email="{$player->email}"
+        client-reference-id="{$player->username}"
       ></stripe-pricing-table>
     </div> *}
     <div class="uk-width-1-3@s uk-width-1-1">
       {include '../../components/UI/Premium/PremiumCard.latte',
-        playerTier: $user->tier,
+        playerTier: $player->tier,
         img: $basePath . '/dist/front/images/premium/infected.jpg',
         imgAlt: 'Free To Play Account',
       }
@@ -55,7 +55,7 @@
         price: '$5 / month',
         tier: 2,
         benefits: ['Survivor name badge', 'Avatar frame', 'Upload custom avatar', 'x1.25 XP Boost'],
-        playerTier: $user->tier,
+        playerTier: $player->tier,
         img: $basePath . '/dist/front/images/premium/survivor.jpg',
         imgAlt: 'Survivor Premium Account',
         priceId: $dev ? 'price_1NpXM1JJBQOBYTuQNyUN0T86' : 'price_1NpXalJJBQOBYTuQitS7mpvM',
@@ -67,7 +67,7 @@
         price: '$15 / month',
         tier: 3,
         benefits: ['Immune name badge', 'Avatar frame', 'Upload animated avatar', 'Protection from assaults', 'x1.5 XP Boost', 'All times cut by half'],
-        playerTier: $user->tier,
+        playerTier: $player->tier,
         img: $basePath . '/dist/front/images/premium/immune.jpg',
         imgAlt: 'Immune Premium Account',
         priceId: $dev ? 'price_1NpXMPJJBQOBYTuQ4geLaLqp' : 'price_1NpglSJJBQOBYTuQYA000C56',
@@ -76,7 +76,7 @@
   {else}
     <div class="uk-width-1-3@s uk-width-1-1">
       {include '../../components/UI/Premium/PremiumCard.latte',
-        playerTier: $user->tier,
+        playerTier: $player->tier,
         img: $basePath . '/dist/front/images/premium/infected.jpg',
         imgAlt: 'Free To Play Account',
       }
@@ -87,7 +87,7 @@
         price: '$10 / month',
         tier: 2,
         benefits: ['Survivor name badge', 'Avatar frame', 'Upload custom avatar', 'x1.25 XP Boost'],
-        playerTier: $user->tier,
+        playerTier: $player->tier,
         priceId: 'pri_01hbe1dewd7b8edmpw2f5nvt93',
         img: $basePath . '/dist/front/images/premium/survivor.jpg',
         imgAlt: 'Survivor Premium Account',
@@ -99,7 +99,7 @@
         price: '$25 / month',
         tier: 3,
         benefits: ['Immune name badge', 'Avatar frame', 'Upload animated avatar', 'Protection from assaults', 'x1.5 XP Boost', 'All times cut by half'],
-        playerTier: $user->tier,
+        playerTier: $player->tier,
         priceId: 'pri_01hbe1f6bx2gjh4zddhyrh6s2p',
         img: $basePath . '/dist/front/images/premium/immune.jpg',
         imgAlt: 'Immune Premium Account',
@@ -112,14 +112,14 @@
     {* <stripe-pricing-table
       pricing-table-id="prctbl_1NqLKmJJBQOBYTuQCosyoYf8"
       publishable-key="{$stripePublicKey}"
-      customer-email="{$user->email}"
-      client-reference-id="{$user->username}"
+      customer-email="{$player->email}"
+      client-reference-id="{$player->username}"
     ></stripe-pricing-table>
     <stripe-pricing-table
       pricing-table-id="prctbl_1NqLZLJJBQOBYTuQXQAaaMtz"
       publishable-key="{$stripePublicKey}"
-      customer-email="{$user->email}"
-      client-reference-id="{$user->username}"
+      customer-email="{$player->email}"
+      client-reference-id="{$player->username}"
     ></stripe-pricing-table> *}
   </div>
   <div class="uk-width-1-3@s uk-width-1-1">

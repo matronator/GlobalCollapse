@@ -1,4 +1,4 @@
-/*! UIkit 3.16.15 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.21.6 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('uikit-util')) :
@@ -180,7 +180,7 @@
       e.preventDefault();
       e.stopPropagation();
     }
-    function ajax(url, options) {
+    async function ajax(url, options) {
       const env = {
         data: null,
         method: "GET",
@@ -190,7 +190,8 @@
         responseType: "",
         ...options
       };
-      return Promise.resolve().then(() => env.beforeSend(env)).then(() => send(url, env));
+      await env.beforeSend(env);
+      return send(url, env);
     }
     function send(url, env) {
       return new Promise((resolve, reject) => {

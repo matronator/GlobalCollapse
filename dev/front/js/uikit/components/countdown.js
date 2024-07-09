@@ -1,4 +1,4 @@
-/*! UIkit 3.16.15 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.21.6 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('uikit-util')) :
@@ -36,9 +36,7 @@
       },
       events: {
         name: "visibilitychange",
-        el() {
-          return document;
-        },
+        el: () => document,
         handler() {
           if (document.hidden) {
             this.stop();
@@ -77,8 +75,7 @@
             if (!el) {
               continue;
             }
-            let digits = String(Math.trunc(timespan[unit]));
-            digits = digits.length < 2 ? `0${digits}` : digits;
+            let digits = Math.trunc(timespan[unit]).toString().padStart(2, "0");
             if (el.textContent !== digits) {
               digits = digits.split("");
               if (digits.length !== el.children.length) {

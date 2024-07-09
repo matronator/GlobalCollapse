@@ -9,43 +9,43 @@
       <div class="split uk-flex-bottom">
         <div>
           <h3 class="uk-margin-remove-bottom">
-            {$user->username}&nbsp;<small class="uk-text-muted">Level {$user->player_stats->level}</small>
+            {$player->username}&nbsp;<small class="uk-text-muted">Level {$player->player_stats->level}</small>
           </h3>
         </div>
         <div>
           <h3 class="uk-margin-remove-bottom">
-            {$user->player_stats->energy}/<small class="uk-text-muted">{$user->player_stats->energy_max + $gearStats->energy_max} Energy</small>
+            {$player->player_stats->energy}/<small class="uk-text-muted">{$player->player_stats->energy_max + $gearStats->energy_max} Energy</small>
           </h3>
         </div>
       </div>
       <div class="uk-width-expand uk-flex">
         {include '../../components/UI/ProgressBar/ProgressBar.latte',
-          min => $user->player_stats->xp_min,
-          max => $user->player_stats->xp_max,
-          value => $user->player_stats->xp,
+          min => $player->player_stats->xp_min,
+          max => $player->player_stats->xp_max,
+          value => $player->player_stats->xp,
           type => 'xp'
         }
       </div>
       <div class="split">
         <div class="uk-width-auto">
-          <img src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}" class="uk-comment-avatar" width="128" height="128">
+          <img src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="128" height="128">
         </div>
         <div class="uk-width-expand">
           <table class="uk-table uk-table-small uk-table-divider">
             <tr>
               <td class="uk-text-nowrap" uk-tooltip="title:Strength is used for dealing damage in combats.">{_general.stats.strength.title}</td>
-              <td class="uk-text-nowrap"><small class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$user->player_stats->strength}</small><small n:if="$gearStats->strength > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearStats->strength})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearStats->strength > 0">{$user->player_stats->strength + $gearStats->strength}</span></td>
+              <td class="uk-text-nowrap"><small class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$player->player_stats->strength}</small><small n:if="$gearStats->strength > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearStats->strength})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearStats->strength > 0">{$player->player_stats->strength + $gearStats->strength}</span></td>
               <td class="uk-text-nowrap" uk-tooltip="title:Stamina determines how much damage you can take.">{_general.stats.stamina.title}</td>
-              <td class="uk-text-nowrap"><small class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$user->player_stats->stamina}</small><small n:if="$gearStats->stamina > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearStats->stamina})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearStats->stamina > 0">{$user->player_stats->stamina + $gearStats->stamina}</span></td>
+              <td class="uk-text-nowrap"><small class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$player->player_stats->stamina}</small><small n:if="$gearStats->stamina > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearStats->stamina})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearStats->stamina > 0">{$player->player_stats->stamina + $gearStats->stamina}</span></td>
             </tr>
             <tr>
               <td class="uk-text-nowrap" uk-tooltip="title:Speed is used for dodging hits in combats.">{_general.stats.speed.title}</td>
-              <td class="uk-text-nowrap"><small class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$user->player_stats->speed}</small><small n:if="$gearStats->speed > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearStats->speed})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearStats->speed > 0">{$user->player_stats->speed + $gearStats->speed}</span></td>
+              <td class="uk-text-nowrap"><small class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$player->player_stats->speed}</small><small n:if="$gearStats->speed > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearStats->speed})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearStats->speed > 0">{$player->player_stats->speed + $gearStats->speed}</span></td>
               <td class="uk-text-nowrap border-left" uk-tooltip="title:Your total power."><strong>Power</strong></td>
-              <td class="uk-text-nowrap"><strong><span class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$user->player_stats->power}</span><small n:if="$gearPower > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearPower})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearPower > 0">{$user->player_stats->power + $gearPower}</span></strong></td>
+              <td class="uk-text-nowrap"><strong><span class="uk-text-muted" uk-tooltip="{_general.stats.baseStats}">{$player->player_stats->power}</span><small n:if="$gearPower > 0" class="uk-text-meta uk-text-success" uk-tooltip="{_general.stats.fromGear}"> (+{$gearPower})</small><span class="uk-margin-small-left" uk-tooltip="{_general.stats.totalStat}" n:if="$gearPower > 0">{$player->player_stats->power + $gearPower}</span></strong></td>
             </tr>
             <tr>
-              <td class="uk-text-nowrap uk-text-center" colspan="4" uk-tooltip="title:Earn skillpoints by leveling up and train for free.">Skillpoints: {$user->skillpoints}</td>
+              <td class="uk-text-nowrap uk-text-center" colspan="4" uk-tooltip="title:Earn skillpoints by leveling up and train for free.">Skillpoints: {$player->skillpoints}</td>
             </tr>
           </table>
         </div>
@@ -54,20 +54,20 @@
     <div n:if="$skillpoints > 0" class="uk-card uk-card-default uk-width-auto uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top uk-overflow-auto uk-flex-last@m">
       <div class="uk-width-expand uk-flex uk-margin-top">
         {include '../../components/Training/TrainingSkillpoints.latte',
-          strength => $user->player_stats->strength,
-          stamina => $user->player_stats->stamina,
-          speed => $user->player_stats->speed,
-          power => $user->player_stats->power,
-          skillpoints => $user->skillpoints
+          strength => $player->player_stats->strength,
+          stamina => $player->player_stats->stamina,
+          speed => $player->player_stats->speed,
+          power => $player->player_stats->power,
+          skillpoints => $player->skillpoints
         }
       </div>
     </div>
     <div class="uk-card uk-width-auto uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top" n:snippet="training-form">
         {include '../../components/Training/Training.latte',
-          strength => $user->player_stats->strength,
-          stamina => $user->player_stats->stamina,
-          speed => $user->player_stats->speed,
-          power => $user->player_stats->power
+          strength => $player->player_stats->strength,
+          stamina => $player->player_stats->stamina,
+          speed => $player->player_stats->speed,
+          power => $player->player_stats->power
         }
     </div>
   </div>

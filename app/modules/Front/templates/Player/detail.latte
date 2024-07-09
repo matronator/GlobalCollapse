@@ -6,7 +6,7 @@
   <div class="uk-container-small uk-margin-auto">
     <div class="uk-flex uk-flex-between" uk-grid>
       <div class="uk-width-1-1 uk-width-1-2@l">
-        {include '../../components/Assault/PlayerCard.latte', player => $otherPlayer, stats => $aStatsV}
+        {include '../../components/Assault/PlayerCard.latte', selectedPlayer: $otherPlayer, stats: $aStatsV}
       </div>
       <div class="uk-width-1-1 uk-width-1-2@l">
         {include '../../components/Inventory/PlayerBody.latte', body: $playerBody, interactable: false}

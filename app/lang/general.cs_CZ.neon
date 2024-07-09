@@ -42,8 +42,11 @@ messages:
 		allBuildingCollected: "Všechny budovy sesbírány!"
 	info:
 	warning:
+	    cantRefreshOffer: "Ještě nemůžeš obnovit nabídku. Zkus to znovu za %minutes% minut."
 	    itemLowLevel: "Musíš být aspoň level %level% pro koupení této věci."
 	    noInventorySpace: "Tvůj inventář je plný."
+	    drugsSoldWithRemainder: "Prodáno pouze %quantity% gramů, protože vendor neměl víc peněz."
+	    purchaseWithRemainder: "Koupil jsi pouze %quantity% gramů, protože víc vendor neměl."
 	danger:
 		wrongCredentials: "Špatné heslo, uživatelské jméno nebo e-mail"
 		notEnoughMoney: "Nedostatek peněz"
@@ -311,6 +314,7 @@ drugs:
 
 darknet:
 	postedBy: 'Přidal'
+	setMax: 'Maximum'
 	inStock: 'Na skladě'
 	vendorMoney: "Vendor má peněz"
 	vendorFee: "Poplatek vendora"

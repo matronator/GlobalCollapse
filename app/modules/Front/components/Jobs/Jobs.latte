@@ -3,32 +3,32 @@
   <div class="uk-width-3-4 uk-flex uk-flex-column uk-margin-auto uk-text-center">
     {include '../../components/UI/ProgressBar/ProgressBar.latte',
       min => 0,
-      max => $user->player_stats->energy_max + $gearStats->energy_max,
-      value => $user->player_stats->energy,
+      max => $player->player_stats->energy_max + $gearStats->energy_max,
+      value => $player->player_stats->energy,
       type => 'yellow',
       name => 'energyBar'
     }
-    <div>{_general.stats.level} {$user->player_stats->level}</div>
+    <div>{_general.stats.level} {$player->player_stats->level}</div>
     {include '../../components/UI/ProgressBar/ProgressBar.latte',
-      min => $user->player_stats->xp_min,
-      max => $user->player_stats->xp_max,
-      value => $user->player_stats->xp,
+      min => $player->player_stats->xp_min,
+      max => $player->player_stats->xp_max,
+      value => $player->player_stats->xp,
       name => 'jobXp',
       small => true,
       type => 'xp'
     }
   </div>
   <div class="uk-child-width-1-3@m uk-flex-center uk-margin-remove" uk-grid>
-    <ul class="job-list uk-list uk-list-striped uk-padding-remove" data-xp-boost="{$presenter->getUserGearStats($user->id)->xp_boost}">
+    <ul class="job-list uk-list uk-list-striped uk-padding-remove" data-xp-boost="{$presenter->getUserGearStats($player->id)->xp_boost}">
       {var $key = 0}
       {foreach $jobs as $job}
         {var $locale = $job['locale']}
         <li class="job-item {first}selected{/first}" data-job-name="{$locale}"
-            data-job-duration="{round($presenter->jobDuration(intval($job['duration']), $user->player_stats->level, $user->tier) / 60, 1)}"
+            data-job-duration="{round($presenter->jobDuration(intval($job['duration']), $player->player_stats->level, $player->tier) / 60, 1)}"
             data-job-energy="{$job['energy']}"
-            data-job-money="{$presenter->userRepository->getRewardMoney($job['money'], $user->player_stats->level)}"
+            data-job-money="{$presenter->userRepository->getRewardMoney($job['money'], $player->player_stats->level)}"
             data-job-description="{_general.city.bar.jobs.{$locale}.description}"
-            data-job-xp="{$presenter->userRepository->getRewardXp($job['xp'], $user->player_stats->level) * $presenter->getUserGearStats($user->id)->xp_boost}">
+            data-job-xp="{$presenter->userRepository->getRewardXp($job['xp'], $player->player_stats->level) * $presenter->getUserGearStats($player->id)->xp_boost}">
           <label class="job-link" n:name="job:$locale">
             <input class="uk-radio uk-input job-input" {first}checked{/first} type="radio" n:name="job:$locale" data-job-input="{$locale}">
             {_general.city.bar.jobs.{$locale}.title}

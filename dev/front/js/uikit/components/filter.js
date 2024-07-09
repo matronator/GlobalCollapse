@@ -1,10 +1,64 @@
-/*! UIkit 3.16.15 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.21.6 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('uikit-util')) :
     typeof define === 'function' && define.amd ? define('uikitfilter', ['uikit-util'], factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.UIkitFilter = factory(global.UIkit.util));
 })(this, (function (uikitUtil) { 'use strict';
+
+    function parseOptions(options, args = []) {
+      try {
+        return options ? uikitUtil.startsWith(options, "{") ? JSON.parse(options) : args.length && !uikitUtil.includes(options, ":") ? { [args[0]]: options } : options.split(";").reduce((options2, option) => {
+          const [key, value] = option.split(/:(.*)/);
+          if (key && !uikitUtil.isUndefined(value)) {
+            options2[key.trim()] = value.trim();
+          }
+          return options2;
+        }, {}) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function callUpdate(instance, e = "update") {
+      if (!instance._connected) {
+        return;
+      }
+      if (!instance._updates.length) {
+        return;
+      }
+      if (!instance._queued) {
+        instance._queued = /* @__PURE__ */ new Set();
+        uikitUtil.fastdom.read(() => {
+          if (instance._connected) {
+            runUpdates(instance, instance._queued);
+          }
+          instance._queued = null;
+        });
+      }
+      instance._queued.add(e.type || e);
+    }
+    function runUpdates(instance, types) {
+      for (const { read, write, events = [] } of instance._updates) {
+        if (!types.has("update") && !events.some((type) => types.has(type))) {
+          continue;
+        }
+        let result;
+        if (read) {
+          result = read.call(instance, instance._data, types);
+          if (result && uikitUtil.isPlainObject(result)) {
+            uikitUtil.assign(instance._data, result);
+          }
+        }
+        if (write && result !== false) {
+          uikitUtil.fastdom.write(() => {
+            if (instance._connected) {
+              write.call(instance, instance._data, types);
+            }
+          });
+        }
+      }
+    }
 
     function resize(options) {
       return observe(uikitUtil.observeResize, options, "resize");
@@ -16,7 +70,7 @@
       return {
         observe: observe2,
         handler() {
-          this.$emit(emit);
+          callUpdate(this, emit);
         },
         ...options
       };
@@ -34,10 +88,15 @@
       observe: [
         mutation({
           options: {
-            childList: true,
+            childList: true
+          }
+        }),
+        mutation({
+          options: {
             attributes: true,
             attributeFilter: ["style"]
-          }
+          },
+          target: ({ $el }) => [$el, ...uikitUtil.children($el)]
         }),
         resize({
           target: ({ $el }) => [$el, ...uikitUtil.children($el)]
@@ -45,62 +104,51 @@
       ],
       update: {
         read() {
-          const rows = getRows(this.$el.children);
           return {
-            rows,
-            columns: getColumns(rows)
+            rows: getRows(uikitUtil.children(this.$el))
           };
         },
-        write({ columns, rows }) {
+        write({ rows }) {
           for (const row of rows) {
-            for (const column of row) {
-              uikitUtil.toggleClass(column, this.margin, rows[0] !== row);
-              uikitUtil.toggleClass(column, this.firstColumn, columns[0].includes(column));
+            for (const el of row) {
+              uikitUtil.toggleClass(el, this.margin, rows[0] !== row);
+              uikitUtil.toggleClass(el, this.firstColumn, row[uikitUtil.isRtl ? row.length - 1 : 0] === el);
             }
           }
         },
         events: ["resize"]
       }
     });
-    function getRows(items) {
-      return sortBy(items, "top", "bottom");
-    }
-    function getColumns(rows) {
-      const columns = [];
-      for (const row of rows) {
-        const sorted = sortBy(row, "left", "right");
-        for (let j = 0; j < sorted.length; j++) {
-          columns[j] = columns[j] ? columns[j].concat(sorted[j]) : sorted[j];
-        }
-      }
-      return uikitUtil.isRtl ? columns.reverse() : columns;
-    }
-    function sortBy(items, startProp, endProp) {
+    function getRows(elements) {
       const sorted = [[]];
-      for (const el of items) {
+      const withOffset = elements.some(
+        (el, i) => i && elements[i - 1].offsetParent !== el.offsetParent
+      );
+      for (const el of elements) {
         if (!uikitUtil.isVisible(el)) {
           continue;
         }
-        let dim = getOffset(el);
+        const offset = getOffset(el, withOffset);
         for (let i = sorted.length - 1; i >= 0; i--) {
           const current = sorted[i];
           if (!current[0]) {
             current.push(el);
             break;
           }
-          let startDim;
-          if (current[0].offsetParent === el.offsetParent) {
-            startDim = getOffset(current[0]);
-          } else {
-            dim = getOffset(el, true);
-            startDim = getOffset(current[0], true);
-          }
-          if (dim[startProp] >= startDim[endProp] - 1 && dim[startProp] !== startDim[startProp]) {
+          const offsetCurrent = getOffset(current[0], withOffset);
+          if (offset.top >= offsetCurrent.bottom - 1 && offset.top !== offsetCurrent.top) {
             sorted.push([el]);
             break;
           }
-          if (dim[endProp] - 1 > startDim[startProp] || dim[startProp] === startDim[startProp]) {
-            current.push(el);
+          if (offset.bottom - 1 > offsetCurrent.top || offset.top === offsetCurrent.top) {
+            let j = current.length - 1;
+            for (; j >= 0; j--) {
+              const offsetCurrent2 = getOffset(current[j], withOffset);
+              if (offset.left >= offsetCurrent2.left) {
+                break;
+              }
+            }
+            current.splice(j + 1, 0, el);
             break;
           }
           if (i === 0) {
@@ -124,107 +172,18 @@
       };
     }
 
-    const clsLeave = "uk-transition-leave";
-    const clsEnter = "uk-transition-enter";
-    function fade(action, target, duration, stagger = 0) {
-      const index = transitionIndex(target, true);
-      const propsIn = { opacity: 1 };
-      const propsOut = { opacity: 0 };
-      const wrapIndexFn = (fn) => () => index === transitionIndex(target) ? fn() : Promise.reject();
-      const leaveFn = wrapIndexFn(async () => {
-        uikitUtil.addClass(target, clsLeave);
-        await Promise.all(
-          getTransitionNodes(target).map(
-            (child, i) => new Promise(
-              (resolve) => setTimeout(
-                () => uikitUtil.Transition.start(child, propsOut, duration / 2, "ease").then(
-                  resolve
-                ),
-                i * stagger
-              )
-            )
-          )
-        );
-        uikitUtil.removeClass(target, clsLeave);
-      });
-      const enterFn = wrapIndexFn(async () => {
-        const oldHeight = uikitUtil.height(target);
-        uikitUtil.addClass(target, clsEnter);
-        action();
-        uikitUtil.css(uikitUtil.children(target), { opacity: 0 });
-        await awaitFrame$1();
-        const nodes = uikitUtil.children(target);
-        const newHeight = uikitUtil.height(target);
-        uikitUtil.css(target, "alignContent", "flex-start");
-        uikitUtil.height(target, oldHeight);
-        const transitionNodes = getTransitionNodes(target);
-        uikitUtil.css(nodes, propsOut);
-        const transitions = transitionNodes.map(async (child, i) => {
-          await awaitTimeout(i * stagger);
-          await uikitUtil.Transition.start(child, propsIn, duration / 2, "ease");
-        });
-        if (oldHeight !== newHeight) {
-          transitions.push(
-            uikitUtil.Transition.start(
-              target,
-              { height: newHeight },
-              duration / 2 + transitionNodes.length * stagger,
-              "ease"
-            )
-          );
-        }
-        await Promise.all(transitions).then(() => {
-          uikitUtil.removeClass(target, clsEnter);
-          if (index === transitionIndex(target)) {
-            uikitUtil.css(target, { height: "", alignContent: "" });
-            uikitUtil.css(nodes, { opacity: "" });
-            delete target.dataset.transition;
-          }
-        });
-      });
-      return uikitUtil.hasClass(target, clsLeave) ? waitTransitionend(target).then(enterFn) : uikitUtil.hasClass(target, clsEnter) ? waitTransitionend(target).then(leaveFn).then(enterFn) : leaveFn().then(enterFn);
-    }
-    function transitionIndex(target, next) {
-      if (next) {
-        target.dataset.transition = 1 + transitionIndex(target);
-      }
-      return uikitUtil.toNumber(target.dataset.transition) || 0;
-    }
-    function waitTransitionend(target) {
-      return Promise.all(
-        uikitUtil.children(target).filter(uikitUtil.Transition.inProgress).map(
-          (el) => new Promise((resolve) => uikitUtil.once(el, "transitionend transitioncanceled", resolve))
-        )
-      );
-    }
-    function getTransitionNodes(target) {
-      return getRows(uikitUtil.children(target)).reduce(
-        (nodes, row) => nodes.concat(
-          uikitUtil.sortBy(
-            row.filter((el) => uikitUtil.isInView(el)),
-            "offsetLeft"
-          )
-        ),
-        []
-      );
-    }
-    function awaitFrame$1() {
-      return new Promise((resolve) => requestAnimationFrame(resolve));
-    }
-    function awaitTimeout(timeout) {
-      return new Promise((resolve) => setTimeout(resolve, timeout));
-    }
-
     async function slide(action, target, duration) {
       await awaitFrame();
       let nodes = uikitUtil.children(target);
       const currentProps = nodes.map((el) => getProps(el, true));
       const targetProps = { ...uikitUtil.css(target, ["height", "padding"]), display: "block" };
-      await Promise.all(nodes.concat(target).map(uikitUtil.Transition.cancel));
-      action();
+      const targets = nodes.concat(target);
+      await Promise.all(targets.map(uikitUtil.Transition.cancel));
+      uikitUtil.css(targets, "transitionProperty", "none");
+      await action();
       nodes = nodes.concat(uikitUtil.children(target).filter((el) => !uikitUtil.includes(nodes, el)));
       await Promise.resolve();
-      uikitUtil.fastdom.flush();
+      uikitUtil.css(targets, "transitionProperty", "");
       const targetStyle = uikitUtil.attr(target, "style");
       const targetPropsTo = uikitUtil.css(target, ["height", "padding"]);
       const [propsTo, propsFrom] = getTransitionProps(target, nodes, currentProps);
@@ -232,7 +191,6 @@
       nodes.forEach((el, i) => propsFrom[i] && uikitUtil.css(el, propsFrom[i]));
       uikitUtil.css(target, targetProps);
       uikitUtil.trigger(target, "scroll");
-      uikitUtil.fastdom.flush();
       await awaitFrame();
       const transitions = nodes.map((el, i) => uikitUtil.parent(el) === target && uikitUtil.Transition.start(el, propsTo[i], duration, "ease")).concat(uikitUtil.Transition.start(target, targetPropsTo, duration, "ease"));
       try {
@@ -289,7 +247,7 @@
       }
     }
     function getPositionWithMargin(el) {
-      const { height, width } = uikitUtil.offset(el);
+      const { height, width } = uikitUtil.dimensions(el);
       return {
         height,
         width,
@@ -300,6 +258,86 @@
     }
     function awaitFrame() {
       return new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+
+    const clsLeave = "uk-transition-leave";
+    const clsEnter = "uk-transition-enter";
+    function fade(action, target, duration, stagger = 0) {
+      const index = transitionIndex(target, true);
+      const propsIn = { opacity: 1 };
+      const propsOut = { opacity: 0 };
+      const wrapIndexFn = (fn) => () => index === transitionIndex(target) ? fn() : Promise.reject();
+      const leaveFn = wrapIndexFn(async () => {
+        uikitUtil.addClass(target, clsLeave);
+        await Promise.all(
+          getTransitionNodes(target).map(
+            (child, i) => new Promise(
+              (resolve) => setTimeout(
+                () => uikitUtil.Transition.start(child, propsOut, duration / 2, "ease").then(
+                  resolve
+                ),
+                i * stagger
+              )
+            )
+          )
+        );
+        uikitUtil.removeClass(target, clsLeave);
+      });
+      const enterFn = wrapIndexFn(async () => {
+        const oldHeight = uikitUtil.height(target);
+        uikitUtil.addClass(target, clsEnter);
+        action();
+        uikitUtil.css(uikitUtil.children(target), { opacity: 0 });
+        await awaitFrame();
+        const nodes = uikitUtil.children(target);
+        const newHeight = uikitUtil.height(target);
+        uikitUtil.css(target, "alignContent", "flex-start");
+        uikitUtil.height(target, oldHeight);
+        const transitionNodes = getTransitionNodes(target);
+        uikitUtil.css(nodes, propsOut);
+        const transitions = transitionNodes.map(async (child, i) => {
+          await awaitTimeout(i * stagger);
+          await uikitUtil.Transition.start(child, propsIn, duration / 2, "ease");
+        });
+        if (oldHeight !== newHeight) {
+          transitions.push(
+            uikitUtil.Transition.start(
+              target,
+              { height: newHeight },
+              duration / 2 + transitionNodes.length * stagger,
+              "ease"
+            )
+          );
+        }
+        await Promise.all(transitions).then(() => {
+          uikitUtil.removeClass(target, clsEnter);
+          if (index === transitionIndex(target)) {
+            uikitUtil.css(target, { height: "", alignContent: "" });
+            uikitUtil.css(nodes, { opacity: "" });
+            delete target.dataset.transition;
+          }
+        });
+      });
+      return uikitUtil.hasClass(target, clsLeave) ? waitTransitionend(target).then(enterFn) : uikitUtil.hasClass(target, clsEnter) ? waitTransitionend(target).then(leaveFn).then(enterFn) : leaveFn().then(enterFn);
+    }
+    function transitionIndex(target, next) {
+      if (next) {
+        target.dataset.transition = 1 + transitionIndex(target);
+      }
+      return uikitUtil.toNumber(target.dataset.transition) || 0;
+    }
+    function waitTransitionend(target) {
+      return Promise.all(
+        uikitUtil.children(target).filter(uikitUtil.Transition.inProgress).map(
+          (el) => new Promise((resolve) => uikitUtil.once(el, "transitionend transitioncanceled", resolve))
+        )
+      );
+    }
+    function getTransitionNodes(target) {
+      return getRows(uikitUtil.children(target)).flat().filter(uikitUtil.isVisible);
+    }
+    function awaitTimeout(timeout) {
+      return new Promise((resolve) => setTimeout(resolve, timeout));
     }
 
     var Animate = {
@@ -322,20 +360,6 @@
         }
       }
     };
-
-    function parseOptions(options, args = []) {
-      try {
-        return options ? uikitUtil.startsWith(options, "{") ? JSON.parse(options) : args.length && !uikitUtil.includes(options, ":") ? { [args[0]]: options } : options.split(";").reduce((options2, option) => {
-          const [key, value] = option.split(/:(.*)/);
-          if (key && !uikitUtil.isUndefined(value)) {
-            options2[key.trim()] = value.trim();
-          }
-          return options2;
-        }, {}) : {};
-      } catch (e) {
-        return {};
-      }
-    }
 
     const keyMap = {
       TAB: 9,
@@ -364,12 +388,8 @@
         duration: 250
       },
       computed: {
-        toggles({ attrItem }, $el) {
-          return uikitUtil.$$(`[${attrItem}],[data-${attrItem}]`, $el);
-        },
-        children({ target }, $el) {
-          return uikitUtil.$$(`${target} > *`, $el);
-        }
+        children: ({ target }, $el) => uikitUtil.$$(`${target} > *`, $el),
+        toggles: ({ attrItem }, $el) => uikitUtil.$$(`[${attrItem}],[data-${attrItem}]`, $el)
       },
       watch: {
         toggles(toggles) {
@@ -393,14 +413,12 @@
       },
       events: {
         name: "click keydown",
-        delegate() {
-          return `[${this.attrItem}],[data-${this.attrItem}]`;
-        },
+        delegate: ({ attrItem }) => `[${attrItem}],[data-${attrItem}]`,
         handler(e) {
           if (e.type === "keydown" && e.keyCode !== keyMap.SPACE) {
             return;
           }
-          if (uikitUtil.closest(e.target, "a,button")) {
+          if (e.target.closest("a,button")) {
             e.preventDefault();
             this.apply(e.current);
           }
@@ -428,10 +446,7 @@
           }
           await Promise.all(
             uikitUtil.$$(this.target, this.$el).map((target) => {
-              const filterFn = () => {
-                applyState(state, target, uikitUtil.children(target));
-                this.$update(this.$el);
-              };
+              const filterFn = () => applyState(state, target, uikitUtil.children(target));
               return animate ? this.animate(filterFn, target) : filterFn();
             })
           );
@@ -449,8 +464,10 @@
       return ["filter", "sort"].every((prop) => uikitUtil.isEqual(stateA[prop], stateB[prop]));
     }
     function applyState(state, target, children) {
-      const selector = getSelector(state);
-      children.forEach((el) => uikitUtil.css(el, "display", selector && !uikitUtil.matches(el, selector) ? "none" : ""));
+      const selector = Object.values(state.filter).join("");
+      for (const el of children) {
+        uikitUtil.css(el, "display", selector && !uikitUtil.matches(el, selector) ? "none" : "");
+      }
       const [sort, order] = state.sort;
       if (sort) {
         const sorted = sortItems(children, sort, order);
@@ -484,11 +501,6 @@
     function matchFilter(el, attr2, { filter: stateFilter = { "": "" }, sort: [stateSort, stateOrder] }) {
       const { filter = "", group = "", sort, order = "asc" } = getFilter(el, attr2);
       return uikitUtil.isUndefined(sort) ? group in stateFilter && filter === stateFilter[group] || !filter && group && !(group in stateFilter) && !stateFilter[""] : stateSort === sort && stateOrder === order;
-    }
-    function getSelector({ filter }) {
-      let selector = "";
-      uikitUtil.each(filter, (value) => selector += value || "");
-      return selector;
     }
     function sortItems(nodes, sort, order) {
       return [...nodes].sort(

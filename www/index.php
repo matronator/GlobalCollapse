@@ -5,6 +5,11 @@ declare(strict_types=1);
 // Uncomment this line if you must temporarily take down your site for maintenance.
 // require '.maintenance.php';
 
+if (file_exists(__DIR__ . '/maintenance.php')) {
+	require __DIR__ . '/maintenance.php';
+	exit;
+}
+
 // if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
 // 	if ($_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' && isset($_SERVER['SERVER_PORT']) && in_array($_SERVER['SERVER_PORT'], [80, 82])) { // https over proxy
 // 		$_SERVER['HTTPS'] = 'On';

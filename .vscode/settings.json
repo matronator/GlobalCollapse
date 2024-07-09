@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "Darknet",
         "myworker",
         "stackable",
         "Unlockables"
@@ -15,5 +16,22 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true
     },
-    "editor.acceptSuggestionOnEnter": "on"
+    "editor.acceptSuggestionOnEnter": "on",
+    "json.schemas": [
+        {
+            "fileMatch": [
+                ".prettierrc"
+            ],
+            "url": "https://json.schemastore.org/prettierrc-1.8.2.json"
+        },
+        {
+            "fileMatch": [
+                ".prettierrc"
+            ],
+            "url": "https://json.schemastore.org/prettierrc.json"
+        }
+    ],
+    "alpine-intellisense.settings.languageScopes": "latte,html,php",
+    "eslint.codeActionsOnSave.mode": "problems",
+    "eslint.run": "onSave"
 }

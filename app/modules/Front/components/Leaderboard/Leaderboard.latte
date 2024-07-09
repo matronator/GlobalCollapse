@@ -21,7 +21,7 @@
         <td class="uk-text-nowrap">{$iterator->counter + (($page - 1) * $itemsPerPage)}</td>
         <td class="uk-text-nowrap uk-flex uk-flex-middle">
           <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar" width="24" height="24">
-          &nbsp;{if $otherUser->username != $user->username}<a n:href="Player:detail, $otherUser->username">{$otherUser->username}</a>{else}{$user->username}{/if}
+          &nbsp;{if $otherUser->username != $player->username}<a n:href="Player:detail, $otherUser->username">{$otherUser->username}</a>{else}{$player->username}{/if}
           {if $otherUser->tier === 2}
             <img src="{$basePath}/dist/front/images/premium/star2.png" class="premium-star survivor" alt="Survivor Premium Badge">
           {/if}

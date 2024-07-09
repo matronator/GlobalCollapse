@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use Nette\Configurator;
+use Nette\Bootstrap\Configurator;
 
 class Bootstrap
 {
@@ -21,9 +21,12 @@ class Bootstrap
 			->register();
 		$configurator->addConfig(__DIR__ . '/config/config.neon');
 		$configurator->addConfig(__DIR__ . '/config/jobs.neon');
+		if (file_exists(__DIR__ . '/config/jobs.local.neon')) {
+			$configurator->addConfig(__DIR__ . '/config/jobs.local.neon');
+		}
 		$configurator->addConfig(__DIR__ . '/config/items.neon');
 		$configurator->addConfig(__DIR__ . '/config/config.local.neon');
-		$configurator->addParameters([
+		$configurator->addStaticParameters([
              'rootDir' => realpath(__DIR__ . '/..'),
              'appDir' => __DIR__,
              'wwwDir' => realpath(__DIR__ . '/../www'),

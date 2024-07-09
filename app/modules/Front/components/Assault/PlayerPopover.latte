@@ -1,6 +1,6 @@
 {varType object $victim}
 
-{var $attacker = $user}
+{var $attacker = $player}
 {var $victimGearStats = $presenter->getUserGearStats($victim->id)}
 {var $victimGearPower = $presenter->getUserGearPower($victim->id)}
 {var $attackerGearStats = $presenter->getUserGearStats($attacker->id)}
@@ -35,7 +35,7 @@
             <td class="uk-text-nowrap uk-width-shrink uk-text-left uk-text-small uk-text-middle {if $powDiff < 0}uk-text-success{elseif $powDiff > 0}uk-text-danger{/if}" uk-tooltip="title:{_general.stats.power.description}: {$attacker->player_stats->power + $attackerGearPower}"><span n:if="$powDiff > 0">+</span>{$powDiff}</td>
         </tr>
     </table>
-    {if $user->id != $victim->id}
+    {if $player->id != $victim->id}
         <a n:href="Assaults:detail, $victim->username" class="uk-button uk-button-primary uk-margin-bottom">Assault</a>
     {/if}
 </div>

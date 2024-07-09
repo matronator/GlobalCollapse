@@ -8,21 +8,23 @@ use App\Model\DrugsRepository;
 use DateTime;
 use Nette\Application\UI\Form;
 use ActionLocker;
+use App\Services\Darknet\DarknetResponse;
+use App\Services\Darknet\DarknetService;
 use Nette\Application\UI\Multiplier;
+use Nette\Database\Table\ActiveRow;
 use Timezones;
+use Tracy\Debugger;
 
 /////////////////////// FRONT: DEFAULT PRESENTER ///////////////////////
 
 final class CityPresenter extends GamePresenter
 {
-	private $drugsRepository;
-
 	public function __construct(
-		DrugsRepository $drugsRepository
+		private DrugsRepository $drugsRepository,
+		private DarknetService $darknetService,
 	)
 	{
 		parent::__construct();
-		$this->drugsRepository = $drugsRepository;
 	}
 
 	protected function startup()
@@ -53,6 +55,7 @@ final class CityPresenter extends GamePresenter
 		$offers = $this->drugsRepository->findAvailableOffers($player->player_stats->level)->where('vendor_offers.active', 1)->order('vendor_offers.drug_id');
 		$vendorOffers = [];
 		$sessionOffers = $this->session->getSection('darknetOffers');
+		$sessionOffers->remove();
 		foreach($offers as $offer) {
 			$timestamp = (string)time();
 			$bytes = random_bytes(5);
@@ -74,6 +77,15 @@ final class CityPresenter extends GamePresenter
 		} else {
 			$this->template->offerRefresh = false;
 		}
+	}
+
+	public function getMaxQuantity(ActiveRow $player, ActiveRow $offer)
+	{
+		$playerDrugs = $this->drugsRepository->findDrugInventory($player->id)->where('drugs_id', $offer->drug_id)->fetch();
+		if ($playerDrugs && $playerDrugs->quantity > $offer->quantity) {
+			return $playerDrugs->quantity;
+		}
+		return $offer->quantity;
 	}
 
 	public function actionRefreshOffer(string $hash)
@@ -152,14 +164,20 @@ final class CityPresenter extends GamePresenter
 	public function processOfferForm(Form $form, $values)
 	{
 		$control = $form->isSubmitted();
-		if ($control->name === 'offerBuy') {
-			$quantity = $values['offerInput'];
-			$hash = $values['offerId'];
-			$this->offerBuy($hash, $quantity);
-		} else if ($control->name === 'offerSell') {
-			$quantity = $values['offerInput'];
-			$hash = $values['offerId'];
-			$this->offerSell($hash, $quantity);
+		$quantity = $values['offerInput'];
+		$hash = $values['offerId'];
+
+		$response = match($control->name) {
+			'offerBuy' => $this->darknetService->offerBuy($this->user, $hash, $quantity),
+			'offerSell' => $this->darknetService->offerSell($this->user, $hash, $quantity),
+			default => new DarknetResponse('Something went wrong', 'danger'),
+		};
+
+		if ($response->redirect) {
+			$this->flashMessage($response->message, $response->type);
+			$this->redirect($response->redirect);
+		} else {
+			$this->flashMessage($response->message, $response->type);
 		}
 	}
 
@@ -189,73 +207,6 @@ final class CityPresenter extends GamePresenter
 				$this->template->timePassed = round($diff / 3600) . ' hour';
 			} else {
 				$this->template->timePassed = round($diff / 3600) . ' hours';
-			}
-		}
-	}
-
-	private function offerBuy(string $hash = null, int $quantity = null)
-	{
-		if ($hash == null || $quantity == null) {
-			$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
-			$this->redirect('City:darknet');
-		} else {
-			$sessionOffers = $this->session->getSection('darknetOffers');
-			$oldOfferId = $sessionOffers[$hash];
-			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$offer = $this->drugsRepository->findOffer($oldOfferId)->fetch();
-			if (is_object($offer)) {
-				if ($offer->active) {
-					if ($offer->quantity >= $quantity) {
-						$totalPrice = $this->drugsRepository->getOfferBuyPrice($offer, $quantity);
-						if ($player->money >= $totalPrice) {
-							$this->drugsRepository->offerBuy($offer->id, $player->id, $quantity);
-							$this->userRepository->addMoney($player->id, -$totalPrice);
-							$this->flashMessage($this->translate('general.messages.success.purchaseSuccessful'), 'success');
-						} else {
-							$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
-						}
-					} else {
-						$this->flashMessage($this->translate('general.messages.danger.orderBuyTooMany'), 'danger');
-					}
-				} else {
-					$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
-				}
-			} else {
-				$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
-			}
-		}
-	}
-
-	private function offerSell(string $hash = null, int $quantity = null)
-	{
-		if ($hash == null || $quantity == null) {
-			$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
-			$this->redirect('City:darknet');
-		} else {
-			$sessionOffers = $this->session->getSection('darknetOffers');
-			$oldOfferId = $sessionOffers[$hash];
-			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
-			$offer = $this->drugsRepository->findOffer($oldOfferId)->fetch();
-			if (is_object($offer)) {
-				if ($offer->active) {
-					$totalPrice = $this->drugsRepository->getOfferSellPrice($offer, $quantity);
-					if ($offer->vendor->money >= $totalPrice) {
-						$playerDrug = $this->drugsRepository->findUserDrug($player->id, $offer->drug_id)->fetch();
-						if ($playerDrug->quantity >= $quantity) {
-							$this->drugsRepository->offerSell($offer->id, $player, $quantity);
-							$this->userRepository->addMoney($player->id, $totalPrice);
-							$this->flashMessage($this->translate('general.messages.success.drugsSold'), 'success');
-						} else {
-							$this->flashMessage($this->translate('general.messages.danger.orderSellTooMany'), 'danger');
-						}
-					} else {
-						$this->flashMessage($this->translate('general.messages.danger.orderSellVendorLow'), 'danger');
-					}
-				} else {
-					$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
-				}
-			} else {
-				$this->flashMessage($this->translate('general.messages.danger.somethingFishy'), 'danger');
 			}
 		}
 	}

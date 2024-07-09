@@ -1,6 +1,6 @@
 /* third party */
 
-@import "../../../node_modules/uikit/dist/css/uikit.css";
+@import "uikit/uikit.css";
 
 @import "../../../node_modules/choices.js/public/assets/styles/choices.css";
 

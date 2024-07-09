@@ -21,8 +21,8 @@
                     <div class="market-buy-button">
                         <small class="market-item-price">${$price|number}</small>
                         {if $inventoryHasSpace}
-                            {if $user->player_stats->level >= $item->item->unlock_at}
-                                {if $user->money >= $price}
+                            {if $player->player_stats->level >= $item->item->unlock_at}
+                                {if $player->money >= $price}
                                     <button class="btn-buy uk-button uk-button-default uk-button-small" data-buy-item data-buy-id="{$item->item->id}" data-market-buy="{$item->id}"><span uk-icon="cart"></span> {_general.ui.buy}</button>
                                 {else}
                                     <button uk-tooltip="{_general.messages.danger.notEnoughMoney}" class="btn-buy uk-button uk-button-default uk-button-small uk-disabled"><span uk-icon="cart"></span> {_general.ui.buy}</button>

@@ -6,16 +6,16 @@
   <div class="uk-container-small uk-margin-auto">
     <div class="dashboard dashboard-assaults uk-flex" uk-margin>
       {include '../../components/Assault/AttackerCard.latte',
-        attacker => $user,
+        attacker => $player,
         victim => $otherPlayer
       }
       {include '../../components/Assault/VictimCard.latte',
         victim => $otherPlayer,
-        attacker => $user
+        attacker => $player
       }
       <div class="uk-card uk-width-1-1 uk-card-default uk-card-body uk-text-center" id="assaultControls">
         <a n:href="Player:leaderboard" class="uk-button uk-button-secondary"><span uk-icon="arrow-left"></span>{_general.ui.back}</a>
-        {if $user->id != $otherPlayer->id}
+        {if $player->id != $otherPlayer->id}
           <a n:href="Assaults:attack" class="uk-button uk-button-primary">Attack!</a>
         {/if}
       </div>

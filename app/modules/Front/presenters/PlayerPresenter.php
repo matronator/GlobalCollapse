@@ -83,7 +83,6 @@ final class PlayerPresenter extends BasePresenter
 			foreach ($ranked as $rankedPlayer) {
 				$data[] = $rankedPlayer;
 			}
-			$this->template->user = $player;
 			$this->template->data = $data;
 			$this->template->page = $page;
 			$this->template->itemsPerPage = 20;

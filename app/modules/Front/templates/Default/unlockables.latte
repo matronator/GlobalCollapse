@@ -12,7 +12,7 @@
       <p>{_general.unlockables.description}</p>
     </div>
     <div class="uk-text-center">
-      <h3>{$user->username}'s unlocked items</h3>
+      <h3>{$player->username}'s unlocked items</h3>
       <div class="uk-flex-around unlockable-grid uk-child-width-auto" uk-grid>
         <div n:foreach="$unlocked as $item">
           {include '../../components/Unlockables/UnlockedItem.latte',

@@ -48,6 +48,8 @@ messages:
 		cantRefreshOffer: "Can't refresh offer yet. Try again in %minutes% minutes."
 		itemLowLevel: "You need to be at least level %level% to buy this item."
 		noInventorySpace: "Your inventory is full."
+		drugsSoldWithRemainder: "Sold only %quantity% grams, because the vendor didn't have money for more."
+		purchaseWithRemainder: "You bought only %quantity% grams, because that's all the vendor had."
 	danger:
 		wrongCredentials: "Wrong password, username or e-mail"
 		notEnoughMoney: "Not enough money"
@@ -353,6 +355,7 @@ drugs:
 
 darknet:
 	postedBy: 'Posted by'
+	setMax: 'Set max'
 	inStock: 'In stock'
 	vendorMoney: "Vendor's money"
 	vendorFee: "Vendor's fee"

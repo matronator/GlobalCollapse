@@ -1,10 +1,82 @@
-/*! UIkit 3.16.15 | https://www.getuikit.com | (c) 2014 - 2023 YOOtheme | MIT License */
+/*! UIkit 3.21.6 | https://www.getuikit.com | (c) 2014 - 2024 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('uikit-util')) :
     typeof define === 'function' && define.amd ? define('uikitparallax', ['uikit-util'], factory) :
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.UIkitParallax = factory(global.UIkit.util));
 })(this, (function (uikitUtil) { 'use strict';
+
+    function callUpdate(instance, e = "update") {
+      if (!instance._connected) {
+        return;
+      }
+      if (!instance._updates.length) {
+        return;
+      }
+      if (!instance._queued) {
+        instance._queued = /* @__PURE__ */ new Set();
+        uikitUtil.fastdom.read(() => {
+          if (instance._connected) {
+            runUpdates(instance, instance._queued);
+          }
+          instance._queued = null;
+        });
+      }
+      instance._queued.add(e.type || e);
+    }
+    function runUpdates(instance, types) {
+      for (const { read, write, events = [] } of instance._updates) {
+        if (!types.has("update") && !events.some((type) => types.has(type))) {
+          continue;
+        }
+        let result;
+        if (read) {
+          result = read.call(instance, instance._data, types);
+          if (result && uikitUtil.isPlainObject(result)) {
+            uikitUtil.assign(instance._data, result);
+          }
+        }
+        if (write && result !== false) {
+          uikitUtil.fastdom.write(() => {
+            if (instance._connected) {
+              write.call(instance, instance._data, types);
+            }
+          });
+        }
+      }
+    }
+
+    function resize(options) {
+      return observe(uikitUtil.observeResize, options, "resize");
+    }
+    function viewport(options) {
+      return observe((target, handler) => uikitUtil.observeViewportResize(handler), options, "resize");
+    }
+    function scroll(options) {
+      return observe(
+        (target, handler) => ({
+          disconnect: uikitUtil.on(toScrollTargets(target), "scroll", handler, { passive: true })
+        }),
+        options,
+        "scroll"
+      );
+    }
+    function observe(observe2, options, emit) {
+      return {
+        observe: observe2,
+        handler() {
+          callUpdate(this, emit);
+        },
+        ...options
+      };
+    }
+    function toScrollTargets(elements) {
+      return uikitUtil.toNodes(elements).map((node) => {
+        const { ownerDocument } = node;
+        const parent2 = uikitUtil.scrollParent(node, true);
+        return parent2 === ownerDocument.scrollingElement ? ownerDocument : parent2;
+      });
+    }
 
     var Media = {
       props: {
@@ -37,7 +109,7 @@
     function toMedia(value, element) {
       if (uikitUtil.isString(value)) {
         if (uikitUtil.startsWith(value, "@")) {
-          value = uikitUtil.toFloat(uikitUtil.css(element, `--uk-breakpoint-${value.substr(1)}`));
+          value = uikitUtil.toFloat(uikitUtil.css(element, `--uk-breakpoint-${value.slice(1)}`));
         } else if (isNaN(value)) {
           return value;
         }
@@ -59,11 +131,11 @@
     function isWindow(obj) {
       return isObject(obj) && obj === obj.window;
     }
+    function isDocument(obj) {
+      return nodeType(obj) === 9;
+    }
     function isNode(obj) {
       return nodeType(obj) >= 1;
-    }
-    function isElement(obj) {
-      return nodeType(obj) === 1;
     }
     function nodeType(obj) {
       return !isWindow(obj) && isObject(obj) && obj.nodeType;
@@ -75,14 +147,14 @@
       return value === void 0;
     }
     function toNode(element) {
-      return toNodes(element)[0];
+      return element && toNodes(element)[0];
     }
     function toNodes(element) {
       return isNode(element) ? [element] : Array.from(element || []).filter(isNode);
     }
     function memoize(fn) {
       const cache = /* @__PURE__ */ Object.create(null);
-      return (key) => cache[key] || (cache[key] = fn(key));
+      return (key, ...args) => cache[key] || (cache[key] = fn(key, ...args));
     }
 
     function attr(element, name, value) {
@@ -112,6 +184,14 @@
       toNodes(element).forEach((element2) => element2.removeAttribute(name));
     }
 
+    const inBrowser = typeof window !== "undefined";
+
+    const isVisibleFn = inBrowser && Element.prototype.checkVisibility || function() {
+      return this.offsetWidth || this.offsetHeight || this.getClientRects().length;
+    };
+    function isVisible(element) {
+      return toNodes(element).some((element2) => isVisibleFn.call(element2));
+    }
     function parent(element) {
       var _a;
       return (_a = toNode(element)) == null ? void 0 : _a.parentElement;
@@ -121,9 +201,6 @@
     }
     function matches(element, selector) {
       return toNodes(element).some((element2) => element2.matches(selector));
-    }
-    function closest(element, selector) {
-      return isElement(element) ? element.closest(startsWith(selector, ">") ? selector.slice(1) : selector) : toNodes(element).map((element2) => closest(element2, selector)).filter(Boolean);
     }
     function children(element, selector) {
       element = toNode(element);
@@ -137,50 +214,84 @@
     function findAll(selector, context) {
       return toNodes(_query(selector, toNode(context), "querySelectorAll"));
     }
-    const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
-    const isContextSelector = memoize((selector) => selector.match(contextSelectorRe));
-    const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
-    const sanatize = memoize((selector) => selector.replace(contextSanitizeRe, "$1 *"));
+    const addStarRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
+    const splitSelectorRe = /.*?[^\\](?![^(]*\))(?:,|$)/g;
+    const trailingCommaRe = /\s*,$/;
+    const parseSelector = memoize((selector) => {
+      var _a;
+      selector = selector.replace(addStarRe, "$1 *");
+      let isContextSelector = false;
+      const selectors = [];
+      for (let sel of (_a = selector.match(splitSelectorRe)) != null ? _a : []) {
+        sel = sel.replace(trailingCommaRe, "").trim();
+        isContextSelector || (isContextSelector = ["!", "+", "~", "-", ">"].includes(sel[0]));
+        selectors.push(sel);
+      }
+      return {
+        selector: selectors.join(","),
+        selectors,
+        isContextSelector
+      };
+    });
+    const parsePositionSelector = memoize((selector) => {
+      selector = selector.slice(1).trim();
+      const index2 = selector.indexOf(" ");
+      return ~index2 ? [selector.slice(0, index2), selector.slice(index2 + 1)] : [selector, ""];
+    });
     function _query(selector, context = document, queryFn) {
       if (!selector || !isString(selector)) {
         return selector;
       }
-      selector = sanatize(selector);
-      if (isContextSelector(selector)) {
-        const split = splitSelector(selector);
-        selector = "";
-        for (let sel of split) {
-          let ctx = context;
-          if (sel[0] === "!") {
-            const selectors = sel.substr(1).trim().split(" ");
-            ctx = closest(parent(context), selectors[0]);
-            sel = selectors.slice(1).join(" ").trim();
-            if (!sel.length && split.length === 1) {
-              return ctx;
-            }
-          }
-          if (sel[0] === "-") {
-            const selectors = sel.substr(1).trim().split(" ");
-            const prev = (ctx || context).previousElementSibling;
-            ctx = matches(prev, sel.substr(1)) ? prev : null;
-            sel = selectors.slice(1).join(" ");
-          }
-          if (ctx) {
-            selector += `${selector ? "," : ""}${domPath(ctx)} ${sel}`;
+      const parsed = parseSelector(selector);
+      if (!parsed.isContextSelector) {
+        return _doQuery(context, queryFn, parsed.selector);
+      }
+      selector = "";
+      const isSingle = parsed.selectors.length === 1;
+      for (let sel of parsed.selectors) {
+        let positionSel;
+        let ctx = context;
+        if (sel[0] === "!") {
+          [positionSel, sel] = parsePositionSelector(sel);
+          ctx = context.parentElement.closest(positionSel);
+          if (!sel && isSingle) {
+            return ctx;
           }
         }
-        context = document;
+        if (ctx && sel[0] === "-") {
+          [positionSel, sel] = parsePositionSelector(sel);
+          ctx = ctx.previousElementSibling;
+          ctx = matches(ctx, positionSel) ? ctx : null;
+          if (!sel && isSingle) {
+            return ctx;
+          }
+        }
+        if (!ctx) {
+          continue;
+        }
+        if (isSingle) {
+          if (sel[0] === "~" || sel[0] === "+") {
+            sel = `:scope > :nth-child(${index(ctx) + 1}) ${sel}`;
+            ctx = ctx.parentElement;
+          } else if (sel[0] === ">") {
+            sel = `:scope ${sel}`;
+          }
+          return _doQuery(ctx, queryFn, sel);
+        }
+        selector += `${selector ? "," : ""}${domPath(ctx)} ${sel}`;
       }
+      if (!isDocument(context)) {
+        context = context.ownerDocument;
+      }
+      return _doQuery(context, queryFn, selector);
+    }
+    function _doQuery(context, queryFn, selector) {
       try {
         return context[queryFn](selector);
       } catch (e) {
         return null;
       }
     }
-    const selectorRe = /.*?[^\\](?:,|$)/g;
-    const splitSelector = memoize(
-      (selector) => selector.match(selectorRe).map((selector2) => selector2.replace(/,$/, "").trim())
-    );
     function domPath(element) {
       const names = [];
       while (element.parentNode) {
@@ -203,20 +314,15 @@
       return isString(css) ? CSS.escape(css) : "";
     }
 
-    const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
     const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
     function fragment(html2) {
       const matches = singleTagRe.exec(html2);
       if (matches) {
         return document.createElement(matches[1]);
       }
-      const container = document.createElement("div");
-      if (fragmentRe.test(html2)) {
-        container.insertAdjacentHTML("beforeend", html2.trim());
-      } else {
-        container.textContent = html2;
-      }
-      return unwrapSingle(container.childNodes);
+      const container = document.createElement("template");
+      container.innerHTML = html2.trim();
+      return unwrapSingle(container.content.childNodes);
     }
     function unwrapSingle(nodes) {
       return nodes.length > 1 ? nodes : nodes[0];
@@ -229,18 +335,12 @@
     }
 
     function getMaxPathLength(el) {
-      return Math.ceil(
-        Math.max(
-          0,
-          ...$$("[stroke]", el).map((stroke) => {
-            try {
-              return stroke.getTotalLength();
-            } catch (e) {
-              return 0;
-            }
-          })
-        )
-      );
+      return isVisible(el) ? Math.ceil(
+        Math.max(0, ...$$("[stroke]", el).map((stroke) => {
+          var _a;
+          return ((_a = stroke.getTotalLength) == null ? void 0 : _a.call(stroke)) || 0;
+        }))
+      ) : 0;
     }
 
     const props = {
@@ -295,11 +395,11 @@
           }
         },
         getCss(percent) {
-          const css2 = { transform: "", filter: "" };
+          const css2 = {};
           for (const prop in this.props) {
             this.props[prop](css2, uikitUtil.clamp(percent));
           }
-          css2.willChange = Object.keys(css2).filter((key) => css2[key] !== "").map(uikitUtil.propName).join(",");
+          css2.willChange = Object.keys(css2).map(uikitUtil.propName).join(",");
           return css2;
         }
       }
@@ -312,14 +412,17 @@
         transformFn2 = (stop) => uikitUtil.toFloat(uikitUtil.toFloat(stop).toFixed(unit === "px" ? 0 : 6));
       } else if (prop === "scale") {
         unit = "";
-        transformFn2 = (stop) => getUnit([stop]) ? uikitUtil.toPx(stop, "width", el, true) / el.offsetWidth : stop;
+        transformFn2 = (stop) => {
+          var _a;
+          return getUnit([stop]) ? uikitUtil.toPx(stop, "width", el, true) / el[`offset${((_a = stop.endsWith) == null ? void 0 : _a.call(stop, "vh")) ? "Height" : "Width"}`] : uikitUtil.toFloat(stop);
+        };
       }
       if (stops.length === 1) {
         stops.unshift(prop === "scale" ? 1 : 0);
       }
       stops = parseStops(stops, transformFn2);
       return (css2, percent) => {
-        css2.transform += ` ${prop}(${getValue(stops, percent)}${unit})`;
+        css2.transform = `${css2.transform || ""} ${prop}(${getValue(stops, percent)}${unit})`;
       };
     }
     function colorFn(prop, el, stops) {
@@ -348,7 +451,7 @@
       stops = parseStops(stops);
       return (css2, percent) => {
         const value = getValue(stops, percent);
-        css2.filter += ` ${prop}(${value + unit})`;
+        css2.filter = `${css2.filter || ""} ${prop}(${value + unit})`;
       };
     }
     function cssPropFn(prop, el, stops) {
@@ -431,16 +534,17 @@
       };
     }
     function getBackgroundPos(el, prop) {
-      return getCssValue(el, `background-position-${prop.substr(-1)}`, "");
+      return getCssValue(el, `background-position-${prop.slice(-1)}`, "");
     }
     function setBackgroundPosFn(bgProps, positions, props2) {
       return function(css2, percent) {
         for (const prop of bgProps) {
           const value = getValue(props2[prop], percent);
-          css2[`background-position-${prop.substr(-1)}`] = `calc(${positions[prop]} + ${value}px)`;
+          css2[`background-position-${prop.slice(-1)}`] = `calc(${positions[prop]} + ${value}px)`;
         }
       };
     }
+    const loading = {};
     const dimensions = {};
     function getBackgroundImageDimensions(el) {
       const src = uikitUtil.css(el, "backgroundImage").replace(/^none|url\(["']?(.+?)["']?\)$/, "$1");
@@ -450,11 +554,12 @@
       const image = new Image();
       if (src) {
         image.src = src;
-        if (!image.naturalWidth) {
-          image.onload = () => {
+        if (!image.naturalWidth && !loading[src]) {
+          uikitUtil.once(image, "error load", () => {
             dimensions[src] = toDimensions(image);
             uikitUtil.trigger(el, uikitUtil.createEvent("load", false));
-          };
+          });
+          loading[src] = true;
           return toDimensions(image);
         }
       }
@@ -512,9 +617,9 @@
     }
     function getValue(stops, percent) {
       const [start, end, p] = getStop(stops, percent);
-      return uikitUtil.isNumber(start) ? start + Math.abs(start - end) * p * (start < end ? 1 : -1) : +end;
+      return start + Math.abs(start - end) * p * (start < end ? 1 : -1);
     }
-    const unitRe = /^-?\d+(\S+)?/;
+    const unitRe = /^-?\d+(?:\.\d+)?(\S+)?/;
     function getUnit(stops, defaultUnit) {
       var _a;
       for (const stop of stops) {
@@ -537,35 +642,8 @@
         return data;
       }, {});
     }
-
-    function resize(options) {
-      return observe(uikitUtil.observeResize, options, "resize");
-    }
-    function scroll(options) {
-      return observe(
-        function(target, handler) {
-          return {
-            disconnect: uikitUtil.on(target, "scroll", handler, {
-              passive: true,
-              capture: true
-            })
-          };
-        },
-        {
-          target: () => window,
-          ...options
-        },
-        "scroll"
-      );
-    }
-    function observe(observe2, options, emit) {
-      return {
-        observe: observe2,
-        handler() {
-          this.$emit(emit);
-        },
-        ...options
-      };
+    function ease(percent, easing) {
+      return easing >= 0 ? Math.pow(percent, easing + 1) : 1 - Math.pow(1 - percent, 1 - easing);
     }
 
     var Component = {
@@ -586,15 +664,13 @@
         end: 0
       },
       computed: {
-        target({ target }, $el) {
-          return getOffsetElement(target && uikitUtil.query(target, $el) || $el);
-        },
+        target: ({ target }, $el) => getOffsetElement(target && uikitUtil.query(target, $el) || $el),
         start({ start }) {
           return uikitUtil.toPx(start, "height", this.target, true);
         },
-        end({ end, viewport }) {
+        end({ end, viewport: viewport2 }) {
           return uikitUtil.toPx(
-            end || (viewport = (1 - viewport) * 100) && `${viewport}vh+${viewport}%`,
+            end || (viewport2 = (1 - viewport2) * 100) && `${viewport2}vh+${viewport2}%`,
             "height",
             this.target,
             true
@@ -602,10 +678,9 @@
         }
       },
       observe: [
-        resize({
-          target: ({ $el, target }) => [$el, target]
-        }),
-        scroll()
+        viewport(),
+        scroll({ target: ({ target }) => target }),
+        resize({ target: ({ $el, target }) => [$el, target, uikitUtil.scrollParent(target, true)] })
       ],
       update: {
         read({ percent }, types) {
@@ -635,9 +710,6 @@
         events: ["scroll", "resize"]
       }
     };
-    function ease(percent, easing) {
-      return easing >= 0 ? Math.pow(percent, easing + 1) : 1 - Math.pow(1 - percent, 1 - easing);
-    }
     function getOffsetElement(el) {
       return el ? "offsetTop" in el ? el : getOffsetElement(uikitUtil.parent(el)) : document.documentElement;
     }

@@ -24,14 +24,14 @@
   <div class="dashboard uk-flex uk-flex-top" n:if="$presenter->user->isLoggedIn()" uk-margin>
     <div class="uk-width-expand">
       <div class="uk-card uk-width-1-1 uk-card-default uk-card-body">
-        <h3 class="uk-card-title">{$user->username}&nbsp;<small class="uk-text-muted uk-text-light">L{$user->player_stats->level}</small></h3>
+        <h3 class="uk-card-title">{$player->username}&nbsp;<small class="uk-text-muted uk-text-light">L{$player->player_stats->level}</small></h3>
         <div class="uk-flex uk-flex-top">
           <div class="uk-width-auto uk-margin-right">
             <a href="#change-avatar" uk-toggle="target: #change-avatar;">
               <div class="uk-inline uk-position-relative player-avatar">
-                <div class="{if $user->tier > 1}premium-border tier-{$user->tier}{/if}">
-                    <img n:if="$user->tier <= 2" src="{$basePath}/dist/front/images/default-avatars/{$user->avatar}" class="uk-comment-avatar" width="96" height="96">
-                    <div n:if="$user->tier > 2" style="background-image: url('{$basePath}/dist/front/images/default-avatars/{$user->avatar}');" class="uk-comment-avatar immune-avatar"></div>
+                <div class="{if $player->tier > 1}premium-border tier-{$player->tier}{/if}">
+                    <img n:if="$player->tier <= 2" src="{$basePath}/dist/front/images/default-avatars/{$player->avatar}" class="uk-comment-avatar" width="96" height="96">
+                    <div n:if="$player->tier > 2" style="background-image: url('{$basePath}/dist/front/images/default-avatars/{$player->avatar}');" class="uk-comment-avatar immune-avatar"></div>
                 </div>
                 <div class="uk-overlay uk-overlay-primary uk-position-center" id="avatarChange">
                   <p class="text-tiny">{_general.ui.changeAvatar}</p>
@@ -42,11 +42,11 @@
           <div class="uk-width-expand uk-flex uk-flex-column">
             <div class="uk-width-expand uk-flex uk-padding-tiny uk-child-width-1-2@s uk-text-center border-bottom" uk-tooltip="Maximum a player can have is $999,999,999">
               <div class="uk-text-left@s uk-text-bold uk-width-auto uk-width-1-2@s">{_general.stats.money}</div>
-              <div class="uk-text-right uk-width-expand uk-width-1-2@s">${$user->money|number}</div>
+              <div class="uk-text-right uk-width-expand uk-width-1-2@s">${$player->money|number}</div>
             </div>
             <div class="uk-width-expand uk-flex uk-flex-row uk-padding-tiny uk-child-width-1-2 border-bottom">
               <div class="uk-text-left uk-text-bold">{_general.stats.power.title}</div>
-              <div class="uk-text-right">{$user->player_stats->power + $gearPower}</div>
+              <div class="uk-text-right">{$player->player_stats->power + $gearPower}</div>
             </div>
           </div>
         </div>
@@ -61,8 +61,8 @@
         <div class="uk-width-expand">
           {include '../../components/UI/ProgressBar/ProgressBar.latte',
             min: 0,
-            max: $user->player_stats->energy_max + $gearStats->energy_max,
-            value: $user->player_stats->energy,
+            max: $player->player_stats->energy_max + $gearStats->energy_max,
+            value: $player->player_stats->energy,
             type: 'yellow',
             name: 'energyBar',
             small: true

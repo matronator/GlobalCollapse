@@ -24,7 +24,7 @@
                 <td class="uk-text-nowrap uk-text-middle">
                   <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar uk-hidden@s" width="24" height="24">
                   <img src="{$basePath}/dist/front/images/default-avatars/{$otherUser->avatar}" class="uk-comment-avatar uk-visible@s" width="48" height="48">
-                  {if $otherUser->username != $user->username}
+                  {if $otherUser->username != $player->username}
                     <a n:href="Player:detail, $otherUser->username" class="uk-text-middle">
                       {$otherUser->username}
                       {if $otherUser->tier === 2}
@@ -36,7 +36,7 @@
                     </a>
                   {else}
                     <span class="uk-text-middle">
-                      {$user->username}
+                      {$player->username}
                       {if $otherUser->tier === 2}
                         <img src="{$basePath}/dist/front/images/premium/star2.png" class="premium-star survivor" alt="Survivor">
                       {/if}

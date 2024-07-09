@@ -14,7 +14,7 @@
       </tr>
       <tr class="border-bottom">
         <td>XP</td>
-        <td>+ {$xp * $presenter->getUserGearStats($user->id)->xp_boost|number}</td>
+        <td>+ {$xp * $presenter->getUserGearStats($player->id)->xp_boost|number}</td>
       </tr>
     </table>
     <a n:href="Bar:newjobs, $newJobsHash" class="uk-button uk-button-primary uk-button-large">{_general.ui.continue}</a>

@@ -8,7 +8,7 @@
 {capture $unlocksAt}
     {switch $item->type}
         {case 'land_level'}Land level {var $progress = $landLevel}
-        {case 'level'}Level {var $progress = $user->player_stats->level}
+        {case 'level'}Level {var $progress = $player->player_stats->level}
         {case 'building_count'}Buildings {var $progress = $buildingCount}
         {case 'attacks_count'}Total Attacks {var $progress = $assaults->total_attacks}
     {/switch}
