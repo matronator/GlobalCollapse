@@ -53,7 +53,8 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
         if ($this->isAjax()) {
 			$this->redrawControl('wrapper');
 		}
-        $this->template->user = (object) $this->user->getIdentity()->data;
+        $this->template->user = $this->user;
+        $this->template->player = (object) $this->user->getIdentity()->data;
         $this->template->navItems = [
             (object) [
                 'presenter' => 'Article',
