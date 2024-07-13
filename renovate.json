@@ -1,6 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>matronator/renovate-config"
-  ]
+    "config:best-practices",
+    ":pinOnlyDevDependencies",
+    ":ignoreModulesAndTests",
+    ":preserveSemverRanges",
+    "schedule:monthly"
+  ],
+  "labels": ["class: dependencies", "renovate"],
+  "lockFileMaintenance": {
+    "commitMessageAction": "Update",
+    "extends": [
+      "group:all"
+    ]
+  },
+  "separateMajorMinor": false,
+  "autoApprove": true,
+  "automerge": true,
+  "pruneBranchAfterAutomerge": true,
+  "automergeType": "branch"
 }
