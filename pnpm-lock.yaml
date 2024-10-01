@@ -70,8 +70,8 @@ importers:
         specifier: ^0.19.1
         version: 0.19.1
       autoprefixer:
-        specifier: ^9.8.8
-        version: 9.8.8
+        specifier: ^10.0.0
+        version: 10.4.20(postcss@8.4.25)
       babelify:
         specifier: ^10.0.0
         version: 10.0.0(@babel/core@7.18.2)
@@ -1487,9 +1487,12 @@ packages:
     engines: {node: '>= 4.5.0'}
     hasBin: true
 
-  autoprefixer@9.8.8:
-    resolution: {integrity: sha512-eM9d/swFopRt5gdJ7jrpCwgvEMIayITpojhkkSMRsFHYuH5bkSQ4p/9qTEHtmNudUZh22Tehu7I6CxAW0IXTKA==}
+  autoprefixer@10.4.20:
+    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
+    engines: {node: ^10 || ^12 || >=14}
     hasBin: true
+    peerDependencies:
+      postcss: ^8.1.0
 
   aws-sign2@0.7.0:
     resolution: {integrity: sha512-08kcGqnYf/YmjoRhfxyu+CLxBjUtHLXLXX/vUfx9l2LYzG3c1m61nrpyFUZI6zeS+Li/wWMMidD9KgrqtGq3mA==}
@@ -1673,6 +1676,11 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
+  browserslist@4.24.0:
+    resolution: {integrity: sha512-Rmb62sR1Zpjql25eSanFGEhAxcFwfA1K0GuQcLoaJBAcENegrQut3hYdhXFF1obQfiDyqIW/cLM5HSJ/9k884A==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+
   bs-recipes@1.3.4:
     resolution: {integrity: sha512-BXvDkqhDNxXEjeGM8LFkSbR+jzmP/CYpCiVKYn+soB1dDldeU15EBNDkwVXndKuX35wnNUaPd0qSoQEAkmQtMw==}
 
@@ -1791,6 +1799,9 @@ packages:
 
   caniuse-lite@1.0.30001640:
     resolution: {integrity: sha512-lA4VMpW0PSUrFnkmVuEKBUovSWKhj7puyCg8StBChgu298N1AtuF1sKWEvfDuimSEDbhlb/KqPKC3fs1HbuQUA==}
+
+  caniuse-lite@1.0.30001664:
+    resolution: {integrity: sha512-AmE7k4dXiNKQipgn7a2xg558IRqPN3jMQY/rOsbxDhrd0tyChwbITBfiwtnqz8bi2M5mIWbxAYBvk7W7QBUS2g==}
 
   canonicalize@1.0.8:
     resolution: {integrity: sha512-0CNTVCLZggSh7bc5VkX5WWPWO+cyZbNd07IHIsSXLia/eAq+r836hgk+8BKoEh7949Mda87VUOitx5OddVj64A==}
@@ -2485,6 +2496,9 @@ packages:
   electron-to-chromium@1.4.141:
     resolution: {integrity: sha512-mfBcbqc0qc6RlxrsIgLG2wCqkiPAjEezHxGTu7p3dHHFOurH4EjS9rFZndX5axC8264rI1Pcbw8uQP39oZckeA==}
 
+  electron-to-chromium@1.5.30:
+    resolution: {integrity: sha512-sXI35EBN4lYxzc/pIGorlymYNzDBOqkSlVRe6MkgBsW/hW1tpC/HDJ2fjG7XnjakzfLEuvdmux0Mjs6jHq4UOA==}
+
   elliptic@6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
 
@@ -2570,6 +2584,10 @@ packages:
 
   escalade@3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
+    engines: {node: '>=6'}
+
+  escalade@3.2.0:
+    resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
     engines: {node: '>=6'}
 
   escape-html@1.0.3:
@@ -2953,6 +2971,9 @@ packages:
     resolution: {integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==}
     engines: {node: '>= 0.12'}
 
+  fraction.js@4.3.7:
+    resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
+
   fragment-cache@0.2.1:
     resolution: {integrity: sha512-GMBAbW9antB8iZRHLoGw0b3HANt57diZYFO/HL1JGIC1MjKrdmhxvrJbupnVvpys0zsz7yBApXdQyfepKly2kA==}
     engines: {node: '>=0.10.0'}
@@ -2996,7 +3017,7 @@ packages:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
     os: [darwin]
-    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
+    deprecated: Upgrade to fsevents v2 to mitigate potential security issues
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -4494,6 +4515,9 @@ packages:
     engines: {node: ^12.13 || ^14.13 || >=16}
     hasBin: true
 
+  node-releases@2.0.18:
+    resolution: {integrity: sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==}
+
   node-releases@2.0.5:
     resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==}
 
@@ -4587,9 +4611,6 @@ packages:
 
   nth-check@1.0.2:
     resolution: {integrity: sha512-WeBOdju8SnzPN5vTUJYxYUxLeXpCaVP5i5e0LF8fg7WORF2Wd7wFX/pk0tYZk7s8T+J7VLy0Da6J1+wCT0AtHg==}
-
-  num2fraction@1.2.2:
-    resolution: {integrity: sha512-Y1wZESM7VUThYY+4W+X4ySH2maqcA+p7UR+w8VWNWVAd6lwuXXWz/w/Cz43J/dI2I+PS6wD5N+bJUF+gjWvIqg==}
 
   number-is-nan@1.0.1:
     resolution: {integrity: sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==}
@@ -4924,6 +4945,9 @@ packages:
 
   picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
+
+  picocolors@1.1.0:
+    resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
 
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -6427,6 +6451,12 @@ packages:
   upath@1.2.0:
     resolution: {integrity: sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==}
     engines: {node: '>=4'}
+
+  update-browserslist-db@1.1.1:
+    resolution: {integrity: sha512-R8UzCaa9Az+38REPiJ1tXlImTJXlVfgHZsglwBD/k6nj76ctsH1E3q4doGrukiLQd3sGQYu56r5+lo5r94l29A==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
 
   update-notifier@2.5.0:
     resolution: {integrity: sha512-gwMdhgJHGuj/+wHJJs9e6PcCszpxR1b236igrOkUofGhqJuG+amlIKwApH1IW1WWl7ovZxsX49lMBWLxSdm5Dw==}
@@ -8518,14 +8548,14 @@ snapshots:
 
   atob@2.1.2: {}
 
-  autoprefixer@9.8.8:
+  autoprefixer@10.4.20(postcss@8.4.25):
     dependencies:
-      browserslist: 4.20.3
-      caniuse-lite: 1.0.30001640
+      browserslist: 4.24.0
+      caniuse-lite: 1.0.30001664
+      fraction.js: 4.3.7
       normalize-range: 0.1.2
-      num2fraction: 1.2.2
-      picocolors: 0.2.1
-      postcss: 7.0.39
+      picocolors: 1.1.0
+      postcss: 8.4.25
       postcss-value-parser: 4.2.0
 
   aws-sign2@0.7.0: {}
@@ -8884,6 +8914,13 @@ snapshots:
       node-releases: 2.0.5
       picocolors: 1.0.0
 
+  browserslist@4.24.0:
+    dependencies:
+      caniuse-lite: 1.0.30001664
+      electron-to-chromium: 1.5.30
+      node-releases: 2.0.18
+      update-browserslist-db: 1.1.1(browserslist@4.24.0)
+
   bs-recipes@1.3.4: {}
 
   bs-snippet-injector@2.0.1: {}
@@ -9038,6 +9075,8 @@ snapshots:
       lodash.uniq: 4.5.0
 
   caniuse-lite@1.0.30001640: {}
+
+  caniuse-lite@1.0.30001664: {}
 
   canonicalize@1.0.8: {}
 
@@ -9928,6 +9967,8 @@ snapshots:
 
   electron-to-chromium@1.4.141: {}
 
+  electron-to-chromium@1.5.30: {}
+
   elliptic@6.5.4:
     dependencies:
       bn.js: 4.12.0
@@ -10063,6 +10104,8 @@ snapshots:
       es6-symbol: 3.1.3
 
   escalade@3.1.1: {}
+
+  escalade@3.2.0: {}
 
   escape-html@1.0.3: {}
 
@@ -10548,6 +10591,8 @@ snapshots:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+
+  fraction.js@4.3.7: {}
 
   fragment-cache@0.2.1:
     dependencies:
@@ -12374,6 +12419,8 @@ snapshots:
       - bluebird
       - supports-color
 
+  node-releases@2.0.18: {}
+
   node-releases@2.0.5: {}
 
   nopt@6.0.0:
@@ -12489,8 +12536,6 @@ snapshots:
   nth-check@1.0.2:
     dependencies:
       boolbase: 1.0.0
-
-  num2fraction@1.2.2: {}
 
   number-is-nan@1.0.1: {}
 
@@ -12848,6 +12893,8 @@ snapshots:
   picocolors@0.2.1: {}
 
   picocolors@1.0.0: {}
+
+  picocolors@1.1.0: {}
 
   picomatch@2.3.1: {}
 
@@ -14582,6 +14629,12 @@ snapshots:
   unzip-response@2.0.1: {}
 
   upath@1.2.0: {}
+
+  update-browserslist-db@1.1.1(browserslist@4.24.0):
+    dependencies:
+      browserslist: 4.24.0
+      escalade: 3.2.0
+      picocolors: 1.1.0
 
   update-notifier@2.5.0:
     dependencies:
