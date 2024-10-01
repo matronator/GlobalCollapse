@@ -36,7 +36,7 @@
     "autoprefixer": "^9.8.8",
     "babelify": "^10.0.0",
     "browser-sync": "^2.27.10",
-    "browserify": "^16.5.2",
+    "browserify": "^17.0.0",
     "cssnano": "^4.1.11",
     "del": "^5.1.0",
     "dotenv": "^8.6.0",
