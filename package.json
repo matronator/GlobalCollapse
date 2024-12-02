@@ -360,7 +360,7 @@
     "@ckeditor/ckeditor5-ckfinder": "^43.0.0",
     "axette": "^2.0.7",
     "chart.js": "^4.3.0",
-    "choices.js": "^9.1.0",
+    "choices.js": "^11.0.0",
     "clipboard": "^2.0.11",
     "core-js": "^3.22.7",
     "easytimer.js": "^4.5.3",
