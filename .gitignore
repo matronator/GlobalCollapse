@@ -17,3 +17,4 @@ libs/VoteRewards.php
 .DS_Store
 libs/Env.php
 app/config/*.local.neon
+www/ads.txt

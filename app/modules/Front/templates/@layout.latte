@@ -8,7 +8,9 @@
     <meta name="keywords" content="coronavirus,game,pbbg,browser game,php game,covid-19,covid19,mmorpg,pandemic,mmo,browser based games,covid game">
     <meta name="copyright" content="© {= new \DateTime('Y')|date:'Y'}">
     <meta name="robots" content="index,follow">
-    <meta name="author" content="Matronator; https://matronator.com">
+    <meta name="author" content="Matronator; https://matronator.cz">
+
+    <meta name="adbytes-site-verification" content="4c076ff94ae601abddf959b2516361afb3073abc6ac34dda616b359903f8f3a6" />
 
     <title>{ifset #pageTitle}{include #pageTitle|striptags} | {/ifset}Global Collapse: Pandemic</title>
 
@@ -115,6 +117,15 @@
                 <div class="uk-padding uk-padding-remove-horizontal uk-padding-remove-top" id="content">
                     {include pageContent}
                 </div>
+                <div class="uk-text-center uk-flex uk-flex-column uk-flex-middle uk-text-center uk-margin-auto">
+                    {* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3050517829813934" crossorigin="anonymous"></script>
+                    <!-- gcp-bottom-ad -->
+                    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-3050517829813934" data-ad-slot="9121480039"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script> *}
+                    <div class="adbytes-display-ad" data-adspace-id="3204DAEF3F"></div>
+                </div>
                 {include '../components/UI/Footer/Footer.latte'}
             </main>
 
@@ -157,6 +168,7 @@
                     {/ifset}
                 {/ifset}
             {/if}
+            <script type="text/javascript" src="https://adbytes.media/js/show_ads.js"></script>
             {ifset scripts}{include scripts}{/ifset}
         {/snippet}
 
