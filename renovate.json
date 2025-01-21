@@ -18,5 +18,8 @@
   "autoApprove": true,
   "automerge": true,
   "pruneBranchAfterAutomerge": true,
-  "automergeType": "branch"
+  "automergeType": "branch",
+  "ignoreDeps": [
+    "del"
+  ]
 }
