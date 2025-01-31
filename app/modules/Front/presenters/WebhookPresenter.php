@@ -8,9 +8,11 @@ use App\Model\StripeOrdersRepository;
 use App\Services\PaddleService;
 use App\Services\StripeService;
 use Exception;
+use Logger;
 use Nette\Utils\DateTime;
 use Stripe\Checkout\Session;
 use Stripe\Customer;
+use Stripe\Event;
 use Stripe\PaymentIntent;
 use Stripe\Price;
 use Stripe\Subscription;
@@ -41,6 +43,15 @@ final class WebhookPresenter extends BasePresenter
         $this->setLayout(false);
     }
 
+    public function actionCSPReport()
+    {
+        $payload = file_get_contents('php://input');
+        Debugger::log($payload, Logger::CSP);
+
+        http_response_code(200);
+        die;
+    }
+
     public function actionDefault()
     {
         $payload = file_get_contents('php://input');
@@ -49,9 +60,9 @@ final class WebhookPresenter extends BasePresenter
 
         try {
             $event = Webhook::constructEvent($payload, $sigHeader, $this->stripeService->webhookSecret);
-            Debugger::log($payload, 'stripe');
+            Debugger::log($payload, Logger::STRIPE);
         } catch (Exception $exception) {
-            Debugger::log($exception->getMessage(), ILogger::ERROR);
+            Debugger::log($exception->getMessage(), ILogger::EXCEPTION);
         }
 
         switch ($event->type) {
@@ -106,7 +117,7 @@ final class WebhookPresenter extends BasePresenter
                         'stripe_subscription_id' => null,
                         'tier' => 1,
                         'stripe_subscription_start_date' => null,
-                        'stripe_subscription_end_date' => null,
+                        'stripe_subscription_end_date' => new DateTime(),
                     ]);
                 }
                 break;
@@ -134,7 +145,7 @@ final class WebhookPresenter extends BasePresenter
             case 'invoice.paid':
             case 'invoice.payment_failed':
             default:
-                Debugger::log('Received unknown event type: ' . $event->type, 'stripe-unknown');
+                Debugger::log('Received unknown event type: ' . $event->type, Logger::STRIPE);
                 break;
         }
 
@@ -148,7 +159,7 @@ final class WebhookPresenter extends BasePresenter
         $payload = $this->getHttpRequest()->getRawBody();
     }
 
-    private function checkoutSessionCompleted($event)
+    private function checkoutSessionCompleted(Event $event)
     {
         $session = Session::retrieve($event->data->object->id, ['expand' => ['line_items', 'customer', 'subscription']]);
         $customer = Customer::retrieve($session->customer);
@@ -158,7 +169,7 @@ final class WebhookPresenter extends BasePresenter
         if (!$user) {
             $user = $this->userRepository->getUserByEmail($email);
             if (!$user) {
-                Debugger::log('User not found: ' . $email, ILogger::ERROR);
+                Debugger::log('User not found: ' . $email, Logger::STRIPE);
                 http_response_code(200);
                 die;
             }

@@ -28,7 +28,7 @@
   },
   "keywords": [],
   "author": "Matronator",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",

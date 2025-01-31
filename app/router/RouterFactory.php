@@ -28,6 +28,7 @@ class RouterFactory
 
 		/////////////////////// FRONT ROUTES ///////////////////////
 		$router->withModule('Front')
+			// Sitemap
 			->addRoute('sitemap.xml', 'Sitemap:default')
 			->addRoute('sitemap', 'Sitemap:default')
 			// EN
@@ -53,7 +54,6 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru>/]assaults', 'Assaults:default')
 			->addRoute('[<locale=en en|ru>/]assaults/detail/<user>', 'Assaults:detail')
 			->addRoute('[<locale=en en|ru>/]assaults/assault/<match>', 'Assaults:assault')
-
 			// CZ
 			->addRoute('[<locale=cs cs>/]novinky[/<page>]', 'Info:news')
 			->addRoute('[<locale=cs cs>/]novinky/post/<htaccess>', 'Info:post')
@@ -75,19 +75,18 @@ class RouterFactory
 			->addRoute('[<locale=cs cs>/]prepadeni', 'Assaults:default')
 			->addRoute('[<locale=cs cs>/]prepadeni/detail/<user>', 'Assaults:detail')
 			->addRoute('[<locale=cs cs>/]prepadeni/souboj/<match>', 'Assaults:assault')
-
             // API
             // Charts
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/money-sources[/<username>]', 'Statistics:getMoneySourceChartData')
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/time-spent[/<username>]', 'Statistics:getTimeSpentData')
 			->addRoute('[<locale=en en|ru|cs>/]statistics/charts/activities[/<username>]', 'Statistics:getActivitiesCountData')
-
 			// Webhooks
 			->addRoute('webhook/stripe', 'Webhook:default')
 			->addRoute('webhook/paddle', 'Webhook:paddle')
-
+			// CSP Report
+			->addRoute('csp-reports', 'Webhook:CSPReport')
+			// Default
 			->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default') //most general route
-
 		// APIs
 		->addRoute('api/job', 'Api:job')
 
