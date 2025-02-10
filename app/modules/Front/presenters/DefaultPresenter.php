@@ -78,7 +78,7 @@ final class DefaultPresenter extends BasePresenter
 			for ($i = 1; $i <= 21; $i++) {
 				$avatars[$i] = $i;
 			}
-			$articles = $this->articleModel->findAll()->select('*')->order('date DESC')->limit(2);
+			$articles = $this->articleModel->findAll()->select('*')->order('date DESC')->limit(3);
 			$lastPage = 0;
 			$data = [];
 			foreach ($articles as $article) {

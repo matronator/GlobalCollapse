@@ -2,12 +2,15 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+
   &.newsfeed-wrapper-shadow {
     box-shadow: none;
   }
+
   &>:not(.newsfeed-compact) {
     padding: 15px 10px;
   }
+
   &.newsfeed-wrapper-shadow::after {
     content: "";
     position: absolute;
@@ -24,6 +27,7 @@
     pointer-events: none;
     transition: all 300ms ease-in-out;
   }
+
   &.newsfeed-wrapper-shadow:hover::after {
     content: "";
     transform: scale(0.8);
@@ -38,6 +42,7 @@
   position: relative;
   height: 310px;
   overflow-y: auto;
+
   & .newsfeed-article {
     padding: 20px;
     border-bottom: 1px solid var(--c-light-2);

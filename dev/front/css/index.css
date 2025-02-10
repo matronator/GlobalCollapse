@@ -1,49 +1,33 @@
 /* third party */
 
 @import "uikit/uikit.css";
-
 @import "../../../node_modules/choices.js/public/assets/styles/choices.css";
-
 @import "../../../node_modules/flatpickr/dist/flatpickr.css";
-
 @import "../../../node_modules/tippy.js/animations/perspective-extreme.css";
-
 @import "sanitize.css";
 
 /* Common styles */
 
 @import "common/variables.css";
+@import "common/google.css";
 
 /* @import "common/mixins.css"; */
 
 @import "common/buttons.css";
-
-@import "common/buttons.css";
-
 @import "common/card.css";
-
 @import "common/footer.css";
-
 @import "common/flash.css";
-
 @import "common/header.css";
-
 @import "common/general.css";
-
 @import "common/sidebar.css";
 
 /* Section specific styles */
 
 @import "sections/intro.css";
-
 @import "sections/job.css";
-
 @import "sections/info.css";
-
 @import "sections/pvp.css";
-
 @import "sections/lands.css";
-
 @import "sections/darknet.css";
 
 /* @import 'sections/homepage.css'; */

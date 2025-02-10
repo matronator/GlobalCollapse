@@ -86,10 +86,22 @@
         {include '../../components/UI/NewsFeed/NewsFeed.latte', data: $articles, compact: true}
       </div>
     </div>
-    <div class="uk-card uk-width-1-3@s uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
-      {include '../../components/Leaderboard/Leaderboard.latte', users: $users, page: $page, lastPage: $lastPage, itemsPerPage: $itemsPerPage}
-      <div class="uk-text-center">
-        <a n:href="Player:leaderboard">{_general.pvp.allPlayers}</a>
+    <div class="uk-flex uk-flex-column uk-width-1-3@s">
+      <div class="uk-card uk-card-default uk-card-body uk-padding-remove-horizontal uk-padding-small uk-padding-remove-top">
+        {include '../../components/Leaderboard/Leaderboard.latte', users: $users, page: $page, lastPage: $lastPage, itemsPerPage: $itemsPerPage}
+        <div class="uk-text-center">
+          <a n:href="Player:leaderboard">{_general.pvp.allPlayers}</a>
+        </div>
+      </div>
+      <div class="uk-card uk-card-default uk-card-body uk-margin-top uk-padding-remove">
+        <div class="uk-text-center uk-width-expand uk-margin-auto uk-visible@s">
+          {* <div class="adbytes-display-ad" data-adspace-id="8D6CF5D8BC"></div> *}
+          <!-- dashboard ad -->
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3050517829813934" data-ad-slot="1571168780" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>
+              (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
       </div>
     </div>
     <div class="uk-padding-remove uk-card uk-width-1-1 uk-card-default uk-card-body uk-hidden@s newsfeed-wrapper">
