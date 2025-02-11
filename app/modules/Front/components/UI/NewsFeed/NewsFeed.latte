@@ -16,13 +16,15 @@
       {include 'ArticleCard.latte', article => $article, card => $card, last => $iterator->last ? true : false}
       {if !isset($compact)}
         {if $iterator->counter % 2 === 0}
-          <div class="uk-card uk-card-body uk-card-default uk-width-1-1">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3050517829813934" crossorigin="anonymous"></script>
-            <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-5j+dr+3d-63+5m" data-ad-client="ca-pub-3050517829813934" data-ad-slot="5363191673"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-          </div>
+          {sep}
+            <div class="uk-card uk-card-body uk-card-default uk-width-1-1">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3050517829813934" crossorigin="anonymous"></script>
+              <ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-5j+dr+3d-63+5m" data-ad-client="ca-pub-3050517829813934" data-ad-slot="5363191673"></ins>
+              <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          {/sep}
         {/if}
       {/if}
     {else}
