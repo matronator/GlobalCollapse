@@ -30,7 +30,7 @@ specifiers:
   gulp-imagemin: ^7.1.0
   gulp-noop: ^1.0.1
   gulp-postcss: ^9.0.0
-  gulp-rev: ^9.0.0
+  gulp-rev: ^11.0.0
   gulp-sourcemaps: ^2.6.5
   gulp-svg-sprite: ^1.5.0
   gulp-tap: ^2.0.0
@@ -96,7 +96,7 @@ devDependencies:
   gulp-imagemin: 7.1.0_gulp@4.0.2
   gulp-noop: 1.0.1
   gulp-postcss: 9.0.1_postcss@8.4.49
-  gulp-rev: 9.0.0
+  gulp-rev: 11.0.0_gulp@4.0.2
   gulp-sourcemaps: 2.6.5
   gulp-svg-sprite: 1.5.0
   gulp-tap: 2.0.0
@@ -2461,6 +2461,10 @@ packages:
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
     dev: true
 
+  /@types/expect/1.20.4:
+    resolution: {integrity: sha512-Q5Vn3yjTDyCMV50TB6VRIbQNxSE4OmZR86VSbGaNpfUolm0iePBB4KdEEHmxoY5sT2+2DIvXW0rvMDP2nHZ4Mg==}
+    dev: true
+
   /@types/glob/7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
@@ -2512,6 +2516,13 @@ packages:
 
   /@types/triple-beam/1.3.5:
     resolution: {integrity: sha512-6WaYesThRMCl19iryMYP7/x2OVgCtbIVflDGFpWnb9irXI3UjYE4AzmYuiUKY1AJstGijoY+MgUszMgRxIYTYw==}
+    dev: true
+
+  /@types/vinyl/2.0.12:
+    resolution: {integrity: sha512-Sr2fYMBUVGYq8kj3UthXFAu5UN6ZW+rYr4NACjZQJvHvj+c8lYv0CahmZ2P/r7iUkN44gGUBwqxZkrKXYPb7cw==}
+    dependencies:
+      '@types/expect': 1.20.4
+      '@types/node': 22.10.0
     dev: true
 
   /@webassemblyjs/ast/1.14.1:
@@ -3210,6 +3221,10 @@ packages:
     resolution: {integrity: sha512-S/LRSDlSpg0znm9qhHfz6I1Qu9y64D3NfNjC3LQ1LJ0/9V6HiltbzTmNwaE7MDocjs3nFFaSzaoEWKTMljR/hA==}
     dev: false
 
+  /b4a/1.6.7:
+    resolution: {integrity: sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==}
+    dev: true
+
   /babel-plugin-polyfill-corejs2/0.4.12_@babel+core@7.26.0:
     resolution: {integrity: sha512-CPWT6BwvhrTO2d8QVorhTCQw9Y43zOu7G9HigcfxvepOU6b8o3tcWad6oVgZIsZCTt42FFv97aA7ZJsbM4+8og==}
     peerDependencies:
@@ -3277,6 +3292,12 @@ packages:
   /balanced-match/2.0.0:
     resolution: {integrity: sha512-1ugUSr8BHXRnK23KfuYS+gVMC3LB8QGH9W1iGtDPsNWoQbgtXSExkBu2aDR4epiGWZOjZsj6lDl/N/AqqTC3UA==}
     dev: true
+
+  /bare-events/2.5.4:
+    resolution: {integrity: sha512-+gFfDkR8pj4/TrWCGUGWmJIkBwuxPS5F+a5yWjOHQt2hHvNZd5YLzadjmDUtFmMM4y429bnKLa8bYBMHcYdnQA==}
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /base/0.11.2:
     resolution: {integrity: sha512-5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg==}
@@ -3379,6 +3400,7 @@ packages:
 
   /bindings/1.5.0:
     resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
+    requiresBuild: true
     dependencies:
       file-uri-to-path: 1.0.0
     dev: true
@@ -5328,6 +5350,11 @@ packages:
       lodash: 4.17.21
     dev: true
 
+  /easy-transform-stream/1.0.1:
+    resolution: {integrity: sha512-ktkaa6XR7COAR3oj02CF3IOgz2m1hCaY3SfzvKT4Svt2MhHw9XCt+ncJNWfe2TGz31iqzNGZ8spdKQflj+Rlog==}
+    engines: {node: '>=14.16'}
+    dev: true
+
   /easytimer.js/4.6.0:
     resolution: {integrity: sha512-2kl/X/HnB5mKJ29x7N908CrNl5y8yDgDuD8U7TXTEHs/lBFVXT91DSoiXncYnwC1TPPDfomlLDKPaTSqT3dygQ==}
     dev: false
@@ -6076,6 +6103,10 @@ packages:
     resolution: {integrity: sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==}
     dev: true
 
+  /fast-fifo/1.3.2:
+    resolution: {integrity: sha512-/d9sfos4yxzpwkDkuN7k2SqFKtYNmCTzgfEpz82x34IM9/zc8KGxQoXg1liNC/izpRM/MBdt44Nmx41ZWqk+FQ==}
+    dev: true
+
   /fast-glob/2.2.7:
     resolution: {integrity: sha512-g1KuQwHOZAmOZMuBtHdxDtju+T2RT8jgCC9aANsbpdiDDTSnjgfuVsIBNKbUeJI3oKMRExcfNDtJl4OhbffMsw==}
     engines: {node: '>=4.0.0'}
@@ -6231,6 +6262,7 @@ packages:
 
   /file-uri-to-path/1.0.0:
     resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -6365,11 +6397,9 @@ packages:
       parse-filepath: 1.0.2
     dev: true
 
-  /first-chunk-stream/2.0.0:
-    resolution: {integrity: sha512-X8Z+b/0L4lToKYq+lwnKqi9X/Zek0NibLpsJgVsSxpoYq7JtiCtRb5HqKVEjEw/qAb/4AKKRLOwwKHlWNpm2Eg==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      readable-stream: 2.3.8
+  /first-chunk-stream/5.0.0:
+    resolution: {integrity: sha512-WdHo4ejd2cG2Dl+sLkW79SctU7mUQDfr4s1i26ffOZRs5mgv+BRttIM9gwcq0rDbemo0KlpVPaa3LBVLqPXzcQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
   /flagged-respawn/1.0.1:
@@ -7072,6 +7102,15 @@ packages:
       through2: 2.0.5
     dev: true
 
+  /gulp-plugin-extras/0.3.0:
+    resolution: {integrity: sha512-I/kOBSpo61QsGQZcqozZYEnDseKvpudUafVVWDLYgBFAUJ37kW5R8Sjw9cMYzpGyPUfEYOeoY4p+dkfLqgyJUQ==}
+    engines: {node: '>=18'}
+    dependencies:
+      '@types/vinyl': 2.0.12
+      chalk: 5.3.0
+      easy-transform-stream: 1.0.1
+    dev: true
+
   /gulp-postcss/9.0.1_postcss@8.4.49:
     resolution: {integrity: sha512-9QUHam5JyXwGUxaaMvoFQVT44tohpEFpM8xBdPfdwTYGM0AItS1iTQz0MpsF8Jroh7GF5Jt2GVPaYgvy8qD2Fw==}
     engines: {node: ^10 || ^12 || >=14}
@@ -7087,18 +7126,23 @@ packages:
       - ts-node
     dev: true
 
-  /gulp-rev/9.0.0:
-    resolution: {integrity: sha512-Ytx/uzDA2xNxHlPG8GReS1ut00msd0HlKDk9Ai/0xF2yvg+DAeGRAviCFlQzQmdZtqAoXznYspwWoGEoxDvhyA==}
-    engines: {node: '>=6'}
+  /gulp-rev/11.0.0_gulp@4.0.2:
+    resolution: {integrity: sha512-KJSyw0qMQBL0xB3YhYrdinelbnWnYHDxj3jqVL2Xvn8bUA1lh7py5/2Z6fUgIWiX+F1XyKYVxI8yy9asIAvZJA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      gulp: '>=4'
+    peerDependenciesMeta:
+      gulp:
+        optional: true
     dependencies:
-      modify-filename: 1.1.0
-      plugin-error: 1.0.1
-      rev-hash: 2.0.0
-      rev-path: 2.0.0
-      sort-keys: 2.0.0
-      through2: 2.0.5
-      vinyl: 2.2.1
-      vinyl-file: 3.0.0
+      gulp: 4.0.2
+      gulp-plugin-extras: 0.3.0
+      modify-filename: 2.0.0
+      rev-hash: 4.1.0
+      rev-path: 3.0.0
+      sort-keys: 5.1.0
+      vinyl: 3.0.0
+      vinyl-file: 5.0.0
     dev: true
 
   /gulp-sourcemaps/2.6.5:
@@ -8078,6 +8122,11 @@ packages:
   /is-plain-obj/1.1.0:
     resolution: {integrity: sha512-yvkRyxmFKEOQ4pNXCmJG5AEQNlXJS5LaONXo5/cLdTZdWvsZ1ioJEonLGAosKlMWE8lwUy/bJzMjcw8az73+Fg==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /is-plain-obj/4.1.0:
+    resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
+    engines: {node: '>=12'}
     dev: true
 
   /is-plain-object/2.0.4:
@@ -9353,9 +9402,9 @@ packages:
     hasBin: true
     dev: true
 
-  /modify-filename/1.1.0:
-    resolution: {integrity: sha512-EickqnKq3kVVaZisYuCxhtKbZjInCuwgwZWyAmRIp1NTMhri7r3380/uqwrUHfaDiPzLVTuoNy4whX66bxPVog==}
-    engines: {node: '>=0.10.0'}
+  /modify-filename/2.0.0:
+    resolution: {integrity: sha512-VX9/MdgUN9StpSLImJ0+AyV2dxJJtyojIwRHF/Ja942tW7FTzxXI186jDSTk4k5wj2+59a4bRzFnJUgMSi+ygg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
   /module-deps/6.2.3:
@@ -9416,6 +9465,7 @@ packages:
 
   /nan/2.22.0:
     resolution: {integrity: sha512-nbajikzWTMwsW+eSsNm3QwlOs7het9gGJU5dDZzRTQGk03vyBOauxgI4VakDzE0PtsGTmXPsXTbbjVhRwR5mpw==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -11356,6 +11406,11 @@ packages:
     engines: {node: '>= 0.10'}
     dev: true
 
+  /replace-ext/2.0.0:
+    resolution: {integrity: sha512-UszKE5KVK6JvyD92nzMn9cDapSk6w/CaFZ96CnmDMUqH9oowfxF/ZjRITD25H4DnOQClLA4/j7jLGXXLVKxAug==}
+    engines: {node: '>= 10'}
+    dev: true
+
   /replace-homedir/1.0.0:
     resolution: {integrity: sha512-CHPV/GAglbIB1tnQgaiysb8H2yCy8WQ7lcEwQ/eT+kLj0QHV8LnJW0zpqpE7RSkrMSRoa+EBoag86clf7WAgSg==}
     engines: {node: '>= 0.10'}
@@ -11506,16 +11561,16 @@ packages:
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
     dev: true
 
-  /rev-hash/2.0.0:
-    resolution: {integrity: sha512-U6EkYZI87C3B5KS46HAEy+g+rtueIdfF9Zb6XBlGe3R/RaF3V8drN7nRFm7/swHOK1zQLGvIYwQ4Q6WDAAlynw==}
-    engines: {node: '>=4'}
+  /rev-hash/4.1.0:
+    resolution: {integrity: sha512-e0EGnaveLY2IYpYwHNdh43WZ2M84KgW3Z/T4F6+Z/BlZI/T1ZbxTWj36xgYgUPOieGXYo2q225jTeUXn+LWYjw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: true
 
-  /rev-path/2.0.0:
-    resolution: {integrity: sha512-G5R2L9gYu9kEuqPfIFgO9gO+OhBWOAT83HyauOQmGHO6y9Fsa4acv+XsmNhNDrod0HDh1/VxJRmsffThzeHJlQ==}
-    engines: {node: '>=4'}
+  /rev-path/3.0.0:
+    resolution: {integrity: sha512-2fUuv6IC7Z+Vj+DXEunJYJDZuwSsaJJHeLar3n2PGvHSH7j5+Xpd/Xh7PenekH4WQhxFuHtsGwd1dCh/HvT6Gw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
-      modify-filename: 1.1.0
+      modify-filename: 2.0.0
     dev: true
 
   /rimraf/2.7.1:
@@ -12059,6 +12114,14 @@ packages:
     dependencies:
       is-plain-obj: 1.1.0
     dev: true
+    optional: true
+
+  /sort-keys/5.1.0:
+    resolution: {integrity: sha512-aSbHV0DaBcr7u0PVHXzM6NbZNAtrr9sF6+Qfs9UUVG7Ll3jQ6hHi8F/xqIIcn2rvIVbr0v/2zyjSdwSV47AgLQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      is-plain-obj: 4.1.0
+    dev: true
 
   /source-list-map/2.0.1:
     resolution: {integrity: sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==}
@@ -12272,6 +12335,15 @@ packages:
       limiter: 1.1.5
     dev: true
 
+  /streamx/2.22.0:
+    resolution: {integrity: sha512-sLh1evHOzBy/iWRiR6d1zRcLao4gGZr3C1kzNz4fopCOKJb6xD9ub8Mpi9Mr1R6id5o43S+d93fI48UC5uM9aw==}
+    dependencies:
+      fast-fifo: 1.3.2
+      text-decoder: 1.2.3
+    optionalDependencies:
+      bare-events: 2.5.4
+    dev: true
+
   /strict-uri-encode/1.1.0:
     resolution: {integrity: sha512-R3f198pcvnB+5IpnBlRkphuE9n46WyVl8I39W/ZUTZLz4nqSP/oLYUrcnJrw462Ds8he4YKMov2efsTIw1BDGQ==}
     engines: {node: '>=0.10.0'}
@@ -12380,19 +12452,19 @@ packages:
       ansi-regex: 6.1.0
     dev: true
 
-  /strip-bom-buf/1.0.0:
-    resolution: {integrity: sha512-1sUIL1jck0T1mhOLP2c696BIznzT525Lkub+n4jjMHjhjhoAQA6Ye659DxdlZBr0aLDMQoTxKIpnlqxgtwjsuQ==}
-    engines: {node: '>=4'}
+  /strip-bom-buf/3.0.1:
+    resolution: {integrity: sha512-iJaWw2WroigLHzQysdc5WWeUc99p7ea7AEgB6JkY8CMyiO1yTVAA1gIlJJgORElUIR+lcZJkNl1OGChMhvc2Cw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       is-utf8: 0.2.1
     dev: true
 
-  /strip-bom-stream/2.0.0:
-    resolution: {integrity: sha512-yH0+mD8oahBZWnY43vxs4pSinn8SMKAdml/EOGBewoe1Y0Eitd0h2Mg3ZRiXruUW6L4P+lvZiEgbh0NgUGia1w==}
-    engines: {node: '>=0.10.0'}
+  /strip-bom-stream/5.0.0:
+    resolution: {integrity: sha512-Yo472mU+3smhzqeKlIxClre4s4pwtYZEvDNQvY/sJpnChdaxmKuwU28UVx/v1ORKNMxkmj1GBuvxJQyBk6wYMQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
-      first-chunk-stream: 2.0.0
-      strip-bom: 2.0.0
+      first-chunk-stream: 5.0.0
+      strip-bom-buf: 3.0.1
     dev: true
 
   /strip-bom-string/1.0.0:
@@ -12732,6 +12804,12 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /teex/1.0.1:
+    resolution: {integrity: sha512-eYE6iEI62Ni1H8oIa7KlDU6uQBtqr4Eajni3wX7rpfXD8ysFx8z0+dri+KWEPWpBsxXfxu58x/0jvTVT1ekOSg==}
+    dependencies:
+      streamx: 2.22.0
+    dev: true
+
   /temp-dir/1.0.0:
     resolution: {integrity: sha512-xZFXEGbG7SNC3itwBzI3RYjq/cEhBkx2hJuKGIUOcEULmkQExXiHat2z/qkISYsuR+IKumhEfKKbV5qXmhICFQ==}
     engines: {node: '>=4'}
@@ -12787,6 +12865,12 @@ packages:
       acorn: 8.14.0
       commander: 2.20.3
       source-map-support: 0.5.21
+    dev: true
+
+  /text-decoder/1.2.3:
+    resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
+    dependencies:
+      b4a: 1.6.7
     dev: true
 
   /text-hex/1.0.0:
@@ -13494,15 +13578,14 @@ packages:
       through2: 2.0.5
     dev: true
 
-  /vinyl-file/3.0.0:
-    resolution: {integrity: sha512-BoJDj+ca3D9xOuPEM6RWVtWQtvEPQiQYn82LvdxhLWplfQsBzBqtgK0yhCP0s1BNTi6dH9BO+dzybvyQIacifg==}
-    engines: {node: '>=4'}
+  /vinyl-file/5.0.0:
+    resolution: {integrity: sha512-MvkPF/yA1EX7c6p+juVIvp9+Lxp70YUfNKzEWeHMKpUNVSnTZh2coaOqLxI0pmOe2V9nB+OkgFaMDkodaJUyGw==}
+    engines: {node: '>=14.16'}
     dependencies:
-      graceful-fs: 4.2.11
-      pify: 2.3.0
-      strip-bom-buf: 1.0.0
-      strip-bom-stream: 2.0.0
-      vinyl: 2.2.1
+      '@types/vinyl': 2.0.12
+      strip-bom-buf: 3.0.1
+      strip-bom-stream: 5.0.0
+      vinyl: 3.0.0
     dev: true
 
   /vinyl-fs/3.0.3:
@@ -13557,6 +13640,17 @@ packages:
       cloneable-readable: 1.1.3
       remove-trailing-separator: 1.1.0
       replace-ext: 1.0.1
+    dev: true
+
+  /vinyl/3.0.0:
+    resolution: {integrity: sha512-rC2VRfAVVCGEgjnxHUnpIVh3AGuk62rP3tqVrn+yab0YH7UULisC085+NYH+mnqf3Wx4SpSi1RQMwudL89N03g==}
+    engines: {node: '>=10.13.0'}
+    dependencies:
+      clone: 2.1.2
+      clone-stats: 1.0.0
+      remove-trailing-separator: 1.1.0
+      replace-ext: 2.0.0
+      teex: 1.0.1
     dev: true
 
   /vm-browserify/1.1.2:
