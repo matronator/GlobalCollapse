@@ -44,7 +44,7 @@
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.4.1",
-    "glob": "^7.2.3",
+    "glob": "^11.0.0",
     "gulp": "^4.0.2",
     "gulp-imagemin": "^7.1.0",
     "gulp-noop": "^1.0.1",
