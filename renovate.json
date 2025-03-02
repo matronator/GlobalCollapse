@@ -20,6 +20,6 @@
   "pruneBranchAfterAutomerge": true,
   "automergeType": "branch",
   "ignoreDeps": [
-    "del"
+    "del", "gulp-rev", "gulp-imagemin", "gulp-postcss", "glob"
   ]
 }
