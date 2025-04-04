@@ -39,7 +39,7 @@ specifiers:
   interactjs: ^1.10.17
   lighthouse: ^5.6.0
   loose-envify: ^1.4.0
-  nouislider: ^14.7.0
+  nouislider: ^15.0.0
   postcss: ^8.4.31
   postcss-calc: ^7.0.5
   postcss-custom-media: ^7.0.8
@@ -71,7 +71,7 @@ dependencies:
   flatpickr: 4.6.13
   howler: 2.2.4
   interactjs: 1.10.27
-  nouislider: 14.7.0
+  nouislider: 15.8.1
   push.js: 1.0.12
   tippy.js: 6.3.7
   uikit: 3.21.16
@@ -9704,8 +9704,8 @@ packages:
     dev: true
     optional: true
 
-  /nouislider/14.7.0:
-    resolution: {integrity: sha512-4RtQ1+LHJKesDCNJrXkQcwXAWCrC2aggdLYMstS/G5fEWL+fXZbUA9pwVNHFghMGuFGRATlDLNInRaPeRKzpFQ==}
+  /nouislider/15.8.1:
+    resolution: {integrity: sha512-93TweAi8kqntHJSPiSWQ1o/uZ29VWOmal9YKb6KKGGlCkugaNfAupT7o1qTHqdJvNQ7S0su5rO6qRFCjP8fxtw==}
     dev: false
 
   /now-and-later/2.0.1:
