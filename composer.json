@@ -78,7 +78,7 @@
 	},
 	"require-dev": {
 		"nette/tester": "^2.5",
-		"matronator/mtrgen": "^1.2"
+		"matronator/mtrgen": "^2.0"
 	},
 	"autoload": {
 		"classmap": [
