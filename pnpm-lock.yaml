@@ -42,7 +42,7 @@ specifiers:
   nouislider: ^14.7.0
   postcss: ^8.4.31
   postcss-calc: ^7.0.5
-  postcss-custom-media: ^7.0.8
+  postcss-custom-media: ^11.0.0
   postcss-custom-properties: ^14.0.0
   postcss-import: ^16.0.0
   postcss-mixins: ^11.0.0
@@ -105,7 +105,7 @@ devDependencies:
   loose-envify: 1.4.0
   postcss: 8.4.49
   postcss-calc: 7.0.5
-  postcss-custom-media: 7.0.8
+  postcss-custom-media: 11.0.5_postcss@8.4.49
   postcss-custom-properties: 14.0.4_postcss@8.4.49
   postcss-import: 16.1.0_postcss@8.4.49
   postcss-mixins: 11.0.3_postcss@8.4.49
@@ -1870,6 +1870,17 @@ packages:
     dependencies:
       '@csstools/css-parser-algorithms': 2.7.1_glesim54nkefbp5a3gko6ietcq
       '@csstools/css-tokenizer': 2.4.1
+    dev: true
+
+  /@csstools/media-query-list-parser/4.0.2_55kv3rydzpklflnth6fg55jnw4:
+    resolution: {integrity: sha512-EUos465uvVvMJehckATTlNqGj4UJWkTmdWuDMjqvSUkjGpmOyFZBVwb4knxCm/k2GMTXY+c/5RkdndzFYWeX5A==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@csstools/css-parser-algorithms': ^3.0.4
+      '@csstools/css-tokenizer': ^3.0.3
+    dependencies:
+      '@csstools/css-parser-algorithms': 3.0.4_3wy24upepm7ctssj4pkbaqtvaq
+      '@csstools/css-tokenizer': 3.0.3
     dev: true
 
   /@csstools/selector-specificity/3.1.1_j747yjqyvnzekvomyruvypt3ti:
@@ -10549,11 +10560,17 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /postcss-custom-media/7.0.8:
-    resolution: {integrity: sha512-c9s5iX0Ge15o00HKbuRuTqNndsJUbaXdiNsksnVH8H4gdc+zbLzr/UasOwNG6CTDpLFekVY4672eWdiiWu2GUg==}
-    engines: {node: '>=6.0.0'}
+  /postcss-custom-media/11.0.5_postcss@8.4.49:
+    resolution: {integrity: sha512-SQHhayVNgDvSAdX9NQ/ygcDQGEY+aSF4b/96z7QUX6mqL5yl/JgG/DywcF6fW9XbnCRE+aVYk+9/nqGuzOPWeQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      postcss: ^8.4
     dependencies:
-      postcss: 7.0.39
+      '@csstools/cascade-layer-name-parser': 2.0.4_55kv3rydzpklflnth6fg55jnw4
+      '@csstools/css-parser-algorithms': 3.0.4_3wy24upepm7ctssj4pkbaqtvaq
+      '@csstools/css-tokenizer': 3.0.3
+      '@csstools/media-query-list-parser': 4.0.2_55kv3rydzpklflnth6fg55jnw4
+      postcss: 8.4.49
     dev: true
 
   /postcss-custom-properties/14.0.4_postcss@8.4.49:
