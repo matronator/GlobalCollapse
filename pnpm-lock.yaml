@@ -41,7 +41,7 @@ specifiers:
   loose-envify: ^1.4.0
   nouislider: ^15.0.0
   postcss: ^8.4.31
-  postcss-calc: ^7.0.5
+  postcss-calc: ^10.0.0
   postcss-custom-media: ^11.0.0
   postcss-custom-properties: ^14.0.0
   postcss-import: ^16.0.0
@@ -104,7 +104,7 @@ devDependencies:
   lighthouse: 12.5.1
   loose-envify: 1.4.0
   postcss: 8.4.49
-  postcss-calc: 7.0.5
+  postcss-calc: 10.1.0_postcss@8.4.49
   postcss-custom-media: 11.0.5_postcss@8.4.49
   postcss-custom-properties: 14.0.4_postcss@8.4.49
   postcss-import: 16.1.0_postcss@8.4.49
@@ -2427,7 +2427,7 @@ packages:
   /@paulirish/trace_engine/0.0.50:
     resolution: {integrity: sha512-ktkbISnr0T9dkOxtnEadjYsbArMcvX2Wp8zwgyIP6KW0eOk2Oe2s49BY4v0qdE3uQdVv/GDdQ6MnoIFuYNJ9pg==}
     dependencies:
-      third-party-web: 0.26.5
+      third-party-web: 0.26.6
     dev: true
 
   /@pkgjs/parseargs/0.11.0:
@@ -10460,14 +10460,6 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /postcss-calc/7.0.5:
-    resolution: {integrity: sha512-1tKHutbGtLtEZF6PT4JSihCHfIVldU72mZ8SdZHIYriIZ9fh9k9aWSppaT8rHsyI3dX+KSR+W+Ix9BMY3AODrg==}
-    dependencies:
-      postcss: 7.0.39
-      postcss-selector-parser: 6.1.2
-      postcss-value-parser: 4.2.0
-    dev: true
-
   /postcss-colormin/7.0.2_postcss@8.4.49:
     resolution: {integrity: sha512-YntRXNngcvEvDbEjTdRWGU606eZvB5prmHG4BF0yLmVpamXbpsRJzevyy6MZVyuecgzI2AWAlvFi8DAeCqwpvA==}
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
@@ -12828,6 +12820,10 @@ packages:
 
   /third-party-web/0.26.5:
     resolution: {integrity: sha512-tDuKQJUTfjvi9Fcrs1s6YAQAB9mzhTSbBZMfNgtWNmJlHuoFeXO6dzBFdGeCWRvYL50jQGK0jPsBZYxqZQJ2SA==}
+    dev: true
+
+  /third-party-web/0.26.6:
+    resolution: {integrity: sha512-GsjP92xycMK8qLTcQCacgzvffYzEqe29wyz3zdKVXlfRD5Kz1NatCTOZEeDaSd6uCZXvGd2CNVtQ89RNIhJWvA==}
     dev: true
 
   /through/2.3.8:
