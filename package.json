@@ -69,7 +69,7 @@
     "stylelint-prettier": "^1.2.0",
     "upgradeps": "^2.0.6",
     "vinyl-buffer": "^1.0.1",
-    "yargs": "^15.4.1"
+    "yargs": "^17.0.0"
   },
   "browserslist": [
     "last 2 versions",
