@@ -51,7 +51,7 @@ specifiers:
   push.js: ^1.0.12
   stylelint: ^15.10.1
   stylelint-config-prettier: ^8.0.2
-  stylelint-prettier: ^1.2.0
+  stylelint-prettier: ^5.0.0
   tippy.js: ^6.3.7
   uikit: ^3.16.15
   upgradeps: ^2.0.6
@@ -113,7 +113,7 @@ devDependencies:
   prettier: 1.19.1
   stylelint: 15.11.0
   stylelint-config-prettier: 8.0.2_stylelint@15.11.0
-  stylelint-prettier: 1.2.0_rjet55v7lds7iny6hzxuht32qy
+  stylelint-prettier: 5.0.3_rjet55v7lds7iny6hzxuht32qy
   upgradeps: 2.0.6
   vinyl-buffer: 1.0.1
   yargs: 15.4.1
@@ -12480,12 +12480,12 @@ packages:
       stylelint: 15.11.0
     dev: true
 
-  /stylelint-prettier/1.2.0_rjet55v7lds7iny6hzxuht32qy:
-    resolution: {integrity: sha512-/MYz6W2CNgKHblPzPtk7cybu8H5dGG3c2GevL64RButERj1uJg4SdBIIat1hMfDOmN6QQpldc6tCc//ZAWh9WQ==}
-    engines: {node: '>=6'}
+  /stylelint-prettier/5.0.3_rjet55v7lds7iny6hzxuht32qy:
+    resolution: {integrity: sha512-B6V0oa35ekRrKZlf+6+jA+i50C4GXJ7X1PPmoCqSUoXN6BrNF6NhqqhanvkLjqw2qgvrS0wjdpeC+Tn06KN3jw==}
+    engines: {node: '>=18.12.0'}
     peerDependencies:
-      prettier: '>= 0.11.0'
-      stylelint: '>= 9.2.1'
+      prettier: '>=3.0.0'
+      stylelint: '>=16.0.0'
     dependencies:
       prettier: 1.19.1
       prettier-linter-helpers: 1.0.0
