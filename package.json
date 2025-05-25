@@ -64,7 +64,7 @@
     "postcss-mixins": "^11.0.0",
     "postcss-nesting": "^7.0.1",
     "prettier": "^1.19.1",
-    "stylelint": "^15.10.1",
+    "stylelint": "^16.0.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-prettier": "^1.2.0",
     "upgradeps": "^2.0.6",
