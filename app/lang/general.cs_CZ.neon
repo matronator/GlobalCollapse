@@ -187,6 +187,7 @@ support:
 	title: 'Podpoř projekt'
 	text: 'Projekt můžeš podpořit peněžitým příspěvkem. Jakákoliv částka je velká pomoc a velmi vítána a moc si toho ceníme.'
 	crypto: 'Také můžeš darovat tyto kryptoměny'
+	alert: '<strong>Tento web potřebuje vaši pomoc!</strong> Je potřeba znovu zaplatit za hosting a momentálně na to nemám dostatek finančních prostředků. Prosím, pomozte s náklady formou daru (<a href="https://www.paypal.com/paypalme/matronator">PayPal</a>, <a href="https://checkout.revolut.com/pay/02de7b30-f1d6-4832-8365-014de236902a">platební karta</a>, nebo <a n:href="Info:support">další možnosti</a>) nebo zakoupením <a n:href="Premium:default">Premium či Bitcoinů</a>. Každá pomoc je moc vítaná!'
 
 pvp:
 	allPlayers: 'Všichni hráči'
