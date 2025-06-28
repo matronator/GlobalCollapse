@@ -208,6 +208,7 @@ support:
 	title: 'Support the project'
 	text: 'You can support this project by donating. Any donation would be a huge help and is much appreciated.'
 	crypto: 'You can also donate using these cryptocurrencies'
+	alert: '<strong>This site needs your help!</strong> Hosting for the site needs to be paid again and I don't have the necessary funds at the moment. Please help out with the cost by donating (<a href="https://www.paypal.com/paypalme/matronator">PayPal</a>, <a href="https://checkout.revolut.com/pay/02de7b30-f1d6-4832-8365-014de236902a">Credit Card</a>, or <a n:href="Info:support">more options</a>) or purchasing Premium or Bitcoins. Any help is much appreciated!'
 
 pvp:
 	allPlayers: 'All players'
