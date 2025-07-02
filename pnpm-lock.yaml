@@ -51,7 +51,7 @@ specifiers:
   push.js: ^1.0.12
   stylelint: ^16.0.0
   stylelint-config-prettier: ^9.0.0
-  stylelint-prettier: ^1.2.0
+  stylelint-prettier: ^5.0.0
   tippy.js: ^6.3.7
   uikit: ^3.16.15
   upgradeps: ^2.0.6
@@ -113,7 +113,7 @@ devDependencies:
   prettier: 1.19.1
   stylelint: 16.20.0
   stylelint-config-prettier: 9.0.5_stylelint@16.20.0
-  stylelint-prettier: 1.2.0_qimdwoflspmxfficudsrg5xfaa
+  stylelint-prettier: 5.0.3_qimdwoflspmxfficudsrg5xfaa
   upgradeps: 2.0.6
   vinyl-buffer: 1.0.1
   yargs: 15.4.1
@@ -3104,7 +3104,7 @@ packages:
   /@paulirish/trace_engine/0.0.50:
     resolution: {integrity: sha512-ktkbISnr0T9dkOxtnEadjYsbArMcvX2Wp8zwgyIP6KW0eOk2Oe2s49BY4v0qdE3uQdVv/GDdQ6MnoIFuYNJ9pg==}
     dependencies:
-      third-party-web: 0.26.6
+      third-party-web: 0.27.0
     dev: true
 
   /@pkgjs/parseargs/0.11.0:
@@ -13339,12 +13339,12 @@ packages:
       stylelint: 16.20.0
     dev: true
 
-  /stylelint-prettier/1.2.0_qimdwoflspmxfficudsrg5xfaa:
-    resolution: {integrity: sha512-/MYz6W2CNgKHblPzPtk7cybu8H5dGG3c2GevL64RButERj1uJg4SdBIIat1hMfDOmN6QQpldc6tCc//ZAWh9WQ==}
-    engines: {node: '>=6'}
+  /stylelint-prettier/5.0.3_qimdwoflspmxfficudsrg5xfaa:
+    resolution: {integrity: sha512-B6V0oa35ekRrKZlf+6+jA+i50C4GXJ7X1PPmoCqSUoXN6BrNF6NhqqhanvkLjqw2qgvrS0wjdpeC+Tn06KN3jw==}
+    engines: {node: '>=18.12.0'}
     peerDependencies:
-      prettier: '>= 0.11.0'
-      stylelint: '>= 9.2.1'
+      prettier: '>=3.0.0'
+      stylelint: '>=16.0.0'
     dependencies:
       prettier: 1.19.1
       prettier-linter-helpers: 1.0.0
@@ -13679,8 +13679,8 @@ packages:
     resolution: {integrity: sha512-tDuKQJUTfjvi9Fcrs1s6YAQAB9mzhTSbBZMfNgtWNmJlHuoFeXO6dzBFdGeCWRvYL50jQGK0jPsBZYxqZQJ2SA==}
     dev: true
 
-  /third-party-web/0.26.6:
-    resolution: {integrity: sha512-GsjP92xycMK8qLTcQCacgzvffYzEqe29wyz3zdKVXlfRD5Kz1NatCTOZEeDaSd6uCZXvGd2CNVtQ89RNIhJWvA==}
+  /third-party-web/0.27.0:
+    resolution: {integrity: sha512-h0JYX+dO2Zr3abCQpS6/uFjujaOjA1DyDzGQ41+oFn9VW/ARiq9g5ln7qEP9+BTzDpOMyIfsfj4OvfgXAsMUSA==}
     dev: true
 
   /through/2.3.8:
