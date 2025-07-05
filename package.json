@@ -63,7 +63,7 @@
     "postcss-import": "^16.0.0",
     "postcss-mixins": "^11.0.0",
     "postcss-nesting": "^13.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^3.0.0",
     "stylelint": "^16.0.0",
     "stylelint-config-prettier": "^9.0.0",
     "stylelint-prettier": "^5.0.0",
