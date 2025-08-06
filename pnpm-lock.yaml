@@ -19,7 +19,7 @@ specifiers:
   core-js: ^3.22.7
   cssnano: ^7.0.0
   del: ^5.1.0
-  dotenv: ^16.0.0
+  dotenv: ^17.0.0
   easytimer.js: ^4.5.3
   eslint: ^9.0.0
   eslint-config-prettier: ^10.0.0
@@ -87,7 +87,7 @@ devDependencies:
   browserify: 17.0.1
   cssnano: 7.0.6_postcss@8.4.49
   del: 5.1.0
-  dotenv: 16.4.7
+  dotenv: 17.2.1
   eslint: 9.18.0
   eslint-config-prettier: 10.0.2_eslint@9.18.0
   eslint-plugin-prettier: 5.2.3_obyzogowl5muacctueen32xgay
@@ -1224,6 +1224,8 @@ packages:
       '@ckeditor/ckeditor5-core': 46.0.0
       '@ckeditor/ckeditor5-upload': 46.0.0
       ckeditor5: 46.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-alignment/44.1.0:
@@ -1476,6 +1478,8 @@ packages:
       '@ckeditor/ckeditor5-core': 46.0.0
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-code-block/44.1.0:
@@ -1567,6 +1571,8 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-editor-classic/44.1.0:
@@ -1589,6 +1595,8 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-editor-decoupled/44.1.0:
@@ -1611,6 +1619,8 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-editor-inline/44.1.0:
@@ -1633,6 +1643,8 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-editor-multi-root/44.1.0:
@@ -1687,6 +1699,8 @@ packages:
     dependencies:
       '@ckeditor/ckeditor5-utils': 46.0.0
       es-toolkit: 1.39.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-enter/44.1.0:
@@ -1752,6 +1766,8 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-font/44.1.0:
@@ -1854,6 +1870,8 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       '@ckeditor/ckeditor5-widget': 46.0.0
       ckeditor5: 46.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-html-embed/44.1.0:
@@ -2167,8 +2185,6 @@ packages:
       '@ckeditor/ckeditor5-ui': 46.0.0
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-page-break/44.1.0:
@@ -2189,8 +2205,6 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       '@ckeditor/ckeditor5-widget': 46.0.0
       ckeditor5: 46.0.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-paragraph/44.1.0:
@@ -2303,8 +2317,6 @@ packages:
       '@ckeditor/ckeditor5-ui': 46.0.0
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-source-editing/44.1.0:
@@ -2372,8 +2384,6 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-table/44.1.0:
@@ -2401,8 +2411,6 @@ packages:
       '@ckeditor/ckeditor5-widget': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-theme-lark/44.1.0:
@@ -2526,6 +2534,8 @@ packages:
       '@ckeditor/ckeditor5-engine': 46.0.0
       '@ckeditor/ckeditor5-utils': 46.0.0
       es-toolkit: 1.39.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@ckeditor/ckeditor5-widget/44.1.0:
@@ -2571,8 +2581,6 @@ packages:
       '@ckeditor/ckeditor5-utils': 46.0.0
       ckeditor5: 46.0.0
       es-toolkit: 1.39.5
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@colors/colors/1.6.0:
@@ -6479,8 +6487,8 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /dotenv/16.4.7:
-    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+  /dotenv/17.2.1:
+    resolution: {integrity: sha512-kQhDYKZecqnM0fCnzI5eIv5L4cAe/iRI+HqMbO/hbRdTAeXDG+M9FjipUxNfbARuEg4iHIbhnhs78BCHNbSxEQ==}
     engines: {node: '>=12'}
     dev: true
 

@@ -40,7 +40,7 @@
     "browserify": "^17.0.0",
     "cssnano": "^7.0.0",
     "del": "^5.1.0",
-    "dotenv": "^16.0.0",
+    "dotenv": "^17.0.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-prettier": "^5.0.0",
