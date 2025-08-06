@@ -45,7 +45,7 @@ specifiers:
   postcss-custom-media: ^11.0.0
   postcss-custom-properties: ^14.0.0
   postcss-import: ^16.0.0
-  postcss-mixins: ^11.0.0
+  postcss-mixins: ^12.0.0
   postcss-nesting: ^13.0.0
   prettier: ^3.0.0
   push.js: ^1.0.12
@@ -108,7 +108,7 @@ devDependencies:
   postcss-custom-media: 11.0.5_postcss@8.4.49
   postcss-custom-properties: 14.0.4_postcss@8.4.49
   postcss-import: 16.1.0_postcss@8.4.49
-  postcss-mixins: 11.0.3_postcss@8.4.49
+  postcss-mixins: 12.1.2_postcss@8.4.49
   postcss-nesting: 13.0.1_postcss@8.4.49
   prettier: 3.6.2
   stylelint: 16.20.0
@@ -7399,8 +7399,8 @@ packages:
       pend: 1.2.0
     dev: true
 
-  /fdir/6.4.3_picomatch@4.0.2:
-    resolution: {integrity: sha512-PMXmW2y1hDDfTSRc9gaXIuCCRpuoz3Kaz8cUelp3smouvfT632ozg2vrT6lJsHKKOF59YLbOGfAWGUcKEfRMQw==}
+  /fdir/6.4.6_picomatch@4.0.2:
+    resolution: {integrity: sha512-hiFoqpyZcfNm1yc4u8oWCf9A2c4D3QjCrks3zmoVKVxpQRzmPNar1hUJcBG2RQHvEVGDN+Jm81ZheVLAQMK6+w==}
     peerDependencies:
       picomatch: ^3 || ^4
     peerDependenciesMeta:
@@ -12209,17 +12209,17 @@ packages:
       postcss-selector-parser: 6.1.2
     dev: true
 
-  /postcss-mixins/11.0.3_postcss@8.4.49:
-    resolution: {integrity: sha512-HZa6DHlN7uCkp7GTFNvhpyK/Gi9+vrVG7FPl2oQdj+sXUuYo4ri9OsWBseTnvnLfWxRWOq8/VwcHcixtZPrRRg==}
-    engines: {node: ^18.0 || ^ 20.0 || >= 22.0}
+  /postcss-mixins/12.1.2_postcss@8.4.49:
+    resolution: {integrity: sha512-90pSxmZVfbX9e5xCv7tI5RV1mnjdf16y89CJKbf/hD7GyOz1FCxcYMl8ZYA8Hc56dbApTKKmU9HfvgfWdCxlwg==}
+    engines: {node: ^20.0 || ^22.0 || >=24.0}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
       postcss: 8.4.49
       postcss-js: 4.0.1_postcss@8.4.49
       postcss-simple-vars: 7.0.1_postcss@8.4.49
-      sugarss: 4.0.1_postcss@8.4.49
-      tinyglobby: 0.2.12
+      sugarss: 5.0.1_postcss@8.4.49
+      tinyglobby: 0.2.14
     dev: true
 
   /postcss-nesting/13.0.1_postcss@8.4.49:
@@ -14220,9 +14220,9 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /sugarss/4.0.1_postcss@8.4.49:
-    resolution: {integrity: sha512-WCjS5NfuVJjkQzK10s8WOBY+hhDxxNt/N6ZaGwxFZ+wN3/lKKFSaaKUNecULcTTvE4urLcKaZFQD8vO0mOZujw==}
-    engines: {node: '>=12.0'}
+  /sugarss/5.0.1_postcss@8.4.49:
+    resolution: {integrity: sha512-ctS5RYCBVvPoZAnzIaX5QSShK8ZiZxD5HUqSxlusvEMC+QZQIPCPOIJg6aceFX+K2rf4+SH89eu++h1Zmsr2nw==}
+    engines: {node: '>=18.0'}
     peerDependencies:
       postcss: ^8.3.3
     dependencies:
@@ -14563,11 +14563,11 @@ packages:
     resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
     dev: true
 
-  /tinyglobby/0.2.12:
-    resolution: {integrity: sha512-qkf4trmKSIiMTs/E63cxH+ojC2unam7rJ0WrauAzpT3ECNTxGRMlaXxVbfxMUC/w0LaYk6jQ4y/nGR9uBO3tww==}
+  /tinyglobby/0.2.14:
+    resolution: {integrity: sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      fdir: 6.4.3_picomatch@4.0.2
+      fdir: 6.4.6_picomatch@4.0.2
       picomatch: 4.0.2
     dev: true
 

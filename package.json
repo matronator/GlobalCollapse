@@ -61,7 +61,7 @@
     "postcss-custom-media": "^11.0.0",
     "postcss-custom-properties": "^14.0.0",
     "postcss-import": "^16.0.0",
-    "postcss-mixins": "^11.0.0",
+    "postcss-mixins": "^12.0.0",
     "postcss-nesting": "^13.0.0",
     "prettier": "^3.0.0",
     "stylelint": "^16.0.0",
