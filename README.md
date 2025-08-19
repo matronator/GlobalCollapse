@@ -1,3 +1,5 @@
+## Global Collapse [needs your help!!](https://github.com/matronator/GlobalCollapse/issues/93#issuecomment-3092660745)
+
 ![Global Collapse: Pandemic](dev/front/images/logo-black.png)
 
 [![wakatime](https://wakatime.com/badge/user/ed11b7b0-962b-4893-a35b-4539adbcb349/project/78a17c07-b113-4c8b-bb19-fb853c4c073e.svg)](https://wakatime.com/badge/user/ed11b7b0-962b-4893-a35b-4539adbcb349/project/78a17c07-b113-4c8b-bb19-fb853c4c073e)
@@ -10,7 +12,7 @@
 
 <a href="https://topwebgames.com/game/global-collapse-pandemic/vote" target="_blank">Vote on TopWebGames.com</a>
 
-# Global Collapse: Pandemic (Now PWA compatible!)
+# Global Collapse: Pandemic
 
 ### Deadly virus is spreading across the globe. Will you survive?
 
