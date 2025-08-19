@@ -1,5 +1,7 @@
 ![Global Collapse: Pandemic](dev/front/images/logo-black.png)
 
+[![wakatime](https://wakatime.com/badge/user/ed11b7b0-962b-4893-a35b-4539adbcb349/project/78a17c07-b113-4c8b-bb19-fb853c4c073e.svg)](https://wakatime.com/badge/user/ed11b7b0-962b-4893-a35b-4539adbcb349/project/78a17c07-b113-4c8b-bb19-fb853c4c073e)
+
 <!-- #### Notice: If you like this project, please consider [donating](#support-the-project). The battery on my macbook died and I need to get it replaced to be able to work, but a battery replacement for a 7 year old macbook is kinda expensive and money's little tight right now. Any help would be much appretiated! Thank you :) -->
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/U7U2MDBC)
