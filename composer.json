@@ -74,7 +74,7 @@
 		"68publishers/asset": "^3.3",
 		"contributte/translation": "^2.0",
 		"ramsey/uuid": "^4.7",
-		"stripe/stripe-php": "^18.0"
+		"stripe/stripe-php": "^19.0"
 	},
 	"require-dev": {
 		"nette/tester": "^2.5",
