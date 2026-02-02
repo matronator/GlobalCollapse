@@ -42,7 +42,7 @@ specifiers:
   nouislider: ^15.0.0
   postcss: ^8.4.31
   postcss-calc: ^10.0.0
-  postcss-custom-media: ^11.0.0
+  postcss-custom-media: ^12.0.0
   postcss-custom-properties: ^15.0.0
   postcss-import: ^16.0.0
   postcss-mixins: ^12.0.0
@@ -105,7 +105,7 @@ devDependencies:
   loose-envify: 1.4.0
   postcss: 8.4.49
   postcss-calc: 10.1.0_postcss@8.4.49
-  postcss-custom-media: 11.0.5_postcss@8.4.49
+  postcss-custom-media: 12.0.0_postcss@8.4.49
   postcss-custom-properties: 15.0.0_postcss@8.4.49
   postcss-import: 16.1.0_postcss@8.4.49
   postcss-mixins: 12.1.2_postcss@8.4.49
@@ -2604,17 +2604,6 @@ packages:
     engines: {node: '>=0.1.90'}
     dev: true
 
-  /@csstools/cascade-layer-name-parser/2.0.4_55kv3rydzpklflnth6fg55jnw4:
-    resolution: {integrity: sha512-7DFHlPuIxviKYZrOiwVU/PiHLm3lLUR23OMuEEtfEOQTOp9hzQ2JjdY6X5H18RVuUPJqSCI+qNnD5iOLMVE0bA==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@csstools/css-parser-algorithms': ^3.0.4
-      '@csstools/css-tokenizer': ^3.0.3
-    dependencies:
-      '@csstools/css-parser-algorithms': 3.0.4_3wy24upepm7ctssj4pkbaqtvaq
-      '@csstools/css-tokenizer': 3.0.3
-    dev: true
-
   /@csstools/cascade-layer-name-parser/3.0.0_pa3hd4j4wjku7uaqbbhzkpahzy:
     resolution: {integrity: sha512-/3iksyevwRfSJx5yH0RkcrcYXwuhMQx3Juqf40t97PeEy2/Mz2TItZ/z/216qpe4GgOyFBP8MKIwVvytzHmfIQ==}
     engines: {node: '>=20.19.0'}
@@ -2624,15 +2613,6 @@ packages:
     dependencies:
       '@csstools/css-parser-algorithms': 4.0.0_itoglcgmvufaigicydd4iuewyu
       '@csstools/css-tokenizer': 4.0.0
-    dev: true
-
-  /@csstools/css-parser-algorithms/3.0.4_3wy24upepm7ctssj4pkbaqtvaq:
-    resolution: {integrity: sha512-Up7rBoV77rv29d3uKHUIVubz1BTcgyUK72IvCQAbfbMv584xHcGKCKbWh7i8hPrRJ7qU4Y8IO3IY9m+iTB7P3A==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@csstools/css-tokenizer': ^3.0.3
-    dependencies:
-      '@csstools/css-tokenizer': 3.0.3
     dev: true
 
   /@csstools/css-parser-algorithms/4.0.0_itoglcgmvufaigicydd4iuewyu:
@@ -2648,25 +2628,9 @@ packages:
     resolution: {integrity: sha512-6boXK0KkzT5u5xOgF6TKB+CLq9SOpEGmkZw0g5n9/7yg85wab3UzSxB8TxhLJ31L4SGJ6BCFRw/iftTha1CJXA==}
     dev: true
 
-  /@csstools/css-tokenizer/3.0.3:
-    resolution: {integrity: sha512-UJnjoFsmxfKUdNYdWgOB0mWUypuLvAfQPH1+pyvRJs6euowbFkFC6P13w1l8mJyi3vxYMxc9kld5jZEGRQs6bw==}
-    engines: {node: '>=18'}
-    dev: true
-
   /@csstools/css-tokenizer/4.0.0:
     resolution: {integrity: sha512-QxULHAm7cNu72w97JUNCBFODFaXpbDg+dP8b/oWFAZ2MTRppA3U00Y2L1HqaS4J6yBqxwa/Y3nMBaxVKbB/NsA==}
     engines: {node: '>=20.19.0'}
-    dev: true
-
-  /@csstools/media-query-list-parser/4.0.2_55kv3rydzpklflnth6fg55jnw4:
-    resolution: {integrity: sha512-EUos465uvVvMJehckATTlNqGj4UJWkTmdWuDMjqvSUkjGpmOyFZBVwb4knxCm/k2GMTXY+c/5RkdndzFYWeX5A==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@csstools/css-parser-algorithms': ^3.0.4
-      '@csstools/css-tokenizer': ^3.0.3
-    dependencies:
-      '@csstools/css-parser-algorithms': 3.0.4_3wy24upepm7ctssj4pkbaqtvaq
-      '@csstools/css-tokenizer': 3.0.3
     dev: true
 
   /@csstools/media-query-list-parser/5.0.0_pa3hd4j4wjku7uaqbbhzkpahzy:
@@ -11947,16 +11911,16 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /postcss-custom-media/11.0.5_postcss@8.4.49:
-    resolution: {integrity: sha512-SQHhayVNgDvSAdX9NQ/ygcDQGEY+aSF4b/96z7QUX6mqL5yl/JgG/DywcF6fW9XbnCRE+aVYk+9/nqGuzOPWeQ==}
-    engines: {node: '>=18'}
+  /postcss-custom-media/12.0.0_postcss@8.4.49:
+    resolution: {integrity: sha512-jIgEvqceN6ru2uQ0f75W1g+JDi0UyECFeJKjPG7UcSkW3+03LDKH2c6h+9C0XuDTV4y2pEHmD5AJtVBq1OGnZA==}
+    engines: {node: '>=20.19.0'}
     peerDependencies:
       postcss: ^8.4
     dependencies:
-      '@csstools/cascade-layer-name-parser': 2.0.4_55kv3rydzpklflnth6fg55jnw4
-      '@csstools/css-parser-algorithms': 3.0.4_3wy24upepm7ctssj4pkbaqtvaq
-      '@csstools/css-tokenizer': 3.0.3
-      '@csstools/media-query-list-parser': 4.0.2_55kv3rydzpklflnth6fg55jnw4
+      '@csstools/cascade-layer-name-parser': 3.0.0_pa3hd4j4wjku7uaqbbhzkpahzy
+      '@csstools/css-parser-algorithms': 4.0.0_itoglcgmvufaigicydd4iuewyu
+      '@csstools/css-tokenizer': 4.0.0
+      '@csstools/media-query-list-parser': 5.0.0_pa3hd4j4wjku7uaqbbhzkpahzy
       postcss: 8.4.49
     dev: true
 

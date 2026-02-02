@@ -58,7 +58,7 @@
     "loose-envify": "^1.4.0",
     "postcss": "^8.4.31",
     "postcss-calc": "^10.0.0",
-    "postcss-custom-media": "^11.0.0",
+    "postcss-custom-media": "^12.0.0",
     "postcss-custom-properties": "^15.0.0",
     "postcss-import": "^16.0.0",
     "postcss-mixins": "^12.0.0",
