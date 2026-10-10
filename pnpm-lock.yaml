@@ -19,7 +19,7 @@ specifiers:
   core-js: ^3.22.7
   cssnano: ^8.0.0
   del: ^5.1.0
-  dotenv: ^17.0.0
+  dotenv: ^18.0.0
   easytimer.js: ^4.5.3
   eslint: ^10.0.0
   eslint-config-prettier: ^10.0.0
@@ -87,7 +87,7 @@ devDependencies:
   browserify: 17.0.1
   cssnano: 8.0.2_postcss@8.5.15
   del: 5.1.0
-  dotenv: 17.4.2
+  dotenv: 18.0.7
   eslint: 10.4.1
   eslint-config-prettier: 10.1.8_eslint@10.4.1
   eslint-plugin-prettier: 5.5.6_rngnww7v5xluwtgwfnxgjfgq44
@@ -3090,8 +3090,8 @@ packages:
   /@paulirish/trace_engine/0.0.65:
     resolution: {integrity: sha512-Qsm6F5C8xf6ZzQXbQc2+wcpe6sggfs/gvc/ytqSurdvYg3kyW0ECHCqE0CWBKZpqgjVfPNX9c7SCS3r2nEIRGg==}
     dependencies:
-      legacy-javascript: 0.0.1
-      third-party-web: 0.29.2
+      legacy-javascript: 0.0.3
+      third-party-web: 0.30.0
     dev: true
 
   /@pkgr/core/0.3.6:
@@ -6027,9 +6027,10 @@ packages:
       type-fest: 4.41.0
     dev: true
 
-  /dotenv/17.4.2:
-    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
+  /dotenv/18.0.7:
+    resolution: {integrity: sha512-QEvMEF8ca3GNZJJnAbOgxpj5ULhBvnMcURp+XKrtvqFNPgjBvYoswQ0Jl2cO7JzCjxZjJhr9ZuIEhlrRxMft/Q==}
     engines: {node: '>=12'}
+    hasBin: true
     dev: true
 
   /download/6.2.5:
@@ -8853,8 +8854,8 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: true
 
-  /legacy-javascript/0.0.1:
-    resolution: {integrity: sha512-lPyntS4/aS7jpuvOlitZDFifBCb4W8L/3QU0PLbUTUj+zYah8rfVjYic88yG7ZKTxhS5h9iz7duT8oUXKszLhg==}
+  /legacy-javascript/0.0.3:
+    resolution: {integrity: sha512-1r6MT4dVaJyXt4G07Cm2cQ0AUaLJdefiEp4SmIAylA++gnEQ82YvmzE58RkM5EP0fk5hROLCslUPGnwIYdZQVA==}
     dev: true
 
   /levn/0.4.1:
@@ -12624,6 +12625,10 @@ packages:
 
   /third-party-web/0.29.2:
     resolution: {integrity: sha512-fegtha91tq2DHphyoiBXVHjVi2YG9zFaRnboT9C28tO1en9Y3wJsfspuy40F+u5wl3hHVbw7cnd1b67kEGHb8g==}
+    dev: true
+
+  /third-party-web/0.30.0:
+    resolution: {integrity: sha512-p+PfyL5U0ediGzvwPzMSdD9MnC8rHW6nWJJVLIQvqN7RsSqfaZ+7n4c9GILqH36EYR0eXB9CzAeCRnKFr/9uJg==}
     dev: true
 
   /through/2.3.8:
