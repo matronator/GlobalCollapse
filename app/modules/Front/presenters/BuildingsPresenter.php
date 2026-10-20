@@ -13,7 +13,7 @@ final class BuildingsPresenter extends GamePresenter
 {
 	public $buildingsRepository;
 	private $drugsRepository;
-	
+
 	public function __construct(
 		BuildingsRepository $buildingsRepository,
 		DrugsRepository $drugsRepository
@@ -23,12 +23,12 @@ final class BuildingsPresenter extends GamePresenter
 			$this->buildingsRepository = $buildingsRepository;
 			$this->drugsRepository = $drugsRepository;
 		}
-		
+
 		protected function startup()
 		{
 			parent::startup();
 		}
-		
+
 		public function renderDefault() {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
@@ -44,12 +44,12 @@ final class BuildingsPresenter extends GamePresenter
 						$this->template->collectAll = true;
 					}
 				}
-				
+
 				$unlockedBuildings = $this->buildingsRepository->findAllUnlocked($player->id)->order('buildings.price DESC');
 				$this->template->unlockedBuildings = $unlockedBuildings;
 				$playerIncome = $this->buildingsRepository->findPlayerIncome($player->id)->fetch();
 				$this->template->playerIncome = $playerIncome;
-				
+
 				$drugs = $this->drugsRepository->findAll()->fetchAll();
 				$this->template->drugs = $drugs;
 				$drugsInventory = $this->drugsRepository->findDrugInventory($player->id)->order('drugs_id', 'ASC')->fetchAll();
@@ -64,7 +64,7 @@ final class BuildingsPresenter extends GamePresenter
 					}
 				}
 				$this->template->playerDrugs = $playerDrugs;
-				
+
 				$this->template->landUpgradeCost = $this->buildingsRepository->getLandUpgradeCost($playerLand->level);
 				$this->template->landSlotsNext = $this->buildingsRepository->getLandSlotGain($playerLand->level);
 				$this->template->landUpgradeTime = round($this->buildingsRepository->getLandUpgradeTime($playerLand->level) / 3600, 0);
@@ -122,13 +122,13 @@ final class BuildingsPresenter extends GamePresenter
 				}
 			}
 		}
-		
+
 		public function renderLands() {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
 			$this->template->land = $playerLand;
 		}
-		
+
 		public function handleUpgradeLand() {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$playerLand = $this->buildingsRepository->findPlayerLand($player->id)->fetch();
@@ -181,7 +181,7 @@ final class BuildingsPresenter extends GamePresenter
 			$this->redrawControl('sidebar-stats');
 			$this->redrawControl('body');
 		}
-		
+
 		public function actionBuyLand() {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$cost = $this->buildingsRepository->getLandPrice();
@@ -196,7 +196,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->redirect('Buildings:default');
 			}
 		}
-		
+
 		public function handleBuyBuilding(int $b) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$building = $this->buildingsRepository->getBuilding($b)->fetch();
@@ -222,7 +222,7 @@ final class BuildingsPresenter extends GamePresenter
 				}
 			}
 		}
-		
+
 		public function handleCollect(int $b) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$building = $this->buildingsRepository->getBuilding($b)->fetch();
@@ -254,7 +254,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->redirect('Buildings:default');
 			}
 		}
-		
+
 		public function handleCollectAll() {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$buildings = $this->buildingsRepository->findPlayerBuildings($player->id)->where('storage > 0')->where('user_id', $player->id);
@@ -275,7 +275,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->redrawControl('sidebar-stats');
 			}
 		}
-		
+
 		public function handleUpgrade(int $b) {
 			$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 			$building = $this->buildingsRepository->getBuilding($b)->fetch();
@@ -303,7 +303,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->redirect('Buildings:default');
 			}
 		}
-		
+
 		public function handleDemolish(int $b) {
 			$building = $this->buildingsRepository->getBuilding($b)->fetch();
 			if (!$building) {
@@ -323,7 +323,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->redirect('Buildings:default');
 			}
 		}
-		
+
 		public function getUpgradeCost(int $basePrice = 0, int $level = 1): int
 		{
 			return (int) round(($basePrice * ($level ** 1.05)) / 2, -1);

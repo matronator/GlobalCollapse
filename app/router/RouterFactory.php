@@ -20,6 +20,7 @@ class RouterFactory
 
 		/////////////////////// ADMIN ROUTES ///////////////////////
 		$router->withModule('Admin')
+			->addRoute('[<locale=en en|ru|cs>/]admin/get-top-users[/<page>]', 'Default:getTopUsers')
             // CRON
             ->addRoute('[<locale=en en|ru|cs>/]admin/cron/update-markets[/<hash>[/<confirm>]]', 'Default:updateMarkets')
 
@@ -89,9 +90,13 @@ class RouterFactory
 			->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default') //most general route
 
 		// APIs
-		->addRoute('api/job', 'Api:job')
+		->addRoute('callback/job', 'Callback:job')
 
 		->addRoute('[<locale=en en|ru|cs>/]<presenter>/<action>[/<id>]', 'Default:default'); //most general route
+
+		/////////////////////// API ROUTES ///////////////////////
+		$router->withModule('Api')
+			->addRoute('api/v1/<presenter>/<action>[/<id>]', 'Default:default'); //most general route
 
 		return $router;
 	}

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Model;
+declare(strict_types=1);
 
+namespace App\Model;
 
 use Nette\Security\Permission;
 
@@ -21,6 +22,7 @@ class Authorizator
 
         // resources
         $acl->addResource('Default');
+        $acl->addResource('Emails');
         $acl->addResource('Page');
         $acl->addResource('Article');
         $acl->addResource('Items');
@@ -31,10 +33,11 @@ class Authorizator
         $acl->addResource('Front:City');
         $acl->addResource('Front:Inventory');
         $acl->addResource('Front:*');
+        $acl->addResource('Api', 'Front:*');
 
         // rules
-        $acl->allow('a', Permission::ALL, ['create', 'read', 'update', 'delete', 'use']);
-        $acl->allow('u', ['Front:Default', 'Front:City', 'Front:*', 'Front:Inventory'], ['read']);
+        $acl->allow('a', Permission::All, ['create', 'read', 'update', 'delete', 'use']);
+        $acl->allow('u', ['Front:Default', 'Front:City', 'Front:*', 'Front:Inventory', 'Api'], ['read']);
 
         return $acl;
     }

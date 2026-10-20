@@ -18,3 +18,7 @@ libs/VoteRewards.php
 libs/Env.php
 app/config/*.local.neon
 www/ads.txt
+crt1-openssl.txt
+mac-cert.txt
+svethostingu
+svethostingu.pub

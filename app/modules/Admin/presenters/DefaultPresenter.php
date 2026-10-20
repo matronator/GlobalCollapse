@@ -48,6 +48,19 @@ final class DefaultPresenter extends BasePresenter
 		$this->template->anyVariable = 'any value';
 	}
 
+	public function actionGetTopUsers(int $page = 1)
+	{
+		$usersRanked = $this->userRepository->getLeaderboard();
+		$lastPage = 0;
+		$ranked = $usersRanked->page($page, 25, $lastPage);
+		$data = [];
+		foreach ($ranked as $rankedPlayer) {
+			$data[] = $rankedPlayer->email;
+		}
+
+		$this->sendJson($data);
+	}
+
 	// Dev tools
 	public function actionGenerateVendors()
 	{

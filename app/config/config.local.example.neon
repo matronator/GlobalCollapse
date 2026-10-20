@@ -27,6 +27,10 @@ parameters:
     confirm: 'andAnotherOne...'
   paddle:
     secret: 'paddle_notification_secret'
+  mail:
+    host: 'localhost'
+    username: 'info@site.com'
+    password: 'password'
   jobs!: [
     [
         locale: distributeMasks

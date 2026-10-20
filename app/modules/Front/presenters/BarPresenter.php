@@ -266,13 +266,14 @@ final class BarPresenter extends GamePresenter
 		}
 	}
 
-	private function getRandomWeightedElement(array $weightedValues) {
-    $rand = rand(1, (int) array_sum(array_column($weightedValues, 'droprate')));
-    foreach ($weightedValues as $key) {
-      $rand -= $key['droprate'];
-      if ($rand <= 0) {
-        return $key;
-      }
-    }
-  }
+	private function getRandomWeightedElement(array $weightedValues)
+	{
+		$rand = rand(1, (int) array_sum(array_column($weightedValues, 'droprate')));
+		foreach ($weightedValues as $key) {
+			$rand -= $key['droprate'];
+			if ($rand <= 0) {
+				return $key;
+			}
+		}
+	}
 }
