@@ -1,0 +1,24 @@
+{layout '../@layoutSignedIn.latte'}
+
+{block content}
+    <h1 n:block="title" class="uk-heading-divider">E-mail sender</h1>
+
+    {form emailForm}
+        <div class="input text uk-margin-bottom">
+            {label subject /}
+            {input subject}
+        </div>
+
+        <div class="input textarea input-text uk-margin-bottom">
+            {label content /}
+            {input content}
+        </div>
+
+        <div class="input submit uk-margin-left">
+            <button class="uk-button uk-button-primary" n:name="save">
+                <span class="label bg-c-1 bg-c-2-hover transition">Send e-mail</span>
+            </button>
+        </div>
+    {/form}
+
+{/block}

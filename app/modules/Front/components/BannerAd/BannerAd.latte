@@ -1,0 +1,8 @@
+{if $player->show_ads}
+    {if $card}<div class="uk-card uk-card-default uk-card-body uk-margin-bottom {$cardClasses}">{/if}
+        <div n:class="uk-text-center uk-width-expand uk-margin-auto {if $hideOnMobile}uk-visible@s{/if} {$classes}">
+            {block ad}{/block}
+        </div>
+    </div>
+    {if $card}</div>{/if}
+{/if}

@@ -1,0 +1,3 @@
+response:
+    notPermitted: 'You do not have permission to access this resource.'
+    notLoggedIn: 'You are not logged in. Log in to access this resource.'
