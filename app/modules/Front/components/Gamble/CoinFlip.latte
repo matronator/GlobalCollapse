@@ -1,0 +1,50 @@
+{default $betAmount = 1}
+
+<section class="gamble-coin-flip" aria-label="Coin flip game">
+    <div class="gamble-coin-flip__header">
+        <span class="gamble-coin-flip__bet">Bet: {$betAmount|number} BTC</span>
+        <span class="gamble-coin-flip__payout">Win: {($betAmount * 2)|number} BTC</span>
+    </div>
+
+    <p class="gamble-coin-flip__prompt">Choose a side to flip the coin.</p>
+
+    <div class="gamble-coin-flip__choices uk-grid-small uk-child-width-1-2@s" uk-grid>
+        <div>
+            <a n:href="coinFlip!, betAmount => $betAmount, side => 'heads'" class="gamble-coin-flip__choice gamble-coin-flip__choice--heads ajax">
+                <span class="gamble-coin-flip__choice-icon" aria-hidden="true">H</span>
+                <span>Heads</span>
+            </a>
+        </div>
+        <div>
+            <a n:href="coinFlip!, betAmount => $betAmount, side => 'tails'" class="gamble-coin-flip__choice gamble-coin-flip__choice--tails ajax">
+                <span class="gamble-coin-flip__choice-icon" aria-hidden="true">T</span>
+                <span>Tails</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="gamble-coin-flip__stage" aria-live="polite">
+        <div class="gamble-coin {ifset $flipResult}{if $resultBetAmount === $betAmount}gamble-coin--{$flipResult->value|lower}{/if}{/ifset}" aria-hidden="true">
+            <div class="gamble-coin__face gamble-coin__face--heads">
+                <span>₿</span>
+                <small>HEADS</small>
+            </div>
+            <div class="gamble-coin__face gamble-coin__face--tails">
+                <span>GC</span>
+                <small>TAILS</small>
+            </div>
+        </div>
+    </div>
+
+    {ifset $flipResult}
+        {if $resultBetAmount === $betAmount}
+            <div class="gamble-coin-flip__result {if $win}gamble-coin-flip__result--win{else}gamble-coin-flip__result--lose{/if}" role="status">
+                <span class="gamble-coin-flip__result-icon" aria-hidden="true">{if $win}✓{else}×{/if}</span>
+                <div>
+                    <strong>{if $win}You won!{else}Not this time.{/if}</strong>
+                    <span class="gamble-coin-flip__result-message">{if $win}The coin landed on {$flipResult->value|lower}. +{$betAmount|number} BTC added to your balance.{else}The coin landed on {$flipResult->value|lower}. {$betAmount|number} BTC was deducted.{/if}</span>
+                </div>
+            </div>
+        {/if}
+    {/ifset}
+</section>

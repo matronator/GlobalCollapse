@@ -33,5 +33,6 @@
     ],
     "alpine-intellisense.settings.languageScopes": "latte,html,php",
     "eslint.codeActionsOnSave.mode": "problems",
-    "eslint.run": "onSave"
+    "eslint.run": "onSave",
+    "php.suggest.basic": false
 }

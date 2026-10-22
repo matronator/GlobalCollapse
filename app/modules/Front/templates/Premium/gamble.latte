@@ -1,0 +1,64 @@
+{define bodyClass}page--home{/define}
+{define pageTitle}Gamble{/define}
+{define metaDescription}Gamble{/define}
+{default $resultBetAmount = 1}
+
+{block pageContent}
+<div class="uk-container uk-margin-auto uk-text-center uk-grid-item-match uk-grid-match" uk-grid>
+  <div class="uk-width-1-1">
+    <div class="uk-alert uk-alert-primary uk-margin-remove-top" uk-alert>
+      <p>This section is just a beta test and is actively being worked on. In the future many more games will be added.</p>
+    </div>
+    <h1 class="uk-margin-remove">Gamble</h1>
+    <div n:snippet="gambleArea">
+      {if $player->bitcoins < 1}
+        <div class="uk-alert uk-alert-danger" uk-alert>
+          <p>You can only gamble in bitcoins. <a n:href="Premium:default">Go buy some here.</a></p>
+        </div>
+      {else}
+        <p>Gamble your bitcoins for a chance to win more!</p>
+        <div class="gamble-balance uk-card uk-card-secondary uk-dark uk-card-body uk-margin-top uk-padding-small">
+          <h2 class="uk-heading-small">Your Balance</h2>
+          <p>You currently have <span class="gamble-balance__amount">{$player->bitcoins|number}</span> bitcoins.</p>
+          <p>To convert your bitcoins back into real money contact support: <a href="mailto:info@global-collapse.com">info@global-collapse.com</a>. <span class="uk-text-italic">This is only temporary; automatic conversion will be available in the future.</span></p>
+        </div>
+        <div class="gamble-game uk-card uk-card-default uk-card-body uk-margin-top">
+          <h2 class="uk-heading-small">Coin Flip</h2>
+          <p>Flip a coin and win double your bet if you guess correctly!</p>
+          <div class="gamble-game__tabs">
+            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-1" value="1"{if $resultBetAmount === 1} checked{/if}>
+            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-2" value="2"{if $resultBetAmount === 2} checked{/if}>
+            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-3" value="3"{if $resultBetAmount === 3} checked{/if}>
+            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-4" value="4"{if $resultBetAmount === 4} checked{/if}>
+            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-5" value="5"{if $resultBetAmount === 5} checked{/if}>
+            <div class="gamble-game__tab-list" role="tablist" aria-label="Coin flip bet amount">
+              <label class="gamble-game__tab" for="coin-flip-bet-1" role="tab">1 BTC</label>
+              <label class="gamble-game__tab" for="coin-flip-bet-2" role="tab">2 BTC</label>
+              <label class="gamble-game__tab" for="coin-flip-bet-3" role="tab">3 BTC</label>
+              <label class="gamble-game__tab" for="coin-flip-bet-4" role="tab">4 BTC</label>
+              <label class="gamble-game__tab" for="coin-flip-bet-5" role="tab">5 BTC</label>
+            </div>
+            <div class="gamble-game__panels">
+              <div class="gamble-game__panel gamble-game__panel--1" role="tabpanel">
+                  {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 1}
+              </div>
+              <div class="gamble-game__panel gamble-game__panel--2" role="tabpanel">
+                  {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 2}
+              </div>
+              <div class="gamble-game__panel gamble-game__panel--3" role="tabpanel">
+                  {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 3}
+              </div>
+              <div class="gamble-game__panel gamble-game__panel--4" role="tabpanel">
+                  {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 4}
+              </div>
+              <div class="gamble-game__panel gamble-game__panel--5" role="tabpanel">
+                  {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 5}
+              </div>
+            </div>
+          </div>
+        </div>
+      {/if}
+    </div>
+  </div>
+</div>
+{/block}

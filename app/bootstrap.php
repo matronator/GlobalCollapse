@@ -20,10 +20,17 @@ class Bootstrap
 			->addDirectory(__DIR__.'/../libs')
 			->register();
 		$configurator->addConfig(__DIR__ . '/config/config.neon');
+
 		$configurator->addConfig(__DIR__ . '/config/jobs.neon');
 		if (file_exists(__DIR__ . '/config/jobs.local.neon')) {
 			$configurator->addConfig(__DIR__ . '/config/jobs.local.neon');
 		}
+
+		$configurator->addConfig(__DIR__ . '/config/gambling.neon');
+		if (file_exists(__DIR__ . '/config/gambling.local.neon')) {
+			$configurator->addConfig(__DIR__ . '/config/gambling.local.neon');
+		}
+
 		$configurator->addConfig(__DIR__ . '/config/items.neon');
 		$configurator->addConfig(__DIR__ . '/config/config.local.neon');
 		$configurator->addStaticParameters([

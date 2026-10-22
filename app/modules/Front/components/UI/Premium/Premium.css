@@ -13,14 +13,14 @@
         flex-direction: column;
         justify-content: space-between;
     }
-    
+
     &.tier-2 {
         box-shadow: 0px 0px 16px 0px #ffd900;
     }
     &.tier-3 {
         box-shadow: 0px 0px 16px 0px #1975ff;
     }
-    
+
     &.current-tier {
         position: relative;
         overflow: hidden;
@@ -54,7 +54,366 @@
 }
 
 .premium-star {
-    margin-left: .25rem;
+    margin-left: 0.25rem;
     width: 16px;
     height: 16px;
+}
+
+.gamble-balance {
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        position: absolute;
+        top: -6rem;
+        right: -2rem;
+        color: rgb(255 193 7 / 12%);
+        content: "₿";
+        font-family: "Georgia", serif;
+        font-size: 14rem;
+        line-height: 1;
+        pointer-events: none;
+    }
+}
+
+.gamble-balance__amount {
+    color: #ffc107;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-shadow: 0 0 1rem rgb(255 193 7 / 45%);
+}
+
+.gamble-game {
+    overflow: hidden;
+}
+
+.gamble-game__tabs {
+    margin: 1.5rem -2.5rem 0;
+    padding: 0 1rem;
+}
+
+.gamble-game__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.gamble-game__tab-list {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border-bottom: 1px solid #d8dce0;
+}
+
+.gamble-game__tab {
+    cursor: pointer;
+    padding: 0.75rem 0.4rem;
+    border-bottom: 3px solid transparent;
+    color: #66717a;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.gamble-game__tab:hover {
+    background: #f6f8f9;
+    color: #263238;
+}
+
+.gamble-game__input:focus-visible + .gamble-game__input + .gamble-game__input + .gamble-game__input + .gamble-game__input + .gamble-game__tab-list .gamble-game__tab,
+.gamble-game__tab:focus-visible {
+    outline: 2px solid #2684ff;
+    outline-offset: -2px;
+}
+
+.gamble-game__panel {
+    display: none;
+    padding-top: 1.5rem;
+}
+
+#coin-flip-bet-1:checked ~ .gamble-game__panels .gamble-game__panel--1,
+#coin-flip-bet-2:checked ~ .gamble-game__panels .gamble-game__panel--2,
+#coin-flip-bet-3:checked ~ .gamble-game__panels .gamble-game__panel--3,
+#coin-flip-bet-4:checked ~ .gamble-game__panels .gamble-game__panel--4,
+#coin-flip-bet-5:checked ~ .gamble-game__panels .gamble-game__panel--5 {
+    display: block;
+}
+
+#coin-flip-bet-1:checked ~ .gamble-game__tab-list .gamble-game__tab:nth-child(1),
+#coin-flip-bet-2:checked ~ .gamble-game__tab-list .gamble-game__tab:nth-child(2),
+#coin-flip-bet-3:checked ~ .gamble-game__tab-list .gamble-game__tab:nth-child(3),
+#coin-flip-bet-4:checked ~ .gamble-game__tab-list .gamble-game__tab:nth-child(4),
+#coin-flip-bet-5:checked ~ .gamble-game__tab-list .gamble-game__tab:nth-child(5) {
+    border-bottom-color: #f3ab00;
+    color: #263238;
+}
+
+.gamble-coin-flip {
+    max-width: 38rem;
+    margin: 0 auto;
+}
+
+.gamble-coin-flip__header {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.gamble-coin-flip__bet,
+.gamble-coin-flip__payout {
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+}
+
+.gamble-coin-flip__bet {
+    background: #eceff1;
+    color: #263238;
+}
+
+.gamble-coin-flip__payout {
+    background: #fff3cd;
+    color: #8a5a00;
+}
+
+.gamble-coin-flip__prompt {
+    margin: 0 0 1rem;
+    color: #6b747c;
+}
+
+.gamble-coin-flip__choice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    border: 1px solid #c8d0d6;
+    border-radius: 0.35rem;
+    padding: 0.7rem 1rem;
+    color: #263238;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.gamble-coin-flip__choice:hover,
+.gamble-coin-flip__choice:focus {
+    border-color: #f3ab00;
+    box-shadow: 0 0.45rem 1.2rem rgb(243 171 0 / 25%);
+    color: #263238;
+    outline: 0;
+    transform: translateY(-2px);
+}
+
+.gamble-coin-flip__choice-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffe59a, #d98b00);
+    box-shadow:
+        inset 0 0 0 2px #fff4cb,
+        0 0.1rem 0.3rem rgb(94 59 0 / 35%);
+    color: #563700;
+    font-family: "Georgia", serif;
+}
+
+.gamble-coin-flip__stage {
+    display: grid;
+    min-height: 13.5rem;
+    place-items: center;
+    perspective: 52rem;
+}
+
+.gamble-coin {
+    position: relative;
+    width: 9.5rem;
+    height: 9.5rem;
+    transform-style: preserve-3d;
+}
+
+.gamble-coin__face {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    inset: 0;
+    backface-visibility: hidden;
+    border: 0.45rem solid #c57a00;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 34% 28%, #fff5ba 0 4%, transparent 5%),
+        radial-gradient(circle at 50% 50%, #ffdc5f 0 53%, #efac17 54% 72%, #b86a00 73% 100%);
+    box-shadow:
+        inset 0 0 0 0.3rem #fff1a8,
+        inset 0 0 0 0.6rem #c57a00,
+        0 0.85rem 1.1rem rgb(40 28 0 / 25%);
+    color: #603700;
+    text-shadow: 0 1px #fff1ab;
+}
+
+.gamble-coin__face > span {
+    font-family: "Georgia", serif;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.gamble-coin__face > small {
+    margin-top: 0.45rem;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+.gamble-coin__face--tails {
+    background:
+        radial-gradient(circle at 34% 28%, #fff5ba 0 4%, transparent 5%),
+        radial-gradient(circle at 50% 50%, #f7d36e 0 53%, #df9f18 54% 72%, #9a5700 73% 100%);
+    transform: rotateY(180deg);
+}
+
+.gamble-coin__face--tails > span {
+    font-size: 2.15rem;
+    letter-spacing: -0.12em;
+}
+
+.gamble-coin--heads {
+    animation: gamble-coin-flip-heads 1.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+.gamble-coin--tails {
+    animation: gamble-coin-flip-tails 1.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+.gamble-coin-flip__result {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    border: 1px solid;
+    border-radius: 0.35rem;
+    padding: 0.8rem 1rem;
+    animation: gamble-result-enter 0.45s 1.25s both;
+    text-align: left;
+}
+
+.gamble-coin-flip__result--win {
+    border-color: #77be80;
+    background: #effaf0;
+    color: #256b2e;
+}
+
+.gamble-coin-flip__result--lose {
+    border-color: #df8585;
+    background: #fff2f2;
+    color: #9e3030;
+}
+
+.gamble-coin-flip__result-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: currentcolor;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.gamble-coin-flip__result strong,
+.gamble-coin-flip__result-message {
+    display: block;
+}
+
+.gamble-coin-flip__result-message {
+    margin-top: 0.1rem;
+    font-size: 0.9rem;
+}
+
+@keyframes gamble-coin-flip-heads {
+    0% {
+        transform: rotateX(12deg) rotateY(-1080deg) translateY(-0.6rem);
+    }
+    55% {
+        transform: rotateX(-18deg) rotateY(-340deg) translateY(-2.25rem);
+    }
+    78% {
+        transform: rotateX(8deg) rotateY(25deg) translateY(0);
+    }
+    100% {
+        transform: rotateX(0) rotateY(0);
+    }
+}
+
+@keyframes gamble-coin-flip-tails {
+    0% {
+        transform: rotateX(12deg) rotateY(-1080deg) translateY(-0.6rem);
+    }
+    55% {
+        transform: rotateX(-18deg) rotateY(-500deg) translateY(-2.25rem);
+    }
+    78% {
+        transform: rotateX(8deg) rotateY(205deg) translateY(0);
+    }
+    100% {
+        transform: rotateX(0) rotateY(180deg);
+    }
+}
+
+@keyframes gamble-result-enter {
+    from {
+        opacity: 0;
+        transform: translateY(0.6rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 639px) {
+    .gamble-game__tabs {
+        margin-right: -1.5rem;
+        margin-left: -1.5rem;
+        overflow-x: auto;
+    }
+
+    .gamble-game__tabs > ul {
+        min-width: 30rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gamble-coin--heads,
+    .gamble-coin--tails,
+    .gamble-coin-flip__result {
+        animation: none;
+    }
+
+    .gamble-coin--heads {
+        transform: rotateY(0);
+    }
+    .gamble-coin--tails {
+        transform: rotateY(180deg);
+    }
 }

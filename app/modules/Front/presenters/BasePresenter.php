@@ -41,12 +41,16 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
     /** @var Model\StatisticsRepository */
     protected $statisticsRepository;
 
+    /** @var Model\MiscRepository */
+    protected $miscRepositoryBase;
+
 	public function injectRepository(
 		Model\UserRepository $userRepository,
 		Model\UnlockablesRepository $unlockablesRepository,
 		Model\BuildingsRepository $buildingsRepository,
         Model\InventoryRepository $inventoryRepository,
-        Model\StatisticsRepository $statisticsRepository
+        Model\StatisticsRepository $statisticsRepository,
+		Model\MiscRepository $miscRepositoryBase,
 	)
 	{
 		$this->userRepository = $userRepository;
@@ -54,6 +58,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->buildingsRepository = $buildingsRepository;
         $this->inventoryRepository = $inventoryRepository;
         $this->statisticsRepository = $statisticsRepository;
+		$this->miscRepositoryBase = $miscRepositoryBase;
 	}
 
 	protected function beforeRender()
@@ -64,6 +69,8 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		if ($this->isAjax()) {
 			$this->redrawControl('main');
 			$this->redrawControl('flashes');
+		} else {
+			$this->miscRepositoryBase->recordHit();
 		}
 		$this->template->psp = $this->paymentService->getPsp();
 		$this->template->useStripe = $this->paymentService->isStripe();

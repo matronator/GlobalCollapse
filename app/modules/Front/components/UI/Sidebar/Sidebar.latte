@@ -1,7 +1,7 @@
 {define sidebarGame}
   <div class="status-bar uk-flex uk-text-small uk-text-light" n:snippet="sidebar-stats">
     <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$player->money|number}</span>
-    <a n:href="Premium:default" class="uk-text-warning uk-text-decoration-none" uk-tooltip="title: Bitcoins;pos:bottom"><span uk-icon="bitcoin"></span> {$player->bitcoins|number}</a>
+    <a n:href="Premium:default#buy-bitcoins" class="uk-text-warning uk-text-decoration-none" uk-tooltip="title: Bitcoins;pos:bottom"><span uk-icon="bitcoin"></span> {$player->bitcoins|number}</a>
     <span class="uk-text-yellow uk-flex uk-flex-middle uk-align-center uk-margin-remove-vertical uk-padding-tiny uk-padding-remove-bottom uk-width-1-1 uk-text-center uk-display-block" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$player->player_stats->energy}/{$maxEnergy}</span>
   </div>
   <ul class="uk-nav-default" uk-nav="multiple: true">
@@ -14,6 +14,7 @@
         {* <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Account:voting">{_general.ui.sidebar.player.reward}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li> *}
         <li n:class="$presenter->isLinkCurrent('Info:voting') ? uk-active"><a n:href="Info:voting">{_general.ui.sidebar.player.reward}</a></li>
         <li n:class="$presenter->isLinkCurrent('Premium:default') ? uk-active"><a n:href="Premium:default">{_general.ui.sidebar.player.premium}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
+        <li n:class="$presenter->isLinkCurrent('Premium:gamble') ? uk-active"><a n:href="Premium:gamble">Gamble&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.home}</a></li>
         <li n:class="$presenter->isLinkCurrent('Account:settings') ? uk-active"><a n:href="Account:settings">{_general.ui.sidebar.player.account}</a></li>

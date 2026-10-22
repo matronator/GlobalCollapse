@@ -29,6 +29,8 @@ class UserRepository
 
     public $maxPlayerMoney = 999_999_999;
 
+    public const MAX_BITCOINS = 10_000_000;
+
     public $roles = [
         USER_ROLE_ADMIN => 'Admin',
         USER_ROLE_USER => 'User',
@@ -306,6 +308,30 @@ class UserRepository
                 'money' => $newTotal
             ]);
         }
+    }
+
+    public function addBitcoins(int $id, int $amount): int
+    {
+        $userBtc = $this->getUser($id)->bitcoins;
+        $total = min(max($userBtc + $amount, 0), self::MAX_BITCOINS);
+        $this->updateUser($id, [
+            'bitcoins' => $total,
+        ]);
+
+        return $total;
+    }
+
+    public function subtractBitcoins(int $id, int $amount): ?int
+    {
+        $userBtc = $this->getUser($id)->bitcoins;
+        if ($userBtc < $amount) {
+            return null;
+        }
+        $total = min(max($userBtc - $amount, 0), self::MAX_BITCOINS);
+        $this->updateUser($id, [
+            'bitcoins' => $total,
+        ]);
+        return $total;
     }
 
     public function addEnergy(int $id, $energy) {

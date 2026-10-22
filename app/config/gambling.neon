@@ -1,0 +1,9 @@
+parameters:
+    gambling:
+        games:
+            coin_flip:
+                enabled: true
+                min_bet: 1
+                max_bet: 5
+                win_chance: 0.5
+                payout_multiplier: 2
