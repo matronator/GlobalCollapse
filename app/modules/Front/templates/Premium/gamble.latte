@@ -26,35 +26,30 @@
           <h2 class="uk-heading-small">Coin Flip</h2>
           <p>Flip a coin and win double your bet if you guess correctly!</p>
           <div class="gamble-game__tabs">
-            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-1" value="1"{if $resultBetAmount === 1} checked{/if}>
-            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-2" value="2"{if $resultBetAmount === 2} checked{/if}>
-            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-3" value="3"{if $resultBetAmount === 3} checked{/if}>
-            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-4" value="4"{if $resultBetAmount === 4} checked{/if}>
-            <input class="gamble-game__input" type="radio" name="coin-flip-bet" id="coin-flip-bet-5" value="5"{if $resultBetAmount === 5} checked{/if}>
-            <div class="gamble-game__tab-list" role="tablist" aria-label="Coin flip bet amount">
-              <label class="gamble-game__tab" for="coin-flip-bet-1" role="tab">1 BTC</label>
-              <label class="gamble-game__tab" for="coin-flip-bet-2" role="tab">2 BTC</label>
-              <label class="gamble-game__tab" for="coin-flip-bet-3" role="tab">3 BTC</label>
-              <label class="gamble-game__tab" for="coin-flip-bet-4" role="tab">4 BTC</label>
-              <label class="gamble-game__tab" for="coin-flip-bet-5" role="tab">5 BTC</label>
-            </div>
-            <div class="gamble-game__panels">
-              <div class="gamble-game__panel gamble-game__panel--1" role="tabpanel">
+              <ul class="uk-child-width-expand" uk-tab="animation: uk-animation-slide-left; connect: .uk-switcher; swiping: false">
+                  <li{if $resultBetAmount === 1} class="uk-active"{/if}><a href="#">1 BTC</a></li>
+                  <li{if $resultBetAmount === 2} class="uk-active"{/if}><a href="#">2 BTC</a></li>
+                  <li{if $resultBetAmount === 3} class="uk-active"{/if}><a href="#">3 BTC</a></li>
+                  <li{if $resultBetAmount === 4} class="uk-active"{/if}><a href="#">4 BTC</a></li>
+                  <li{if $resultBetAmount === 5} class="uk-active"{/if}><a href="#">5 BTC</a></li>
+              </ul>
+          </div>
+          <div class="uk-switcher uk-margin">
+              <div>
                   {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 1}
               </div>
-              <div class="gamble-game__panel gamble-game__panel--2" role="tabpanel">
+              <div>
                   {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 2}
               </div>
-              <div class="gamble-game__panel gamble-game__panel--3" role="tabpanel">
+              <div>
                   {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 3}
               </div>
-              <div class="gamble-game__panel gamble-game__panel--4" role="tabpanel">
+              <div>
                   {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 4}
               </div>
-              <div class="gamble-game__panel gamble-game__panel--5" role="tabpanel">
+              <div>
                   {include '../../components/UI/Premium/GambleCoinFlip.latte', betAmount => 5}
               </div>
-            </div>
           </div>
         </div>
       {/if}
