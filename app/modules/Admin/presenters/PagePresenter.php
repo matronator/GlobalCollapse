@@ -90,12 +90,12 @@ final class PagePresenter extends BasePresenter
 			}
 
 			foreach ($photos as $photo) {
-				$this->imageStorage->delete($photo, $this->pages->uploadDir);
+				// $this->imageStorage->delete($photo, $this->pages->uploadDir);
 				$this->pages->findAllImages()->where('page_id', $photo)->delete();
 			}
 
             $this->pages->findPageTranslations($id)->delete();
-            $this->pages->findAllTags()->where('page_id', $id)->delete();
+            // $this->pages->findAllTags()->where('page_id', $id)->delete();
             $this->pages->findAll()->where('id', $id)->delete();
 
             $this->flashMessage('Záznam úspěšně smazán!');
