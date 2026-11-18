@@ -9,11 +9,12 @@ use Nette\Http\Request;
 use Nette\Http\Url;
 use Nette\Application\UI\Presenter;
 use Nette\Localization\Translator;
+use Nette\Application\Attributes\Persistent;
 
 class BasePresenter extends Presenter
 {
 
-	#[Nette\Application\Attributes\Persistent]
+	#[Persistent]
 	public $locale;
 
 	/** @var array */

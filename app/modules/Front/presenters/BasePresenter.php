@@ -8,14 +8,14 @@ use App\Model;
 use App\Services\PaymentService;
 use DateTime;
 use Nette\Database\Table\ActiveRow;
-use stdClass;
+use Nette\Application\Attributes\Persistent;
 
 /////////////////////// FRONT: BASE PRESENTER ///////////////////////
 // Base presenter for all frontend presenters
 
 class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 {
-	#[Nette\Application\Attributes\Persistent]
+	#[Persistent]
 	public $locale;
 
 	public $userPrefs;
