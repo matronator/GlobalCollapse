@@ -6,7 +6,7 @@ namespace App\AdminModule\Presenters;
 
 use App\Model,
 	Nette,
-	Nette\Security,
+	Nette\Security\Passwords,
 	Nette\Application\UI\Form,
 	Nette\Mail\Message,
 	Nette\Utils\Validators,
@@ -42,7 +42,7 @@ final class UserPresenter extends BasePresenter
 		$this->template->roles = $this->userModel->roles;
 	}
 
-	public function renderEdit(int $id = null)
+	public function renderEdit(?int $id = null)
 	{
 		$form = $this['userForm'];
 		$this->template->id = $id;
@@ -115,6 +115,7 @@ final class UserPresenter extends BasePresenter
 	public function userFormSucceeded(Form $form, $values)
 	{
 		$id = (int) $this->getParameter('id');
+		$passwords = new Passwords();
 
 		if ($id) {
 			// edit user
@@ -128,7 +129,7 @@ final class UserPresenter extends BasePresenter
                 $this->flashMessage('Update successful.');
             }
             else if($values->password==$values->passwordVerify){
-                $values->password = Security\Passwords::hash($values->password);
+                $values->password = $passwords->hash($values->password);
                 unset($values->passwordVerify);
 
                 $this->userModel->findAll()->get($id)->update($values);
@@ -141,7 +142,7 @@ final class UserPresenter extends BasePresenter
 			if($values->password!=$values->passwordVerify){
 				$form->addError('Passwords do not match.');
 			}else{
-				$values->password = Security\Passwords::hash($values->password);
+				$values->password = $passwords->hash($values->password);
 				unset($values->passwordVerify);
 				$values->registration = new DateTime();
 

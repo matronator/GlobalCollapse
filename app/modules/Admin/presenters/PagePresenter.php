@@ -119,7 +119,7 @@ final class PagePresenter extends BasePresenter
 		$this->redirect('default');
 	}
 
-	public function actionUpdateSort(string $items = null)
+	public function actionUpdateSort(?string $items = null)
 	{
 		foreach(explode(',', $items) as $n => $row){
 			$this->pages->findAll()->wherePrimary($row)->update(array('order'=>$n));
@@ -209,7 +209,7 @@ final class PagePresenter extends BasePresenter
 
         $primaryData['level'] = $parentPage ? $parentPage->level + 1 : 0;
 
-        
+
         if( empty( trim($values->{'title_' . $this->defaultLocale})) ) { // default language title is not set
             foreach ($this->localeList as $lang) {
                 if ( trim($values->{'title_' . $lang}) ) {

@@ -83,7 +83,7 @@ final class MarketPresenter extends ItemsBasePresenter
         $this->redrawControl('playerBody');
         $this->redrawControl('wrapper');
         $this->redrawControl('flashes');
-        $this->redrawControl('sidebar-stats');
+        $this->redrawControl('sidebarStats');
     }
 
     public function handleSellItem(?int $slotId)
@@ -111,6 +111,6 @@ final class MarketPresenter extends ItemsBasePresenter
         $this->redrawControl('playerBody');
         $this->redrawControl('wrapper');
         $this->redrawControl('flashes');
-        $this->redrawControl('sidebar-stats');
+        $this->redrawControl('sidebarStats');
     }
 }

@@ -17,7 +17,7 @@ class DarknetService
 	{
 	}
 
-	public function offerSell(User $user, string $hash = null, int $quantity = null): DarknetResponse
+	public function offerSell(User $user, ?string $hash = null, ?int $quantity = null): DarknetResponse
 	{
 		$player = $this->userRepository->getUser($user->getIdentity()->id);
 
@@ -36,7 +36,7 @@ class DarknetService
         return $this->sellDrugs($player, $offer, $quantity, $totalPrice);
 	}
 
-	public function offerBuy(User $user, string $hash = null, int $quantity = null): DarknetResponse
+	public function offerBuy(User $user, ?string $hash = null, ?int $quantity = null): DarknetResponse
 	{
 		$player = $this->userRepository->getUser($user->getIdentity()->id);
 

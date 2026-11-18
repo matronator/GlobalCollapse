@@ -90,7 +90,7 @@ final class BuildingsPresenter extends GamePresenter
 						$this->redrawControl('playerStash');
 						$this->redrawControl('buildings');
 						$this->redrawControl('land-card');
-						$this->redrawControl('sidebar-stats');
+						$this->redrawControl('sidebarStats');
 						$this->redrawControl('landUpgradeProgress');
 					}
 				}
@@ -143,14 +143,14 @@ final class BuildingsPresenter extends GamePresenter
 					$this->redrawControl('playerStash');
 					$this->redrawControl('buildings');
 					$this->redrawControl('land-card');
-					$this->redrawControl('sidebar-stats');
+					$this->redrawControl('sidebarStats');
 				} else {
 					$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
 					$this->redrawControl('land-card');
-					$this->redrawControl('sidebar-stats');
+					$this->redrawControl('sidebarStats');
 				}
 			} else {
-				$this->redrawControl('sidebar-stats');
+				$this->redrawControl('sidebarStats');
 				$this->redirect('Buildings:default');
 			}
 		}
@@ -178,7 +178,7 @@ final class BuildingsPresenter extends GamePresenter
 			$this->redrawControl('playerStash');
 			$this->redrawControl('buildings');
 			$this->redrawControl('land-card');
-			$this->redrawControl('sidebar-stats');
+			$this->redrawControl('sidebarStats');
 			$this->redrawControl('body');
 		}
 
@@ -214,10 +214,10 @@ final class BuildingsPresenter extends GamePresenter
 					$this->redrawControl('playerIncome');
 					$this->redrawControl('playerStash');
 					$this->redrawControl('buildings');
-					$this->redrawControl('sidebar-stats');
+					$this->redrawControl('sidebarStats');
 				} else {
 					$this->flashMessage($this->translate('general.messages.danger.notEnoughMoney'), 'danger');
-					$this->redrawControl('sidebar-stats');
+					$this->redrawControl('sidebarStats');
 					$this->redrawControl('buildings');
 				}
 			}
@@ -244,7 +244,7 @@ final class BuildingsPresenter extends GamePresenter
 					// $this->redirect('Buildings:default');
 					$this->redrawControl('playerStash');
 					$this->redrawControl('buildings');
-					$this->redrawControl('sidebar-stats');
+					$this->redrawControl('sidebarStats');
 				} else {
 					// $this->redrawControl('buildings');
 					$this->redirect('Buildings:default');
@@ -272,7 +272,7 @@ final class BuildingsPresenter extends GamePresenter
 				$this->flashMessage($this->translate('general.messages.success.allBuildingCollected'), 'success');
 				$this->redrawControl('playerStash');
 				$this->redrawControl('buildings');
-				$this->redrawControl('sidebar-stats');
+				$this->redrawControl('sidebarStats');
 			}
 		}
 
@@ -298,7 +298,7 @@ final class BuildingsPresenter extends GamePresenter
 				}
 				$this->redrawControl('playerIncome');
 				$this->redrawControl('buildings');
-				$this->redrawControl('sidebar-stats');
+				$this->redrawControl('sidebarStats');
 			} else {
 				$this->redirect('Buildings:default');
 			}
@@ -318,7 +318,7 @@ final class BuildingsPresenter extends GamePresenter
 				}
 				$this->redrawControl('playerIncome');
 				$this->redrawControl('buildings');
-				$this->redrawControl('sidebar-stats');
+				$this->redrawControl('sidebarStats');
 			} else {
 				$this->redirect('Buildings:default');
 			}

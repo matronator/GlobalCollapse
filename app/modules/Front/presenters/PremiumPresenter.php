@@ -47,7 +47,7 @@ final class PremiumPresenter extends GamePresenter
         $this->template->stripePublicKey = $this->stripeService->publicKey;
     }
 
-    public function renderSuccess(string $sessionId = null, ?string $mode = null)
+    public function renderSuccess(?string $sessionId = null, ?string $mode = null)
     {
         if (!$sessionId) {
             $this->redirect('default');
@@ -97,7 +97,7 @@ final class PremiumPresenter extends GamePresenter
 
         if ($this->isAjax()) {
             $this->redrawControl('gambleArea');
-            $this->redrawControl('sidebar-stats');
+            $this->redrawControl('sidebarStats');
         } else {
             // For non-ajax, we'll just let the render handle it,
             // but we need to pass these values to the template.

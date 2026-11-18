@@ -50,7 +50,7 @@ final class ArticlePresenter extends BasePresenter
 	}
 
 
-	public function renderEdit(int $id = null)
+	public function renderEdit(?int $id = null)
     {
         $form = $this['articleForm'];
 

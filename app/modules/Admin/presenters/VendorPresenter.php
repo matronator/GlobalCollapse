@@ -37,7 +37,7 @@ final class VendorPresenter extends BasePresenter
 		$this->template->data = $this->darknet->findAllVendors()->order('level');
 	}
 
-	public function renderEdit(int $id = null)
+	public function renderEdit(?int $id = null)
 	{
 		$form = $this['vendorForm'];
 		$this->template->id = $id;

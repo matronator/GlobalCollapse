@@ -1,5 +1,5 @@
 {define sidebarGame}
-  <div class="status-bar uk-flex uk-text-small uk-text-light" n:snippet="sidebar-stats">
+  <div class="status-bar uk-flex uk-text-small uk-text-light" n:snippet="sidebarStats">
     <span class="uk-text-success" uk-tooltip="title: Money;pos:bottom">&dollar;{$player->money|number}</span>
     <a n:href="Premium:default#buy-bitcoins" class="uk-text-warning uk-text-decoration-none" uk-tooltip="title: Bitcoins;pos:bottom"><span uk-icon="bitcoin"></span> {$player->bitcoins|number}</a>
     <span class="uk-text-yellow uk-flex uk-flex-middle uk-align-center uk-margin-remove-vertical uk-padding-tiny uk-padding-remove-bottom uk-width-1-1 uk-text-center uk-display-block" uk-tooltip="title: Energy;pos:bottom"><span uk-icon="bolt"></span>{$player->player_stats->energy}/{$maxEnergy}</span>
