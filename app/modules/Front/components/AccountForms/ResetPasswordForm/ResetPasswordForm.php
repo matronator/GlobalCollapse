@@ -29,7 +29,7 @@ class ResetPasswordForm extends Control {
 
     public function createComponentForm()
     {
-        $hash = $this->presenter->getParameter('hash');
+        $hash = $this->getPresenter()->getParameter('hash');
         $user = $this->userRepository->getUserByRecoveryHash($hash);
 
         $form = new Form;
@@ -59,7 +59,7 @@ class ResetPasswordForm extends Control {
             $values = $form->getValues(true);
 
             //Update password
-            $hash = $this->presenter->getParameter('hash');
+            $hash = $this->getPresenter()->getParameter('hash');
             $user = $this->userRepository->getUserByRecoveryHash($hash);
             $newPasswordHash = $this->userRepository->cypherPassword($values['newPassword']);
             $this->userRepository->changeUserPassword($user->id, $newPasswordHash);

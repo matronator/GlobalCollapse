@@ -94,8 +94,8 @@ class DataTable extends Control
         $this->template->data = $this->data;
         $this->template->sort = $this->sort;
 
-        $this->presenter->redrawControl('wrapper');
-        $this->presenter->redrawControl('content');
+        $this->getPresenter()->redrawControl('wrapper');
+        $this->getPresenter()->redrawControl('content');
         $this->redrawControl();
     }
 
@@ -109,8 +109,8 @@ class DataTable extends Control
         $this->template->data = $this->data;
         $this->template->sort = $this->sort;
 
-        $this->presenter->redrawControl('wrapper');
-        $this->presenter->redrawControl('content');
+        $this->getPresenter()->redrawControl('wrapper');
+        $this->getPresenter()->redrawControl('content');
         $this->redrawControl();
     }
 
@@ -125,8 +125,8 @@ class DataTable extends Control
         $section = $this->session->getSection('items-paginator');
         $section->set('page', $page);
 
-        $this->presenter->redrawControl('wrapper');
-        $this->presenter->redrawControl('content');
+        $this->getPresenter()->redrawControl('wrapper');
+        $this->getPresenter()->redrawControl('content');
         $this->redrawControl();
     }
 

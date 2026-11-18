@@ -35,7 +35,7 @@ class ContactForm extends Control {
 
     public function createComponentForm()
     {
-        $gdprConsent = $this->presenter->getHttpRequest()->getUrl()->getBasePath() . 'downloads/gdpr_file.pdf';
+        $gdprConsent = $this->getPresenter()->getHttpRequest()->getUrl()->getBasePath() . 'downloads/gdpr_file.pdf';
 
         $form = new Form;
 
@@ -95,14 +95,14 @@ class ContactForm extends Control {
                     'ip'=>$_SERVER["REMOTE_ADDR"]
                 ]);
                 $mailer->send($mail);
-                $this->presenter->flashMessage($this->translate('form.contact.success'), 'success');
+                $this->getPresenter()->flashMessage($this->translate('form.contact.success'), 'success');
             } catch (\Exception $e) {
-                $this->presenter->flashMessage($this->translate('form.contact.failed'), 'error');
+                $this->getPresenter()->flashMessage($this->translate('form.contact.failed'), 'error');
                 Debugger::log(new \Exception($e->getMessage()));
             }
             $this->onSuccess($form);
         }else{
-            $this->presenter->flashMessage($this->translate('form.contact.errorYouAreRobot'), 'error');
+            $this->getPresenter()->flashMessage($this->translate('form.contact.errorYouAreRobot'), 'error');
             $this->onError($form);
         }
     }

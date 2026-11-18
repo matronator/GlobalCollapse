@@ -42,7 +42,9 @@ messages:
 		allBuildingCollected: "Všechny budovy sesbírány!"
 	info:
 	warning:
-	    cantRefreshOffer: "Ještě nemůžeš obnovit nabídku. Zkus to znovu za %minutes% minut."
+	    cantRefreshOffer: "Využil jsi všechna obnovení nabídek. Obnoví se za %hours% hodin %minutes% minut."
+	    cantRefreshOfferHours: "Využil jsi všechna obnovení nabídek. Obnoví se za %hours% hodin."
+	    cantRefreshOfferMinutes: "Využil jsi všechna obnovení nabídek. Obnoví se za %minutes% minut."
 	    itemLowLevel: "Musíš být aspoň level %level% pro koupení této věci."
 	    noInventorySpace: "Tvůj inventář je plný."
 	    drugsSoldWithRemainder: "Prodáno pouze %quantity% gramů, protože vendor neměl víc peněz."
@@ -320,6 +322,11 @@ darknet:
 	vendorMoney: "Vendor má peněz"
 	vendorFee: "Poplatek vendora"
 	vendorFeeTooltip: "Poplatek navíc pro nákupy"
+	refreshesAvailable: 'Dostupná obnovení nabídek: %remaining%/%limit%'
+	refreshesResetIn: 'Obnoví se za %hours% hodin %minutes% minut'
+	refreshesResetInHours: 'Obnoví se za %hours% hodin'
+	refreshesResetInMinutes: 'Obnoví se za %minutes% minut'
+	refreshOffer: 'Vygenerovat novou nabídku (zbývá obnovení: %remaining%)'
 
 buildings:
 	title: 'Budovy'

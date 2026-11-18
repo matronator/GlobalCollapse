@@ -19,6 +19,9 @@ use Tracy\Debugger;
 
 final class CityPresenter extends GamePresenter
 {
+	private const OFFER_REFRESH_LIMIT = 3;
+	private const OFFER_REFRESH_WINDOW = 8 * 60 * 60;
+
 	public function __construct(
 		private DrugsRepository $drugsRepository,
 		private DarknetService $darknetService,
@@ -54,7 +57,7 @@ final class CityPresenter extends GamePresenter
 		$this->template->vendors = $vendors;
 		$offers = $this->drugsRepository->findAvailableOffers($player->player_stats->level)->where('vendor_offers.active', 1)->order('vendor_offers.drug_id');
 		$vendorOffers = [];
-		$sessionOffers = $this->session->getSection('darknetOffers');
+		$sessionOffers = $this->getSession()->getSection('darknetOffers');
 		$sessionOffers->remove();
 		foreach($offers as $offer) {
 			$timestamp = (string)time();
@@ -67,16 +70,82 @@ final class CityPresenter extends GamePresenter
 		}
 		$this->template->vendorOffers = $vendorOffers;
 		$this->template->offers = $offers;
-		if ($player->actions->offer_refreshed) {
-			$offerRefreshed = self::checkDates($player->actions->offer_refreshed, new DateTime());
-			if ($offerRefreshed > 0) {
-				$this->template->offerRefresh = $offerRefreshed;
-			} else {
-				$this->template->offerRefresh = false;
-			}
-		} else {
-			$this->template->offerRefresh = false;
+
+		$offerRefreshState = $this->getOfferRefreshState($player->actions, new DateTime());
+		$offerRefreshResetTime = $offerRefreshState['resetIn'] > 0
+			? $this->getOfferRefreshResetTime($offerRefreshState['resetIn'])
+			: null;
+		$this->template->offerRefreshesRemaining = $offerRefreshState['remaining'];
+		$this->template->offerRefreshResetLabel = $offerRefreshResetTime
+			? $this->translator->translate(
+				$this->getOfferRefreshResetTranslationKey('general.darknet.refreshesResetIn', $offerRefreshResetTime),
+				$offerRefreshResetTime,
+			)
+			: null;
+	}
+
+	/**
+	 * @return array{hours: int, minutes: int}
+	 */
+	private function getOfferRefreshResetTime(int $seconds): array
+	{
+		$totalMinutes = (int) ceil($seconds / 60);
+
+		return [
+			'hours' => intdiv($totalMinutes, 60),
+			'minutes' => $totalMinutes % 60,
+		];
+	}
+
+	/**
+	 * @param array{hours: int, minutes: int} $resetTime
+	 */
+	private function getOfferRefreshResetTranslationKey(string $baseKey, array $resetTime): string
+	{
+		if ($resetTime['hours'] === 0) {
+			return $baseKey . 'Minutes';
 		}
+
+		if ($resetTime['minutes'] === 0) {
+			return $baseKey . 'Hours';
+		}
+
+		return $baseKey;
+	}
+
+	/**
+	 * @return array{used: int, remaining: int, resetIn: int, active: bool}
+	 */
+	private function getOfferRefreshState(ActiveRow $actions, DateTime $now): array
+	{
+		$used = min(self::OFFER_REFRESH_LIMIT, max(0, (int) $actions->offer_refreshes_used));
+		$windowStartedAt = $actions->offer_refreshed;
+
+		if (!$windowStartedAt || $used === 0) {
+			return [
+				'used' => 0,
+				'remaining' => self::OFFER_REFRESH_LIMIT,
+				'resetIn' => 0,
+				'active' => false,
+			];
+		}
+
+		$resetIn = self::checkDates($windowStartedAt, $now, self::OFFER_REFRESH_WINDOW);
+		if ($resetIn === 0) {
+			return [
+				'used' => 0,
+				'remaining' => self::OFFER_REFRESH_LIMIT,
+				'resetIn' => 0,
+				'active' => false,
+			];
+		}
+
+		return [
+			'used' => $used,
+			'remaining' => self::OFFER_REFRESH_LIMIT - $used,
+			'resetIn' => $resetIn,
+			'active' => true,
+		];
 	}
 
 	public function getMaxQuantity(ActiveRow $player, ActiveRow $offer)
@@ -91,15 +160,19 @@ final class CityPresenter extends GamePresenter
 	public function actionRefreshOffer(string $hash)
 	{
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
+		$now = new DateTime();
+		$offerRefreshState = $this->getOfferRefreshState($player->actions, $now);
 
-		if ($player->actions->offer_refreshed) {
-			$diff = self::checkDates($player->actions->offer_refreshed, new DateTime());
-			if ($diff > 0) {
-				$this->flashMessage($this->translator->translate('general.messages.warning.cantRefreshOffer', ['minutes' => $diff]), 'warning');
-				$this->redirect('City:darknet');
-			}
+		if ($offerRefreshState['remaining'] === 0) {
+			$offerRefreshResetTime = $this->getOfferRefreshResetTime($offerRefreshState['resetIn']);
+			$this->flashMessage($this->translator->translate(
+				$this->getOfferRefreshResetTranslationKey('general.messages.warning.cantRefreshOffer', $offerRefreshResetTime),
+				$offerRefreshResetTime,
+			), 'warning');
+			$this->redirect('City:darknet');
 		}
-		$sessionOffers = $this->session->getSection('darknetOffers');
+
+		$sessionOffers = $this->getSession()->getSection('darknetOffers');
 		$oldOfferId = $sessionOffers[$hash];
 		$offer = $this->drugsRepository->findOffer($oldOfferId)->fetch();
 		if (!$offer || !$offer->active) {
@@ -125,7 +198,8 @@ final class CityPresenter extends GamePresenter
 			'sells' => 0
 		]);
 		$this->userRepository->getUser($player->id)->actions->update([
-			'offer_refreshed' => new DateTime()
+			'offer_refreshed' => $offerRefreshState['active'] ? $player->actions->offer_refreshed : $now,
+			'offer_refreshes_used' => $offerRefreshState['used'] + 1,
 		]);
 
 		$this->flashMessage($this->translator->translate('general.messages.success.offerRefreshed'), 'success');
@@ -185,7 +259,7 @@ final class CityPresenter extends GamePresenter
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		$actionLocker = new ActionLocker();
 		$actionLocker->checkActions($player, $this);
-		$session = $this->session;
+		$session = $this->getSession();
 		$section = $session->getSection('returnedScavenging');
 		if (isset($section['returnedScavenging'])) {
 			$this->template->returned = true;
@@ -243,7 +317,7 @@ final class CityPresenter extends GamePresenter
 						'scavenging' => 0
 					]);
 					$reward = $this->scavengeReward($diff / 3600, $player->player_stats->level);
-					$session = $this->session;
+					$session = $this->getSession();
 					$section = $session->getSection('returnedScavenging');
 					$section->returnedScavenging = true;
 					$section->hours = round($diff / 3600);

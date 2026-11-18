@@ -56,7 +56,7 @@ class ChangeEmailForm extends Control {
             //Get values as array
             $values = $form->getValues(true);
             //Update password
-            $user = $this->presenter->user->getIdentity();
+            $user = $this->getPresenter()->user->getIdentity();
             $this->userRepository->changeUserEmail($user->id, $values['newEmail']);
             $this->onSuccess($form);
         } catch (Nette\Security\AuthenticationException $e) {

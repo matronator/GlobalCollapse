@@ -31,7 +31,7 @@ class DatetimeForm extends Control {
     {
         $allzones = Timezones::TIME_ZONES;
         $timezones = array_slice($allzones, 1, count($allzones) - 2, true);
-        $userSettings = $this->userRepository->getSettings($this->presenter->user->getIdentity()->id)->fetch();
+        $userSettings = $this->userRepository->getSettings($this->getPresenter()->user->getIdentity()->id)->fetch();
         $form = new Form;
         $form->addSelect('timezone', 'Choose your timezone', array_combine(array_keys($timezones), array_column($timezones, 'label')))
             ->setDefaultValue($userSettings->timezone)

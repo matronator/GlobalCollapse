@@ -44,7 +44,7 @@ final class AssaultsPresenter extends GamePresenter
 			$otherPlayer = $this->userRepository->getUserByName($user);
 			if ($otherPlayer) {
 				$reward = $this->getRewards($otherPlayer);
-				$sessionSection = $this->session->getSection('assault');
+				$sessionSection = $this->getSession()->getSection('assault');
 				$sessionSection['victim'] = $otherPlayer->id;
 				$this->template->otherPlayer = $otherPlayer;
 				$this->template->cashMoney = $reward['win_money'];
@@ -60,7 +60,7 @@ final class AssaultsPresenter extends GamePresenter
 
 	public function renderAssault(?string $match = null) {
 		// check hash
-		$sessionSection = $this->session->getSection('assault');
+		$sessionSection = $this->getSession()->getSection('assault');
 		if (isset($sessionSection['hash']) && $sessionSection['hash'] == $match) {
 			$playerId = $this->user->getIdentity()->id;
 			$id = $sessionSection['victim'];
@@ -127,7 +127,7 @@ final class AssaultsPresenter extends GamePresenter
 	}
 
 	public function actionAttack() {
-		$sessionSection = $this->session->getSection('assault');
+		$sessionSection = $this->getSession()->getSection('assault');
 		$id = $sessionSection['victim'];
 		$player = $this->userRepository->getUser($this->user->getIdentity()->id);
 		if (!$id || (isset($id) && $id == $player->id)) {

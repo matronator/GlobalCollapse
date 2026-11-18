@@ -50,7 +50,7 @@
 		"GPL-3.0"
 	],
 	"require": {
-		"php": ">= 8.2",
+		"php": ">= 8.4",
 		"nette/application": "^3.1",
 		"nette/bootstrap": "^3.2",
 		"nette/caching": "^3.2",
@@ -62,12 +62,12 @@
 		"nette/http": "^3.2",
 		"nette/mail": "^4.0",
 		"nette/neon": "^3.4",
-		"nette/robot-loader": "^4.0",
+		"nette/robot-loader": "^4.1",
 		"nette/routing": "^3.0",
 		"nette/safe-stream": "^3.0",
 		"nette/security": "^3.1",
 		"nette/schema": "^1.2",
-		"nette/utils": "^4.0",
+		"nette/utils": "^4.1.6",
 		"tracy/tracy": "^2.10.0",
 		"latte/latte": "^3.0",
 		"ext-json": "*",

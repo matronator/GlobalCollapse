@@ -10,7 +10,7 @@ use Nette,
 
 final class SignPresenter extends \App\BaseModule\Presenters\BasePresenter
 {
-	/** @persistent */
+	#[Nette\Application\Attributes\Persistent]
 	public $backlink = '';
 
 
@@ -51,7 +51,7 @@ final class SignPresenter extends \App\BaseModule\Presenters\BasePresenter
 	}
 
 	/*********************** ACTIONS ***********************/
-	
+
 	public function actionOut()
 	{
 		$this->getUser()->logout();

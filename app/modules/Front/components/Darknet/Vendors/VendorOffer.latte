@@ -2,7 +2,8 @@
 *
 *     $offer        object         Offer object
 *     $id           number         Unique ID to link elements for JS
-*     $noRefresh    bool           If user can refresh
+*     $refreshesRemaining number    Available refreshes in the current window
+*     $refreshResetLabel string     Formatted time until the current window resets
 *}
 {var $drugName = $offer->drug->name}
 <div>
@@ -11,10 +12,10 @@
        data-vendor-money="{$offer->vendor->money}" data-offer-stock="{$offer->quantity}">
     {form vendorOfferForm-{$id}}
       <h3 class="uk-margin-remove-bottom uk-text-bold">{_general.drugs.{$drugName}.alt.1}</h3>
-      <div class="refresh-offer" n:if="!$noRefresh" uk-tooltip="Generate new offer">
+      <div class="refresh-offer" n:if="$refreshesRemaining > 0" uk-tooltip="{_general.darknet.refreshOffer, [remaining => $refreshesRemaining]}">
         <a n:href="refreshOffer, $id" class="uk-icon-button uk-button-default" uk-icon="refresh"></a>
       </div>
-      <div class="refresh-offer" n:if="$noRefresh" uk-tooltip="Refresh in {$noRefresh / 60|round} minutes">
+      <div class="refresh-offer" n:if="$refreshesRemaining === 0" uk-tooltip="{$refreshResetLabel}">
         <a href="#" class="uk-icon-button uk-disabled" disabled uk-icon="refresh"></a>
       </div>
       <small>{_general.darknet.postedBy} {$offer->vendor->name}</small>

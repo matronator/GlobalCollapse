@@ -15,7 +15,7 @@ use stdClass;
 
 class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 {
-	/** @persistent */
+	#[Nette\Application\Attributes\Persistent]
 	public $locale;
 
 	public $userPrefs;
@@ -78,7 +78,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 		$this->template->urlFullDomain = $this->getURL()->host;
 		$this->template->defaultLocale = $this->defaultLocale;
 		$allPlayers = 0;
-		$session = $this->session;
+		$session = $this->getSession();
 		$section = $session->getSection('general-info');
 		if (!$section['all_players']) {
 			$allPlayers = $this->userRepository->getTotalPlayers();
@@ -103,7 +103,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			} else {
 				$this->template->maxEnergy = $user->player_stats->energy_max;
 			}
-			$sectionPrefs = $this->session->getSection('preferences');
+			$sectionPrefs = $this->getSession()->getSection('preferences');
 			$userPreferences = (object) ['timezone' => null, 'dst' => null];
 			if (isset($sectionPrefs->timezone)) {
 				$userPreferences->timezone = $sectionPrefs->timezone;
@@ -129,7 +129,7 @@ class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
 			$newUnlocked = $this->unlockablesRepository->findPlayerUnlocked($this->user->getId())->where('opened', 0)->count();
 			$this->template->newUnlocked = $newUnlocked;
 		}
-		if ($this->user->isLoggedIn() && $this->user->getIdentity()->tutorial === 0 && !$this->presenter->isLinkCurrent('Intro:*')) {
+		if ($this->user->isLoggedIn() && $this->user->getIdentity()->tutorial === 0 && !$this->getPresenter()->isLinkCurrent('Intro:*')) {
 			$this->redirect('Intro:default');
 		}
 	}

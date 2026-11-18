@@ -24,10 +24,16 @@
             </div>
         </div>
     </div>
+    <p class="uk-text-small uk-text-right uk-margin-small">
+        {_general.darknet.refreshesAvailable, [remaining => $offerRefreshesRemaining, limit => 3]}
+        <span n:if="$offerRefreshResetLabel !== null">
+            · {$offerRefreshResetLabel}
+        </span>
+    </p>
     <div class="uk-child-width-auto@s" uk-margin uk-grid="masonry:true;">
         {foreach $offers as $offer}
             {var $offerId = $vendorOffers[$offer->id]}
-            {include '../../components/Darknet/Vendors/VendorOffer.latte', offer: $vendorOffers[$offerId], id: $offerId, noRefresh: $offerRefresh}
+            {include '../../components/Darknet/Vendors/VendorOffer.latte', offer: $vendorOffers[$offerId], id: $offerId, refreshesRemaining: $offerRefreshesRemaining, refreshResetLabel: $offerRefreshResetLabel}
         {/foreach}
     </div>
 </div>

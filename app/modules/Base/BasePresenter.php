@@ -13,7 +13,7 @@ use Nette\Localization\Translator;
 class BasePresenter extends Presenter
 {
 
-	/** @persistent */
+	#[Nette\Application\Attributes\Persistent]
 	public $locale;
 
 	/** @var array */

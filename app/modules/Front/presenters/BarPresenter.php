@@ -64,7 +64,7 @@ final class BarPresenter extends GamePresenter
 			$isOnMission = $player->actions->on_mission;
 			$this->template->onMission = $isOnMission;
 			if (!$isOnMission) {
-				$session = $this->session;
+				$session = $this->getSession();
 				$section = $session->getSection('returnedJob');
 				if (isset($section['returnedJob']) && $section['returnedJob'] === 'new') {
 					$this->template->returned = true;
@@ -73,7 +73,7 @@ final class BarPresenter extends GamePresenter
 					$this->template->newJobsHash = $section['hash'];
 				} else {
 					$this->template->returned = false;
-					$session = $this->session;
+					$session = $this->getSession();
 					$section = $session->getSection('jobs');
 					$section->setExpiration('60 minutes');
 					$templateJobs = [];
@@ -128,7 +128,7 @@ final class BarPresenter extends GamePresenter
 	{
 		$whatMission = $player->actions->mission_name;
 		$reward = $this->getJobReward($whatMission, $player->player_stats->level);
-		$session = $this->session;
+		$session = $this->getSession();
 		$section = $session->getSection('returnedJob');
 		$section->returnedJob = true;
 		$section->money = $reward['money'];
@@ -143,7 +143,7 @@ final class BarPresenter extends GamePresenter
 				'bitcoins-=' => 1,
 			]);
 			$this->endJob($this->player);
-			$this->session->getSection('jobs')->shown = false;
+			$this->getSession()->getSection('jobs')->shown = false;
 			$this->flashMessage('Job completed', 'success');
 			$this->redirect('default');
 		} else {
@@ -154,7 +154,7 @@ final class BarPresenter extends GamePresenter
 
 	public function actionNewjobs(?string $hash = null) {
 		if ($hash) {
-			$session = $this->session;
+			$session = $this->getSession();
 			$section = $session->getSection('returnedJob');
 			if ($section['hash'] == $hash) {
 				$section['returnedJob'] = 'old';
@@ -174,7 +174,7 @@ final class BarPresenter extends GamePresenter
 		$key = array_search($jobName, array_column($this->allJobs, 'locale'));
 		$currentJob = $this->allJobs[$key];
 		if ($currentJob) {
-			$section = $this->session->getSection('returnedJob');
+			$section = $this->getSession()->getSection('returnedJob');
 			$timestamp = (string)time();
 			$bytes = random_bytes(5);
 			$hash = $timestamp . bin2hex($bytes);
@@ -201,7 +201,7 @@ final class BarPresenter extends GamePresenter
 		$form = new Form();
 		$form->setHtmlAttribute('id', 'jobsForm');
 		$jobsRadio = [];
-		$session = $this->session;
+		$session = $this->getSession();
 		$section = $session->getSection('jobs');
 		for ($i = 0; $i < 3; $i++) {
 			$jobFromSess = $section['job-' . $i];
@@ -221,7 +221,7 @@ final class BarPresenter extends GamePresenter
 		$isResting = $player->actions->resting;
 		if (!$isOnMission && !$isScavenging && !$isResting) {
 			$availableJobs = [];
-			$session = $this->session;
+			$session = $this->getSession();
 			$section = $session->getSection('jobs');
 			for ($i = 0; $i < 3; $i++) {
 				$jobFromSess = $section['job-' . $i];

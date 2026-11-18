@@ -55,7 +55,7 @@ class ChangePasswordForm extends Control {
             $values = $form->getValues(true);
 
             //Update password
-            $user = $this->presenter->user->getIdentity();
+            $user = $this->getPresenter()->user->getIdentity();
             $newPasswordHash = $this->userRepository->cypherPassword($values['newPassword']);
             $this->userRepository->changeUserPassword($user->id, $newPasswordHash);
             $this->onSuccess($form);

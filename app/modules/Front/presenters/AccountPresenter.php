@@ -46,7 +46,7 @@ final class AccountPresenter extends BasePresenter
     public function actionManagePremium()
     {
         $this->redirect('Default:default');
-        
+
         $portalSession = $this->stripeService->stripeClient->billingPortal->sessions->create([
             'customer' => $this->user->getIdentity()->getData()['stripe_customer_id'],
             'return_url' => $this->stripeService->appUrl . '/account/settings',
@@ -102,8 +102,8 @@ final class AccountPresenter extends BasePresenter
         $form->onSuccess[] = function($form) {
             //Get values as array
             $values = $form->getValues();
-            $userSettings = $this->userRepository->getSettings($this->presenter->user->getIdentity()->id);
-            $section = $this->session->getSection('preferences');
+            $userSettings = $this->userRepository->getSettings($this->getPresenter()->user->getIdentity()->id);
+            $section = $this->getSession()->getSection('preferences');
             if (!$values->dst) {
                 $userSettings->update([
                     'timezone' => $values->timezone,
@@ -125,7 +125,7 @@ final class AccountPresenter extends BasePresenter
         };
         return $form;
     }
-    
+
     public function handleDeleteAccount()
     {
         $this->userRepository->deleteUser($this->user->getIdentity()->id);

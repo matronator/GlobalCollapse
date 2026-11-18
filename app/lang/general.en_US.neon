@@ -45,7 +45,9 @@ messages:
 		itemBought: "Item bought!"
 	info:
 	warning:
-		cantRefreshOffer: "Can't refresh offer yet. Try again in %minutes% minutes."
+		cantRefreshOffer: "You've used all offer refreshes. They reset in %hours% hours %minutes% minutes."
+		cantRefreshOfferHours: "You've used all offer refreshes. They reset in %hours% hours."
+		cantRefreshOfferMinutes: "You've used all offer refreshes. They reset in %minutes% minutes."
 		itemLowLevel: "You need to be at least level %level% to buy this item."
 		noInventorySpace: "Your inventory is full."
 		drugsSoldWithRemainder: "Sold only %quantity% grams, because the vendor didn't have money for more."
@@ -361,6 +363,11 @@ darknet:
 	vendorMoney: "Vendor's money"
 	vendorFee: "Vendor's fee"
 	vendorFeeTooltip: "Additional charge for buy orders"
+	refreshesAvailable: 'Offer refreshes available: %remaining%/%limit%'
+	refreshesResetIn: 'Resets in %hours% hours %minutes% minutes'
+	refreshesResetInHours: 'Resets in %hours% hours'
+	refreshesResetInMinutes: 'Resets in %minutes% minutes'
+	refreshOffer: 'Generate new offer (%remaining% refreshes available)'
 
 buildings:
 	title: 'Buildings'
