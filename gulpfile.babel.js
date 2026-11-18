@@ -5,7 +5,6 @@ import cacheBuster from "gulp-rev"; // gulp
 import sourcemaps from "gulp-sourcemaps"; // gulp
 import tap from "gulp-tap"; // gulp
 import sprite from "gulp-svg-sprite"; // gulp
-import imagemin from "gulp-imagemin"; // gulp
 import postcss from "gulp-postcss";
 import postcssImport from "postcss-import";
 import postcssNesting from "postcss-nesting";
@@ -72,8 +71,7 @@ const config = {
     images: {
         entry: `dev/${module}/images/**`,
         watch: [`dev/${module}/images/**`],
-        directory: `images`,
-        quality: 80 // 0 - worst, 100 - best
+        directory: `images`
     },
     etc: {
         entry: `dev/${module}/etc/**`,
@@ -169,22 +167,13 @@ function icons() {
         .pipe(dest(config.buildDest));
 }
 
+// Gulp 5 decodes sources as UTF-8 by default, which corrupts binary assets.
 function images() {
-    return src(config.images.entry)
-        .pipe(
-            imagemin([
-                imagemin.mozjpeg({ progressive: true, quality: config.images.quality }),
-                imagemin.optipng({ optimizationLevel: 5 }),
-                imagemin.svgo({
-                    plugins: [{ removeViewBox: true }, { cleanupIDs: false }]
-                })
-            ])
-        )
-        .pipe(dest(config.buildDest + config.images.directory));
+    return src(config.images.entry, { encoding: false }).pipe(dest(config.buildDest + config.images.directory));
 }
 
 function etc() {
-    return src(config.etc.entry).pipe(dest(config.buildDest + config.etc.directory));
+    return src(config.etc.entry, { encoding: false }).pipe(dest(config.buildDest + config.etc.directory));
 }
 
 export async function createDevManifest() {

@@ -105,9 +105,6 @@ importers:
       gulp:
         specifier: ^5.0.0
         version: 5.0.1
-      gulp-imagemin:
-        specifier: ^7.1.0
-        version: 7.1.0(gulp@5.0.1)
       gulp-noop:
         specifier: ^1.0.1
         version: 1.0.1
