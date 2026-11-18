@@ -8,7 +8,6 @@ import "./../../../app/modules/Front/components/Assault/PlayerPopover.js";
 import { timesToRelative } from "./imports/dates";
 import { Axette } from "axette";
 import { registerEventHandlers } from "../../../app/modules/Front/components/Buildings/BuildingCard/BuildingCard.js";
-import { scrollToActive } from "./imports/sidebar.js";
 
 const axette = new Axette();
 
@@ -34,8 +33,6 @@ NetteForms.initOnLoad();
 timesToRelative();
 
 window.addEventListener(`DOMContentLoaded`, () => {
-    scrollToActive();
-
     // Check if standalone
     if (!window.matchMedia(`(display-mode: standalone)`).matches) {
         const alreadyShown = localStorage.getItem(`pwaPromptShown`);
