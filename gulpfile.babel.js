@@ -23,13 +23,16 @@ import fs from "fs"; // general
 import util from "util"; // general
 import glob from "glob"; // general
 import del from "del"; // general
-import yargs from "yargs"; // general
+import yargs from "yargs/yargs"; // general
+import { hideBin } from "yargs/helpers"; // general
 import dotenv from "dotenv"; // general
 
 dotenv.config();
 
 // set isProduction and module variables
-const { production: isProduction = false, mod: module = `front` } = yargs.argv;
+const { production: isProduction = false, mod: module = `front` } = yargs(
+    hideBin(process.argv)
+).argv;
 
 // set env variable
 process.env.NODE_ENV = isProduction ? `production` : `development`;

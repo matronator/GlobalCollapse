@@ -8,13 +8,19 @@
 *
 *}
 {var $minSec = 60}
-{var $value = ($minute * $minSec) + $sec}
+{var $value = (intval($minute) * $minSec) + intval($sec)}
 {var $min = 0}
-{var $fill = round((($value - $min) / ($max - $min)) * (100))}
+{var $duration = intval($max)}
+{var $fill = $duration > $min ? round((($value - $min) / ($duration - $min)) * 100) : 0}
+{if $fill < 0}
+  {var $fill = 0}
+{elseif $fill > 100}
+  {var $fill = 100}
+{/if}
 <div id="countdown{ifset $name}-{$name}{/ifset}" class="countdown-bar progress-bar{ifset $type} {$type}{/ifset}"
     data-bar-min="{$min}"
-    data-bar-max="{$max}"
-    data-bar-value="{$max}"
+    data-bar-max="{$duration}"
+    data-bar-value="{$value}"
     data-bar-fill="{$fill}">
   <div class="countdown-bar-fill progress-bar-fill" style="width:{$fill}%;"></div>
   <p class="progress-bar-value uk-text-small">
