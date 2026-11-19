@@ -251,7 +251,7 @@ class UserRepository
         return $hash;
     }
 
-    public function createStats()
+    public function createStats(): ActiveRow|array|int
     {
         return $this->findAllStats()->insert([]);
     }
@@ -287,7 +287,7 @@ class UserRepository
         ]);
     }
 
-    public function createActions()
+    public function createActions(): ActiveRow|array|int
     {
         return $this->findAllActions()->insert([]);
     }

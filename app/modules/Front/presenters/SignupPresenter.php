@@ -14,7 +14,7 @@ use Nette\Security\Passwords;
 
 final class SignupPresenter extends BasePresenter
 {
-    private $passwords;
+    private Passwords $passwords;
 
     public function __construct(
         Passwords $passwords
@@ -54,18 +54,21 @@ final class SignupPresenter extends BasePresenter
             ->setHtmlAttribute('class', 'uk-input')
             ->setHtmlId('username')
             ->setHtmlAttribute('placeholder', 'username')
-            ->addRule(Form::MIN_LENGTH, 'Username must be at least 3 characters long', 3)
+            ->addRule(Form::MinLength, 'Username must be at least 3 characters long', 3)
+            ->addRule(Form::MaxLength, 'Username must be at most 20 characters long', 20)
+            ->addRule(Form::Pattern, "Username can only contain letters, numbers and these symbols: -_.$#*+&", '^[a-zA-Z0-9\-\_\.\$\#\*\+\&]+$')
             ->setRequired();
         $form->addPassword('password', 'Password')
             ->setHtmlAttribute('class', 'uk-input')
             ->setHtmlId('password')
             ->setHtmlAttribute('placeholder', 'Password')
-            ->addRule(Form::MIN_LENGTH, 'Password has to be at least 6 characters long', 6)
+            ->addRule(Form::MinLength, 'Password has to be at least 6 characters long', 6)
             ->setRequired();
         $form->addPassword('passwordAgain', 'Repeat password')
             ->setHtmlAttribute('class', 'uk-input')
             ->setHtmlId('passwordAgain')
             ->setHtmlAttribute('placeholder', 'Repeat password')
+            ->addRule(Form::Equal, 'Passwords do not match', $form['password'])
             ->setRequired();
         $form->addSubmit('save', 'Sign Up');
         $form->onSuccess[] = [$this, 'signupFormSucceeded'];
