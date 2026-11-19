@@ -14,7 +14,6 @@
         {* <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Account:voting">{_general.ui.sidebar.player.reward}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li> *}
         <li n:class="$presenter->isLinkCurrent('Info:voting') ? uk-active"><a n:href="Info:voting">{_general.ui.sidebar.player.reward}</a></li>
         <li n:class="$presenter->isLinkCurrent('Premium:default') ? uk-active"><a n:href="Premium:default">{_general.ui.sidebar.player.premium}&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
-        <li n:class="$presenter->isLinkCurrent('Premium:gamble') ? uk-active"><a n:href="Premium:gamble">Gamble&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Default:default') ? uk-active"><a n:href="Default:default">{_general.ui.sidebar.player.home}</a></li>
         <li n:class="$presenter->isLinkCurrent('Account:settings') ? uk-active"><a n:href="Account:settings">{_general.ui.sidebar.player.account}</a></li>
@@ -34,6 +33,7 @@
     <li class="uk-open uk-parent">
       <a href="#" class="uk-nav-header">{_general.ui.sidebar.city.title}</a>
       <ul class="uk-nav-sub">
+        <li n:class="$presenter->isLinkCurrent('Casino:*') ? uk-active"><a n:href="Casino:default">Casino&nbsp;<sup class="uk-text-danger uk-text-tiny">{_general.ui.sidebar.new}</sup></a></li>
         <li n:class="$presenter->isLinkCurrent('Bar:default') ? uk-active"><a n:href="Bar:">{_general.ui.sidebar.city.bar}</a></li>
         <li class="uk-nav-divider"></li>
         <li n:class="$presenter->isLinkCurrent('Market:default') ? uk-active"><a n:href="Market:default">{_general.ui.sidebar.city.market}</a></li>
@@ -43,7 +43,7 @@
       </ul>
     </li>
     <li class="uk-nav-divider"></li>
-    <li n:class="$presenter->isLinkCurrent('Info:*') ? uk-open, uk-parent">
+    <li class="uk-open uk-parent">
       <a href="#" class="uk-nav-header">{_general.ui.sidebar.info.title}</a>
       <ul class="uk-nav-sub">
         <li n:class="$presenter->isLinkCurrent('Info:news') ? uk-active"><a n:href="Info:news">{_general.ui.sidebar.info.news}</a></li>
