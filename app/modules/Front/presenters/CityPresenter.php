@@ -32,7 +32,7 @@ final class CityPresenter extends GamePresenter
 
 	protected function startup()
 	{
-			parent::startup();
+		parent::startup();
 	}
 
 	public function renderDarknet() {
@@ -252,6 +252,9 @@ final class CityPresenter extends GamePresenter
 			$this->redirect($response->redirect);
 		} else {
 			$this->flashMessage($response->message, $response->type);
+			$this->redrawControl('wrapper');
+			$this->redrawControl('flashes');
+			$this->redrawControl('sidebarStats');
 		}
 	}
 
